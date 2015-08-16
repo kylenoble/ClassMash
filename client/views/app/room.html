@@ -1,17 +1,11 @@
 <template name="room">
 	<section class="messages-container" id="{{windowId}}">
-		<div class="dropzone-overlay">
-			<div>
-				{{_ "Drop_to_upload_file"}}
-			</div>
-		</div>
-		<section class="messages-container" id="{{windowId}}">
 		<header class="fixed-title">
 			{{> burger}}
 			<h2>
-<!-- 				{{#if subscribed}}
+				{{#if subscribed}}
 					<a href="#favorite" class="toggle-favorite"><i class="{{favorite}}"></i></a>
-				{{/if}} -->
+				{{/if}}
 				<i class="{{roomIcon}} status-{{userStatus}}"></i>
 				<span class="room-title {{editingTitle}}">{{roomName}}</span>
 				{{#if canEditName}}
@@ -32,29 +26,10 @@
 							{{_ "Start_of_conversation"}}
 						</li>
 					{{/if}}
-				</h2>
-			</header>
-			<div class="messages-box">
-				<div class="wrapper">
-					<ul>
-						{{#if hasMore}}
-							<li class="load-more">
-								<button class="button secondary load-more {{isLoading}}">{{_ "Load_more"}}</button>
-							</li>
-						{{else}}
-							<li class="start">
-								{{_ "Start_of_conversation"}}
-							</li>
-						{{/if}}
-						{{#each messagesHistory}}
-							{{#nrr nrrargs 'message' .}}{{/nrr}}
-						{{/each}}
-					</ul>
-				</div>
-				<div class="new-message not">
-					<i class="icon-down-big"></i>
-					<span>{{_ "New_messages"}}</span>
-				</div>
+					{{#each messagesHistory}}
+						{{#nrr nrrargs 'message' .}}{{/nrr}}
+					{{/each}}
+				</ul>
 			</div>
 			<div class="new-message not">
 				<i class="icon-down-big"></i>
@@ -80,34 +55,19 @@
 							{{#if multi}}
 								{{#if selfTyping}}
 									{{_ "are_also_typing"}}
-									{{else}}
-										{{_ "are_typing"}}
-									{{/if}}
 								{{else}}
 									{{_ "are_typing"}}
-										{{_ "is_also_typing" context="male"}}
-									{{else}}
-										{{_ "is_typing" context="male"}}
-									{{/if}}
 								{{/if}}
 							{{else}}
-						</div>
-						<div class="formatting-tips" aria-hidden="true" dir="auto">
 								{{#if selfTyping}}
 									{{_ "is_also_typing" context="male"}}
-							<span>~<strike>{{_ "strike"}}</strike>~</span>
 								{{else}}
 									{{_ "is_typing" context="male"}}
-							<q><span class="hidden-br"><br></span>&gt;{{_ "quote"}}</q>
 								{{/if}}
-					</form>
-				{{else}}
-					{{#if canJoin}}
 							{{/if}}
-						{{{_ "you_are_in_preview_mode_of" room_name=roomName}}}
 						{{/with}}
 					</div>
-					{{/if}}
+					<div class="formatting-tips" aria-hidden="true" dir="auto">
 						<b>*{{_ "bold"}}*</b>
 						<i>_{{_ "italics"}}_</i>
 						<span>~<strike>{{_ "strike"}}</strike>~</span>
@@ -117,10 +77,12 @@
 					</div>
 				</form>
 			{{else}}
+				{{#if canJoin}}
 				<div>
 					{{{_ "you_are_in_preview_mode_of" room_name=roomName}}}
 					<button class="button join"><span><i class="icon-login"></i> {{_ "join"}}</span></button>
 				</div>
+				{{/if}}
 			{{/if}}
 		</footer>
 	</section>
@@ -142,15 +104,6 @@
 							<i class="icon-search"></i>
 						</div>
 					</form>
-				{{else}}
-					{{#if isChannel}}
-						<form class="search-form" role="form">
-							<div class="input-line search">
-								{{> inputAutocomplete settings=autocompleteSettingsRoomSearch id="room-search" class="search" placeholder=tQuickSearch autocomplete="off"}}
-								<i class="icon-search"></i>
-							</div>
-						</form>
-					{{/if}}
 				{{/if}}
 			{{/if}}
 		</div>
@@ -184,24 +137,6 @@
 								<div class="thumb">
 									{{> avatar username=username}}
 								</div>
-								<ul class='list clearfix lines'>
-									{{#each users}}
-										<li class='user-image user-card-room status-{{status}}'>
-											<a data-username="{{username}}" tabindex="0" title="{{username}}">
-												{{> avatar username=username}}
-												<p>{{username}} {{utcOffset}}</p>
-											</a>
-										</li>
-									{{/each}}
-								</ul>
-							{{/with}}
-						</div>
-						<div class="user-view animated{{#unless $.Session.get 'showUserInfo'}} -hidden{{/unless}}">
-							{{#with flexUserInfo}}
-								<div class="about clearfix">
-									<div class="thumb">
-										{{> avatar username=username}}
-									</div>
 								<div class="info">
 									<h3>{{username}}</h3>
 									{{#if isAdmin}}
@@ -211,15 +146,13 @@
 										{{#each phone}} <p><i class="icon-phone"></i> {{phoneNumber}}</p> {{/each}}
 										{{#if lastLogin}} <p><i class="icon-clock"></i> {{_ "Last_login"}}: {{lastLogin}}</p> {{/if}}
 									{{/if}}
-									</div>
 								</div>
 							</div>
 							<nav>
 								<button class='button secondary back'><span>{{_ "View_All"}} <i class='icon-angle-right'></i></span></button>
 								{{#if canDirectMessage}}
 								<button class='button pvt-msg'><span><i class='icon-chat'></i> {{_ "Conversation"}}</span></button>
-									{{/if}}
-								</nav>
+								{{/if}}
 							</nav>
 						{{/with}}
 					</div>
@@ -236,7 +169,6 @@
 											</div>
 										{{/if}}
 										{{#if rtcLayout2}}
-									</div>
 											<div style="display: flex; flex-direction: row; align-items: center; width: 800px; height: 350px">
 											<video id="videoremote" class="video-remote" src="{{remoteVideoUrl}}" style="flex: 1 0; min-width: 380px; height: 285px; margin: 10px; background-color: #000;"  autoplay></video>
 											<video id="videoself" class="video-self" src="{{selfVideoUrl}}" style="flex: 1 0;  min-width: 380px; height: 285px; margin: 10px; background-color: #000;" autoplay muted></video>
