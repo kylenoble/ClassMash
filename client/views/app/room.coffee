@@ -278,7 +278,7 @@ Template.room.helpers
 
 	utc: ->
 		if @utcOffset?
-			return "@utcOffset"
+			return "UTC #{@utcOffset}"
 	
 	phoneNumber: ->
 		return '' unless @phoneNumber
@@ -290,6 +290,10 @@ Template.room.helpers
 	lastLogin: ->
 		if @lastLogin
 			return moment(@lastLogin).format('LLL')
+
+	canJoin: ->
+		return !! ChatRoom.findOne { _id: @_id, t: 'c' }
+
 
 Template.room.events
 
