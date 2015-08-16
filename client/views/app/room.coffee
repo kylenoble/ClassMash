@@ -6,10 +6,10 @@ Template.room.helpers
 	tQuickSearch: ->
 		return t('Quick_Search')
 
-	favorite: ->
-		sub = ChatSubscription.findOne { rid: this._id }, { fields: { f: 1 } }
-		return 'icon-star favorite-room' if sub?.f? and sub.f
-		return 'icon-star-empty'
+	# favorite: ->
+	# 	sub = ChatSubscription.findOne { rid: this._id }, { fields: { f: 1 } }
+	# 	return 'icon-star favorite-room' if sub?.f? and sub.f
+	# 	return 'icon-star'
 
 	subscribed: ->
 		return ChatSubscription.find({ rid: this._id }).count() > 0
@@ -64,9 +64,12 @@ Template.room.helpers
 		roomData = Session.get('roomData' + this._id)
 		return '' unless roomData?.t
 
+		if roomData._id == 'GENERAL'
+			return 'icon-graduation'
+
 		switch roomData.t
-			when 'd' then return 'icon-at'
-			when 'c' then return 'icon-hash'
+			when 'd' then return 'icon-bubbles'
+			when 'c' then return 'icon-globe-alt'
 			when 'p' then return 'icon-lock'
 
 	userData: ->
@@ -288,7 +291,6 @@ Template.room.helpers
 		if @lastLogin
 			return moment(@lastLogin).format('LLL')
 
-
 Template.room.events
 
 	"click .flex-tab .more": (event) ->
@@ -341,19 +343,27 @@ Template.room.events
 	'keyup .input-message': (event) ->
 		Template.instance().chatMessages.keyup(@_id, event, Template.instance())
 
-	'paste .input-message': (e) ->
-		if not e.originalEvent.clipboardData?
+	'click .add-file': (event) ->
+		event.preventDefault()
+
+	'change #select-regular-file': (event, tmpl) ->
+		event.stopPropagation()
+		event.preventDefault()
+		input = tmpl.find('input[type=file]')
+		
+		if not tmpl.find('input[type=file]')
 			return
 
-		items = e.originalEvent.clipboardData.items
+		items = input.files
+		console.log(items)
 		for item in items
-			if item.kind is 'file' and item.type.indexOf('image/') isnt -1
-				e.preventDefault()
+			console.log('adding files 1')
+			if item.type.indexOf('image/') isnt -1
+				console.log('adding files 2')
+				event.preventDefault()
 
-				blob = item.getAsFile()
-
-				newFile = new (FS.File)(blob)
-				newFile.name('Clipboard')
+				newFile = new (FS.File)(item)
+				newFile.name(item.name)
 				newFile.rid = Session.get('openedRoom')
 				newFile.recId = Random.id()
 				newFile.userId = Meteor.userId()
@@ -584,6 +594,13 @@ Template.room.onCreated ->
 				Meteor.subscribe 'fullUsers', Session.get('showUserInfo'), 1
 
 Template.room.onRendered ->
+
+	$('.add-file').popover
+	  html: true
+	  title: 'Select Type'
+	  content: ->
+	    $('.popover-container').html()
+
 	FlexTab.check()
 	this.chatMessages = new ChatMessages
 	this.chatMessages.init(this.firstNode)

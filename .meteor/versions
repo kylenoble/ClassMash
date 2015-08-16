@@ -88,6 +88,9 @@ mongo@1.1.0
 mongo-livedata@1.0.8
 mrt:reactive-store@0.0.1
 mystor:device-detection@0.2.0
+nahue:simple-line-icons@1.0.0
+nemo64:bootstrap@3.3.5_2
+nemo64:bootstrap-data@3.3.5
 nimble:restivus@0.8.2
 nooitaf:colors@0.0.2
 npm-bcrypt@0.7.8_2

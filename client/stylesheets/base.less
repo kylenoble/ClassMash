@@ -473,22 +473,22 @@ label.required:after {
 }
 
 .status-offline,
-.icon-at.status-offline {
+.icon-bubbles.status-offline {
 	color: @status-offline;
 }
 
 .status-online,
-.icon-at.status-online {
+.icon-bubbles.status-online {
 	color: @status-online;
 }
 
 .status-busy,
-.icon-at.status-busy {
+.icon-bubbles.status-busy {
 	color: @status-busy;
 }
 
 .status-away,
-.icon-at.status-away {
+.icon-bubbles.status-away {
 	color: @status-away;
 }
 
@@ -536,15 +536,16 @@ label.required:after {
 	&:extend(.unselectable);
 	display: inline-block;
 	padding: 9px 12px;
-	background-color: #FFF;
-	color: rgba(255, 255, 255, 0.85);
+	background-color: white;
+	color: white;
 	font-weight: 500;
 	font-size: 13px;
 	margin: 4px;
-	text-transform: uppercase;
+	// text-transform: uppercase;
 	word-spacing: 0;
-	box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.125);
-	border: none;
+	// box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.125);
+	border: 1px solid @primary-green;
+	border-radius: 5px;
 	line-height: 16px;
 	position: relative;
 	background-color: lighten(desaturate(@primary-background-color, 15%), 12.5%);
@@ -593,9 +594,9 @@ label.required:after {
 		background-color: #02acec;
 	}
 	&.clean {
-		background-color: rgba(0, 0, 0, 0.025);
+		background-color: @primary-green;
 		font-size: 14px;
-		box-shadow: 0 0 3px rgba(0, 0, 0, 0.08);
+		// box-shadow: 0 0 3px rgba(0, 0, 0, 0.08);
 		&.primary {
 			font-weight: 600;
 		}
@@ -619,6 +620,7 @@ label.required:after {
 		background-color: #de4f4f;
 	}
 }
+
 
 .sec-header {
 	margin: 16px 0;
@@ -969,7 +971,7 @@ a.github-fork {
 		h4 {
 			display: block;
 			line-height: 18px;
-			color: rgba(255, 255, 255, 0.65);
+			color: @primary-blue;
 			font-size: 16px;
 			margin-top: 3px;
 			font-weight: 400;
@@ -1084,7 +1086,7 @@ a.github-fork {
 		a {
 			position: relative;
 			display: table;
-			color: rgba(255, 255, 255, 0.5);
+			color: @primary-blue;
 			width: 100%;
 			height: 20px;
 			padding: 15px 12px;
@@ -1096,7 +1098,7 @@ a.github-fork {
 			}
 			&:hover {
 				background-color: darken(@primary-background-color, 2%);
-				color: rgba(255, 255, 255, 0.75);
+				color: @primary-green;
 				text-decoration: none;
 			}
 		}
@@ -1114,12 +1116,12 @@ a.github-fork {
 	&.active .info,
 	.info:hover {
 		h4 {
-			color: rgba(255, 255, 255, 0.85);
+			color: @secondary-blue;
 		}
 	}
 	.hover & {
 		.info h4 {
-			color: rgba(255, 255, 255, 0.85);
+			color: @secondary-blue;
 		}
 	}
 }
@@ -1267,7 +1269,7 @@ a.github-fork {
 		select {
 			border-width: 0 0 1px 0;
 			border-color: @tertiary-font-color;
-			background-color: #04436a;
+			background-color: white;
 			color: @quaternary-font-color;
 			padding: 0 8px;
 			box-shadow: 0 0 0;
@@ -1328,7 +1330,7 @@ a.github-fork {
 		overflow-y: auto;
 		display: block;
 		-webkit-overflow-scrolling: touch;
-		box-shadow: 0 0 5px rgba(0, 0, 0, 0.4) inset;
+		box-shadow: 0 0 2px rgba(0, 0, 0, 0.2) inset;
 		background-color: lighten(@primary-background-color, 2%);
 		.custom-scroll(transparent,
 		rgba(255,
@@ -1392,7 +1394,7 @@ a.github-fork {
 		&:hover {
 			&:before,
 			&:after {
-				background-color: rgba(255, 255, 255, 0.85);
+				background-color: @secondary-blue;
 			}
 		}
 	}
@@ -1401,21 +1403,18 @@ a.github-fork {
 		bottom: 0;
 		left: 0;
 		width: 100%;
-		padding: 10px 15px 0px 15px;
 		z-index: 120;
 		text-align: right;
 		background: #fff;
 		min-height: @footer-min-height;
 		height: @footer-min-height;
 		background-color: @primary-background-color;
-		.logo {
-			display: block;
-			width: 100%;
-			height: 100%;
-			margin-top: -1px;
-			&:hover {
-				text-decoration: none;
-			}
+		border-right:solid 1.75px rgba(208, 208, 208, 0.4);
+		p.powered {
+			text-align: center;
+			color: @primary-blue;
+			margin-top: 4%;
+			margin-left: -5%;
 		}
 		small {
 			font-size: 11px;
@@ -1429,10 +1428,10 @@ a.github-fork {
 			margin-top: 2px;
 		}
 		img {
-			display: inline-block;
-			max-width: 222px;
-			max-height: 43px;
-			margin-bottom: -10px;
+	    display: inline-block;
+	    max-width: 100px;
+	    max-height: 43px;
+	    margin-bottom: -4px;
 		}
 	}
 	.search-form {
@@ -1523,8 +1522,8 @@ a.github-fork {
 			}
 			&.active {
 				a {
-					background-color: rgba(255, 255, 255, 0.075);
-					color: rgba(255, 255, 255, 0.75);
+					background-color: @primary-green;
+					color: white;
 				}
 				.opt {
 					background-color: transparent;
@@ -1537,7 +1536,7 @@ a.github-fork {
 			}
 			&.has-alert {
 				.name {
-					color: #ffffff;
+					color: @primary-blue;
 					font-weight: bold;
 				}
 			}
@@ -1561,7 +1560,7 @@ a.github-fork {
 			vertical-align: middle;
 			text-decoration: none;
 			color: @tertiary-font-color;
-			text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+			// text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
 			&:hover {
 				background-color: rgba(255, 255, 255, 0.05);
 				text-decoration: none;
@@ -1582,9 +1581,9 @@ a.github-fork {
 			transform .15s ease-out .25s);
 			i {
 				margin: 0 1px;
-				color: rgba(255, 255, 255, 0.5);
+				color: @primary-blue;
 				&:hover {
-					color: rgba(255, 255, 255, 0.75);
+					color: @primary-green;
 				}
 			}
 			.icon-cancel-circled:before {
@@ -1595,7 +1594,7 @@ a.github-fork {
 			}
 		}
 		i {
-			color: rgba(255, 255, 255, 0.35);
+			color: white;
 			font-size: 14px;
 			width: 16px;
 			display: inline-block;
@@ -1657,15 +1656,16 @@ a.github-fork {
 		font-size: 22px;
 		font-weight: 500;
 		line-height: 29px;
-		.icon-at,
-		.icon-hash,
-		.icon-lock {
-			margin-right: -7px;
+		.icon-globe-alt,
+		.icon-bubbles,
+		.icon-lock,
+		.icon-graduation {
+			margin-right: 5px;
 		}
-		.icon-star,
-		.icon-star-empty {
-			margin-right: -4px;
-		}
+		// .icon-star,
+		// .icon-star-empty {
+		// 	margin-right: -4px;
+		// }
 	}
 	.hidden {
 		visibility: hidden;
@@ -1681,7 +1681,7 @@ a.github-fork {
 	}
 	.icon-pencil {
 		vertical-align: text-top;
-		margin-top: -7px;
+		margin-top: -2px;
 		display: inline-block;
 		font-size: 16px;
 	}
@@ -1863,6 +1863,10 @@ a.github-fork {
 	}
 }
 
+.adding-files {
+	display: none;
+}
+
 // change to page-messages
 .messages-container {
 	position: absolute;
@@ -1938,26 +1942,38 @@ a.github-fork {
 			position: relative;
 		}
 		textarea {
-			display: block;
+			width: 95%;
+			display: inline-block;
 			padding-top: 9px;
 			padding-bottom: 9px;
 			padding-right: 38px;
 			overflow-y: hidden;
 			resize: none;
+			border-right: none;
+			border-radius: 5px 0px 0px 5px;
 			&.editing {
 				background-color: #fff7d8;
 			}
 		}
-		.icon-paper-plane {
-			position: absolute;
-			top: 2px;
-			right: 10px;
+		.add-file {
+			position: relative;
+			border: 1px solid @secondary-blue;
+			border-radius: 0px 5px 5px 0px;
+			right: 1%;
+			float: right;
+			height: 36px;
+			width: 5%;
 			cursor: pointer;
-			padding: 8px;
-			font-size: 16px;
-			color: @secondary-font-color;
+			resize: none;
+			font-size: 22px;
+			background-color: @secondary-blue;
+			color:white;	
 			&:hover {
-				color: @primary-font-color;
+				background-color: white;
+				color: @secondary-blue;							
+			}
+			i {
+				vertical-align: middle;
 			}
 		}
 		> .users-typing {
@@ -2124,7 +2140,7 @@ a.github-fork {
 		.user {
 			display: inline-block;
 			font-weight: 600;
-			color: #444444;
+			color: @primary-green;
 			margin-right: 5px;
 			&:hover {
 				color: #333;
@@ -2252,7 +2268,7 @@ a.github-fork {
 			position: absolute;
 			left: 0;
 			top: 0px;
-			background-color: @tertiary-background-color;
+			background-color: @primary-green;
 			border: none;
 			height: 60px;
 			width: 30px;
@@ -2267,7 +2283,7 @@ a.github-fork {
 					.arrow {
 						&:before,
 						&:after {
-							background-color: #4a4a4a;
+							background-color: @secondary-blue;
 						}
 					}
 				}
@@ -2275,7 +2291,7 @@ a.github-fork {
 			.arrow {
 				&:before,
 				&:after {
-					background-color: #7a7a7a;
+					background-color: @primary-blue;
 				}
 			}
 			i {
@@ -2874,7 +2890,7 @@ a.github-fork {
 	padding: 20px;
 	margin: 20px auto;
 	background-color: #FAFAFA;
-	box-shadow: 0 0 6px 10px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 0 6px 10px @primary-green;
 	border-radius: 2px;
 	position: relative;
 	z-index: 1;
@@ -3138,11 +3154,6 @@ a.github-fork {
 	}
 }
 
-#particles-js {
-	&:extend(.fill-all);
-	position: fixed;
-}
-
 .avatar-suggestions {
 	display: flex;
 	flex-flow: column nowrap;
@@ -3316,6 +3327,16 @@ a.github-fork {
 		.message-form {
 			> .formatting-tips {
 				display: none;
+			}
+			textarea {
+				width: 80%;
+			}
+			.add-file {
+				width: 15%;
+				i {
+					margin-left: 0px;
+					margin-right: 0px;
+				}
 			}
 		}
 	}

@@ -20,8 +20,8 @@ Template.chatRoomItem.helpers
 
 	roomIcon: ->
 		switch this.t
-			when 'd' then return 'icon-at'
-			when 'c' then return 'icon-hash'
+			when 'd' then return 'icon-bubbles'
+			when 'c' then return 'icon-globe-alt'
 			when 'p' then return 'icon-lock'
 
 	active: ->

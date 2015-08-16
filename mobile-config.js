@@ -3,11 +3,11 @@
 App.info({
 	id: 'com.konecty.rocket.chat',
 	version: '0.0.2',
-	name: 'Rocket.Chat',
-	description: 'Rocket.Chat',
-	author: 'Rocket.Chat Development Group',
-	email: 'contact@rocket.chat',
-	website: 'https://rocket.chat'
+	name: 'ClassMash',
+	description: 'ClassMash',
+	author: 'ClassMash',
+	email: 'contact@ClassMash.com',
+	website: 'https://classmash.com'
 });
 
 // Set up resources such as icons and launch screens.
@@ -56,6 +56,6 @@ App.accessRule('*');
 
 // Pass preferences for a particular PhoneGap/Cordova plugin
 App.configurePlugin('com.phonegap.plugins.facebookconnect', {
-	APP_NAME: 'Rocket.Chat',
+	APP_NAME: 'ClassMash',
 	APP_ID: '835103589938459'
 });
