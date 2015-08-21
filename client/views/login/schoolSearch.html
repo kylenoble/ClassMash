@@ -1,0 +1,53 @@
+<template name="schoolSearchBox">
+	<input spellcheck="false" name='school' type="text" id="inputSchoolName" placeholder="Enter School Name" />
+	<i class="school-search-icon icon-magnifier"></i>
+</template>
+
+<template name="schoolSearchResult">
+	{{#unless showNoSchools}}
+		<div class="submit">
+			<button class="button primary add-user-school" type="submit">Join School</button>
+		</div>
+	{{/unless}}	
+	<div class="col-md-12 col-xs-12 center-block school-results">
+	  <div class="search-loading center-block">
+	  {{#if isLoading}}
+      <img id="school-search-loading" src="/images/white-loading.gif" alt="loading" height="35" width="35">
+    {{else}}
+    	{{#if showNoSchools}}
+				<div class="no-schools">
+					<h3>Ah Bummer, We Can't Find Your School...</h3>
+					<h5>Click to add your school to the system and we'll let you know when it's been added</h5>
+					{{#unless addSchool}}
+						<button class="show-add-school">Add School</button>
+					{{/unless}}
+				</div>
+			{{/if}}
+    {{/if}}
+		{{#if addSchool}}
+			{{> addSchoolForm}}
+	  {{/if}}
+	  </div>
+		{{#each getSchools}}
+		<div id={{_id}} class="school-search-result">
+			<h3 class="school-search-result-name">{{{name}}}</h3>
+			<div class="address">
+				{{address}} {{city}}, {{state}} {{zip}}
+			</div>
+		</div>
+		{{/each}}
+	</div>
+</template>
+
+
+<template name="addSchoolForm">
+  <form class="add-school-form" role="form">
+    <div class="input-text active">
+      <input type="text" name='school' id="addSchoolName" placeholder="Add School Name" />
+      <i class="add-school-icon icon-plus"></i>
+    </div>
+    <span class="input-group-btn">
+        <button class="btn add-school-button" type="button">Add</button>
+    </span>
+  </form>
+</template>

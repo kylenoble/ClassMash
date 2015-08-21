@@ -1,4 +1,20 @@
 <template name="loginForm">
+	<div class="form-register-heading-one {{showConfirmPassword}}">
+	  <div class="row center-block">
+	  	<h2><b>Step 1: All That Lame Account Stuff</b></h2>
+	  	<h3><b>(You can Use FB or Twitter)</b></h3>
+	  </div>
+	</div>
+	<div class="form-login-header {{showRegisterLink}}">
+	  <div class="row">
+	  	<h2><b>Log In</b></h2>
+	  </div>
+	</div>	
+	<div class="form-forgot-password {{forgotPasswordActive}}">
+	  <div class="row">
+	  	<h2><b>Forgot Password</b></h2>
+	  </div>
+	</div>		
 	<form id="login-card" method='/'>
 		{{ > loginServices }}
 		{{#if needsValidateEmail}}
@@ -9,22 +25,23 @@
 		<div class="fields">
 			<div class='input-text active {{showName}}'>
 				<input type="text" name='name' placeholder='{{_ "Name"}}' dir="auto" />
+				<i class="login icon-user"></i>	
 			</div>
-			<div class='input-text active {{showEmailOrUsername}}'>
-				<input type="text" name='emailOrUsername' placeholder='{{_ "Email_or_username"}}' autocapitalize="off" autocorrect="off" />
-			</div>
-			<div class='input-text active {{showEmail}}'>
-				<input type="email" name='email' placeholder='{{_ "Email"}}' />
+			<div class='input-text form-group has-feedback has-feedback-left active {{showEmail}}'> 
+				<input spellcheck="false" type="email" name='email' placeholder='{{_ "Email"}}' />
+				<i class="login icon-envelope"></i>		
 			</div>
 			<div class='input-text active {{showPassword}}'>
 				<input type="password" name='pass' placeholder='{{_ "Password"}}' />
+				<i class="login icon-lock"></i>	
 			</div>
 			<div class='input-text active {{showConfirmPassword}}'>
 				<input type="password" name='confirm-pass' placeholder='{{_ "Confirm_password"}}' />
+				<i class="login icon-check"></i>	
 			</div>
 		</div>
 		<div class="submit">
-			<button data-loading-text="{{_ "Please_wait"}}..." class='button primary login'><span>{{btnLoginSave}}</span></button>
+			<button data-loading-text="{{_ "Please_wait"}}..." class='button primary login {{showEmail}}'><span>{{btnLoginSave}}</span></button>
 		</div>
 		<div class="register {{showRegisterLink}}">
 			<a href="">{{_ 'Register'}}</a>
@@ -37,3 +54,4 @@
 		</div>
 	</form>
 </template>
+

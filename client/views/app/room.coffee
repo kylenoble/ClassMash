@@ -294,6 +294,27 @@ Template.room.helpers
 	canJoin: ->
 		return !! ChatRoom.findOne { _id: @_id, t: 'c' }
 
+	uploadFiles = (category, files) ->	
+		items = files
+		console.log(files)
+		for item in items
+			console.log('adding files 1')
+			if item.type.indexOf('image/') isnt -1
+				console.log('adding files 2')
+				event.preventDefault()
+
+				newFile = new (FS.File)(item)
+				newFile.name(item.name)
+				newFile.rid = Session.get('openedRoom')
+				newFile.recId = Random.id()
+				newFile.userId = Meteor.userId()
+				newFile.category = category
+				Files.insert newFile, (error, fileObj) ->
+					unless error
+						toastr.success 'Upload from clipboard succeeded!'
+						$('.adding-files').toggle();		
+					else 
+						toastr.error error		
 
 Template.room.events
 
@@ -348,32 +369,44 @@ Template.room.events
 		Template.instance().chatMessages.keyup(@_id, event, Template.instance())
 
 	'click .add-file': (event) ->
+		event.stopPropagation()
 		event.preventDefault()
+		$('.adding-files').toggle();			
 
 	'change #select-regular-file': (event, tmpl) ->
 		event.stopPropagation()
 		event.preventDefault()
+		console.log('adding file')
 		input = tmpl.find('input[type=file]')
 		
 		if not tmpl.find('input[type=file]')
 			return
 
-		items = input.files
-		console.log(items)
-		for item in items
-			console.log('adding files 1')
-			if item.type.indexOf('image/') isnt -1
-				console.log('adding files 2')
-				event.preventDefault()
+		uploadFiles('general', input.files)
 
-				newFile = new (FS.File)(item)
-				newFile.name(item.name)
-				newFile.rid = Session.get('openedRoom')
-				newFile.recId = Random.id()
-				newFile.userId = Meteor.userId()
-				Files.insert newFile, (error, fileObj) ->
-					unless error
-						toastr.success 'Upload from clipboard succeeded!'
+	'change #select-notes': (event, tmpl) ->
+		event.stopPropagation()
+		event.preventDefault()
+		console.log('adding file')
+		input = tmpl.find('input[type=file]')
+		
+		console.log(input)
+
+		if not tmpl.find('input[type=file]')
+			return
+
+		uploadFiles('notes', input.files)		
+
+	'change #select-note-cards': (event, tmpl) ->
+		event.stopPropagation()
+		event.preventDefault()
+		console.log('adding file')
+		input = tmpl.find('input[type=file]')
+		
+		if not tmpl.find('input[type=file]')
+			return
+
+		uploadFiles('note-cards', input.files)				
 
 	'keydown .input-message': (event) ->
 		Template.instance().chatMessages.keydown(@_id, event, Template.instance())
@@ -598,12 +631,6 @@ Template.room.onCreated ->
 				Meteor.subscribe 'fullUsers', Session.get('showUserInfo'), 1
 
 Template.room.onRendered ->
-
-	$('.add-file').popover
-	  html: true
-	  title: 'Select Type'
-	  content: ->
-	    $('.popover-container').html()
 
 	FlexTab.check()
 	this.chatMessages = new ChatMessages

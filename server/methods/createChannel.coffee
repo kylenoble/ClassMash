@@ -10,11 +10,11 @@ Meteor.methods
 
 		now = new Date()
 		user = Meteor.user()
-
+		school = user.school
 		members.push user.username
 
 		# avoid duplicate names
-		if ChatRoom.findOne({name:name})
+		if ChatRoom.findOne({name:name, school: {_id:school._id}})
 			throw new Meteor.Error 'duplicate-name'
 
 		# name = s.slugify name
@@ -25,6 +25,9 @@ Meteor.methods
 			t: 'c'
 			name: name
 			msgs: 0
+			s: 
+				_id: school._id
+				name: school.name
 			u:
 				_id: Meteor.userId()
 				username: user.username

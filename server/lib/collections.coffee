@@ -1,3 +1,5 @@
 @ChatMessage = new Meteor.Collection 'rocketchat_message'
 @ChatRoom = new Meteor.Collection 'rocketchat_room'
 @ChatSubscription = new Meteor.Collection 'rocketchat_subscription'
+@Schools = new Meteor.Collection 'schools'
+@SchoolsNew = new Meteor.Collection 'schools.new'

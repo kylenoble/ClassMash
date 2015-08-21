@@ -1,6 +1,12 @@
 Template.loginForm.helpers
 	userName: ->
-		return Meteor.user()?.username
+		return Meteor.user()?.username	
+
+	addingSchool: ->
+		return 'hidden' unless Template.instance().state.get() is 'add-school'		
+
+	forgotPasswordActive: ->
+		return 'hidden' unless Template.instance().state.get() is 'forgot-password'
 
 	showName: ->
 		return 'hidden' unless Template.instance().state.get() is 'register'
@@ -11,11 +17,8 @@ Template.loginForm.helpers
 	showConfirmPassword: ->
 		return 'hidden' unless Template.instance().state.get() is 'register'
 
-	showEmailOrUsername: ->
-		return 'hidden' unless Template.instance().state.get() is 'login'
-
 	showEmail: ->
-		return 'hidden' unless Template.instance().state.get() in ['register', 'forgot-password', 'email-verification']
+		return 'hidden' unless Template.instance().state.get() in ['login', 'register', 'forgot-password', 'email-verification']
 
 	showRegisterLink: ->
 		return 'hidden' unless Template.instance().state.get() is 'login'
@@ -24,12 +27,12 @@ Template.loginForm.helpers
 		return 'hidden' unless Template.instance().state.get() is 'login'
 
 	showBackToLoginLink: ->
-		return 'hidden' unless Template.instance().state.get() in ['register', 'forgot-password', 'email-verification']
+		return 'hidden' unless Template.instance().state.get() in ['register', 'forgot-password', 'email-verification', 'add-school']
 
 	btnLoginSave: ->
 		switch Template.instance().state.get()
 			when 'register'
-				return t('Submit')
+				return t('Find Your School')
 			when 'login'
 				return t('Login')
 			when 'email-verification'
@@ -61,9 +64,11 @@ Template.loginForm.events
 				return
 
 			if instance.state.get() is 'register'
+				formData.email = formData.email.toLowerCase()
+				console.log(formData)
 				Meteor.call 'registerUser', formData, (error, result) ->
 					RocketChat.Button.reset(button)
-
+					console.log("register stuff")
 					if error?
 						if error.error is 'Email already exists.'
 							toastr.error t 'Email_already_exists'
@@ -74,11 +79,17 @@ Template.loginForm.events
 					Meteor.loginWithPassword formData.email, formData.pass, (error) ->
 						if error?.error is 'no-valid-email'
 							toastr.success t('We_have_sent_registration_email')
-							instance.state.set 'login'
-						# else
-							# FlowRouter.go 'index'
+							instance.state.set 'add-school'
+							console.log('email validation')
+						else
+							element = $("#search-container")
+							element.addClass("red-background") 
+							element = $(".full-page")
+							element.removeClass("green-background") 
+							element.addClass("blue-background")     
+							element.addClass("red-background")  		 
 			else
-				Meteor.loginWithPassword formData.emailOrUsername, formData.pass, (error) ->
+				Meteor.loginWithPassword formData.email, formData.pass, (error) ->
 					RocketChat.Button.reset(button)
 					if error?
 						if error.error is 'no-valid-email'
@@ -89,19 +100,48 @@ Template.loginForm.events
 					FlowRouter.go 'index'
 
 	'click .register': ->
-		Template.instance().state.set 'register'
+		element = $("#login-card")
+		element.removeClass("blue-background")
+		element.addClass("green-background") 
+		element = $(".full-page")
+		element.removeClass("blue-background")    
+		element.addClass("green-background")
+		$('body').css('background-color', '#E74C3C')   		
+		Template.instance().state.set 'register' 			
 
 	'click .back-to-login': ->
-		Template.instance().state.set 'login'
+		$('#inputSchoolName').val('')
+		$('.school-search-result').hide()
+
+		element = $("#login-card")
+		element.removeClass("green-background")
+		element.removeClass("red-background")
+		element.addClass("blue-background") 
+		element = $(".full-page")
+		element.removeClass("green-background")
+		element.removeClass("red-background")    
+		element.addClass("blue-background")
+		$('body').css('background-color', '#34495e')   		
+		Template.instance().state.set 'login'		
 
 	'click .forgot-password': ->
+		element = $("#login-card")
+		element.removeClass("green-background") 
+		element.addClass("blue-background") 
+		element = $(".full-page")    
+		element.removeClass("green-background") 
+		element.addClass("blue-background")  				
 		Template.instance().state.set 'forgot-password'
 
 Template.loginForm.onCreated ->
+	console.log('hello')
 	instance = @
-	@state = new ReactiveVar('login')
+	@state = new ReactiveVar('login')     
+
 	@validate = ->
 		formData = $("#login-card").serializeArray()
+		console.log('validating')
+		console.log(formData)
 		formObj = {}
 		validationObj = {}
 
@@ -133,9 +173,28 @@ Template.loginForm.onCreated ->
 
 		$("#login-card h2").removeClass "error"
 		$("#login-card input.error").removeClass "error"
-		return formObj
+		return formObj		
 
 Template.loginForm.onRendered ->
+	if this.state.get() is 'login'
+		element = $("#login-card")
+		element.addClass("blue-background") 
+		element = $(".full-page")    
+		element.addClass("blue-background")
+		$('body').css('background-color', '#34495e')     
+
+	if this.state.get() is 'register'
+		element = $("#login-card")
+		element.addClass("green-background") 
+		element = $(".full-page")    
+		element.addClass("green-background") 
+
+	if this.state.get() is 'add-school'
+		element = $("#login-card")
+		element.addClass("red-background") 
+		element = $(".full-page")    
+		element.addClass("red-background")  		  	
+		
 	Tracker.autorun =>
 		switch this.state.get()
 			when 'login', 'forgot-password', 'email-verification'
@@ -145,3 +204,9 @@ Template.loginForm.onRendered ->
 			when 'register'
 				Meteor.defer ->
 					$('input[name=name]').select().focus()
+
+			when 'add-school'
+				Meteor.defer ->
+					$('input[name=school]').select().focus()
+
+

@@ -347,6 +347,7 @@ body {
 	overflow: visible;
 	position: relative;
 	background-color: @primary-background-color;
+	overflow-y: scroll;
 }
 
 // input & form styles
@@ -1429,8 +1430,8 @@ a.github-fork {
 		}
 		img {
 	    display: inline-block;
-	    max-width: 100px;
-	    max-height: 43px;
+	    max-width: 20px;
+	    max-height: 40px;
 	    margin-bottom: -4px;
 		}
 	}
@@ -1863,8 +1864,213 @@ a.github-fork {
 	}
 }
 
+// School Search
+.dropdown--menu {
+  background-color: white;
+  -moz-box-shadow: 0px 2px 7px rgba(0,0,0,0.25);
+  -webkit-box-shadow: 0px 2px 7px rgba(0,0,0,0.25);
+  box-shadow: 0px 2px 7px rgba(0,0,0,0.25);
+  width: 100%;
+  height: auto;
+  left: 0px;
+  margin-top: 5px;
+
+  ul {
+    padding-left: 0px;
+    margin-bottom: 0px;
+
+    li {
+      padding: 5px;
+      // border-bottom: 1px solid @primary-red;
+      // border-left: 1px solid @primary-red;
+      color: @primary-red;
+    }
+
+    li:hover {
+      background-color: @primary-red;
+      color:white
+    }
+  }
+}
+
+
+.dropdown-button-text-place,
+.dropdown-button-text-red {
+  margin-top: -10px;
+  //margin-left: -70%;
+  width: 80px;
+}
+
+.dropdown-button-text-place {
+  color: #A5A5A5;
+}
+
+.dropdown-button-text-red {
+  color: @primary-red;
+}
+
+.search-results {
+	font-size: 12px;
+	margin-top: 20px;
+}
+
+.school-search-result {
+	padding: 15px 15px 15px 15px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-radius: 6px;
+}
+
+.school-search-result {
+  color: white;
+	border: solid 1px white;
+} 
+
+.school-search-result:hover:hover {
+	color: @primary-blue;
+}
+
+.school-search-result:hover {
+	background-color: white;
+}
+
+.selected-school {
+	color: @primary-blue;
+}
+
+.selected-school {
+	background-color: white;
+	border: solid 1px white;
+}
+
+.search-loading {
+	display: block;
+	width: 100%;
+	text-align: center;
+	margin-bottom: 15px;
+	#school-search-loading {
+		width: 30px;
+		height: 30px;
+	}
+}
+
+.no-schools {
+	margin-top: 10px;
+}
+
+.no-schools {
+	color: white;
+} 
+
+.show-add-school,
+.add-school-button {
+	background-color: @primary-red;
+	color: white;
+	border: 1px solid white;	
+  padding: 10px 15px;
+  border-radius: 5px;	
+}
+
+.show-add-school {
+	margin-top: 10px;
+}
+
+.add-school-button {
+	margin-top: -5px;
+}
+
+.show-add-school:hover,
+.add-school-button:hover {
+	color: @primary-red;
+	background-color: white;
+}
+
+.add-school-form{
+	margin-top: 25px;
+}
+
+.add-school-form {
+	.icon-plus {
+		color: white;
+	}
+}
+
 .adding-files {
-	display: none;
+		display: none;
+    position: absolute;
+    right: 5px;
+    bottom: 65px;
+    height: 141px;
+    width: 50px;
+    padding: 15px 10px;
+    background-color: white;
+    border-radius: 10px;
+
+  .regular-files,
+  .add-notes,
+  .add-note-cards {
+    margin-bottom: 10px;
+    border: solid 1px @primary-red;
+    width: 39px;
+    margin-left: -11px;
+    height: 39px;
+    border-radius: 20px;
+    background-color: @primary-red;
+    color: white;
+    cursor: pointer;
+
+    .file-upload-text {
+    	color: @primary-blue;
+    	font-size: 12px;
+    	margin-right: 19px;
+    	top: 2px;
+    	position: absolute;    	
+    }
+
+    &:hover {
+    	background-color: white;
+    	color: @primary-red;
+    }	    
+
+		#select-regular-file,
+		#select-notes,
+		#select-note-cards {
+			height: 0px;
+			width: 0px;
+		}
+  }
+
+  .regular-files {
+  	.file-upload-text { 
+			margin-left: -46px;
+  	}
+  }
+
+  .add-notes {
+  	.file-upload-text { 
+			margin-left: -53px;
+  	}
+  } 
+
+  .add-note-cards {
+  	.file-upload-text { 
+			margin-left: -81px;
+  	}
+  }     
+
+  .label-regular-files,
+  .label-add-notes,
+  .label-add-note-cards {
+    position: relative;
+    margin-left: 15%;
+    top: 19%;
+    font-size: 20px;
+    cursor: pointer;    	
+  }
+}
+
+.adding-files {
+	z-index: 10;
 }
 
 // change to page-messages
@@ -1970,8 +2176,8 @@ a.github-fork {
 			color:white;	
 			&:hover {
 				background-color: white;
-				color: @secondary-blue;							
-			}
+				color: @secondary-blue;	
+			}									
 			i {
 				vertical-align: middle;
 			}
@@ -2884,13 +3090,74 @@ a.github-fork {
 	}
 }
 
-#login-card {
+.form-register-heading-one,
+.form-register-heading-two,
+.form-login-header,
+.form-forgot-password {
+	color: white;
+  margin-top: 8%;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+	font-family: "Avenir Next";
+	.row {
+
+		width: auto;
+
+		h2,
+		h3 {
+			text-align: center;
+		}
+
+		h2 {
+			font-size: 1.5em;
+			width: 100%;
+		}
+
+		h3 {
+			font-size: 1.25em;
+			margin-top: 15px;
+			margin-bottom: 20px;
+		}
+
+		}
+}
+
+.form-register-heading-two {
+	margin-bottom: 5%;
+}
+
+.form-login-header,
+.form-forgot-password {
+	font-size: 2em;
+}
+
+.blue-background {
+	background-color: @primary-blue;
+}
+
+.ligh-blue-background {
+	background-color: @secondary-blue;
+}
+
+.green-background {
+	background-color: @primary-green;
+}
+
+.red-background {
+	background-color: @primary-red;
+}
+
+#login-card,
+#search-container {
 	width: 100%;
 	max-width: 520px;
 	padding: 20px;
 	margin: 20px auto;
-	background-color: #FAFAFA;
-	box-shadow: 0 0 6px 10px @primary-green;
 	border-radius: 2px;
 	position: relative;
 	z-index: 1;
@@ -2904,33 +3171,19 @@ a.github-fork {
 			font-weight: 300;
 		}
 	}
-	h2 {
-		&:extend(.rocket-h2);
-		color: @primary-font-color;
-		line-height: 24px;
-		margin: 0;
-		&.error {
-			color: #b40202;
-		}
-	}
-	h3 {
-		&:extend(.rocket-h3);
-		&.error {
-			color: #b40202;
-		}
-	}
 	img {
 		width: 200px;
 	}
 	a {
-		color: @primary-background-color;
+		color: white;
 		margin: 4px 0;
 		display: inline-block;
+		font-family: "Avenir Next", "HelveticaNeue-Light", "sans-serif";
 		&:active {
-			color: @primary-background-color;
+			color: white;
 		}
 		&:hover {
-			color: darken(@primary-background-color, 10%);
+			color: darken(white, 10%);
 		}
 	}
 	.options {
@@ -2940,6 +3193,26 @@ a.github-fork {
 	}
 	.submit {
 		margin: 12px 0;
+		.button {
+	    display: inline-block;
+	    padding: 9px 12px;
+	    color: @primary-blue;
+	    font-weight: 500;
+	    font-size: 13px;
+	    margin: 0px;
+	    word-spacing: 0;
+	    width: 100%;
+	    border-radius: 5px;
+	    line-height: 16px;
+	    position: relative;
+	    border: 1px solid white;
+	    cursor: pointer;
+	    .transition(opacity .1s ease-out);
+	    &:hover {
+	    	background-color: darken(white, 5%);
+	    	color: @primary-blue;
+	    }			
+		}		
 	}
 	.remember {
 		float: left;
@@ -2968,39 +3241,48 @@ a.github-fork {
 				visibility: hidden;
 			}
 		}
+		.icon-envelope,
+		.icon-lock,
+		.icon-user,
+		.icon-check,
+		.icon-magnifier,
+		.icon-plus {
+			color: white;
+			font-size: 14px;
+			position: absolute;
+    	left: 14px;
+    	top: 14px;
+		}
 		input {
 			box-shadow: 0 0 0;
 			background-color: transparent;
 			border-width: 0;
 			position: relative;
-			padding: 4px 8px;
-			font-size: 18px;
-			border-bottom: 1px solid #DFDFDF;
-			font-family: "Roboto", "HelveticaNeue-Light", "sans-serif";
-			font-weight: 400;
-			&.error {
-				border-bottom: 1px solid #b40202;
-				&::-webkit-input-placeholder {
-					color: #b40202;
-				}
-				&:-moz-placeholder {
-					color: #b40202;
-				}
-				/* Firefox 18- */
-				&::-moz-placeholder {
-					color: #b40202;
-				}
-				/* Firefox 19+ */
-				&:-ms-input-placeholder {
-					color: #b40202;
-				}
+  		padding: 20px 40px;
+			font-size: 14px;
+			border: 1px solid white;
+			font-family: "Avenir Next", "HelveticaNeue-Light", "sans-serif";
+			color: white;
+			margin-bottom: 10px;
+			&::-webkit-input-placeholder {
+				color: white;
+			}
+			&:-moz-placeholder {
+				color: white;
+			}
+			/* Firefox 18- */
+			&::-moz-placeholder {
+				color: white;
+			}
+			/* Firefox 19+ */
+			&:-ms-input-placeholder {
+				color: white;
 			}
 		}
 		input:-webkit-autofill {
 			color: #fff !important;
 		}
 		input:-webkit-autofill {
-			-webkit-box-shadow: 0 0 0px 1000px #f4f4f4 inset;
 			background-color: transparent !important;
 		}
 	}
@@ -3033,7 +3315,8 @@ a.github-fork {
 	}
 }
 
-.full-page {
+.full-page,
+.full-page-username {
 	.flex-center;
 	flex-flow: row nowrap;
 	text-align: center;
@@ -3041,12 +3324,11 @@ a.github-fork {
 	width: 100%;
 	min-height: 100%;
 	z-index: 101;
-	background-color: darken(@primary-background-color, 10%);
-	.background-image(linear-gradient(darken(@primary-background-color,10%),@primary-background-color));
 	.wrapper {
 		text-align: center;
 		z-index: 10;
-		position: relative;
+		position: absolute;
+		top: 0px;
 		width: 100%;
 		padding: 20px;
 	}
@@ -3058,13 +3340,12 @@ a.github-fork {
 			top: 0;
 			right: 0;
 			z-index: 20;
-			width: 500px;
-			max-width: 100%;
+			width: 30px;
 		}
 	}
 	a {
-		font-family: "Roboto", "HelveticaNeue-Light", "sans-serif";
-		font-weight: 300;
+		font-family: "Avenir Next", "HelveticaNeue-Light", "sans-serif";
+		font-weight: 400;
 	}
 	.cell {
 		display: table-cell;
@@ -3091,22 +3372,8 @@ a.github-fork {
 			padding: 16px 20px;
 			margin-top: 20px;
 		}
-		h1 {
-			font-weight: 600;
-			text-transform: uppercase;
-			font-size: 24px;
-			letter-spacing: -0.5px;
-			margin-bottom: 20px;
-			display: none;
-		}
-		h2 {
-			&:extend(.rocket-h2);
-		}
-		h3 {
-			&:extend(.rocket-h3);
-		}
 		p {
-			font-family: "Muli", "Roboto", "HelveticaNeue-Light", "sans-serif";
+			font-family: "Avenir Next", "Muli", "Roboto", "HelveticaNeue-Light", "sans-serif";
 			margin: 18px 0;
 			font-size: 16px;
 			line-height: 24px;
@@ -3152,6 +3419,10 @@ a.github-fork {
 			display: none;
 		}
 	}
+}
+
+.full-page-username {
+	background-color: @primary-red;
 }
 
 .avatar-suggestions {
@@ -3315,6 +3586,15 @@ a.github-fork {
 }
 
 @media all and(max-width: 500px) {
+	.form-register-heading-one {
+		h2 {
+			font-size: 20px;
+		}
+		h3 {
+			font-size: 18px;
+		}
+	}
+
 	.user-view {
 		.thumb {
 			width: 60px;

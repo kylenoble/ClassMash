@@ -50,7 +50,7 @@ RocketChatFile.GridFS = class
 			_id: fileName
 			root: this.name
 
-	createWriteStream: (fileName, contentType) ->
+	createWriteStream: (fileName, contentType, category) ->
 		self = this
 
 		ws = this.store.createWriteStream
@@ -59,6 +59,7 @@ RocketChatFile.GridFS = class
 			mode: 'w'
 			root: this.name
 			content_type: contentType
+			category: category
 
 		if self.transformWrite?
 			ws = RocketChatFile.addPassThrough ws, (rs, ws) ->
@@ -66,6 +67,7 @@ RocketChatFile.GridFS = class
 					name: self.name
 					fileName: fileName
 					contentType: contentType
+					category: category
 
 				self.transformWrite file, rs, ws
 

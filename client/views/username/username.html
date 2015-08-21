@@ -1,45 +1,68 @@
 <template name="username">
-	<section class="full-page">
+	<section class="full-page-username">
 		<div class="wrapper">
-			<form id="login-card" method='/'>
-				<header>
-					<h2>{{_ "Username_title"}}</h2>
-					<p>{{_ "Username_description"}}</p>
-				</header>
-				{{#if username.error}}
-					<div class="alert alert-danger">
-						{{{_ "Username_unavaliable" username.username}}}
+			<header>
+				<a class="logo" href="/">
+					<img src="/images/logo/white-logo.svg?v=1" />
+				</a>
+			</header>		
+			{{#if addingUsername}}
+				<form id="login-card" method='/'>
+					<div class="form-register-heading-one">
+					  <div class="row center-block">
+					  	<h2><b>Step 3: Select Your Username</b></h2>
+					  	<h3><b>This is what will display when you chat with classmates</b></h3>
+					  </div>
 					</div>
-				{{/if}}
-				{{#if username.invalid}}
-					<div class="alert alert-danger">
-						{{{_ "Username_invalid" username.username}}}
+					{{#if username.error}}
+						<div class="alert alert-danger">
+							{{{_ "Username_unavaliable" username.username}}}
+						</div>
+					{{/if}}
+					{{#if username.invalid}}
+						<div class="alert alert-danger">
+							{{{_ "Username_invalid" username.username}}}
+						</div>
+					{{/if}}
+					{{#if username.empty}}
+						<div class="alert alert-danger">
+							{{{_ "Username_cant_be_empty"}}}
+						</div>
+					{{/if}}
+					<div class="fields">
+						<div class='input-text active'>
+							{{#if username.ready}}
+								<span>
+									<input type="text" name='username' value="{{username.username}}" placeholder='{{_ "Username"}}' dir="auto"/>
+								</span>
+								<i></i>
+							{{else}}
+								{{_ "Loading_suggestion"}}
+							{{/if}}
+						</div>
 					</div>
-				{{/if}}
-				{{#if username.empty}}
-					<div class="alert alert-danger">
-						{{{_ "Username_cant_be_empty"}}}
-					</div>
-				{{/if}}
-				<div class="fields">
-					<div class='input-text active'>
-						{{#if username.ready}}
-							<span>
-								<input type="text" name='username' value="{{username.username}}" placeholder='{{_ "Username"}}' dir="auto"/>
-							</span>
-							<i></i>
-						{{else}}
-							{{_ "Loading_suggestion"}}
-						{{/if}}
-					</div>
-				</div>
 
-				{{#if username.ready}}
-					<div class="submit">
-						<button data-loading-text="{{_ "Please_wait"}}..." class='button primary login'><span>{{_ "Use_this_username"}}</span></button>
-					</div>
-				{{/if}}
-			</form>
+					{{#if username.ready}}
+						<div class="submit">
+							<button data-loading-text="{{_ "Please_wait"}}..." class='button primary login'><span>{{_ "Use_this_username"}}</span></button>
+						</div>
+					{{/if}}
+				</form>
+			{{else}}
+			<div id="search-container">
+				<div class="form-register-heading-two">
+				  <div class="row center-block">
+				  	<h2><b>Step 2: Find Your School</b></h2>
+				  </div>
+				</div>			
+				<div class="input-text active">	
+					{{> schoolSearchBox}}
+				</div>
+				<div class="search-results-container">
+					{{> schoolSearchResult}}
+				</div>
+			</div>
+			{{/if}}
 		</div>
 	</section>
 </template>

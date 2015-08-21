@@ -83,3 +83,50 @@
     transform: rotate(359deg);
   }
 }
+
+
+@-moz-keyframes slide-up {
+  0% {
+    display: none;
+  }
+
+  100% {
+    display: block;
+  }
+}
+@-webkit-keyframes slide-up {
+  0% {
+    display: none;
+  }
+
+  100% {
+    display: block;
+  }
+}
+@-o-keyframes slide-up {
+  0% {
+    display: none;
+  }
+
+  100% {
+    display: block;
+  }
+}
+@-ms-keyframes slide-up {
+  0% {
+    display: none;
+  }
+
+  100% {
+    display: block;
+  }
+}
+@keyframes slide-up {
+  0% {
+    display: none;
+  }
+
+  100% {
+    display: block;
+  }
+}

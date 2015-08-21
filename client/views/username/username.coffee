@@ -1,6 +1,14 @@
 Template.username.onCreated ->
 	self = this
 	self.username = new ReactiveVar
+	Session.set('isAddingUserName', false)
+	element = $("#login-card")
+	element.removeClass("red-background") 
+	element.addClass("light-blue-background") 
+	element = $(".full-page-username")
+	element.removeClass("red-background")  
+	element.addClass("light-blue-background")
+	$('body').css('background-color', '#3498DB')  	
 
 	Meteor.call 'getUsernameSuggestion', (error, username) ->
 		self.username.set
@@ -12,6 +20,8 @@ Template.username.onCreated ->
 Template.username.helpers
 	username: ->
 		return Template.instance().username.get()
+	addingUsername: ->
+		return Session.get 'isAddingUserName'	
 
 Template.username.events
 	'submit #login-card': (event, instance) ->

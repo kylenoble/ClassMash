@@ -80,5 +80,7 @@ yasaricli:slugify
 yasinuslu:blaze-meta
 rocketchat:colors
 nahue:simple-line-icons
-nemo64:bootstrap
 raix:push@2.6.13-rc.1
+meteorhacks:search-source
+lookback:dropdowns
+outatime:geolib

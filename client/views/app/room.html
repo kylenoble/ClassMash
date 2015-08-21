@@ -42,11 +42,20 @@
 					<div>
 						{{> messagePopupConfig getPupupConfig}}
 						<textarea dir="auto" name="msg" maxlength="{{maxMessageLength}}" class="input-message" placeholder="{{_ 'Message'}}"></textarea>
-						<button class="add-file" data-container="body" data-toggle="popover" data-placement="left" data-trigger="focus"><i class="icon-arrow-up"></i></button>
-						<div class="adding-files popover-container">
+						<button class="add-file"><i class="icon-arrow-up"></i></button>
+						<div class="adding-files">
 							<div class="regular-files">
 								<input type="file" id="select-regular-file">
-							</div>										
+								<label class="label-regular-files" for="select-regular-file"><span class="file-upload-text">Files</span><i class="icon-paper-clip"></i></label>
+							</div>
+							<div class="add-notes">
+								<input type="file" id="select-notes">
+								<label class="label-add-notes" for="select-notes"><span class="file-upload-text">Notes</span><i class="icon-list"></i></label>
+							</div>		
+							<div class="add-note-cards">
+								<input type="file" id="select-note-cards">
+								<label class="label-add-note-cards" for="add-note-cards"><span class="file-upload-text">Note Cards</span><i class="icon-layers"></i></label>
+							</div>																									
 						</div>
 					</div>
 					<div class="users-typing">
