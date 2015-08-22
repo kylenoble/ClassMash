@@ -1,5 +1,8 @@
 @ChatMessage = new Meteor.Collection 'rocketchat_message'
 @ChatRoom = new Meteor.Collection 'rocketchat_room'
 @ChatSubscription = new Meteor.Collection 'rocketchat_subscription'
+@MapReducedStatistics = new Mongo.Collection 'rocketchat_mr_statistics'
 @Schools = new Meteor.Collection 'schools'
 @SchoolsNew = new Meteor.Collection 'schools.new'
+@Statistics = new Mongo.Collection 'rocketchat_statistics'
+@ChatReports = new Meteor.Collection 'rocketchat_reports'

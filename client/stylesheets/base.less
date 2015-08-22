@@ -75,6 +75,38 @@ blockquote {
 	}
 }
 
+.login-terms {
+	max-width: 400px;
+	color: #C2E7FF;
+	margin: auto;
+
+	a {
+		font-weight: bold !important;
+		text-decoration: underline;
+		color: #C2E7FF;
+
+		&:hover {
+			color: white;
+		}
+	}
+}
+
+.upload-preview {
+	background-color: #f5f5f5;
+	.upload-preview-file {
+		height: 200px;
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+}
+
+.upload-preview-title {
+	background-color: #eee;
+	padding: 3px;
+	border-radius: 0 0 5px 5px;
+}
+
 .flex-center {
 	display: -webkit-flex;
 	display: flex;
@@ -129,6 +161,10 @@ blockquote {
 
 .full-page .hidden {
 	visibility: hidden !important;
+	display: none !important;
+}
+
+.hidden {
 	display: none !important;
 }
 
@@ -519,16 +555,20 @@ label.required:after {
 }
 
 .btn-loading {
-	background-image: url('/images/loading.gif');
-	background-repeat: no-repeat;
-	background-position: 50%;
-	color: transparent !important;
+	color: #444 !important;
 	pointer-events: none;
 	cursor: not-allowed;
-	background-color: transparent;
+	background-color: transparent !important;
+	box-shadow: none !important;
 	border: none;
 	&:hover {
-		background-color: transparent;
+		background-color: transparent !important;
+	}
+	i {
+		display: block;
+	}
+	div {
+		display: none;
 	}
 }
 
@@ -619,6 +659,10 @@ label.required:after {
 	}
 	&.meteor-developer {
 		background-color: #de4f4f;
+	}
+	&.button-block {
+		display: block;
+		width: 100%;
 	}
 }
 
@@ -1688,6 +1732,86 @@ a.github-fork {
 	}
 }
 
+.cms-page {
+	max-width: 800px;
+	margin: 40px auto;
+	color: #444;
+	background-color: white;
+	padding: 20px;
+	border-radius: 5px;
+	box-shadow: 1px 1px 4px rgba(0,0,0,.3);
+}
+
+.spotlight {
+	background-color: rgba(0,0,0,.3);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	display: flex;
+	display: -webkit-flex;
+	justify-content: center;
+	padding: 0 40px;
+
+	> .spotlight-input {
+		width: 100%;
+		max-width: 600px;
+		font-size: 24px;
+		color: #444;
+		margin-top: 6%;
+
+		> input {
+			box-shadow: 0px 10px 20px rgba(0,0,0,.5);
+			border-width: 0px;
+			line-height: 46px;
+			height: 46px;
+			padding: 18px;
+			padding-left: 46px;
+		}
+
+		> i {
+			position: absolute;
+			z-index: 10;
+			line-height: 46px;
+			width: 46px;
+			text-align: center;
+			color: #aaa;
+			font-weight: 100;
+		}
+	}
+}
+
+.mobile-message-menu {
+	background-color: rgba(0,0,0,.3);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	justify-content: center;
+	padding: 0 40px;
+
+	> .buttons {
+		font-size: 24px;
+		position: absolute;
+		bottom: 0;
+		left: 10%;
+		right: 10%;
+
+		.button {
+			display: block;
+			text-align: center;
+		}
+	}
+
+	.mobile-menu-separator {
+		height: 10px;
+	}
+}
+
 // MAIN CONTENT + MAIN PAGES //
 .main-content {
 	position: fixed;
@@ -1795,6 +1919,7 @@ a.github-fork {
 	.list {
 		a {
 			.clearfix;
+			display: block;
 			padding: 10px 16px;
 			width: 100%;
 			color: @primary-font-color;
@@ -1886,7 +2011,8 @@ a.github-fork {
       color: @primary-red;
     }
 
-    li:hover {
+    li:hover,
+    .upload-progress {
       background-color: @primary-red;
       color:white
     }
@@ -1960,6 +2086,7 @@ a.github-fork {
 
 .no-schools {
 	color: white;
+	font-weight: bold;
 } 
 
 .show-add-school,
@@ -2146,6 +2273,60 @@ a.github-fork {
 	.message-form {
 		> div {
 			position: relative;
+			display: flex;
+			display: -webkit-flex;
+			.input-message-container {
+				position: relative;
+				width: 100%;
+			}
+			> .file {
+				width: 44px;
+				font-size: 22px;
+				padding: 6px 0;
+				text-align: center;
+				border: 1px solid #E7E7E7;
+				border-radius: 5px 0 0 5px;
+				border-right: none;
+				cursor: pointer;
+				color: #888;
+				background-color: #FCFCFC;
+				.transition(background-color 0.1s linear, color 0.1s linear);
+				&:hover {
+					background-color: #F1F1F1;
+					color: #666;
+				}
+
+				input {
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					overflow: hidden;
+					width: 44px;
+					opacity: 0;
+					cursor: pointer;
+				}
+				input::-webkit-file-upload-button {
+					cursor: pointer;
+				}
+			}
+			> .mic, .stop-mic {
+				width: 40px;
+				font-size: 22px;
+				padding: 7px 0;
+				margin-left: 4px;
+				text-align: center;
+				cursor: pointer;
+				color: #888;
+				border-radius: 30px;
+				background-color: #FCFCFC;
+				.transition(background-color 0.1s linear, color 0.1s linear);
+				&:hover {
+					background-color: #F1F1F1;
+					color: #666;
+				}
+			}
 		}
 		textarea {
 			width: 95%;
@@ -2153,6 +2334,8 @@ a.github-fork {
 			padding-top: 9px;
 			padding-bottom: 9px;
 			padding-right: 38px;
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
 			overflow-y: hidden;
 			resize: none;
 			border-right: none;
@@ -2182,27 +2365,31 @@ a.github-fork {
 				vertical-align: middle;
 			}
 		}
-		> .users-typing {
+		.users-typing {
 			float: left;
-			height: 19px;
+			height: 23px;
 			font-size: 12px;
 			color: #888888;
-			position: absolute;
-			padding-left: 5px;
-			background-color: #FCFCFC;
-			z-index: 10;
-			bottom: 0;
-			padding-right: 10px;
-		}
-		> .formatting-tips {
-			float: right;
-			height: 20px;
-			font-size: 11px;
-			color: #888888;
-			padding: 5px 0px 0px 5px;
+			background: #FCFCFC;
+			padding: 3px;
 			display: inline-block;
 			white-space: nowrap;
 			overflow: hidden;
+			text-overflow: ellipsis;
+			max-width: 100%;
+			z-index: 10;
+		}
+		.formatting-tips {
+			float: right;
+			height: 23px;
+			font-size: 11px;
+			color: #888888;
+			padding: 3px;
+			display: inline-block;
+			white-space: nowrap;
+			overflow: hidden;
+			position: absolute;
+			right: 20px;
 			&:hover {
 				color: #444444;
 			}
@@ -2333,14 +2520,14 @@ a.github-fork {
 			display: none;
 			cursor: pointer;
 		}
-		&.own:hover .edit-message {
+		&.own:hover:not(.system) .edit-message {
 			display: inline-block;
 		}
 		.delete-message {
 			display: none;
 			cursor: pointer;
 		}
-		&.own:hover .delete-message {
+		&.own:hover:not(.system) .delete-message {
 			display: inline-block;
 		}
 		.user {
@@ -2463,8 +2650,7 @@ a.github-fork {
 			position: absolute;
 			background-color: @tertiary-background-color;
 			bottom: 0px;
-			.calc(width,
-			~'100% - 30px');
+			.calc(width, ~'100% - 15px');
 		}
 		.button {
 			min-height: 36px;
@@ -2535,6 +2721,29 @@ a.github-fork {
 				left: 8px;
 				font-size: 13px;
 				color: @secondary-font-color;
+			}
+		}
+		.info-tabs {
+			position: absolute;
+			top: 0;
+			text-align: right;
+			height: 60px;
+			right: 20px;
+			a {
+				float: left;
+				display: inline-block;
+				padding: 0 15px;
+				height: 60px;
+				line-height: 60px;
+				vertical-align: middle;
+				color: inherit;
+				border-left: 1px solid rgb(234, 234, 234);
+				&.active {
+					background-color: #F4F4F4;
+				}
+				&:last-child {
+					border-right: 1px solid rgb(234, 234, 234);
+				}
 			}
 		}
 	}
@@ -2654,8 +2863,7 @@ a.github-fork {
 	.info {
 		margin-left: 120px;
 		white-space: normal;
-		.calc(width,
-		~'100% - 120px');
+		.calc(width, ~'100% - 120px');
 		h3 {
 			font-size: 24px;
 			margin-bottom: 8px;
@@ -2747,6 +2955,61 @@ a.github-fork {
 	.contact-code {
 		margin: -5px 0 10px 0;
 		font-size: 12px;
+	}
+	.channels {
+		h3 {
+			font-size: 24px;
+			margin-bottom: 8px;
+			line-height: 22px;
+		}
+		p {
+			line-height: 18px;
+			font-size: 12px;
+			font-weight: 300;
+			color: @secondary-font-color;
+		}
+		a {
+			white-space: nowrap;
+			max-width: 100%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: block;
+			border-radius: 2px;
+			padding: 0 5px;
+			color: #6f6f6f;
+			line-height: 22px;
+			position: relative;
+			.transition(background .18s ease,
+			colo .18s ease);
+			&:before {
+				content: attr(data-stats);
+				position: absolute;
+				right: 5px;
+				top: 0;
+				font-size: 11px;
+				opacity: 0;
+			}
+			span {
+				font-weight: 300;
+			}
+		}
+	}
+	.edit-form {
+		white-space: normal;
+		h3 {
+			font-size: 24px;
+			margin-bottom: 8px;
+			line-height: 22px;
+		}
+		p {
+			line-height: 18px;
+			font-size: 12px;
+			font-weight: 300;
+			color: @secondary-font-color;
+		}
+		> .input-line {
+			margin-top: 20px;
+		}
 	}
 }
 
@@ -3493,6 +3756,15 @@ a.github-fork {
 	}
 }
 
+.statistics-table {
+	border: 1px solid black;
+	th, td {
+		border: 1px solid black;
+		text-align: left;
+		padding: 3px 10px;
+	}
+}
+
 .rocket-team {
 	display: block;
 	li {
@@ -3670,5 +3942,30 @@ a.github-fork {
 
 	.connection-status > .alert {
 		border-width: 0 0 1px 0;
+	}
+}
+
+.touch {
+	.footer {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+}
+
+@media all and(max-height: 480px) {
+	#login-card {
+		padding: 10px;
+		margin: 10px auto;
+
+		.input-text {
+			margin-bottom: 6px;
+		}
+
+		.submit {
+			margin: 0px;
+		}
+	}
+	.social-login {
+		margin-bottom: 10px;
 	}
 }

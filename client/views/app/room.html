@@ -14,12 +14,26 @@
 				{{/if}}
 			</h2>
 		</header>
+		<div class="upload-progress">
+			{{#each uploading}}
+				<div class="upload-progress-item">
+					<div class="upload-progress-progress" style="width: {{percentage}}%;"></div>
+					{{name}}... {{percentage}}%
+					<a>
+						cancel
+					</a>
+				</div>
+			{{/each}}
+		</div>
 		<div class="messages-box">
 			<div class="wrapper">
 				<ul>
 					{{#if hasMore}}
 						<li class="load-more">
-							<button class="button secondary load-more {{isLoading}}">{{_ "Load_more"}}</button>
+							<button class="button secondary load-more {{isLoading}}">
+								<i class="icon-spin4 animate-spin loading-icon hidden"></i>
+								<div>{{_ "Load_more"}}</div>
+							</button>
 						</li>
 					{{else}}
 						<li class="start">
@@ -39,24 +53,38 @@
 		<footer class="footer">
 			{{#if subscribed}}
 				<form class="message-form" method="post" action="/">
-					<div>
-						{{> messagePopupConfig getPupupConfig}}
-						<textarea dir="auto" name="msg" maxlength="{{maxMessageLength}}" class="input-message" placeholder="{{_ 'Message'}}"></textarea>
-						<button class="add-file"><i class="icon-arrow-up"></i></button>
-						<div class="adding-files">
-							<div class="regular-files">
-								<input type="file" id="select-regular-file">
-								<label class="label-regular-files" for="select-regular-file"><span class="file-upload-text">Files</span><i class="icon-paper-clip"></i></label>
-							</div>
-							<div class="add-notes">
-								<input type="file" id="select-notes">
-								<label class="label-add-notes" for="select-notes"><span class="file-upload-text">Notes</span><i class="icon-list"></i></label>
-							</div>		
-							<div class="add-note-cards">
-								<input type="file" id="select-note-cards">
-								<label class="label-add-note-cards" for="add-note-cards"><span class="file-upload-text">Note Cards</span><i class="icon-layers"></i></label>
-							</div>																									
+					<div style="display: flex">
+						<div class="file">
+							<i class="icon-attach"></i>
+							<input type="file" accept="image/*">
 						</div>
+						<div class="input-message-container">
+							{{> messagePopupConfig getPupupConfig}}
+							<textarea dir="auto" name="msg" maxlength="{{maxMessageLength}}" class="input-message" placeholder="{{_ 'Message'}}"></textarea>
+							<button class="add-file"><i class="icon-arrow-up"></i></button>
+							<div class="adding-files">
+								<div class="regular-files">
+									<input type="file" id="select-regular-file">
+									<label class="label-regular-files" for="select-regular-file"><span class="file-upload-text">Files</span><i class="icon-paper-clip"></i></label>
+								</div>
+								<div class="add-notes">
+									<input type="file" id="select-notes">
+									<label class="label-add-notes" for="select-notes"><span class="file-upload-text">Notes</span><i class="icon-list"></i></label>
+								</div>		
+								<div class="add-note-cards">
+									<input type="file" id="select-note-cards">
+									<label class="label-add-note-cards" for="add-note-cards"><span class="file-upload-text">Note Cards</span><i class="icon-layers"></i></label>
+								</div>																									
+							</div>
+						</div>
+						{{#if canRecordAudio}}
+							<div class="mic">
+								<i class="icon-mic"></i>
+							</div>
+							<div class="stop-mic hidden">
+								<i class="icon-stop"></i>
+							</div>
+						{{/if}}
 					</div>
 					<div class="users-typing">
 						{{#with usersTyping}}
@@ -122,11 +150,11 @@
 					<div class="list-view{{#if $.Session.get 'showUserInfo'}} -hidden{{/if}}">
 						{{#with roomUsers}}
 							<div class="status">
-								<h2>{{_ "Members_List"}}</h2> {{!--
+								<h2>{{_ "Members_List"}}</h2>
 								<p>
 									{{{_ "Showing_online_users" total_online=totalOnline total=total}}}
-									<button class="see-all">{{seeAll}}</button>
-								</p>--}}
+									{{!--<button class="see-all">{{seeAll}}</button>--}}
+								</p>
 							</div>
 							<ul class='list clearfix lines'>
 								{{#each users}}
@@ -202,17 +230,13 @@
 								</div>
 								<div class="info">
 									<h3>{{username}}</h3>
-									{{#if contactCode}}
-										<div class="contact-code">{{_ "contact"}} {{contactCode}}</div>
+									{{#if isAdmin}}
+										<p>{{name}}</p>
+										{{#if utc}}<p><i class="icon-location"></i> {{utc}}</p>{{/if}}
+										{{#each emails}} <p><i class="icon-mail"></i> {{address}}{{#if verified}}&nbsp;<i class="icon-ok"></i>{{/if}}</p> {{/each}}
+										{{#each phone}} <p><i class="icon-phone"></i> {{phoneNumber}}</p> {{/each}}
+										{{#if lastLogin}} <p><i class="icon-clock"></i> {{_ "Last_login"}}: {{lastLogin}}</p> {{/if}}
 									{{/if}}
-									{{!--
-									{{#each emails}}
-										<p><i class="icon-mail"></i> {{address}}</p>
-									{{/each}}
-									{{#each phone}}
-										<p><i class="icon-phone"></i> {{phoneNumber}}</p>
-									{{/each}}
-									--}}
 								</div>
 							</div>
 							<nav>

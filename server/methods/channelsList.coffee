@@ -1,3 +1,5 @@
 Meteor.methods
 	channelsList: ->
-		return { channels: ChatRoom.find({ t: 'c' }, { sort: { msgs:-1 } }).fetch() }
+		user = Meteor.user()
+		school = user.profile.school
+		return { channels: ChatRoom.find({ t: 'c', 's._id': school._id }, { sort: { msgs:-1 } }).fetch() }

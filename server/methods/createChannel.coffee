@@ -6,17 +6,19 @@ Meteor.methods
 		if not /^[0-9a-z-_]+$/i.test name
 			throw new Meteor.Error 'name-invalid'
 
-		console.log '[methods] createChannel -> '.green, 'userId:', Meteor.userId(), 'arguments:', arguments
+		user = Meteor.user()
+		school = user.profile.school
+		console.log '[methods] createChannel -> '.green, 'userId:', Meteor.userId(), 'schoolId:', school._id, 'arguments:', arguments
 
 		now = new Date()
-		user = Meteor.user()
-		school = user.school
 		members.push user.username
 
 		# avoid duplicate names
-		if ChatRoom.findOne({name:name, school: {_id:school._id}})
+		if ChatRoom.findOne({name:name, s: {_id:school._id}})
+			console.log 'found duplicate class'
 			throw new Meteor.Error 'duplicate-name'
 
+		console.log 'no duplicate class'
 		# name = s.slugify name
 
 		room =

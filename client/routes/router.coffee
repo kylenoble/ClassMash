@@ -33,32 +33,51 @@ FlowRouter.route '/home',
 		BlazeLayout.render 'main', {center: 'home'}
 		KonchatNotification.getDesktopPermission()
 
+
 FlowRouter.route '/changeavatar',
 	name: 'changeAvatar'
 
 	action: ->
 		BlazeLayout.render 'main', {center: 'avatarPrompt'}
 
-FlowRouter.route '/settings/users',
-	name: 'settings-users'
+
+FlowRouter.route '/admin/users',
+	name: 'admin-users'
 
 	action: ->
-		BlazeLayout.render 'main', {center: 'settingsUsers'}
+		BlazeLayout.render 'main', {center: 'adminUsers'}
 
-FlowRouter.route '/settings/:group?',
-	name: 'settings'
+
+FlowRouter.route '/admin/rooms',
+	name: 'admin-rooms'
 
 	action: ->
-		BlazeLayout.render 'main', {center: 'settings'}
+		BlazeLayout.render 'main', {center: 'adminRooms'}
 
-FlowRouter.route '/usersettings/:group?',
-	name: 'userSettings'
+
+FlowRouter.route '/admin/statistics',
+	name: 'admin-statistics'
+
+	action: ->
+		BlazeLayout.render 'main', {center: 'adminStatistics'}
+
+
+FlowRouter.route '/admin/:group?',
+	name: 'admin'
+
+	action: ->
+		BlazeLayout.render 'main', {center: 'admin'}
+
+
+FlowRouter.route '/account/:group?',
+	name: 'account'
 
 	action: (params) ->
 		unless params.group
 			params.group = 'Profile'
 		params.group = _.capitalize params.group, true
-		BlazeLayout.render 'main', { center: "userSettings#{params.group}" }
+		BlazeLayout.render 'main', { center: "account#{params.group}" }
+
 
 FlowRouter.route '/history/private',
 	name: 'privateHistory'
@@ -69,3 +88,18 @@ FlowRouter.route '/history/private',
 	action: ->
 		Session.setDefault('historyFilter', '')
 		BlazeLayout.render 'main', {center: 'privateHistory'}
+
+
+FlowRouter.route '/terms-of-service',
+	name: 'terms-of-service'
+
+	action: ->
+		Session.set 'cmsPage', 'Layout_Terms_of_Service'
+		BlazeLayout.render 'cmsPage'
+
+FlowRouter.route '/privacy-policy',
+	name: 'privacy-policy'
+
+	action: ->
+		Session.set 'cmsPage', 'Layout_Privacy_Policy'
+		BlazeLayout.render 'cmsPage'

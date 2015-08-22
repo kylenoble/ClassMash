@@ -40,6 +40,9 @@ Template.loginForm.helpers
 			when 'forgot-password'
 				return t('Reset_password')
 
+	waitActivation: ->
+		return Template.instance().state.get() is 'wait-activation'
+		
 Template.loginForm.events
 	'submit #login-card': (event, instance) ->
 		event.preventDefault()

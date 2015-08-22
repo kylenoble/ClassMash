@@ -15,11 +15,12 @@ Accounts.emailTemplates.resetPassword.text = (user, url) ->
 	verifyEmailText user, url
 
 Accounts.onCreateUser (options, user) ->
+	# console.log 'onCreateUser ->',JSON.stringify arguments, null, '  '
 	# console.log 'options ->',JSON.stringify options, null, '  '
 	# console.log 'user ->',JSON.stringify user, null, '  '
 
 	user.status = 'offline'
-	user.active = true
+	user.active = not RocketChat.settings.get 'Accounts_ManuallyApproveNewUsers'
 
 	serviceName = null
 
@@ -31,8 +32,10 @@ Accounts.onCreateUser (options, user) ->
 		serviceName = 'github'
 	else if user.services?['meteor-developer']?
 		serviceName = 'meteor-developer'
+	else if user.services?.twitter?
+		serviceName = 'twitter'
 
-	if serviceName in ['facebook', 'google', 'meteor-developer', 'github']
+	if serviceName in ['facebook', 'google', 'meteor-developer', 'github', 'twitter']
 		if not user?.name? or user.name is ''
 			if options.profile?.name?
 				user.name = options.profile?.name
@@ -41,10 +44,11 @@ Accounts.onCreateUser (options, user) ->
 			else
 				user.name = user.services[serviceName].username
 
-		user.emails = [
-			address: user.services[serviceName].email
-			verified: true
-		]
+		if user.services[serviceName].email
+			user.emails = [
+				address: user.services[serviceName].email
+				verified: true
+			]
 
 	return user
 
@@ -55,10 +59,10 @@ Accounts.validateLoginAttempt (login) ->
 		return login.allowed
 
 	if login.user?.active isnt true
-		throw new Meteor.Error 'inactive-user', 'Your_user_has_been_deactivated'
+		throw new Meteor.Error 'inactive-user', TAPi18next.t 'project:User_is_not_activated'
 		return false
 
-	if login.type is 'password' and RocketChat.settings.get 'Accounts_denyUnverifiedEmails' is true
+	if login.type is 'password' and RocketChat.settings.get('Accounts_denyUnverifiedEmails') is true
 		validEmail = login.user.emails.filter (email) ->
 			return email.verified is true
 

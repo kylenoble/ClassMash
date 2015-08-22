@@ -7,6 +7,7 @@ accounts-facebook
 accounts-github
 accounts-google
 accounts-meteor-developer
+accounts-twitter
 accounts-password
 coffeescript
 email
@@ -84,3 +85,6 @@ raix:push@2.6.13-rc.1
 meteorhacks:search-source
 lookback:dropdowns
 outatime:geolib
+jalik:ufs
+jalik:ufs-gridfs
+monbro:mongodb-mapreduce-aggregation
