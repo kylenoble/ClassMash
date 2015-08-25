@@ -55,37 +55,55 @@
 				<form class="message-form" method="post" action="/">
 					<div style="display: flex">
 						<div class="file">
-							<i class="icon-attach"></i>
-							<input type="file" accept="image/*">
+							<i class="icon-arrow-up"></i>
+						</div>
+						<div class="adding-files">
+							<div class="regular-files">
+								<input type="file" id="select-regular-file">
+								<label class="label-regular-files" for="select-regular-file"><i class="icon-paper-clip"></i><span class="file-upload-text">Files</span></label>
+							</div>
+							<div class="add-notes">
+								<input type="file" id="select-notes">
+								<label class="label-add-notes" for="select-notes"><i class="icon-list"></i><span class="file-upload-text">Notes</span></label>
+							</div>
+							<div class="add-note-cards">
+								<input type="file" id="select-note-cards">
+								<label class="label-add-note-cards" for="add-note-cards"><i class="icon-layers"><span class="file-upload-text">Note Cards</span></i></label>
+							</div>
 						</div>
 						<div class="input-message-container">
 							{{> messagePopupConfig getPupupConfig}}
-							<textarea dir="auto" name="msg" maxlength="{{maxMessageLength}}" class="input-message" placeholder="{{_ 'Message'}}"></textarea>
-							<button class="add-file"><i class="icon-arrow-up"></i></button>
-							<div class="adding-files">
-								<div class="regular-files">
-									<input type="file" id="select-regular-file">
-									<label class="label-regular-files" for="select-regular-file"><span class="file-upload-text">Files</span><i class="icon-paper-clip"></i></label>
-								</div>
-								<div class="add-notes">
-									<input type="file" id="select-notes">
-									<label class="label-add-notes" for="select-notes"><span class="file-upload-text">Notes</span><i class="icon-list"></i></label>
-								</div>		
-								<div class="add-note-cards">
-									<input type="file" id="select-note-cards">
-									<label class="label-add-note-cards" for="add-note-cards"><span class="file-upload-text">Note Cards</span><i class="icon-layers"></i></label>
-								</div>																									
-							</div>
+							<textarea dir="auto" name="msg" maxlength="{{maxMessageLength}}" class="input-message autogrow-short" placeholder="{{_ 'Message'}}"></textarea>
+							<i class="icon-paper-plane" title="{{_ "Send_Message"}}"></i>
 						</div>
-						{{#if canRecordAudio}}
+						<!-- {{#if canRecordAudio}}
 							<div class="mic">
 								<i class="icon-mic"></i>
 							</div>
 							<div class="stop-mic hidden">
 								<i class="icon-stop"></i>
 							</div>
-						{{/if}}
+						{{/if}} -->
 					</div>
+					<!-- <div class="input-message-container">
+						{{> messagePopupConfig getPupupConfig}}
+						<textarea dir="auto" name="msg" maxlength="{{maxMessageLength}}" class="input-message" placeholder="{{_ 'Message'}}"></textarea>
+						<button class="add-file"><i class="icon-arrow-up"></i></button>
+						<div class="adding-files">
+							<div class="regular-files">
+								<input type="file" id="select-regular-file">
+								<label class="label-regular-files" for="select-regular-file"><span class="file-upload-text">Files</span><i class="icon-paper-clip"></i></label>
+							</div>
+							<div class="add-notes">
+								<input type="file" id="select-notes">
+								<label class="label-add-notes" for="select-notes"><span class="file-upload-text">Notes</span><i class="icon-list"></i></label>
+							</div>
+							<div class="add-note-cards">
+								<input type="file" id="select-note-cards">
+								<label class="label-add-note-cards" for="add-note-cards"><span class="file-upload-text">Note Cards</span><i class="icon-layers"></i></label>
+							</div>
+						</div>
+					</div> -->
 					<div class="users-typing">
 						{{#with usersTyping}}
 							<strong>{{users}}</strong>
@@ -104,14 +122,14 @@
 							{{/if}}
 						{{/with}}
 					</div>
-					<div class="formatting-tips" aria-hidden="true" dir="auto">
+					<!-- <div class="formatting-tips" aria-hidden="true" dir="auto">
 						<b>*{{_ "bold"}}*</b>
 						<i>_{{_ "italics"}}_</i>
 						<span>~<strike>{{_ "strike"}}</strike>~</span>
 						<code class="inline">`{{_ "inline_code"}}`</code>
 						<code class="inline"><span class="hidden-br"><br></span>```<span class="hidden-br"><br></span><i class="icon-level-down"></i>{{_ "multi"}}<span class="hidden-br"><br></span><i class="icon-level-down"></i>{{_ "line"}}<span class="hidden-br"><br></span><i class="icon-level-down"></i>```</code>
 						<q><span class="hidden-br"><br></span>&gt;{{_ "quote"}}</q>
-					</div>
+					</div> -->
 				</form>
 			{{else}}
 				{{#if canJoin}}
@@ -125,7 +143,7 @@
 	</section>
 	<section class="flex-tab">
 		<div class="control">
-			<button class="more"><span class="arrow {{arrowPosition}}"></span></button>
+			<button class="more"><span><img src="/images/logo/logo.svg?v=1" /></span></button>
 			{{#if canAddUser}}
 				<div class="search-form">
 					<div class="input-line search">

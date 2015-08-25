@@ -25,6 +25,10 @@ Template.loginServices.helpers
 
 		return services
 
+Template.loginServices.onRendered ->
+	$('.icon-facebook').addClass('icon-social-facebook')
+	$('.icon-twitter').addClass('icon-social-twitter')
+
 Template.loginServices.events
 	'click .external-login': (e, t)->
 		return unless this.service?

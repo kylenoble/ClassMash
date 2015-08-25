@@ -2,7 +2,7 @@
 	"deploy": {
 		"production": {
 			"user": "root",
-			"host": ["rocket.chat"],
+			"host": ["classmash"],
 			"ref": "origin/master",
 			"repo": "https://github.com/kylenoble/ClassMash.git",
 			"path": "/var/www/classmash",

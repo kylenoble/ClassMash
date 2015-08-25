@@ -77,7 +77,7 @@ blockquote {
 
 .login-terms {
 	max-width: 400px;
-	color: #C2E7FF;
+	color: white;
 	margin: auto;
 
 	a {
@@ -484,7 +484,7 @@ input.search {
 			background-position: center;
 			background-repeat: no-repeat;
 			display: block;
-			height: 40px;
+			height: 30px;
 			margin-bottom: 12px;
 		}
 	}
@@ -542,14 +542,14 @@ label.required:after {
 	background-image: url('/images/loading.gif');
 	background-repeat: no-repeat;
 	background-position: 50%;
-	width: 100%;
-	height: 100%;
+	width: 20px;
+	height: 20px;
 	position: fixed;
 	top: 0;
 	left: 0;
 	&.inline {
 		position: relative;
-		min-height: 40px;
+		max-height: 20px;
 		background-size: 24px 24px;
 	}
 }
@@ -2050,7 +2050,7 @@ a.github-fork {
 .school-search-result {
   color: white;
 	border: solid 1px white;
-} 
+}
 
 .school-search-result:hover:hover {
 	color: @primary-blue;
@@ -2087,15 +2087,15 @@ a.github-fork {
 .no-schools {
 	color: white;
 	font-weight: bold;
-} 
+}
 
 .show-add-school,
 .add-school-button {
 	background-color: @primary-red;
 	color: white;
-	border: 1px solid white;	
+	border: 1px solid white;
   padding: 10px 15px;
-  border-radius: 5px;	
+  border-radius: 5px;
 }
 
 .show-add-school {
@@ -2124,14 +2124,15 @@ a.github-fork {
 
 .adding-files {
 		display: none;
-    position: absolute;
-    right: 5px;
-    bottom: 65px;
-    height: 141px;
-    width: 50px;
-    padding: 15px 10px;
+		position: absolute;
+    left: 0px;
+    bottom: 45px;
+    height: 172px;
+    width: 95px;
+    border: 1px solid lightgray;
     background-color: white;
     border-radius: 10px;
+    padding: 15px 10px;
 
   .regular-files,
   .add-notes,
@@ -2139,7 +2140,7 @@ a.github-fork {
     margin-bottom: 10px;
     border: solid 1px @primary-red;
     width: 39px;
-    margin-left: -11px;
+    margin-left: 0px;
     height: 39px;
     border-radius: 20px;
     background-color: @primary-red;
@@ -2151,13 +2152,13 @@ a.github-fork {
     	font-size: 12px;
     	margin-right: 19px;
     	top: 2px;
-    	position: absolute;    	
+    	position: absolute;
     }
 
     &:hover {
     	background-color: white;
     	color: @primary-red;
-    }	    
+    }
 
 		#select-regular-file,
 		#select-notes,
@@ -2167,23 +2168,13 @@ a.github-fork {
 		}
   }
 
-  .regular-files {
-  	.file-upload-text { 
-			margin-left: -46px;
+  .regular-files,
+	.add-notes,
+	.add-note-cards {
+  	.file-upload-text {
+			margin-left: 15px;
   	}
   }
-
-  .add-notes {
-  	.file-upload-text { 
-			margin-left: -53px;
-  	}
-  } 
-
-  .add-note-cards {
-  	.file-upload-text { 
-			margin-left: -81px;
-  	}
-  }     
 
   .label-regular-files,
   .label-add-notes,
@@ -2192,7 +2183,7 @@ a.github-fork {
     margin-left: 15%;
     top: 19%;
     font-size: 20px;
-    cursor: pointer;    	
+    cursor: pointer;
   }
 }
 
@@ -2281,19 +2272,20 @@ a.github-fork {
 			}
 			> .file {
 				width: 44px;
+				height: 36px;
 				font-size: 22px;
 				padding: 6px 0;
 				text-align: center;
-				border: 1px solid #E7E7E7;
+				border: 1px solid @secondary-blue;
 				border-radius: 5px 0 0 5px;
 				border-right: none;
 				cursor: pointer;
-				color: #888;
-				background-color: #FCFCFC;
+				color: white;
+				background-color: @secondary-blue;
 				.transition(background-color 0.1s linear, color 0.1s linear);
 				&:hover {
-					background-color: #F1F1F1;
-					color: #666;
+					background-color: white;
+					color: @secondary-blue;
 				}
 
 				input {
@@ -2329,7 +2321,7 @@ a.github-fork {
 			}
 		}
 		textarea {
-			width: 95%;
+			width: 100%;
 			display: inline-block;
 			padding-top: 9px;
 			padding-bottom: 9px;
@@ -2338,10 +2330,21 @@ a.github-fork {
 			border-bottom-left-radius: 0;
 			overflow-y: hidden;
 			resize: none;
-			border-right: none;
-			border-radius: 5px 0px 0px 5px;
+			border-radius: 0 5px 5px 0;
 			&.editing {
 				background-color: #fff7d8;
+			}
+		}
+		.icon-paper-plane {
+			position: absolute;
+			top: 2px;
+			right: 0px;
+			cursor: pointer;
+			padding: 8px;
+			font-size: 16px;
+			color: @secondary-font-color;
+			&:hover {
+				color: @primary-font-color;
 			}
 		}
 		.add-file {
@@ -2356,11 +2359,11 @@ a.github-fork {
 			resize: none;
 			font-size: 22px;
 			background-color: @secondary-blue;
-			color:white;	
+			color:white;
 			&:hover {
 				background-color: white;
-				color: @secondary-blue;	
-			}									
+				color: @secondary-blue;
+			}
 			i {
 				vertical-align: middle;
 			}
@@ -2617,7 +2620,7 @@ a.github-fork {
 
 // FLEX-TAB and FLEX-TAB views
 .flex-tab {
-	background-color: @secondary-background-color;
+	background-color: white;
 	border-left: 1px solid @tertiary-background-color;
 	overflow-x: visible;
 	position: fixed;
@@ -2638,7 +2641,7 @@ a.github-fork {
 		text-align: left;
 		z-index: 100;
 		padding: 12px 30px 12px;
-		background-color: @secondary-background-color;
+		background-color: white;
 		> a,
 		> form {
 			float: left;
@@ -2658,13 +2661,12 @@ a.github-fork {
 		}
 		.more {
 			position: absolute;
-			left: 0;
-			top: 0px;
-			background-color: @primary-green;
+			left: -35px;
+			top: 5px;
+			background-color: white;
 			border: none;
-			height: 60px;
-			width: 30px;
-			border-bottom: 1px solid @tertiary-background-color;
+			height: 50px;
+			width: 50px;
 			color: @secondary-font-color;
 			cursor: pointer;
 			.transform(translateX(-27px));
@@ -2679,6 +2681,9 @@ a.github-fork {
 						}
 					}
 				}
+			}
+			img {
+				width: 40px;
 			}
 			.arrow {
 				&:before,
@@ -2696,7 +2701,7 @@ a.github-fork {
 				margin-top: 1px;
 			}
 			.flex-opened & {
-				background-color: @secondary-background-color;
+				background-color: white;
 				.transition-delay(0s);
 				.transform(translateX(0));
 				&:hover {
@@ -2711,7 +2716,8 @@ a.github-fork {
 		}
 		.search-form {
 			padding: 0 4px 0 0;
-			width: 100%;
+			width: 90%;
+			margin-left: 10%;
 			> div {
 				position: relative;
 			}
@@ -2805,6 +2811,16 @@ a.github-fork {
 			}
 			span {
 				display: none;
+			}
+		}
+	}
+}
+
+.flex-opened {
+	.flex-tab {
+		.control {
+			.more {
+				left: 0px;
 			}
 		}
 	}
@@ -3426,16 +3442,20 @@ a.github-fork {
 	z-index: 1;
 	header {
 		padding: 18px 0 23px;
+		font-size: 20px;
+		color: white;
+		border-bottom: 20px;
 		p {
 			//font-family: "Muli";
 			margin: 8px 0 0;
-			font-size: 14px;
+			font-size: 18px;
 			line-height: 22px;
 			font-weight: 300;
+			color: white;
 		}
 	}
 	img {
-		width: 200px;
+		width: 300px;
 	}
 	a {
 		color: white;
@@ -3474,8 +3494,8 @@ a.github-fork {
 	    &:hover {
 	    	background-color: darken(white, 5%);
 	    	color: @primary-blue;
-	    }			
-		}		
+	    }
+		}
 	}
 	.remember {
 		float: left;
@@ -3549,6 +3569,15 @@ a.github-fork {
 			background-color: transparent !important;
 		}
 	}
+	.registration-gif {
+		margin-top: 15px;
+		margin-bottom: 15px;
+		border-radius: 10px;
+	}
+}
+
+.error {
+	border-bottom: 1px solid @primary-red;
 }
 
 .social-login {
@@ -3565,6 +3594,7 @@ a.github-fork {
 	}
 	.button {
 		border-radius: 2px;
+		border: none;
 		min-height: 40px;
 		line-height: 20px;
 		font-size: 18px;
@@ -3858,12 +3888,29 @@ a.github-fork {
 }
 
 @media all and(max-width: 500px) {
-	.form-register-heading-one {
+	.form-register-heading-one,
+	.form-register-heading-two,
+	.form-login-header
+	 {
 		h2 {
-			font-size: 20px;
+			font-size: 16px;
 		}
 		h3 {
-			font-size: 18px;
+			font-size: 14px;
+		}
+	}
+
+	.flex-tab {
+		.control {
+			.more {
+				left: -50px;
+				width: 50px;
+				height: 35px;
+				top: 10px;
+				img {
+					width: 35px;
+				}
+			}
 		}
 	}
 
@@ -3886,16 +3933,21 @@ a.github-fork {
 			> .formatting-tips {
 				display: none;
 			}
-			textarea {
-				width: 80%;
-			}
-			.add-file {
-				width: 15%;
-				i {
-					margin-left: 0px;
-					margin-right: 0px;
+			> div {
+				> .file {
+					height: 37px;
 				}
 			}
+			// textarea {
+			// 	width: 80%;
+			// }
+			// .add-file {
+			// 	width: 15%;
+			// 	i {
+			// 		margin-left: 0px;
+			// 		margin-right: 0px;
+			// 	}
+			// }
 		}
 	}
 }

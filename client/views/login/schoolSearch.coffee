@@ -11,6 +11,8 @@ options =
 SchoolSearch = new SearchSource('schools', fields, options)
 
 Template.schoolSearchBox.created = ->
+  $('.school-search-result').hide()  
+
   location = Meteor.setInterval (->
       navigator.geolocation.getCurrentPosition (position) ->
         lat.set(position.coords.latitude)

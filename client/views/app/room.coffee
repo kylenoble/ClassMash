@@ -231,7 +231,7 @@ Template.room.helpers
 			userData = {
 				username: String(username)
 			}
-		
+
 		return userData
 
 	seeAll: ->
@@ -286,42 +286,20 @@ Template.room.helpers
 	utc: ->
 		if @utcOffset?
 			return "UTC #{@utcOffset}"
-	
+
 	phoneNumber: ->
 		return '' unless @phoneNumber
 		if @phoneNumber.length > 10
 			return "(#{@phoneNumber.substr(0,2)}) #{@phoneNumber.substr(2,5)}-#{@phoneNumber.substr(7)}"
 		else
 			return "(#{@phoneNumber.substr(0,2)}) #{@phoneNumber.substr(2,4)}-#{@phoneNumber.substr(6)}"
-	
+
 	lastLogin: ->
 		if @lastLogin
 			return moment(@lastLogin).format('LLL')
 
 	canJoin: ->
 		return !! ChatRoom.findOne { _id: @_id, t: 'c' }
-
-	uploadFiles = (category, files) ->	
-		items = files
-		console.log(files)
-		for item in items
-			console.log('adding files 1')
-			if item.type.indexOf('image/') isnt -1
-				console.log('adding files 2')
-				event.preventDefault()
-
-				newFile = new (FS.File)(item)
-				newFile.name(item.name)
-				newFile.rid = Session.get('openedRoom')
-				newFile.recId = Random.id()
-				newFile.userId = Meteor.userId()
-				newFile.category = category
-				Files.insert newFile, (error, fileObj) ->
-					unless error
-						toastr.success 'Upload from clipboard succeeded!'
-						$('.adding-files').toggle();		
-					else 
-						toastr.error error		
 
 Template.room.events
 	"touchstart .message": (e, t) ->
@@ -393,52 +371,59 @@ Template.room.events
 	'keyup .input-message': (event) ->
 		Template.instance().chatMessages.keyup(@_id, event, Template.instance())
 
-	'click .add-file': (event) ->
-		event.stopPropagation()
-		event.preventDefault()
-		$('.adding-files').toggle();			
+	'mouseenter .file': (event) ->
+		$('.adding-files').show();
 
-	'change #select-regular-file': (event, tmpl) ->
-		event.stopPropagation()
-		event.preventDefault()
-		console.log('adding file')
-		input = tmpl.find('input[type=file]')
-		
-		if not tmpl.find('input[type=file]')
-			return
+	'click .file': (event) ->
+		$('.adding-files').toggle();
 
-		uploadFiles('general', input.files)
-		files = []
-		for item in items
-			if item.kind is 'file' and item.type.indexOf('image/') isnt -1
-				e.preventDefault()
-				files.push
-					file: item.getAsFile()
-					name: 'Clipboard'
+	'mouseleave .adding-files': (event) ->
+		$('.adding-files').hide();
+
+	'change #select-regular-file': (event, tmplate) ->
+		e = event.originalEvent or event
+		files = e.target.files
+		if not files or files.length is 0
+			files = e.dataTransfer?.files or []
+
+		filesToUpload = []
+		for file in files
+			filesToUpload.push
+				file: file
+				name: file.name
+
+		fileUpload filesToUpload, 'regular'
+		$('.adding-files').hide();
 
 	'change #select-notes': (event, tmpl) ->
-		event.stopPropagation()
-		event.preventDefault()
-		console.log('adding file')
-		input = tmpl.find('input[type=file]')
-		
-		console.log(input)
+		e = event.originalEvent or event
+		files = e.target.files
+		if not files or files.length is 0
+			files = e.dataTransfer?.files or []
 
-		if not tmpl.find('input[type=file]')
-			return
+		filesToUpload = []
+		for file in files
+			filesToUpload.push
+				file: file
+				name: file.name
 
-		uploadFiles('notes', input.files)		
+		fileUpload filesToUpload, 'notes'
+		$('.adding-files').hide();
 
 	'change #select-note-cards': (event, tmpl) ->
-		event.stopPropagation()
-		event.preventDefault()
-		console.log('adding file')
-		input = tmpl.find('input[type=file]')
-		
-		if not tmpl.find('input[type=file]')
-			return
+		e = event.originalEvent or event
+		files = e.target.files
+		if not files or files.length is 0
+			files = e.dataTransfer?.files or []
 
-		uploadFiles('note-cards', input.files)				
+		filesToUpload = []
+		for file in files
+			filesToUpload.push
+				file: file
+				name: file.name
+
+		fileUpload filesToUpload, 'note-cards'
+		$('.adding-files').hide();
 
 	'keydown .input-message': (event) ->
 		Template.instance().chatMessages.keydown(@_id, event, Template.instance())
@@ -587,12 +572,12 @@ Template.room.events
 			closeOnConfirm: false
 			html: false
 		}, ->
-			swal 
+			swal
 				title: t('Deleted')
 				text: t('Your_entry_has_been_deleted')
 				type: 'success'
 				timer: 1000
-				showConfirmButton: false 
+				showConfirmButton: false
 
 			instance.chatMessages.deleteMsg(message)
 
@@ -680,7 +665,7 @@ Template.room.events
 				toastr.success t('User_has_been_deactivated')
 			if error
 				toastr.error error.reason
-	
+
 	'click .activate': ->
 		username = Session.get('showUserInfo')
 		user = Meteor.users.findOne { username: String(username) }

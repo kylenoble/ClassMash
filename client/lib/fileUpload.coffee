@@ -1,3 +1,5 @@
+fileCategory = new ReactiveVar('')
+
 readAsDataURL = (file, callback) ->
 	reader = new FileReader()
 	reader.onload = (ev) ->
@@ -12,10 +14,10 @@ readAsArrayBuffer = (file, callback) ->
 
 	reader.readAsArrayBuffer file
 
-
-@fileUpload = (files) ->
+@fileUpload = (files, category) ->
 	files = [].concat files
-
+	if category != undefined
+		fileCategory.set(category)
 	consume = ->
 		file = files.pop()
 		if not file?
@@ -61,13 +63,21 @@ readAsArrayBuffer = (file, callback) ->
 						name: file.name or file.file.name
 						size: file.file.size
 						type: file.file.type
+						category: fileCategory.get()
 
 					upload = new UploadFS.Uploader
 						store: Meteor.fileStore
 						data: data
 						file: record
+						category: fileCategory.get()
 						onError: (err) ->
-							console.error(err)
+							uploading = Session.get 'uploading'
+							if uploading?
+								item = _.findWhere(uploading, {id: upload.id})
+								if item?
+									item.error = err.reason
+									item.percentage = 0
+								Session.set 'uploading', uploading
 
 						onComplete: (file) ->
 							self = this
@@ -105,7 +115,6 @@ readAsArrayBuffer = (file, callback) ->
 						uploading ?= []
 
 						item = _.findWhere(uploading, {id: upload.id})
-
 						if not item?
 							item =
 								id: upload.id

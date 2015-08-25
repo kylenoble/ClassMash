@@ -1,7 +1,6 @@
 Meteor.startup ->
 	Meteor.defer ->
 
-
 		if not ChatRoom.findOne('name': 'general')?
 			ChatRoom.insert
 				_id: 'GENERAL'
