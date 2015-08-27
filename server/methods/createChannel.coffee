@@ -3,7 +3,7 @@ Meteor.methods
 		if not Meteor.userId()
 			throw new Meteor.Error 'invalid-user', "[methods] createChannel -> Invalid user"
 
-		if not /^[0-9a-z-_]+$/i.test name
+		if not /^[0-9a-z-_]+$/.test name
 			throw new Meteor.Error 'name-invalid'
 
 		user = Meteor.user()

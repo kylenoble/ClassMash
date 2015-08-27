@@ -88,3 +88,6 @@ outatime:geolib
 jalik:ufs
 jalik:ufs-gridfs
 monbro:mongodb-mapreduce-aggregation
+accounts-gitlab
+gitlab
+rocketchat:gitlab

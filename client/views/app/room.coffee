@@ -539,13 +539,19 @@ Template.room.events
 	'click .see-all': (e, instance) ->
 		instance.showUsersOffline.set(!instance.showUsersOffline.get())
 
-	"mousedown .edit-message": (e) ->
+	"click .edit-message": (e) ->
 		Template.instance().chatMessages.edit(e.currentTarget.parentNode.parentNode)
-		# Session.set 'editingMessageId', undefined
-		# Meteor.defer ->
-		# 	Session.set 'editingMessageId', self._id
-		# 	Meteor.defer ->
-		# 		$('.input-message-editing').select()
+		input = Template.instance().find('.input-message')
+		Meteor.setTimeout ->
+			input.focus()
+		, 200
+
+	"click .editing-commands-cancel > a": (e) ->
+		Template.instance().chatMessages.clearEditing()
+
+	"click .editing-commands-save > a": (e) ->
+		chatMessages = Template.instance().chatMessages
+		chatMessages.send(@_id, chatMessages.input)
 
 	"click .mention-link": (e) ->
 		channel = $(e.currentTarget).data('channel')
@@ -555,6 +561,9 @@ Template.room.events
 
 		Session.set('flexOpened', true)
 		Session.set('showUserInfo', $(e.currentTarget).data('username'))
+
+	'click .image-to-download': (event) ->
+		ChatMessage.update {_id: this._arguments[1]._id, 'urls.url': $(event.currentTarget).data('url')}, {$set: {'urls.$.downloadImages': true}}
 
 	'click .delete-message': (event) ->
 		message = @_arguments[1]
@@ -580,6 +589,14 @@ Template.room.events
 				showConfirmButton: false
 
 			instance.chatMessages.deleteMsg(message)
+	'click .pin-message': (event) ->
+		message = @_arguments[1]
+		instance = Template.instance()
+
+		if message.pinned
+			instance.chatMessages.unpinMsg(message)
+		else
+			instance.chatMessages.pinMsg(message)
 
 	'click .start-video': (event) ->
 		_id = Template.instance().data._id
@@ -610,22 +627,21 @@ Template.room.events
 	'dragleave .dropzone-overlay': (e) ->
 		e.currentTarget.parentNode.classList.remove 'over'
 
-	'dropped .dropzone-overlay': (e) ->
-		e.currentTarget.parentNode.classList.remove 'over'
+	'dropped .dropzone-overlay': (event) ->
+		event.currentTarget.parentNode.classList.remove 'over'
 
-		files = []
+		e = event.originalEvent or event
+		files = e.target.files
+		if not files or files.length is 0
+			files = e.dataTransfer?.files or []
 
-		evt = e.originalEvent or e
-
-		if not evt.target.files or evt.target.files.length is 0
-			evt.target.files = if evt.dataTransfer then evt.dataTransfer.files else []
-
-		for file in evt.target.files
-			files.push
+		filesToUpload = []
+		for file in files
+			filesToUpload.push
 				file: file
 				name: file.name
 
-		fileUpload files
+		fileUpload filesToUpload
 
 	'change .message-form input[type=file]': (event, template) ->
 		e = event.originalEvent or event
@@ -741,17 +757,35 @@ Template.room.onRendered ->
 	RoomHistoryManager.getMoreIfIsEmpty this.data._id
 
 renameRoom = (rid, name) ->
+	name = name?.toLowerCase().trim()
 	console.log 'room renameRoom' if window.rocketDebug
-	if Session.get('roomData' + rid).name == name
+	room = Session.get('roomData' + rid)
+	if room.name is name
 		Session.set('editRoomTitle', false)
 		return false
 
 	Meteor.call 'saveRoomName', rid, name, (error, result) ->
 		if result
 			Session.set('editRoomTitle', false)
+			# If room was renamed then close current room and send user to the new one
+			RoomManager.close room.t + room.name
+			switch room.t
+				when 'c'
+					FlowRouter.go 'channel', name: name
+				when 'p'
+					FlowRouter.go 'group', name: name
 
 			toastr.success t('Room_name_changed_successfully')
 		if error
+			if error.error is 'name-invalid'
+				toastr.error t('Invalid_room_name', name)
+				return
+			if error.error is 'duplicate-name'
+				if room.t is 'c'
+					toastr.error t('Duplicate_channel_name', name)
+				else
+					toastr.error t('Duplicate_private_group_name', name)
+				return
 			toastr.error error.reason
 
 toggleAddUser = ->

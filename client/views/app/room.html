@@ -41,6 +41,7 @@
 						</li>
 					{{/if}}
 					{{#each messagesHistory}}
+					<div class="upload-progress-item {{#if error}}upload-error{{/if}}">
 						{{#nrr nrrargs 'message' .}}{{/nrr}}
 					{{/each}}
 				</ul>

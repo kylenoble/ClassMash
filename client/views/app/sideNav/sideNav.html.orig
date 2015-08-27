@@ -1,0 +1,36 @@
+<template name="sideNav">
+	<aside class="side-nav" role="navigation">
+		<header class="header">
+			{{> userStatus}}
+		</header>
+		{{#if currentUser}}
+			<div class="rooms-list">
+				<div class="wrapper">
+					{{> channels }}
+					{{> directMessages }}
+					{{> privateGroups }}
+					<h3>
+						<a href="{{pathFor 'privateHistory'}}">{{_ "History"}}</a>
+					</h3>
+				</div>
+			</div>
+			<div class="flex-nav hidden">
+				<section>
+					{{> UI.dynamic template=flexTemplate data=flexData}}
+				</section>
+			</div>
+			<span class="arrow bottom"></span>
+		{{/if}}
+		<footer class="footer">
+<<<<<<< HEAD
+			<p class="powered"> Powered by 
+				<a target="_blank" href="http://rocket.chat">
+					<img src="/images/logo/logo.svg?v=3" />
+				</a>
+			</p>
+=======
+			{{{footer}}}
+>>>>>>> a40bbbcc5f207ff53b0e71b5500bb9ae6cf3611d
+		</footer>
+	</aside>
+</template>
