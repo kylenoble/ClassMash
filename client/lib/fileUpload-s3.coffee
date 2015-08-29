@@ -3,6 +3,7 @@ fileRoomId = new ReactiveVar('')
 
 @fileUploadS3 = (file, category, roomId, fileUrl) ->
 	fileCategory.set(category)
+	console.log(roomId)
 	fileRoomId.set(roomId)
 	consume = ->
 		text = ''

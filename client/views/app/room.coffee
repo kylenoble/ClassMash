@@ -406,7 +406,7 @@ Template.room.events
 					console.log(uploader.xhr.response)
 					toastr.error 'Error uploading', uploader.xhr.response
 			else
-				fileUploadS3 files, 'regular', this._id, downloadUrl
+				fileUploadS3 files, 'regular', metaContext.roomId, downloadUrl
 			return
 
 		$('.adding-files').hide();
@@ -426,7 +426,7 @@ Template.room.events
 				console.log(uploader.xhr.response)
 				toastr.error 'Error uploading', uploader.xhr.response
 			else
-				fileUploadS3 files, 'notes', this._id, downloadUrl
+				fileUploadS3 files, 'notes', metaContext.roomId, downloadUrl
 			return
 
 		$('.adding-files').hide();
@@ -446,7 +446,7 @@ Template.room.events
 				console.log(uploader.xhr.response)
 				toastr.error 'Error uploading', uploader.xhr.response
 			else
-				fileUploadS3 files, 'note-cards', this._id, downloadUrl
+				fileUploadS3 files, 'note-cards', metaContext.roomId, downloadUrl
 			return
 
 		$('.adding-files').hide();
