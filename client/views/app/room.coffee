@@ -15,7 +15,7 @@ Template.room.helpers
 		return ChatSubscription.find({ rid: this._id }).count() > 0
 
 	messagesHistory: ->
-		return ChatMessage.find { rid: this._id, t: { '$ne': 't' }  }, { sort: { ts: 1 } }
+		return ChatMessage.find { rid: this._id, t: { '$ne': 't' }	}, { sort: { ts: 1 } }
 
 	hasMore: ->
 		return RoomHistoryManager.hasMore this._id
@@ -62,6 +62,9 @@ Template.room.helpers
 			return ChatSubscription.findOne({ rid: this._id }, { fields: { name: 1 } })?.name
 		else
 			return roomData.name
+
+	roomId: ->
+		return this._id
 
 	roomIcon: ->
 		roomData = Session.get('roomData' + this._id)
@@ -298,6 +301,9 @@ Template.room.helpers
 		if @lastLogin
 			return moment(@lastLogin).format('LLL')
 
+	fileUrl: ->
+		return @uploader.url(true);
+
 	canJoin: ->
 		return !! ChatRoom.findOne { _id: @_id, t: 'c' }
 
@@ -329,17 +335,17 @@ Template.room.events
 			Session.set('flexOpened', true)
 
 
-	"click .flex-tab  .video-remote" : (e) ->
+	"click .flex-tab	.video-remote" : (e) ->
 		if (Session.get('flexOpened'))
 			if (!Session.get('rtcLayoutmode'))
 				Session.set('rtcLayoutmode', 1)
 			else
 				t = Session.get('rtcLayoutmode')
 				t = (t + 1) % 4
-				console.log  'setting rtcLayoutmode to ' + t  if window.rocketDebug
+				console.log	'setting rtcLayoutmode to ' + t	if window.rocketDebug
 				Session.set('rtcLayoutmode', t)
 
-	"click .flex-tab  .video-self" : (e) ->
+	"click .flex-tab	.video-self" : (e) ->
 		if (Session.get('rtcLayoutmode') == 3)
 			console.log 'video-self clicked in layout3' if window.rocketDebug
 			i = document.getElementById("fullscreendiv")
@@ -382,47 +388,67 @@ Template.room.events
 
 	'change #select-regular-file': (event, tmplate) ->
 		e = event.originalEvent or event
-		files = e.target.files
+		files = document.getElementById('select-regular-file').files[0]
 		if not files or files.length is 0
 			files = e.dataTransfer?.files or []
 
-		filesToUpload = []
-		for file in files
-			filesToUpload.push
-				file: file
-				name: file.name
+		metaContext = {roomId: this._id}
+		uploader = new Slingshot.Upload("fileUploads", metaContext)
 
-		fileUpload filesToUpload, 'regular'
+		uploader.send files, (error, downloadUrl) ->
+			if error
+				if error.error = 'Login Required'
+					toastr.error error.error
+					return
+				else
+					console.log(error)
+					console.log(uploader.xhr)
+					console.log(uploader.xhr.response)
+					toastr.error 'Error uploading', uploader.xhr.response
+			else
+				fileUploadS3 files, 'regular', this._id, downloadUrl
+			return
+
 		$('.adding-files').hide();
 
 	'change #select-notes': (event, tmpl) ->
 		e = event.originalEvent or event
-		files = e.target.files
+		files = document.getElementById('select-notes').files[0]
 		if not files or files.length is 0
 			files = e.dataTransfer?.files or []
 
-		filesToUpload = []
-		for file in files
-			filesToUpload.push
-				file: file
-				name: file.name
+		metaContext = {roomId: this._id}
+		uploader = new Slingshot.Upload("fileUploads", metaContext)
 
-		fileUpload filesToUpload, 'notes'
+		uploader.send files, (error, downloadUrl) ->
+			if error
+				console.log(uploader.xhr)
+				console.log(uploader.xhr.response)
+				toastr.error 'Error uploading', uploader.xhr.response
+			else
+				fileUploadS3 files, 'notes', this._id, downloadUrl
+			return
+
 		$('.adding-files').hide();
 
 	'change #select-note-cards': (event, tmpl) ->
 		e = event.originalEvent or event
-		files = e.target.files
+		files = document.getElementById('select-note-cards').files[0]
 		if not files or files.length is 0
 			files = e.dataTransfer?.files or []
 
-		filesToUpload = []
-		for file in files
-			filesToUpload.push
-				file: file
-				name: file.name
+		metaContext = {roomId: this._id}
+		uploader = new Slingshot.Upload("fileUploads", metaContext)
 
-		fileUpload filesToUpload, 'note-cards'
+		uploader.send files, (error, downloadUrl) ->
+			if error
+				console.log(uploader.xhr)
+				console.log(uploader.xhr.response)
+				toastr.error 'Error uploading', uploader.xhr.response
+			else
+				fileUploadS3 files, 'note-cards', this._id, downloadUrl
+			return
+
 		$('.adding-files').hide();
 
 	'keydown .input-message': (event) ->
@@ -626,36 +652,6 @@ Template.room.events
 
 	'dragleave .dropzone-overlay': (e) ->
 		e.currentTarget.parentNode.classList.remove 'over'
-
-	'dropped .dropzone-overlay': (event) ->
-		event.currentTarget.parentNode.classList.remove 'over'
-
-		e = event.originalEvent or event
-		files = e.target.files
-		if not files or files.length is 0
-			files = e.dataTransfer?.files or []
-
-		filesToUpload = []
-		for file in files
-			filesToUpload.push
-				file: file
-				name: file.name
-
-		fileUpload filesToUpload
-
-	'change .message-form input[type=file]': (event, template) ->
-		e = event.originalEvent or event
-		files = e.target.files
-		if not files or files.length is 0
-			files = e.dataTransfer?.files or []
-
-		filesToUpload = []
-		for file in files
-			filesToUpload.push
-				file: file
-				name: file.name
-
-		fileUpload filesToUpload
 
 	'click .message-form .mic': (e, t) ->
 		AudioRecorder.start ->

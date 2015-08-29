@@ -38,6 +38,11 @@ Meteor.startup ->
 	RocketChat.settings.add 'SMTP_Username', '', { type: 'string', group: 'SMTP' }
 	RocketChat.settings.add 'SMTP_Password', '', { type: 'string', group: 'SMTP' }
 
+	RocketChat.settings.add 'AWSAccessKeyId', '', { type: 'string', group: 'AWSS3' }
+	RocketChat.settings.add 'AWSSecretAccessKey', '', { type: 'string', group: 'AWSS3' }
+	RocketChat.settings.add 'AWSBucket', '', { type: 'string', group: 'AWSS3' }
+	RocketChat.settings.add 'AWSRegion', '', { type: 'string', group: 'AWSS3' }	
+
 	RocketChat.settings.addGroup 'Message'
 	RocketChat.settings.add 'Message_AllowEditing', true, { type: 'boolean', group: 'Message', public: true }
 	RocketChat.settings.add 'Message_AllowDeleting', true, { type: 'boolean', group: 'Message', public: true }
