@@ -6,6 +6,9 @@ Template.room.helpers
 	tQuickSearch: ->
 		return t('Quick_Search')
 
+	searchResult: ->
+		return Template.instance().searchResult.get()
+
 	# favorite: ->
 	# 	sub = ChatSubscription.findOne { rid: this._id }, { fields: { f: 1 } }
 	# 	return 'icon-star favorite-room' if sub?.f? and sub.f
@@ -78,25 +81,9 @@ Template.room.helpers
 			when 'c' then return 'icon-globe-alt'
 			when 'p' then return 'icon-lock'
 
-	userData: ->
-		roomData = Session.get('roomData' + this._id)
-
-		return {} unless roomData
-
-		if roomData.t is 'd'
-			username = _.without roomData.usernames, Meteor.user().username
-
-			userData = {
-				name: Session.get('user_' + username + '_name')
-				emails: Session.get('user_' + username + '_emails') || []
-				phone: Session.get('user_' + username + '_phone')
-				username: String(username)
-			}
-
-			if Meteor.user()?.admin is true
-				userData = _.extend userData, Meteor.users.findOne { username: String(username) }
-
-			return userData
+	flexUserInfo: ->
+		username = Session.get('showUserInfo')
+		return Meteor.users.findOne({ username: String(username) }) or { username: String(username) }
 
 	userStatus: ->
 		roomData = Session.get('roomData' + this._id)
@@ -225,18 +212,6 @@ Template.room.helpers
 
 		return ret
 
-	flexUserInfo: ->
-		username = Session.get('showUserInfo')
-
-		if Meteor.user()?.admin is true
-			userData = _.extend { username: String(username) }, Meteor.users.findOne { username: String(username) }
-		else
-			userData = {
-				username: String(username)
-			}
-
-		return userData
-
 	seeAll: ->
 		if Template.instance().showUsersOffline.get()
 			return t('See_only_online')
@@ -308,12 +283,24 @@ Template.room.helpers
 		return !! ChatRoom.findOne { _id: @_id, t: 'c' }
 
 Template.room.events
+	"keyup #room-search": _.debounce (e, t) ->
+		t.searchResult.set undefined
+		value = e.target.value.trim()
+		if value is ''
+			return
+
+		Tracker.nonreactive ->
+			Meteor.call 'messageSearch', value, Session.get('openedRoom'), (error, result) ->
+				if result? and (result.messages?.length > 0 or result.users?.length > 0 or result.channels?.length > 0)
+					t.searchResult.set result
+	, 1000
+
 	"touchstart .message": (e, t) ->
 		message = this._arguments[1]
 		doLongTouch = ->
 			mobileMessageMenu.show(message, t)
 
-		t.touchtime = Meteor.setTimeout doLongTouch, 2000
+		t.touchtime = Meteor.setTimeout doLongTouch, 500
 
 	"touchend .message": (e, t) ->
 		Meteor.clearTimeout t.touchtime
@@ -327,10 +314,11 @@ Template.room.events
 	"click .upload-progress-item > a": ->
 		Session.set "uploading-cancel-#{this.id}", true
 
-	"click .flex-tab .more": (event) ->
+	"click .flex-tab .more": (event, t) ->
 		if (Session.get('flexOpened'))
 			Session.set('rtcLayoutmode', 0)
 			Session.set('flexOpened',false)
+			t.searchResult.set undefined
 		else
 			Session.set('flexOpened', true)
 
@@ -692,12 +680,12 @@ Template.room.onCreated ->
 	# this.typing = new msgTyping this.data._id
 	this.showUsersOffline = new ReactiveVar false
 	this.atBottom = true
+	this.searchResult = new ReactiveVar
 
-	# If current user is admin, subscribe to full user data
-	if Meteor.user()?.admin is true
-		Tracker.autorun ->
-			if Session.get('showUserInfo') and not Meteor.users.findOne Session.get 'showUserInfo'
-				Meteor.subscribe 'fullUsers', Session.get('showUserInfo'), 1
+	self = @
+
+	@autorun ->
+		self.subscribe 'fullUserData', Session.get('showUserInfo'), 1
 
 Template.room.onRendered ->
 
@@ -726,6 +714,8 @@ Template.room.onRendered ->
 
 	wrapper.addEventListener 'touchend', ->
 		onscroll()
+		readMessage.enable()
+		readMessage.read()
 
 	wrapper.addEventListener 'scroll', ->
 		template.atBottom = false
@@ -734,10 +724,14 @@ Template.room.onRendered ->
 	wrapper.addEventListener 'mousewheel', ->
 		template.atBottom = false
 		onscroll()
+		readMessage.enable()
+		readMessage.read()
 
 	wrapper.addEventListener 'wheel', ->
 		template.atBottom = false
 		onscroll()
+		readMessage.enable()
+		readMessage.read()
 
 	# salva a data da renderização para exibir alertas de novas mensagens
 	$.data(this.firstNode, 'renderedAt', new Date)

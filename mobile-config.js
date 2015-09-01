@@ -52,6 +52,8 @@ App.setPreference('StatusBarOverlaysWebView', false);
 App.setPreference('StatusBarStyle', 'lightcontent');
 App.setPreference('StatusBarBackgroundColor', '#000000');
 App.setPreference('ShowSplashScreenSpinner', false);
+App.setPreference('android-targetSdkVersion', '19');
+App.setPreference('android-minSdkVersion', '19');
 App.accessRule('*');
 
 // Pass preferences for a particular PhoneGap/Cordova plugin
