@@ -98,6 +98,48 @@ blockquote {
 		background-size: contain;
 		background-repeat: no-repeat;
 		background-position: center center;
+		.fa,
+		.icon-note,
+		.icon-key {
+			margin-top: 10%;
+	    font-size: 100px;
+			display: inline-block;
+		}
+	}
+}
+
+.fa-file-pdf-o {
+	color: @primary-red;
+}
+
+.fa-file-excel-o {
+	color: #26A65B;
+}
+
+.fa-file-word-o {
+	color: #446CB3;
+}
+
+.fa-file-powerpoint-o {
+	color: #F27935;
+}
+
+.icon-note {
+	color: #F4B350;
+}
+
+.fa-bar-chart {
+	color: #E74C3C;
+}
+
+.icon-key {
+	color: #3A539B;
+}
+
+.fa-cloud-download {
+	color: @secondary-blue;
+	&:hover {
+		color: darken(@secondary-blue, 15%);
 	}
 }
 
@@ -105,6 +147,37 @@ blockquote {
 	background-color: #eee;
 	padding: 3px;
 	border-radius: 0 0 5px 5px;
+}
+
+.uploaded-file {
+	margin-top: 5px;
+	padding: 15px 15px;
+	border: solid 1px rgba(226, 224, 224, 0.61);
+	border-radius: 5px;
+	width: 80%;
+	i {
+		font-size: 35px;
+		&.fa-cloud-download {
+			font-size: 20px;
+		}
+	}
+	&:hover {
+		background-color: rgba(234, 233, 233, 0.73);
+	}
+}
+
+.file-upload-metadata {
+	position: absolute;
+	bottom: -7px;
+	padding: 40px 45px;
+	font-size: 12px;
+}
+
+.download-file {
+	position: absolute;
+	bottom: -30px;
+	right: 20%;
+	padding: 47px 40px;
 }
 
 .flex-center {
@@ -3596,8 +3669,9 @@ a.github-fork {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  align-items: center;
-  justify-content: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	justify-content: center;
 	font-family: "Avenir Next";
 	.row {
 

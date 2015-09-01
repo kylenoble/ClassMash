@@ -25,6 +25,17 @@ Template.message.helpers
 			when 'wm' then t('Welcome', { user: this.u.username })
 			when 'rm' then t('Message_removed', { user: this.u.username })
 			when 'rtc' then RocketChat.callbacks.run 'renderRtcMessage', this
+			when 'pdf', 'csv', 'vnd.ms-excel', 'vnd.msword', 'vnd.ms-powerpoint', 'pages', 'numbers', 'key' then (
+				this.html = this.msg
+				message = RocketChat.callbacks.run 'renderMessage', this
+				return this.html
+				)
+			when 'image' then (
+				this.html = this.msg
+				message = RocketChat.callbacks.run 'renderMessage', this
+				this.html = message.html.replace /\n/gm, '<br/>'
+				return this.html
+				)
 			else
 				this.html = this.msg
 				if _.trim(this.html) isnt ''
@@ -75,7 +86,10 @@ Template.message.onViewRendered = (context) ->
 			for item in context.urls
 				do (item) ->
 					urlNode = lastNode.querySelector('.body a[href="'+item.url+'"]')
-					if urlNode?
+					titleNode = lastNode.querySelector('.linkable-title')
+					# console.log(titleNode)
+					# console.log(urlNode)
+					if urlNode? and !titleNode
 						$(urlNode).replaceWith Blaze.toHTMLWithData Template.oembedBaseWidget, item
 
 		if not lastNode.nextElementSibling?

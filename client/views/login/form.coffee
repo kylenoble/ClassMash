@@ -5,13 +5,13 @@ secondaryBlue = '#3498DB'
 
 Template.loginForm.helpers
 	userName: ->
-		return Meteor.user()?.username	
+		return Meteor.user()?.username
 
 	validateEmailPageInfo: ->
 		return Session.get('validatingEmailInfo')
 
 	addingSchool: ->
-		return 'hidden' unless Template.instance().state.get() is 'add-school'		
+		return 'hidden' unless Template.instance().state.get() is 'add-school'
 
 	forgotPasswordActive: ->
 		return 'hidden' unless Template.instance().state.get() is 'forgot-password'
@@ -50,7 +50,7 @@ Template.loginForm.helpers
 
 	waitActivation: ->
 		return Template.instance().state.get() is 'wait-activation'
-		
+
 Template.loginForm.events
 	'submit #login-card': (event, instance) ->
 		event.preventDefault()
@@ -89,16 +89,16 @@ Template.loginForm.events
 					Meteor.loginWithPassword formData.email, formData.pass, (error) ->
 						console.log(error)
 						if error?.error is 'no-valid-email'
-							instance.state.set 'wait-activation'	
+							instance.state.set 'wait-activation'
 							Session.set('validatingEmailInfo', true)
 						else if error?.error is 'inactive-user'
-							instance.state.set 'wait-activation'							
+							instance.state.set 'wait-activation'
 						else
-							$("#search-container").removeClass("blue-background") 
-							$("#search-container").addClass("green-background") 
-							$(".full-page").removeClass("blue-background") 
-							$(".full-page").addClass("green-background") 
-							$('body').css('background-color', primaryGreen)      		 
+							$("#search-container").removeClass("blue-background")
+							$("#search-container").addClass("green-background")
+							$(".full-page").removeClass("blue-background")
+							$(".full-page").addClass("green-background")
+							$('body').css('background-color', primaryGreen)
 			else
 				Meteor.loginWithPassword formData.email, formData.pass, (error) ->
 					RocketChat.Button.reset(button)
@@ -113,12 +113,12 @@ Template.loginForm.events
 	'click .register': ->
 		element = $("#login-card")
 		element.removeClass("blue-background")
-		element.addClass("green-background") 
-		element = $(".full-page")
-		element.removeClass("blue-background")    
 		element.addClass("green-background")
-		$('body').css('background-color', primaryGreen)   		
-		Template.instance().state.set 'register' 			
+		element = $(".full-page")
+		element.removeClass("blue-background")
+		element.addClass("green-background")
+		$('body').css('background-color', primaryGreen)
+		Template.instance().state.set 'register'
 
 	'click .back-to-login': ->
 		$('#inputSchoolName').val('')
@@ -127,26 +127,26 @@ Template.loginForm.events
 		element = $("#login-card")
 		element.removeClass("green-background")
 		element.removeClass("red-background")
-		element.addClass("blue-background") 
+		element.addClass("blue-background")
 		element = $(".full-page")
 		element.removeClass("green-background")
-		element.removeClass("red-background")    
+		element.removeClass("red-background")
 		element.addClass("blue-background")
-		$('body').css('background-color', primaryBlue)   		
-		Template.instance().state.set 'login'		
+		$('body').css('background-color', primaryBlue)
+		Template.instance().state.set 'login'
 
 	'click .forgot-password': ->
 		element = $("#login-card")
-		element.removeClass("green-background") 
-		element.addClass("blue-background") 
-		element = $(".full-page")    
-		element.removeClass("green-background") 
-		element.addClass("blue-background")  				
+		element.removeClass("green-background")
+		element.addClass("blue-background")
+		element = $(".full-page")
+		element.removeClass("green-background")
+		element.addClass("blue-background")
 		Template.instance().state.set 'forgot-password'
 
 Template.loginForm.onCreated ->
 	instance = @
-	@state = new ReactiveVar('login')     
+	@state = new ReactiveVar('login')
 
 	@validate = ->
 		formData = $("#login-card").serializeArray()
@@ -182,29 +182,37 @@ Template.loginForm.onCreated ->
 
 		$("#login-card h2").removeClass "error"
 		$("#login-card input.error").removeClass "error"
-		return formObj		
+		return formObj
 
 Template.loginForm.onRendered ->
+	element = $(".icon-facebook");
+	if !element.hasClass("icon-social-facebook")
+	    element.addClass("icon-social-facebook")
+
+	element = $(".icon-twitter")
+	if !element.hasClass("icon-social-twitter")
+	    element.addClass("icon-social-twitter")
+
 	if this.state.get() is 'login'
-		$("#login-card").addClass("blue-background")  
+		$("#login-card").addClass("blue-background")
 		$(".full-page") .addClass("blue-background")
-		$('body').css('background-color', '#34495e') 
+		$('body').css('background-color', '#34495e')
 		$('.icon-facebook').addClass('icon-social-facebook')
 		$('.icon-twitter').addClass('icon-social-twitter')
-    
+
 
 	if this.state.get() is 'register'
-		$("#login-card").addClass("green-background") 
-		$(".full-page").addClass("green-background") 
+		$("#login-card").addClass("green-background")
+		$(".full-page").addClass("green-background")
 		$('body').css("background-color", )
 		$('.icon-facebook').addClass('icon-social-facebook')
 		$('.icon-twitter').addClass('icon-social-twitter')
 
 
 	if this.state.get() is 'add-school'
-		$("#login-card").addClass("red-background") 
-		$(".full-page").addClass("red-background")  		  	
-		
+		$("#login-card").addClass("red-background")
+		$(".full-page").addClass("red-background")
+
 	Tracker.autorun =>
 		switch this.state.get()
 			when 'login', 'forgot-password', 'email-verification'
@@ -218,5 +226,3 @@ Template.loginForm.onRendered ->
 			when 'add-school'
 				Meteor.defer ->
 					$('input[name=school]').select().focus()
-
-

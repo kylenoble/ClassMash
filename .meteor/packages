@@ -89,5 +89,9 @@ jalik:ufs
 jalik:ufs-gridfs
 monbro:mongodb-mapreduce-aggregation
 rocketchat:custom-oauth
+gitlab
 rocketchat:gitlab
 rocketchat:statistics
+fortawesome:fontawesome
+edgee:slingshot
+fortawesome:fontawesome
