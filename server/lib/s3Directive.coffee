@@ -26,8 +26,6 @@ Slingshot.fileRestrictions 'fileUploads',
     'application/vnd.apple.pages'
     'application/vnd.apple.numbers'
     'application/zip'
-    ' '
-    ''
   ]
   maxSize: 10 * 1024 * 1024
 

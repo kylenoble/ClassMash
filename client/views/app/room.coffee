@@ -374,37 +374,9 @@ Template.room.events
 		if not files or files.length is 0
 			files = e.dataTransfer?.files or []
 
-		# console.log(files)
-		# console.log(files.File)
-		# if files[0].File.type is ''
-		# 	fileType = files[0].File.name.split('.')
-		# 	if fileType[fileType.length - 1] is 'xls' or 'xlsx'
-		# 		files[0].File.type = 'application/vnd.ms-excel'
+		console.log(files)
 
-
-		metaContext = {roomId: this._id}
-		uploader = new Slingshot.Upload("fileUploads", metaContext)
-		console.log(files.type)
-		if files.type == ""
-			console.log('changing')
-			fileName = files.name.split('.')
-			console.log(fileName)
-			files.type = fileName[fileName.length - 2]
-			console.log(files.type)
-		uploader.send files, (error, downloadUrl) ->
-			if error
-				if error.error
-					toastr.error error.error
-					return
-				else
-					if uploader.xhr
-						console.log(uploader.xhr.response)
-						toastr.error 'Error uploading', uploader.xhr.response
-					else
-						toastr.error error
-			else
-				fileUploadS3 files, 'regular', metaContext.roomId, downloadUrl
-			return
+		fileUploadS3 files, 'regular', this._id
 
 		$('.adding-files').hide();
 
@@ -414,29 +386,9 @@ Template.room.events
 		if not files or files.length is 0
 			files = e.dataTransfer?.files or []
 
-		metaContext = {roomId: this._id}
-		uploader = new Slingshot.Upload("fileUploads", metaContext)
-		console.log(files.type)
-		if files.type == ""
-			console.log('changing')
-			fileName = files.name.split('.')
-			console.log(fileName)
-			files.type = fileName[fileName.length - 2]
-			console.log(files.type)
-		uploader.send files, (error, downloadUrl) ->
-			if error
-				if error.error
-					toastr.error error.error
-					return
-				else
-					if uploader.xhr
-						console.log(uploader.xhr.response)
-						toastr.error 'Error uploading', uploader.xhr.response
-					else
-						toastr.error error
-			else
-				fileUploadS3 files, 'notes', metaContext.roomId, downloadUrl
-			return
+		console.log(files)
+
+		fileUploadS3 files, 'notes', this._id
 
 		$('.adding-files').hide();
 
@@ -446,29 +398,9 @@ Template.room.events
 		if not files or files.length is 0
 			files = e.dataTransfer?.files or []
 
-		metaContext = {roomId: this._id}
-		uploader = new Slingshot.Upload("fileUploads", metaContext)
-		console.log(files.type)
-		if files.type == ""
-			console.log('changing')
-			fileName = files.name.split('.')
-			console.log(fileName)
-			files.type = fileName[fileName.length - 2]
-			console.log(files.type)
-		uploader.send files, (error, downloadUrl) ->
-			if error
-				if error.error
-					toastr.error error.error
-					return
-				else
-					if uploader.xhr
-						console.log(uploader.xhr.response)
-						toastr.error 'Error uploading', uploader.xhr.response
-					else
-						toastr.error error
-			else
-				fileUploadS3 files, 'note-cards', metaContext.roomId, downloadUrl
-			return
+		console.log(files)
+
+		fileUploadS3 files, 'not-cards', this._id
 
 		$('.adding-files').hide();
 

@@ -9,20 +9,20 @@
 	  <div class="row">
 	  	<h2><b>Log In</b></h2>
 	  </div>
-	</div>	
+	</div>
 	<div class="form-forgot-password {{forgotPasswordActive}}">
 	  <div class="row">
 	  	<h2><b>Forgot Password</b></h2>
 	  </div>
-	</div>	
+	</div>
 	<form id="login-card" method='/'>
 		{{#if waitActivation}}
 			<header>
 				<h2>{{{_ "Registration_Succeeded"}}}</h2>
 				{{#if validateEmailPageInfo}}
 					<p>In order to make sure you're not like our friend below, we sent you a verification email.</p>
-					<img class="registration-gif" src="http://i.giphy.com/zUvjn7bIf9aLe.gif">	
-					<p>Click the link in the email and join your classmates today!</p>		
+					<img class="registration-gif" src="http://i.giphy.com/zUvjn7bIf9aLe.gif">
+					<p>Click the link in the email and join your classmates today!</p>
 				{{else}}
 					<p>{{{_ "Wait_activation_warning"}}}</p>
 					<p>{{{_ "Please_wait_activation"}}}</p>
@@ -37,15 +37,15 @@
 			<div class="fields">
 				<div class='input-text active {{showName}}'>
 					<input type="text" name='name' placeholder='{{_ "Name"}}' dir="auto" />
-					<i class="login icon-user"></i>	
+					<i class="login icon-user"></i>
 				</div>
-				<div class='input-text form-group has-feedback has-feedback-left active {{showEmail}}'> 
+				<div class='input-text form-group has-feedback has-feedback-left active {{showEmail}}'>
 					<input spellcheck="false" type="email" name='email' placeholder='{{_ "Email"}}' />
-					<i class="login icon-envelope"></i>		
+					<i class="login icon-envelope"></i>
 				</div>
 				<div class='input-text active {{showPassword}}'>
 					<input type="password" name='pass' placeholder='{{_ "Password"}}' />
-					<i class="login icon-lock"></i>	
+					<i class="login icon-lock"></i>
 				</div>
 			</div>
 			<div class="submit">
@@ -67,4 +67,3 @@
 		By proceeding to create your account and use ClassMash, you are agreeing to our <a href="/terms-of-service">Terms of Service</a> and <a href="/privacy-policy">Privacy Policy</a>. If you do not agree, you cannot use ClassMash.
 	</div>
 </template>
-
