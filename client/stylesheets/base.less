@@ -697,20 +697,15 @@ label.required:after {
 	&:extend(.unselectable);
 	display: inline-block;
 	padding: 9px 12px;
-	background-color: white;
-	color: white;
 	font-weight: 500;
 	font-size: 13px;
 	margin: 4px;
-	// text-transform: uppercase;
 	word-spacing: 0;
-	// box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.125);
-	border: 1px solid @primary-green;
 	border-radius: 5px;
 	line-height: 16px;
 	position: relative;
-	background-color: lighten(desaturate(@primary-background-color, 15%), 12.5%);
 	cursor: pointer;
+	border: none;
 	span {
 		position: relative;
 		z-index: 2;
@@ -727,13 +722,13 @@ label.required:after {
 		z-index: 1;
 		.transition(opacity .1s ease-out);
 	}
-	&:hover {
-		text-decoration: none;
-		color: #FFF;
-		&:before {
-			opacity: 1;
-		}
-	}
+	// &:hover {
+	// 	text-decoration: none;
+	// 	color: #FFF;
+	// 	&:before {
+	// 		opacity: 1;
+	// 	}
+	// }
 	&.secondary {
 		background-color: @tertiary-background-color;
 		color: @primary-font-color;
@@ -746,6 +741,45 @@ label.required:after {
 	&.red {
 		min-width: 120px;
 		background-color: #bc2031;
+	}
+	&.white {
+		background-color: white;
+		&.green-border {
+			color: @primary-green;
+			border: solid 1px @primary-green;
+			&:hover {
+				color: white;
+				background-color: @primary-green;
+				border: solid 1px @primary-green;
+			}
+		}
+		&.blue-border {
+			color: @primary-blue;
+			border: solid 1px @primary-blue;
+			&:hover {
+				color: white;
+				background-color: @primary-blue;
+				border: solid 1px @primary-blue;
+			}
+		}
+		&.light-blue-border {
+			color: @secondary-blue;
+			border: solid 1px @secondary-blue;
+			&:hover {
+				color: white;
+				background-color: @secondary-blue;
+				border: solid 1px @secondary-blue;
+			}
+		}
+		&.red-border {
+			color: @primary-red;
+			border: solid 1px @primary-red;
+			&:hover {
+				color: white;
+				background-color: @primary-red;
+				border: solid 1px @primary-red;
+			}
+		}
 	}
 	&.short {
 		min-width: 100px;
@@ -764,9 +798,11 @@ label.required:after {
 	}
 	&.facebook {
 		background-color: #325c99;
+		color: white;
 	}
 	&.twitter {
 		background-color: #02acec;
+		color: white;
 	}
 	&.google {
 		background-color: #dd4b39;
@@ -2299,37 +2335,39 @@ a.github-fork {
 		position: absolute;
     left: 0px;
     bottom: 45px;
-    height: 172px;
-    width: 95px;
-    border: 1px solid lightgray;
+    height: 114px;
+    width: 133px;
+    border: 1px solid #ECECEC;
     background-color: white;
     border-radius: 10px;
-    padding: 15px 10px;
+    padding: 7px 7px;
+		-webkit-box-shadow: 0px 2px 8px rgba(133,133,133,0.25);
+		-moz-box-shadow: 0px 2px 8px rgba(133,133,133,0.25);
+		box-shadow: 0px 2px 8px rgba(133,133,133,0.25);
 
   .regular-files,
   .add-notes,
   .add-note-cards {
-    margin-bottom: 10px;
-    border: solid 1px @primary-red;
-    width: 39px;
+    margin-bottom: 5px;
     margin-left: 0px;
-    height: 39px;
-    border-radius: 20px;
-    background-color: @primary-red;
-    color: white;
+    height: 27px;
+    color: #9E9E9E;
     cursor: pointer;
 
     .file-upload-text {
-    	color: @primary-blue;
+    	color: #9E9E9E;
     	font-size: 12px;
     	margin-right: 19px;
     	top: 2px;
     	position: absolute;
+			width: 65px;
+			font-weight: 500;
+			font-family: Roboto;
     }
 
     &:hover {
     	background-color: white;
-    	color: @primary-red;
+    	color: @primary-green;
     }
 
 		#select-regular-file,
@@ -2352,7 +2390,7 @@ a.github-fork {
   .label-add-notes,
   .label-add-note-cards {
     position: relative;
-    margin-left: 15%;
+    margin-left: 5%;
     top: 19%;
     font-size: 20px;
     cursor: pointer;
@@ -2490,10 +2528,8 @@ a.github-fork {
 				background-color: @secondary-blue;
 				.transition(background-color 0.1s linear, color 0.1s linear);
 				&:hover {
-					background-color: white;
-					color: @secondary-blue;
+					background-color: darken(@secondary-blue, 10%);;
 				}
-
 				input {
 					position: absolute;
 					top: 0;
@@ -2774,7 +2810,7 @@ a.github-fork {
 	.user {
 		display: inline-block;
 		font-weight: 600;
-		color: #444444;
+		color: @secondary-blue;
 		margin-right: 5px;
 		&:hover {
 			color: #333;
@@ -2807,7 +2843,7 @@ a.github-fork {
 		.user {
 			display: inline-block;
 			font-weight: 600;
-			color: @primary-green;
+			color: @secondary-blue;
 			margin-right: 5px;
 			&:hover {
 				color: #333;
@@ -3879,6 +3915,7 @@ a.github-fork {
 	flex-wrap: wrap;
 	-webkit-flex-wrap: wrap;
 	margin-bottom: 20px;
+	color: white;
 	h3 {
 		&:extend(.rocket-h3);
 		margin-top: 0;
