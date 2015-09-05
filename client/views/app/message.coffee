@@ -33,7 +33,6 @@ Template.message.helpers
 			when 'image' then (
 				this.html = this.msg
 				message = RocketChat.callbacks.run 'renderMessage', this
-				this.html = message.html.replace /\n/gm, '<br/>'
 				return this.html
 				)
 			else
@@ -87,8 +86,6 @@ Template.message.onViewRendered = (context) ->
 				do (item) ->
 					urlNode = lastNode.querySelector('.body a[href="'+item.url+'"]')
 					titleNode = lastNode.querySelector('.linkable-title')
-					# console.log(titleNode)
-					# console.log(urlNode)
 					if urlNode? and !titleNode
 						$(urlNode).replaceWith Blaze.toHTMLWithData Template.oembedBaseWidget, item
 

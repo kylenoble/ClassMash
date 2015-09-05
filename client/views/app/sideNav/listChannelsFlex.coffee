@@ -25,4 +25,3 @@ Template.listChannelsFlex.onCreated ->
 	Meteor.call 'channelsList', (err, result) ->
 		if result
 			instance.channelsList.set result.channels
-

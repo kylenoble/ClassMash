@@ -37,7 +37,7 @@ Template.spotlight.events
 					event.currentTarget.value = ''
 		else if doc.type is 'r'
 			if doc.t is 'c'
-				FlowRouter.go('channel', { name: doc.name })
+				FlowRouter.go('channel', { name: doc.name, term: doc.term })
 			else if doc.t is 'p'
 				FlowRouter.go('group', { name: doc.name })
 

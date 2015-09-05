@@ -39,13 +39,14 @@ Template.chatRoomItem.helpers
 			return true
 
 	route: ->
+		console.log(this)
 		return switch this.t
 			when 'd'
 				FlowRouter.path('direct', {username: this.name})
 			when 'p'
 				FlowRouter.path('group', {name: this.name})
 			when 'c'
-				FlowRouter.path('channel', {name: this.name})
+				FlowRouter.path('channel', {name: this.name, term: this.term})
 
 Template.chatRoomItem.rendered = ->
 	if not (FlowRouter.getParam('_id')? and FlowRouter.getParam('_id') is this.data.rid) and not this.data.ls

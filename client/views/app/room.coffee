@@ -497,7 +497,7 @@ Template.room.events
 					$('#room-search').val('')
 		else if doc.type is 'r'
 			if doc.t is 'c'
-				FlowRouter.go('channel', { name: doc.name })
+				FlowRouter.go('channel', { name: doc.name, term: doc.term })
 			else if doc.t is 'p'
 				FlowRouter.go('group', { name: doc.name })
 
@@ -534,8 +534,9 @@ Template.room.events
 
 	"click .mention-link": (e) ->
 		channel = $(e.currentTarget).data('channel')
+		term = $(e.currentTarget).data('term')
 		if channel?
-			FlowRouter.go 'channel', {name: channel}
+			FlowRouter.go 'channel', {name: channel, term: term}
 			return
 
 		Session.set('flexOpened', true)
@@ -722,11 +723,13 @@ renameRoom = (rid, name) ->
 	Meteor.call 'saveRoomName', rid, name, (error, result) ->
 		if result
 			Session.set('editRoomTitle', false)
+			room = ChatRoom.findOne(rid)
+			term = room.term
 			# If room was renamed then close current room and send user to the new one
 			RoomManager.close room.t + room.name
 			switch room.t
 				when 'c'
-					FlowRouter.go 'channel', name: name
+					FlowRouter.go 'channel', {name: name, term: term}
 				when 'p'
 					FlowRouter.go 'group', name: name
 

@@ -1,9 +1,44 @@
+school = new ReactiveVar ''
+highSchool = new ReactiveVar ''
+college = new ReactiveVar ''
+
+Meteor.subscribe "schools", ->
+	school.set(Schools.find().fetch())
+
 Template.createChannelFlex.helpers
 	selectedUsers: ->
 		return Template.instance().selectedUsers.get()
 
 	name: ->
 		return Template.instance().selectedUserNames[this.valueOf()]
+
+	isHighSchool: ->
+		userSchool = school.get()
+		highSchool.set(userSchool[0].isHighSchool)
+		return userSchool[0].isHighSchool
+
+	isCollege: ->
+		userSchool = school.get()
+		college.set(userSchool[0].isCollege)
+		return userSchool[0].isCollege
+
+	highSchoolTerms: ->
+		month = new Date().getMonth()
+		year = new Date().getFullYear()
+		nextYear = Number(year) + 1
+		if month >= 7
+			return [{'term': ''}, {'term': year + '-' + nextYear}, {'term': 'Fall-' + year }, {'term': 'Spring-' + nextYear }]
+		else
+			return [{'term': ''}, {'term': year 1 + '-' + year}, {'term': 'Spring-' + nextYear }, {'term': 'Fall-' + year }]
+
+	collegeTerms: ->
+		month = new Date().getMonth()
+		year = new Date().getFullYear()
+		nextYear = Number(year) + 1
+		if month >= 7
+			return [{'term': 'Select a Term'}, {'term': 'Fall-' + year }, {'term': 'Winter-' + nextYear }, {'term': 'Spring-' + nextYear }]
+		else
+			return [{'term': 'Select a Term'}, {'term': 'Winter-' + year }, {'term': 'Spring-' + year }]
 
 	error: ->
 		return Template.instance().error.get()
@@ -78,9 +113,14 @@ Template.createChannelFlex.events
 	'click .save-channel': (e, instance) ->
 		err = SideNav.validate()
 		name = instance.find('#channel-name').value.toLowerCase().trim()
+		grade = ''
+		if instance.find('#channel-grade')
+			grade = instance.find('#channel-grade').value.toLowerCase().trim()
+		term = instance.find('#channel-term').value.toLowerCase().trim()
+		teacher = instance.find('#channel-teacher').value.toLowerCase().trim()
 		instance.roomName.set name
 		if not err
-			Meteor.call 'createChannel', name, instance.selectedUsers.get(), (err, result) ->
+			Meteor.call 'createChannel', name, teacher, grade, term, instance.selectedUsers.get(), (err, result) ->
 				if err
 					console.log err
 					if err.error is 'name-invalid'
@@ -95,7 +135,7 @@ Template.createChannelFlex.events
 				SideNav.closeFlex ->
 					instance.clearForm()
 
-				FlowRouter.go 'channel', { name: name }
+				FlowRouter.go 'channel', { name: name, term: term }
 		else
 			console.log err
 			instance.error.set({ fields: err })
@@ -113,3 +153,6 @@ Template.createChannelFlex.onCreated ->
 		instance.selectedUsers.set([])
 		instance.find('#channel-name').value = ''
 		instance.find('#channel-members').value = ''
+		instance.find('#channel-teacher').value = ''
+		instance.find('#channel-name').value = ''
+		instance.find('#channel-term').value = 'Select a Term'

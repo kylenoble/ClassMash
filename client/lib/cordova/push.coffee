@@ -25,7 +25,7 @@ if Meteor.isCordova
 		if notification.open is true and notification.payload?.rid?
 			switch notification.payload.type
 				when 'c'
-					FlowRouter.go 'channel', name: notification.payload.name
+					FlowRouter.go 'channel', {name: notification.payload.name, term: notification.payload.term}
 				when 'p'
 					FlowRouter.go 'group', name: notification.payload.name
 				when 'd'

@@ -11,6 +11,41 @@
 				<label for="channel-name">{{_ "Name"}}</label>
 				<input type="text" id="channel-name" class="required" dir="auto">
 			</div>
+			{{#if isHighSchool}}
+			<div class="input-line">
+				<label for="channel-name">{{_ "Grade"}}</label>
+				<select id="channel-grade" class="required" dir="auto">
+					<option value=""></option>
+					<option value="9th">9th</option>
+					<option value="10th">10th</option>
+					<option value="11th">11th</option>
+					<option value="12th">12th</option>
+				</select>
+			</div>
+			<div class="input-line">
+				<label for="channel-name">{{_ "Teacher"}}</label>
+				<input type="text" id="channel-teacher" class="required" dir="auto">
+			</div>
+			{{else}}
+			<div class="input-line">
+				<label for="channel-name">{{_ "Professor"}}</label>
+				<input type="text" id="channel-teacher" class="required" dir="auto">
+			</div>
+			{{/if}}
+			<div class="input-line">
+				<label for="channel-term">{{_ "Term"}}</label>
+				<select id="channel-term" class="required" dir="auto">
+					{{#if isHighSchool}}
+						{{#each highSchoolTerms}}
+							<option>{{term}}</option>
+						{{/each}}
+					{{else}}
+						{{#each collegeTerms}}
+							<option>{{term}}</option>
+						{{/each}}
+					{{/if}}
+				</select>
+			</div>
 			<div class="input-line">
 				<label for="channel-members">{{_ "Add_Members"}}</label>
 				{{> inputAutocomplete settings=autocompleteSettings id="channel-members" class="search" placeholder=tRoomMembers autocomplete="off"}}

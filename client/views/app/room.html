@@ -12,6 +12,12 @@
 				<input type="text" id="room-title-field" class="{{showEditingTitle}}" value="{{roomNameEdit}}" dir="auto">
 				<a href="#edit" class="edit-room-title"><i class="icon-pencil"></i></a>
 				{{/if}}
+				<!-- <div class="room-icons">
+					<i class="icon-info"></i>
+					<i class="icon-calendar"></i>
+					<i class="icon-users"></i>
+					<i class="icon-docs"></i>
+				</div> -->
 			</h2>
 		</header>
 		<div class="upload-progress">
@@ -119,7 +125,7 @@
 				{{#if canJoin}}
 				<div>
 					{{{_ "you_are_in_preview_mode_of" room_name=roomName}}}
-					<button class="button join"><span><i class="icon-login"></i> {{_ "join"}}</span></button>
+					<button class="button white light-blue-border join"><span><i class="icon-login"></i> {{_ "join"}}</span></button>
 				</div>
 				{{/if}}
 			{{/if}}

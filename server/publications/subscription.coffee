@@ -17,3 +17,4 @@ Meteor.publish 'subscription', ->
 			open: 1
 			alert: 1
 			unread: 1
+			term: 1

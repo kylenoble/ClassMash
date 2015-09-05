@@ -29,6 +29,7 @@ Meteor.methods
 			t: room.t
 			open: true
 			alert: true
+			term: room.term
 			unread: 1
 			u:
 				_id: user._id

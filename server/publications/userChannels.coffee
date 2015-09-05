@@ -15,5 +15,6 @@ Meteor.publish 'userChannels', (userId) ->
 			rid: 1,
 			name: 1,
 			t: 1,
-			u: 1
+			u: 1,
+			term: 1
 		sort: { t: 1, name: 1 }

@@ -1,5 +1,5 @@
 Meteor.methods
-	createChannel: (name, members) ->
+	createChannel: (name, teacher, grade, term, members) ->
 		if not Meteor.userId()
 			throw new Meteor.Error 'invalid-user', "[methods] createChannel -> Invalid user"
 
@@ -14,7 +14,7 @@ Meteor.methods
 		members.push user.username
 
 		# avoid duplicate names
-		if ChatRoom.findOne({name:name, s: {_id:school._id}})
+		if ChatRoom.findOne( { name:name, 's._id': school._id, term: term } )
 			console.log 'found duplicate class'
 			throw new Meteor.Error 'duplicate-name'
 
@@ -26,8 +26,11 @@ Meteor.methods
 			ts: now
 			t: 'c'
 			name: name
+			grade: grade
+			teacher: teacher
+			term: term
 			msgs: 0
-			s: 
+			s:
 				_id: school._id
 				name: school.name
 			u:
@@ -50,6 +53,7 @@ Meteor.methods
 				name: name
 				t: 'c'
 				unread: 0
+				term: term
 				u:
 					_id: member._id
 					username: username

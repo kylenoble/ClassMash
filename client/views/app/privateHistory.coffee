@@ -24,7 +24,7 @@ Template.privateHistory.helpers
 	path: ->
 		switch this.t
 			when 'c'
-				return FlowRouter.path 'channel', { name: this.name }
+				return FlowRouter.path 'channel', { name: this.name, term: this.term }
 			when 'p'
 				return FlowRouter.path 'group', { name: this.name }
 			when 'd'

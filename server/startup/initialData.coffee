@@ -6,6 +6,17 @@ Meteor.startup ->
 				_id: 'uniqueID'
 				value: Random.id()
 
+		month = new Date().getMonth()
+		year = new Date().getFullYear()
+		nextYear = Number(year) + 1
+
+		if month >= 7
+			currentTerm = year + '-' + nextYear
+		else
+			currentTerm = year - 1 + '-' + year
+
+		console.log(currentTerm)	
+
 		if not ChatRoom.findOne('name': 'general')?
 			ChatRoom.insert
 				_id: 'GENERAL'
@@ -14,9 +25,10 @@ Meteor.startup ->
 				ts: new Date()
 				t: 'c'
 				name: 'general'
+				term: currentTerm
 				msgs: 0
 
-		if process.env.ADMIN_EMAIL? and process.env.ADMIN_PASS? 
+		if process.env.ADMIN_EMAIL? and process.env.ADMIN_PASS?
 			re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
 			if re.test process.env.ADMIN_EMAIL
 				if not Meteor.users.findOne({ admin: true })?

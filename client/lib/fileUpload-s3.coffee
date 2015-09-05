@@ -112,8 +112,10 @@ readAsDataURL = (file, callback) ->
 						else if fileType[0] is 'image'
 							shortFileType.set('image')
 							message = """
-								File Uploaded: *#{file.name}*
-								#{downloadUrl}
+								File Uploaded: <a class="linkable-title" href="#{downloadUrl}" target=_blank>#{file.name}</a>
+								<a href="#{downloadUrl}" class="swipebox" target="_blank">
+									<div style="background-image: url(#{downloadUrl}); background-size: contain; background-repeat: no-repeat; background-position: center left; height: 200px;"></div>
+								</a>
 							"""
 						else
 							if fileType[1] is 'pdf'

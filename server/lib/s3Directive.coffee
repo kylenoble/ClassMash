@@ -33,7 +33,7 @@ Slingshot.createDirective 'fileUploads', Slingshot.S3Storage,
   bucket: RocketChat.settings.get('AWSBucket')
   AWSAccessKeyId: RocketChat.settings.get('AWSAccessKeyId')
   AWSSecretAccessKey: RocketChat.settings.get('AWSSecretAccessKey')
-  acl: "public-read"
+  acl: "bucket-owner-read"
   region: RocketChat.settings.get('AWSRegion')
   authorize: (file, metaContext) ->
     console.log(file)

@@ -1,4 +1,4 @@
-openRoom = (type, name) ->
+openRoom = (type, name, term) ->
 	Session.set 'openedRoom', null
 
 	BlazeLayout.render 'main', {center: 'loading'}
@@ -10,16 +10,24 @@ openRoom = (type, name) ->
 
 			c.stop()
 
-			query =
-				t: type
-				name: name
+			if term != ''
+				query =
+					t: type
+					name: name
+					term: term
+			else
+				query =
+					t: type
+					name: name
 
 			if type is 'd'
 				delete query.name
 				query.usernames =
 					$all: [name, Meteor.user().username]
 
+			console.log(query)
 			room = ChatRoom.findOne(query)
+			console.log(room)
 			if not room?
 				Session.set 'roomNotFound', {type: type, name: name}
 				BlazeLayout.render 'main', {center: 'roomNotFound'}
@@ -65,12 +73,12 @@ roomExit = ->
 				mainNode.removeChild child
 
 
-FlowRouter.route '/channel/:name',
+FlowRouter.route '/class/:name/:term',
 	name: 'channel'
 
 	action: (params, queryParams) ->
 		Session.set 'showUserInfo'
-		openRoom 'c', params.name
+		openRoom 'c', params.name, params.term
 
 	triggersExit: [roomExit]
 
@@ -80,7 +88,7 @@ FlowRouter.route '/group/:name',
 
 	action: (params, queryParams) ->
 		Session.set 'showUserInfo'
-		openRoom 'p', params.name
+		openRoom 'p', params.name, ''
 
 	triggersExit: [roomExit]
 
@@ -90,6 +98,6 @@ FlowRouter.route '/direct/:username',
 
 	action: (params, queryParams) ->
 		Session.set 'showUserInfo', params.username
-		openRoom 'd', params.username
+		openRoom 'd', params.username, ''
 
 	triggersExit: [roomExit]

@@ -40,3 +40,4 @@ Meteor.publish 'room', (typeName) ->
 			u: 1
 			s: 1
 			usernames: 1
+			term: 1
