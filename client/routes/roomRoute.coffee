@@ -25,9 +25,7 @@ openRoom = (type, name, term) ->
 				query.usernames =
 					$all: [name, Meteor.user().username]
 
-			console.log(query)
 			room = ChatRoom.findOne(query)
-			console.log(room)
 			if not room?
 				Session.set 'roomNotFound', {type: type, name: name}
 				BlazeLayout.render 'main', {center: 'roomNotFound'}

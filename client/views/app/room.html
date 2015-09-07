@@ -2,11 +2,8 @@
 	<section class="messages-container" id="{{windowId}}">
 		<header class="fixed-title">
 			{{> burger}}
+		  <!-- <i class="{{roomIcon}} status-{{userStatus}}"></i> -->
 			<h2>
-				{{#if subscribed}}
-					<a href="#favorite" class="toggle-favorite"><i class="{{favorite}}"></i></a>
-				{{/if}}
-				<i class="{{roomIcon}} status-{{userStatus}}"></i>
 				<span class="room-title {{editingTitle}}">{{roomName}}</span>
 				{{#if canEditName}}
 				<input type="text" id="room-title-field" class="{{showEditingTitle}}" value="{{roomNameEdit}}" dir="auto">
@@ -39,6 +36,7 @@
 			{{/each}}
 		</div>
 		<div class="messages-box">
+			<span class="date-line"></span>
 			<div class="wrapper">
 				<ul>
 					{{#if hasMore}}
@@ -133,7 +131,7 @@
 	</section>
 	<section class="flex-tab">
 		<div class="control">
-			<button class="more"><span><img src="/images/logo/logo.svg?v=1" /></span></button>
+			<button class="more"><span><i class="icon-bubble"></i></span></button>
 			<form class="search-form" role="form">
 				<div class="input-line search">
 					<!-- {{> inputAutocomplete settings=autocompleteSettingsRoomSearch id="room-search" class="search" placeholder=tQuickSearch autocomplete="off"}} -->

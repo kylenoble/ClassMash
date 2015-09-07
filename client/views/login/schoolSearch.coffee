@@ -11,7 +11,7 @@ options =
 SchoolSearch = new SearchSource('schools', fields, options)
 
 Template.schoolSearchBox.created = ->
-  $('.school-search-result').hide()  
+  $('.school-search-result').hide()
 
   location = Meteor.setInterval (->
       navigator.geolocation.getCurrentPosition (position) ->
@@ -25,12 +25,12 @@ Template.schoolSearchBox.events
   'keyup #inputSchoolName': _.throttle(((e) ->
     options =
       lat: lat.get(),
-      lon: lon.get()  
+      lon: lon.get()
     Meteor.clearInterval(location)
     text = $(e.target).val().trim()
     SchoolSearch.search text, options
     addingSchool.set(false)
-    $('body').css('background-color', '#e74c3c') 
+    $('body').css('background-color', '#e74c3c')
     return
   ), 200)
 
@@ -95,14 +95,14 @@ Template.schoolSearchResult.events
         if error
           toastr.error(error.reason)
         else
-          Meteor.clearInterval(location) 
+          Meteor.clearInterval(location)
           element = $("#login-card")
-          element.removeClass("green-background") 
-          element.addClass("light-blue-background") 
+          element.removeClass("green-background")
+          element.addClass("light-blue-background")
           element = $(".full-page-username")
-          element.css('background-color', '#3498DB') 
-          $('body').css('background-color', '#3498DB')                       
-          Session.set 'isAddingUserName', true  
+          element.css('background-color', '#3498DB')
+          $('body').css('background-color', '#3498DB')
+          Session.set 'isAddingUserName', true
     else
       toastr.error("Uhoh, You Forgot To Select A School")
       ## Reset Search

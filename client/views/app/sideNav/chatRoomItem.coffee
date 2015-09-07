@@ -39,7 +39,6 @@ Template.chatRoomItem.helpers
 			return true
 
 	route: ->
-		console.log(this)
 		return switch this.t
 			when 'd'
 				FlowRouter.path('direct', {username: this.name})

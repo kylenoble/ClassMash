@@ -45,7 +45,7 @@ Meteor.startup ->
 		if not file?
 			res.setHeader 'content-type', 'image/svg+xml'
 
-			colors = ['#F44336','#E91E63','#9C27B0','#673AB7','#3F51B5','#2196F3','#03A9F4','#00BCD4','#009688','#4CAF50','#8BC34A','#CDDC39','#FFC107','#FF9800','#FF5722','#795548','#9E9E9E','#607D8B']
+			colors = ['#546a76','#a0ca92','#dce0d9','#dcebcb','#f06475','#72acef','#7fb3ef','#C9EFD5','#F3919D','#86959E','#E5E8E3','#9BC4F2','#BBD9B1']
 
 			username = this.params.username.replace('.jpg', '')
 			position = username.length % colors.length
@@ -69,10 +69,10 @@ Meteor.startup ->
 				</text>
 			</svg>
 			"""
-			
+
 			res.write svg
 			res.end()
-			return 
+			return
 
 		res.setHeader 'content-type', 'image/jpeg'
 		res.setHeader 'Content-Length', file.length

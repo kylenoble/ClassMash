@@ -1,4 +1,4 @@
-@import url(//fonts.googleapis.com/css?family=Roboto:300,400,500,600,700&subset=latin,cyrillic-ext,greek-ext,greek,vietnamese,latin-ext,cyrillic);
+@import url(//fonts.googleapis.com/css?family=Lato:400,300,700);
 @import "global/_variables.less";
 @import "utils/_lesshat.import.less";
 @import "utils/_reset.import.less";
@@ -33,6 +33,23 @@ a {
 		color: @primary-font-color;
 		text-decoration: none;
 	}
+}
+
+@font-face {
+	font-family: Axis;
+	src: url("/fonts/axis.otf") format("opentype");
+}
+
+@font-face {
+	font-family: Axis;
+	font-weight: bold;
+	src: url("/fonts/axis.otf") format("opentype");
+}
+
+@font-face {
+	font-family: Axis;
+	font-weight: italic;
+	src: url("/fonts/axis.otf") format("opentype");
 }
 
 code {
@@ -216,12 +233,14 @@ blockquote {
 	.body {
 		&::before {
 			content: "";
-			background-color: #FF8080;
+			background-color: @primary-red;
 			display: block;
-			height: 1px;
+			border-radius: 5px;
+			height: 10px;
+			width: 10px
+			rotate(90deg);
 			position: absolute;
-			right: 0px;
-			left: 50px;
+			right: -25px;
 			top: -3px;
 			.transition(background-color, .5s, linear);
 		}
@@ -230,14 +249,13 @@ blockquote {
 			content: "unread messages";
 			display: block;
 			position: absolute;
-			right: 0px;
-			top: -7px;
-			text-transform: uppercase;
+			right: 10px;
+			top: 0px;
+			text-transform: capitalize;
 			font-size: 8px;
 			line-height: 10px;
-			background-color: white;
 			padding-left: 5px;
-			color: #FF0000;
+			color: @primary-red;
 			.transition(color, .5s, linear);
 		}
 	}
@@ -285,7 +303,7 @@ blockquote {
 
 .small-title {
 	font-size: 13px;
-	text-transform: uppercase;
+	text-transform: capitalize;
 	margin-bottom: 5px;
 	font-weight: 600;
 }
@@ -458,7 +476,7 @@ blockquote {
 
 .rocket-h2 {
 	font-weight: 300;
-	text-transform: uppercase;
+	text-transform: capitalize;
 	font-size: 20px;
 	letter-spacing: -0.5px;
 	margin: 18px 0;
@@ -474,7 +492,7 @@ blockquote {
 
 .rocket-h3 {
 	font-weight: 300;
-	text-transform: uppercase;
+	text-transform: capitalize;
 	font-size: 16px;
 	letter-spacing: -0.5px;
 	margin: 18px 0;
@@ -491,7 +509,7 @@ html {
 }
 
 body {
-	font-family: "Roboto", "HelveticaNeue-Light", "sans-serif";
+	font-family: "Lato", "HelveticaNeue-Light", "sans-serif";
 	font-size: 14px;
 	color: @primary-font-color;
 	height: 100%;
@@ -895,6 +913,15 @@ label.required:after {
 	}
 }
 
+.date-line {
+	position: absolute;
+	display: block;
+	right: 25px;
+	height: 100%;
+	width: 1px;
+	background-color: #ddd;
+}
+
 .arrow {
 	display: block;
 	width: 25px;
@@ -1016,7 +1043,7 @@ a.github-fork {
 	font-size: 1.04em;
 	box-shadow: -2px 3px 1px rgba(0, 0, 0, 0.23);
 	opacity: 1;
-	text-transform: uppercase;
+	text-transform: capitalize;
 	font-weight: 400 !important;
 	.transform(rotate(45deg) translateY(0));
 	.transition(background-color .2s ease-out,
@@ -1111,8 +1138,8 @@ a.github-fork {
 		color: #FFF;
 		.flex-center;
 		justify-content: center;
-		font-family: Helvetica;
-		text-transform: uppercase;
+		font-family: Axis;
+		text-transform: capitalize;
 		font-weight: bold;
 	}
 }
@@ -1146,6 +1173,7 @@ a.github-fork {
 	height: 100%;
 	cursor: pointer;
 	width: 100%;
+	background-color: @light-green;
 	.info {
 		position: relative;
 		height: 100%;
@@ -1187,6 +1215,7 @@ a.github-fork {
 			line-height: 18px;
 			color: @primary-blue;
 			font-size: 16px;
+			font-family: Axis;
 			margin-top: 3px;
 			font-weight: 400;
 			overflow: hidden;
@@ -1222,9 +1251,9 @@ a.github-fork {
 		}
 	}
 	.options {
-		background-color: @primary-background-color;
+		background-color: @tertiary-background-color;
 		position: fixed;
-		top: @header-min-height;
+		top: @header-min-height - 1;
 		left: 0;
 		padding-top: 15px;
 		width: @rooms-box-width;
@@ -1237,6 +1266,7 @@ a.github-fork {
 		.transition(transform .3s cubic-bezier(.5, 0, .1, 1));
 		&._hidden {
 			.transform(translateY(-100%) translateY(-50px));
+			top: 0px;
 		}
 		> .wrapper {
 			direction: ltr;
@@ -1306,13 +1336,13 @@ a.github-fork {
 			padding: 15px 12px;
 			line-height: 1;
 			text-decoration: none;
-			border-bottom: 1px solid darken(@primary-background-color, 2%);
+			border-bottom: 1px solid @info-font-color;
 			&:nth-child(even) {
 				// background-color: #EFEFEF;
 			}
 			&:hover {
 				background-color: darken(@primary-background-color, 2%);
-				color: @primary-green;
+				color: @light-green;
 				text-decoration: none;
 			}
 		}
@@ -1342,8 +1372,8 @@ a.github-fork {
 
 // rooms-box
 .flex-nav {
-	//background-color: @primary-background-color;
-	background-color: transparent;
+	background-color: @primary-background-color;
+	// background-color: transparent;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -1394,6 +1424,8 @@ a.github-fork {
 		padding-left: 15px;
 		.transition-delay(.05s);
 		background-color: @primary-background-color;
+		color: @primary-font-color;
+		font-family: Axis;
 		> div {
 			display: table-cell;
 			vertical-align: middle;
@@ -1463,8 +1495,9 @@ a.github-fork {
 		h4 {
 			margin-bottom: 30px;
 			font-weight: 400;
-			text-transform: uppercase;
+			text-transform: capitalize;
 			font-size: 13px;
+			color: @primary-font-color;
 		}
 	}
 	.input-line {
@@ -1473,23 +1506,23 @@ a.github-fork {
 			margin-bottom: 0;
 		}
 		label {
-			text-transform: uppercase;
+			text-transform: capitalize;
 			font-weight: 400;
-			margin-bottom: 0;
-			color: inherit;
+			margin-bottom: 2px;
+			color: @primary-font-color;
 		}
 		input[type='text'],
 		input[type='password'],
 		select {
 			border-width: 0 0 1px 0;
-			border-color: @tertiary-font-color;
-			background-color: white;
+			border-color: @primary-font-color;
+			background-color: @secondary-background-color;
 			color: @quaternary-font-color;
 			padding: 0 8px;
 			box-shadow: 0 0 0;
-			border-radius: 0;
+			border-radius: 5px;
 			-webkit-appearance: none;
-			-webkit-border-radius: 0px;
+			-webkit-border-radius: 5px;
 		}
 	}
 	.input-submit {
@@ -1513,7 +1546,7 @@ a.github-fork {
 .side-nav {
 	position: fixed;
 	display: block;
-	top: 0;
+	top: -1px;
 	bottom: 0;
 	left: 0;
 	width: @rooms-box-width;
@@ -1545,7 +1578,7 @@ a.github-fork {
 		display: block;
 		-webkit-overflow-scrolling: touch;
 		box-shadow: 0 0 2px rgba(0, 0, 0, 0.2) inset;
-		background-color: lighten(@primary-background-color, 2%);
+		background-color: @primary-background-color;
 		.custom-scroll(transparent,
 		rgba(255,
 		255,
@@ -1559,7 +1592,7 @@ a.github-fork {
 	}
 	.more {
 		display: block;
-		color: @tertiary-font-color;
+		color: @primary-font-color;
 		font-size: 11px;
 		padding: 4px 0 4px 10px;
 		margin-top: 2px;
@@ -1584,7 +1617,7 @@ a.github-fork {
 		padding-left: 10px;
 		font-size: 11px;
 		padding: 2px 0 2px 10px;
-		color: @tertiary-font-color;
+		color: @primary-font-color;
 	}
 	.header {
 		position: absolute;
@@ -1626,7 +1659,7 @@ a.github-fork {
 		border-right:solid 1.75px rgba(208, 208, 208, 0.4);
 		p.powered {
 			text-align: center;
-			color: @primary-blue;
+			color: @primary-font-color;
 			margin-top: 4%;
 			margin-left: -5%;
 		}
@@ -1661,10 +1694,10 @@ a.github-fork {
 		&:extend(.small-title);
 		cursor: pointer;
 		position: relative;
-		text-transform: uppercase;
-		font-weight: 500;
+		text-transform: capitalize;
+		font-weight: 600;
 		margin: 25px 0 0 0;
-		color: @tertiary-font-color;
+		color: @primary-font-color;
 		line-height: 28px;
 		padding-left: 10px;
 		a {
@@ -1715,6 +1748,7 @@ a.github-fork {
 			overflow: hidden;
 			text-overflow: ellipsis;
 			vertical-align: middle;
+			font-weight: 700;
 			.remove,
 			.erase {
 				position: absolute;
@@ -1736,21 +1770,26 @@ a.github-fork {
 			}
 			&.active {
 				a {
-					background-color: @primary-green;
-					color: white;
+					background-color: @secondary-background-color;
+					color: @tertiary-font-color;
 				}
 				.opt {
 					background-color: transparent;
 				}
+				i {
+					color: @tertiary-font-color;
+				}
 			}
 			&.has-unread {
+				color: @tertiary-font-color;
+				font-weight: bold;
 				.opt {
 					opacity: 0;
 				}
 			}
 			&.has-alert {
 				.name {
-					color: @primary-blue;
+					color: @tertiary-font-color;
 					font-weight: bold;
 				}
 			}
@@ -1773,7 +1812,7 @@ a.github-fork {
 			text-overflow: ellipsis;
 			vertical-align: middle;
 			text-decoration: none;
-			color: @tertiary-font-color;
+			color: @primary-font-color;
 			// text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
 			&:hover {
 				background-color: rgba(255, 255, 255, 0.05);
@@ -1795,7 +1834,7 @@ a.github-fork {
 			transform .15s ease-out .25s);
 			i {
 				margin: 0 1px;
-				color: @primary-blue;
+				color: @primary-font-color;
 				&:hover {
 					color: @primary-green;
 				}
@@ -1808,7 +1847,7 @@ a.github-fork {
 			}
 		}
 		i {
-			color: white;
+			color: @primary-font-color;
 			font-size: 14px;
 			width: 16px;
 			display: inline-block;
@@ -1850,13 +1889,18 @@ a.github-fork {
 	.flex-center;
 	flex-flow: row nowrap;
 	padding: 0 10px 0 20px;
-	background: #fff;
+	background: @light-green;
 	border-bottom: 1px solid @tertiary-background-color;
 	z-index: 100;
-	top: 1px;
+	top: 0;
 	left: 0;
 	width: 100%;
 	height: @header-min-height;
+	// i {
+	// 	font-size: 30px;
+	// 	position: absolute;
+	// 	margin-top: 15px;
+	// }
 	&.visible {
 		h2 {
 			overflow: visible;
@@ -1870,6 +1914,9 @@ a.github-fork {
 		font-size: 22px;
 		font-weight: 500;
 		line-height: 29px;
+		margin-left: auto;
+		margin-right: auto;
+		color: @tertiary-font-color;
 		.icon-globe-alt,
 		.icon-bubbles,
 		.icon-lock,
@@ -1953,7 +2000,7 @@ a.github-fork {
 }
 
 .mobile-message-menu {
-	background-color: rgba(0,0,0,.3);
+	background-color: rgba(0,0,0,.45);
 	position: fixed;
 	top: 0;
 	bottom: 0;
@@ -2059,16 +2106,20 @@ a.github-fork {
 		h3,
 		h4 {
 			font-weight: 300;
-			text-transform: uppercase;
+			text-transform: capitalize;
 			margin-bottom: 12px;
 		}
 	}
 }
 
 .page-home {
+	background-color: @tertiary-background-color;
+	color: @secondary-font-color;
 	.fixed-title {
 		h2 {
 			overflow: visible;
+			font-family: Axis;
+			font-size: 20px;
 		}
 	}
 	.logo {
@@ -2103,7 +2154,7 @@ a.github-fork {
 		color: @secondary-font-color;
 		p {
 			font-size: 12px;
-			text-transform: uppercase;
+			text-transform: capitalize;
 		}
 	}
 	.list {
@@ -2346,7 +2397,6 @@ a.github-fork {
     	position: absolute;
 			width: 65px;
 			font-weight: 500;
-			font-family: Roboto;
     }
 
     &:hover {
@@ -2399,6 +2449,12 @@ a.github-fork {
 	-moz-user-select: text;
 	-ms-user-select: text;
 	user-select: text;
+	.room-title {
+		font-family: Axis;
+		margin-left: auto;
+		margin-right: auto;
+		color: @tertiary-font-color;
+	}
 	.edit-room-title {
 		color: @secondary-font-color;
 		margin-left: 4px;
@@ -2687,6 +2743,7 @@ a.github-fork {
 	margin: 60px 20px 0px 0px;
 	overflow: hidden;
 	width: 100%;
+	background-color: @secondary-background-color;
 	.calc(height,
 	~'100% - 120px');
 	ul {
@@ -2753,31 +2810,53 @@ a.github-fork {
 		margin-top: 60px;
 	}
 	&.new-day {
+		.date-dot {
+			right: -5px;
+	    height: 10px;
+	    width: 10px;
+	    border-radius: 5px;
+	    background-color: #F3919D;
+	    z-index: 10;
+	    position: absolute;
+	    display: block;
+    	top: -25px;
+		}
 		&:before {
 			content: attr(data-date);
-			display: block;
-			position: absolute;
-			top: -30px;
-			left: 0;
-			font-size: 12px;
-			font-weight: 600;
-			text-align: center;
-			.calc(left,
-			~"50% - 70px");
-			color: @secondary-font-color;
-			z-index: 10;
-			padding: 0 10px;
-			background-color: #FFF;
-			min-width: 140px;
+	    display: block;
+	    position: absolute;
+	    top: -30px;
+	    right: 0px;
+	    font-size: 12px;
+	    font-weight: 600;
+	    text-align: center;
+	    /* margin-top: 18px; */
+	    -lh-property: 0;
+	    /* right: -webkit-calc(50% - 70px); */
+	    left: -moz-calc(50% - 70px);
+	    /* left: calc(50% - 70px); */
+	    color: #546a76;
+	    z-index: 10;
+	    padding: 0 10px;
+	    /* background-color: #EDEAE7; */
+	    // border-bottom: solid 1px #EDEAE7;
+	    min-width: 140px;
+	    /* border-radius: 24px; */
+	    /* height: 30px; */
 		}
 		&:after {
 			content: " ";
-			display: block;
-			position: absolute;
-			top: -20px;
-			left: 0;
-			width: 100%;
-			border-top: 1px solid #ddd;
+	    display: none;
+	    position: absolute;
+	    top: -20px;
+	    right: -45%;
+	    /* height: 100%; */
+	    width: 90%;
+	    rotate: 90;
+	    -ms-transform: rotate(7deg);
+	    -webkit-transform: rotate(90deg);
+	    transform: rotate(90deg);
+	    border-top: 1px solid #ddd;
 		}
 	}
 	.edit-message {
@@ -2888,6 +2967,7 @@ a.github-fork {
 	.body {
 		opacity: 1;
 		.transition(opacity 1s linear);
+		color: @tertiary-font-color;
 	}
 	&.temp .body {
 		opacity: .5;
@@ -2937,14 +3017,12 @@ a.github-fork {
 		}
 		.more {
 			position: absolute;
-			left: -35px;
-			top: 5px;
-			background-color: white;
+			left: -30px;
+			background-color: @light-green;
 			border: none;
-			height: 50px;
-			width: 50px;
 			color: @secondary-font-color;
 			cursor: pointer;
+			margin-top: 5px;
 			.transform(translateX(-27px));
 			.transition(transform .25s ease-out .475s,
 			background .075s ease-out .5s);
@@ -2972,9 +3050,10 @@ a.github-fork {
 				50%,
 				0);
 				.transition(transform .3s ease-out);
-				height: 12.5px;
 				vertical-align: top;
 				margin-top: 1px;
+				font-size: 30px;
+				color: @primary-blue;
 			}
 			.flex-opened & {
 				background-color: white;
@@ -3576,7 +3655,7 @@ a.github-fork {
 		display: block;
 		margin-bottom: 18px;
 		position: relative;
-		text-transform: uppercase;
+		text-transform: capitalize;
 		font-size: 13px;
 		color: @secondary-font-color;
 		i {
@@ -3979,7 +4058,7 @@ a.github-fork {
 			margin-top: 20px;
 		}
 		p {
-			font-family: "Avenir Next", "Muli", "Roboto", "HelveticaNeue-Light", "sans-serif";
+			font-family: "Avenir Next", "Muli", "Nunito", "HelveticaNeue-Light", "sans-serif";
 			margin: 18px 0;
 			font-size: 16px;
 			line-height: 24px;
@@ -3992,7 +4071,7 @@ a.github-fork {
 		position: relative;
 		z-index: 1;
 		h4 {
-			text-transform: uppercase;
+			text-transform: capitalize;
 			margin-bottom: 8px;
 			font-size: 12px;
 			font-weight: 300;
@@ -4162,7 +4241,8 @@ a.github-fork {
 			}
 		}
 		.fixed-title h2 {
-			margin-left: 45px;
+			margin-left: auto;
+			margin-right: auto;
 		}
 		.flex-tab {
 			top: 0;
@@ -4201,6 +4281,18 @@ a.github-fork {
 }
 
 @media all and(max-width: 500px) {
+	.date-line {
+		right: 20px;
+	}
+
+	.page-home {
+		.fixed-title {
+			h2 {
+				font-size: 16px;
+			}
+		}
+	}
+
 	.form-register-heading-one,
 	.form-register-heading-two,
 	.form-login-header
@@ -4219,7 +4311,7 @@ a.github-fork {
 	.flex-tab {
 		.control {
 			.more {
-				left: -50px;
+				left: -30px;
 				width: 50px;
 				height: 35px;
 				top: 10px;
