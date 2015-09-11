@@ -118,6 +118,11 @@ Template.main.events
 		chatContainer = $("#rocket-chat")
 		menu.toggle()
 
+	"click .right-burger": ->
+		console.log 'room click .right-burger' if window.rocketDebug
+		chatContainer = $("#rocket-chat .flex-tab")
+		rightMenu.toggle()
+
 	'touchstart': (e, t) ->
 		if document.body.clientWidth > 780
 			return
@@ -156,6 +161,16 @@ Template.main.events
 				if t.left < 0
 					t.left = 0
 
+				if rightMenu.isOpen()
+					t.right = 260 - diffX
+				else
+					t.right = -diffX
+
+				if t.right > 260
+					t.right = 260
+				if t.right < 0
+					t.right = 0
+
 				t.mainContent.addClass('notransition')
 				t.mainContent.css('transform', 'translate('+t.left+'px)')
 				t.wrapper.css('overflow', 'hidden')
@@ -176,6 +191,17 @@ Template.main.events
 					menu.open()
 				else
 					menu.close()
+
+			if rightMenu.isOpen()
+				if t.right >= 200
+					rightMenu.open()
+				else
+					rightMenu.close()
+			else
+				if t.right >= 60
+					rightMenu.open()
+				else
+					rightMenu.close()
 
 
 Template.main.onRendered ->

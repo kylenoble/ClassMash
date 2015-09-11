@@ -1,0 +1,10 @@
+<template name="rightBurger">
+	<div class="right-burger">
+		<i class="icon-bubble"></i>
+		{{#if unreadMessages}}
+			<div class="unread-burger-alert">
+				{{unreadMessages}}
+			</div>
+		{{/if}}
+	</div>
+</template>

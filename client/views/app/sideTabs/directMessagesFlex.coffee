@@ -3,6 +3,7 @@ Template.directMessagesFlex.helpers
 		return Template.instance().error.get()
 
 	autocompleteSettings: ->
+		user = Meteor.users.findOne _id: Meteor.userId()
 		return {
 			limit: 10
 			# inputDelay: 300
@@ -17,7 +18,8 @@ Template.directMessagesFlex.helpers
 					matchAll: true
 					filter:
 						type: 'u'
-						_id: { $ne: Meteor.userId() }
+						_id: { $ne: user._id }
+						'profile.school._id': user.profile.school._id
 					sort: 'username'
 				}
 			]
@@ -29,30 +31,30 @@ Template.directMessagesFlex.events
 		event.currentTarget.focus()
 
 	'click .cancel-direct-message': (e, instance) ->
-		SideNav.closeFlex()
+		FlexTab.closeFlex()
 		instance.clearForm()
 
 	'click header': (e, instance) ->
-		SideNav.closeFlex()
+		FlexTab.closeFlex()
 		instance.clearForm()
 
 	'mouseenter header': ->
-		SideNav.overArrow()
+		FlexTab.overArrow()
 
 	'mouseleave header': ->
-		SideNav.leaveArrow()
+		FlexTab.leaveArrow()
 
 	'keydown input[type="text"]': (e, instance) ->
 		Template.instance().error.set([])
 
 	'click .save-direct-message': (e, instance) ->
-		err = SideNav.validate()
+		err = FlexTab.validate()
 		if not err
 			username = instance.selectedUser.get()
 			Meteor.call 'createDirectMessage', username, (err, result) ->
 				if err
 					return toastr.error err.reason
-				SideNav.closeFlex()
+				FlexTab.closeFlex()
 				instance.clearForm()
 				FlowRouter.go 'direct', { username: username }
 		else

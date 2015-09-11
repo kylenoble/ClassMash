@@ -55,6 +55,7 @@ Template.chatRoomItem.events
 
 	'click .open-room': (e) ->
 		menu.close()
+		rightMenu.close()
 
 	'click .hide-room': (e) ->
 		e.stopPropagation()

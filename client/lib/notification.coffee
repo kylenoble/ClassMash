@@ -24,8 +24,6 @@
 				, 2000
 
 	newMessage: ->
-		unless Session.equals('user_' + Meteor.userId() + '_status', 'busy')
-			$('#chatAudioNotification')[0].play()
 
 	newRoom: (rid, withSound = true) ->
 		Tracker.nonreactive ->
@@ -49,9 +47,7 @@
 
 Tracker.autorun ->
 	if Session.get('newRoomSound')?.length > 0
-		unless Session.equals('user_' + Meteor.userId() + '_status', 'busy')
-			$('#chatNewRoomNotification').each ->
-				this.play()
+
 	else
 		$('#chatNewRoomNotification').each ->
 			this.pause()

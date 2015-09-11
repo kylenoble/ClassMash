@@ -185,6 +185,9 @@ RocketChat.sendMessage = (user, message, room, options) ->
 				alert: true
 				# open the room for the user
 				open: true
+			# increment unread couter
+			$inc:
+				unread: 1
 		,
 			# make sure we alert all matching subscription
 			multi: true

@@ -314,40 +314,41 @@ Template.room.events
 	"click .upload-progress-item > a": ->
 		Session.set "uploading-cancel-#{this.id}", true
 
-	"click .flex-tab .more": (event, t) ->
-		if (Session.get('flexOpened'))
-			Session.set('rtcLayoutmode', 0)
-			Session.set('flexOpened',false)
-			t.searchResult.set undefined
-		else
-			Session.set('flexOpened', true)
-
-
-	"click .flex-tab	.video-remote" : (e) ->
-		if (Session.get('flexOpened'))
-			if (!Session.get('rtcLayoutmode'))
-				Session.set('rtcLayoutmode', 1)
-			else
-				t = Session.get('rtcLayoutmode')
-				t = (t + 1) % 4
-				console.log	'setting rtcLayoutmode to ' + t	if window.rocketDebug
-				Session.set('rtcLayoutmode', t)
-
-	"click .flex-tab	.video-self" : (e) ->
-		if (Session.get('rtcLayoutmode') == 3)
-			console.log 'video-self clicked in layout3' if window.rocketDebug
-			i = document.getElementById("fullscreendiv")
-			if i.requestFullscreen
-				i.requestFullscreen()
-			else
-				if i.webkitRequestFullscreen
-					i.webkitRequestFullscreen()
-				else
-					if i.mozRequestFullScreen
-						i.mozRequestFullScreen()
-					else
-						if i.msRequestFullscreen
-							i.msRequestFullscreen()
+	# "click .flex-tab .more": (event, t) ->
+	# 	if (Session.get('flexOpened'))
+	# 		Session.set('rtcLayoutmode', 0)
+	# 		Session.set('flexOpened',false)
+	# 		t.searchResult.set undefined
+	# 		$('.fixed-title h2').show(500)
+	# 	else
+	# 		Session.set('flexOpened', true)
+	# 		$('.fixed-title h2').hide()
+	#
+	# "click .flex-tab	.video-remote" : (e) ->
+	# 	if (Session.get('flexOpened'))
+	# 		if (!Session.get('rtcLayoutmode'))
+	# 			Session.set('rtcLayoutmode', 1)
+	# 		else
+	# 			t = Session.get('rtcLayoutmode')
+	# 			t = (t + 1) % 4
+	# 			console.log	'setting rtcLayoutmode to ' + t	if window.rocketDebug
+	# 			Session.set('rtcLayoutmode', t)
+	#
+	# "click .flex-tab	.video-self" : (e) ->
+	# 	if (Session.get('rtcLayoutmode') == 3)
+	# 		console.log 'video-self clicked in layout3' if window.rocketDebug
+	# 		i = document.getElementById("fullscreendiv")
+	# 		if i.requestFullscreen
+	# 			i.requestFullscreen()
+	# 		else
+	# 			if i.webkitRequestFullscreen
+	# 				i.webkitRequestFullscreen()
+	# 			else
+	# 				if i.mozRequestFullScreen
+	# 					i.mozRequestFullScreen()
+	# 				else
+	# 					if i.msRequestFullscreen
+	# 						i.msRequestFullscreen()
 
 	'click .toggle-favorite': (event) ->
 		event.stopPropagation()
@@ -654,8 +655,6 @@ Template.room.onCreated ->
 		self.subscribe 'fullUserData', Session.get('showUserInfo'), 1
 
 Template.room.onRendered ->
-
-	FlexTab.check()
 	this.chatMessages = new ChatMessages
 	this.chatMessages.init(this.firstNode)
 	# ScrollListener.init()

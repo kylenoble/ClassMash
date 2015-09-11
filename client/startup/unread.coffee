@@ -12,6 +12,9 @@ Meteor.startup ->
 		unreadCount = 0
 		unreadAlert = false
 
+		messagesUnreadCount = 0
+		messagesUnreadAlert = false
+
 		subscriptions = ChatSubscription.find({open: true}, { fields: { unread: 1, alert: 1, rid: 1, t: 1, name: 1, ls: 1 } })
 
 		rid = undefined
@@ -22,9 +25,14 @@ Meteor.startup ->
 			if subscription.rid is rid and (subscription.alert or subscription.unread > 0)
 				readMessage.readNow()
 			else
-				unreadCount += subscription.unread
-				if subscription.alert is true
-					unreadAlert = '•'
+				if subscription.t == 'd'
+					messagesUnreadCount += subscription.unread
+					if subscription.alert is true
+						messagesUnreadAlert = '•'
+				else
+					unreadCount += subscription.unread
+					if subscription.alert is true
+						unreadAlert = '•'
 
 			readMessage.refreshUnreadMark(subscription.rid)
 
@@ -38,6 +46,17 @@ Meteor.startup ->
 		else
 			Session.set 'unread', ''
 
+		if messagesUnreadCount > 0
+			if messagesUnreadCount > 999
+				Session.set 'unreadMessages', '999+'
+			else
+				Session.set 'unreadMessages', messagesUnreadCount
+		else if messagesUnreadAlert isnt false
+			Session.set 'unreadMessages', messagesUnreadAlert
+		else
+			Session.set 'unreadMessages', ''
+
+
 Meteor.startup ->
 
 	window.favico = new Favico
@@ -46,8 +65,12 @@ Meteor.startup ->
 
 	Tracker.autorun ->
 		siteName = RocketChat.settings.get 'Site_Name'
-		
+
 		unread = Session.get 'unread'
-		fireGlobalEvent 'unread-changed', unread
+		unreadMessages = Session.get 'unreadMessages'
+		if FlowRouter.getRouteName() == 'direct'
+			fireGlobalEvent 'unread-changed', unreadMessages
+		else
+			fireGlobalEvent 'unread-changed', unread
 		favico?.badge unread, bgColor: if typeof unread isnt 'number' then '#3d8a3a' else '#ac1b1b'
 		document.title = if unread == '' then 'ClassMash' else '(' + unread + ') ClassMash'
