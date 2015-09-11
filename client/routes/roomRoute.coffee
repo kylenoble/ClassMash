@@ -43,10 +43,8 @@ openRoom = (type, name, term) ->
 			Session.set 'openedRoom', room._id
 
 			Session.set 'editRoomTitle', false
-			readMessage.disable()
+			RoomManager.updateMentionsMarksOfRoom type + name
 			Meteor.setTimeout ->
-				readMessage.refreshUnreadMark()
-				readMessage.enable()
 				readMessage.readNow()
 			, 2000
 			# KonchatNotification.removeRoomNotification(params._id)

@@ -42,16 +42,21 @@ Template.admin.events
 	"click .submit": (e, t) ->
 		group = FlowRouter.getParam('group')
 		settings = Settings.find({ group: group }).fetch()
+		console.log 'will save settings', JSON.stringify settings
 		updateSettings = []
 		for setting in settings
 			value = null
 			if setting.type is 'string'
 				value = _.trim(t.$("[name=#{setting._id}]").val())
+			else if setting.type is 'int'
+				value = parseInt(_.trim(t.$("[name=#{setting._id}]").val()))
 			else if setting.type is 'boolean' and t.$("[name=#{setting._id}]:checked").length
 				value = if t.$("[name=#{setting._id}]:checked").val() is "1" then true else false
 
 			if value?
 				updateSettings.push { _id: setting._id, value: value }
+
+		console.log 'changed settings', JSON.stringify updateSettings
 
 		if not _.isEmpty updateSettings
 			RocketChat.settings.batchSet updateSettings, (err, success) ->

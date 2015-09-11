@@ -24,7 +24,7 @@ Template.room.helpers
 		return RoomHistoryManager.hasMore this._id
 
 	isLoading: ->
-		return 'btn-loading' if RoomHistoryManager.isLoading this._id
+		return RoomHistoryManager.isLoading this._id
 
 	windowId: ->
 		return "chat-window-#{this._id}"
@@ -282,7 +282,29 @@ Template.room.helpers
 	canJoin: ->
 		return !! ChatRoom.findOne { _id: @_id, t: 'c' }
 
+	roomManager: ->
+		room = ChatRoom.findOne(this._id, { reactive: false })
+		return RoomManager.openedRooms[room.t + room.name]
+
+	unreadCount: ->
+		return RoomHistoryManager.getRoom(@_id).unreadNotLoaded.get() + Template.instance().unreadCount.get()
+
+	formatUnreadSince: ->
+		room = ChatRoom.findOne(this._id, { reactive: false })
+		room = RoomManager.openedRooms[room.t + room.name]
+		date = room?.unreadSince.get()
+		if not date? then return
+
+		return moment(date).calendar(null, {sameDay: 'LT'})
+
+	adminClass: ->
+		return 'admin' if Meteor.user()?.admin is true
+
 Template.room.events
+	"keydown #room-search": (e) ->
+		if e.keyCode is 13
+			e.preventDefault()
+
 	"keyup #room-search": _.debounce (e, t) ->
 		t.searchResult.set undefined
 		value = e.target.value.trim()
@@ -313,6 +335,28 @@ Template.room.events
 
 	"click .upload-progress-item > a": ->
 		Session.set "uploading-cancel-#{this.id}", true
+
+	"click .unread-bar > a": ->
+		readMessage.readNow(true)
+
+	"click .flex-tab .more": (event, t) ->
+		if (Session.get('flexOpened'))
+			Session.set('rtcLayoutmode', 0)
+			Session.set('flexOpened',false)
+			t.searchResult.set undefined
+		else
+			Session.set('flexOpened', true)
+
+
+	"click .flex-tab  .video-remote" : (e) ->
+		if (Session.get('flexOpened'))
+			if (!Session.get('rtcLayoutmode'))
+				Session.set('rtcLayoutmode', 1)
+			else
+				t = Session.get('rtcLayoutmode')
+				t = (t + 1) % 4
+				console.log  'setting rtcLayoutmode to ' + t  if window.rocketDebug
+				Session.set('rtcLayoutmode', t)
 
 	# "click .flex-tab .more": (event, t) ->
 	# 	if (Session.get('flexOpened'))
@@ -504,13 +548,14 @@ Template.room.events
 
 			$('#room-search').val('')
 
-	# 'scroll .wrapper': (e, instance) ->
-		# console.log 'room scroll .wrapper' if window.rocketDebug
-		# if e.currentTarget.offsetHeight + e.currentTarget.scrollTop < e.currentTarget.scrollHeight
-		# 	instance.scrollOnBottom = false
-		# else
-		# 	instance.scrollOnBottom = true
-		# 	$('.new-message').addClass('not')
+	'scroll .wrapper': _.throttle (e, instance) ->
+		if RoomHistoryManager.hasMore(@_id) is true and RoomHistoryManager.isLoading(@_id) is false
+			if e.target.scrollTop is 0
+				RoomHistoryManager.getMore(@_id)
+	, 200
+
+	'click .load-more > a': ->
+		RoomHistoryManager.getMore(@_id)
 
 	'click .new-message': (e) ->
 		Template.instance().atBottom = true
@@ -648,6 +693,7 @@ Template.room.onCreated ->
 	this.showUsersOffline = new ReactiveVar false
 	this.atBottom = true
 	this.searchResult = new ReactiveVar
+	this.unreadCount = new ReactiveVar 0
 
 	self = @
 
@@ -664,9 +710,22 @@ Template.room.onRendered ->
 
 	template = this
 
+	wrapperOffset = $('.messages-box > .wrapper').offset()
+
 	onscroll = _.throttle ->
 		template.atBottom = wrapper.scrollTop >= wrapper.scrollHeight - wrapper.clientHeight
 	, 200
+
+	updateUnreadCount = _.throttle ->
+		firstMessageOnScreen = document.elementFromPoint(wrapperOffset.left+1, wrapperOffset.top+50)
+		if firstMessageOnScreen?.id?
+			firstMessage = ChatMessage.findOne firstMessageOnScreen.id
+			if firstMessage?
+				subscription = ChatSubscription.findOne rid: template.data._id
+				template.unreadCount.set ChatMessage.find({rid: template.data._id, ts: {$lt: firstMessage.ts, $gt: subscription.ls}}).count()
+			else
+				template.unreadCount.set 0
+	, 300
 
 	Meteor.setInterval ->
 		if template.atBottom
@@ -685,6 +744,7 @@ Template.room.onRendered ->
 	wrapper.addEventListener 'scroll', ->
 		template.atBottom = false
 		onscroll()
+		updateUnreadCount()
 
 	wrapper.addEventListener 'mousewheel', ->
 		template.atBottom = false
