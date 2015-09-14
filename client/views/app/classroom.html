@@ -1,0 +1,34 @@
+<template name="classroomPage">
+  <div class="classroom-container">
+    <div class="row">
+      <div class="teacher-container">
+        <label>{{teacherLabel}}</label>
+        <div class="teacher-info">
+          <span class="teacher-name"><i class="icon-user"></i>{{teacher}}</span>
+          <span class="teacher-email"><i class="icon-envelope-open"></i>{{{teacherEmail}}}</span>
+        </div>
+      </div>
+      <div class="class-info-container">
+        <label>Class Info</label>
+        <div class="class-info">
+          <div class="class-syllabus-icon">
+            <span class="syllabus">{{{syllabus}}}<label>Syllabus</label></span>
+          </div>
+          <div class="class-term">
+            <span class="term"><div>{{term}}</div><label>Term</label></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="members-info">
+        <label>Members</label>
+        {{#each classMembers}}
+          <div class="member-info">
+            {{this}}
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</template>

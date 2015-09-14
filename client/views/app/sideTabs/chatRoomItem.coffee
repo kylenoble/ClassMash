@@ -73,6 +73,15 @@ Template.chatRoomItem.events
 		if FlowRouter.getRouteName() in ['channel', 'group', 'direct'] and Session.get('openedRoom') is this.rid
 			FlowRouter.go 'home'
 
-		RoomManager.close this.rid
+		path = window.location.pathname.split('/')
+		if path[1] is 'group'
+			typeLetter = 'p'
+		else
+			typeLetter = path[1][0]
+
+		roomType = typeLetter + path[2]
+		term = path[3]
+
+		RoomManager.close roomType, term
 
 		Meteor.call 'leaveRoom', this.rid

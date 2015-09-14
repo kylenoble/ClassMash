@@ -27,7 +27,6 @@ RocketChat.Notifications = new class
 		@streamAll.on eventName, callback
 
 	onRoom: (room, eventName, callback) ->
-		console.log 'onRoom'
 		if @debug is true
 			@streamRoom.on room, -> console.log "RocketChat.Notifications: onRoom #{room}", arguments
 

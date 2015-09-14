@@ -22,7 +22,7 @@
 							when 'd'
 								FlowRouter.go 'direct', {username: notification.payload.sender.username}
 							when 'c'
-								FlowRouter.go 'channel', {name: notification.payload.name}
+								FlowRouter.go 'channel', {name: notification.payload.name, name: notification.payload.term}
 							when 'p'
 								FlowRouter.go 'group', {name: notification.payload.name}
 

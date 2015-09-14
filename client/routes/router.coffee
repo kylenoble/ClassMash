@@ -1,5 +1,4 @@
 Blaze.registerHelper 'pathFor', (path, kw) ->
-	console.log(kw)
 	return FlowRouter.path path, kw.hash
 
 BlazeLayout.setRoot 'body'

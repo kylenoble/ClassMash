@@ -24,12 +24,15 @@ Meteor.methods
 		unreadNotLoaded = 0
 
 		if ls?
-			fistMessage = messages[messages.length - 1]
-			if fistMessage.ts > ls
-				query.ts.$lt = fistMessage.ts
+			firstMessage = messages[messages.length - 1]
+			console.log(firstMessage)
+			if firstMessage and firstMessage.ts > ls
+				query.ts.$lt = firstMessage.ts
 				query.ts.$gt = ls
 				delete options.limit
 				unreadNotLoaded = ChatMessage.find(query, options).count()
+			else
+				unreadNotLoaded = 0
 
 		return {
 			messages: messages

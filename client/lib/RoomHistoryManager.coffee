@@ -23,7 +23,7 @@
 		# ScrollListener.setLoader true
 		lastMessage = ChatMessage.findOne({rid: rid}, {sort: {ts: 1}})
 		# lastMessage ?= ChatMessage.findOne({rid: rid}, {sort: {ts: 1}})
-
+		console.log(lastMessage)
 		if lastMessage?
 			ts = lastMessage.ts
 		else
@@ -36,6 +36,8 @@
 			ls = subscription.ls
 
 		Meteor.call 'loadHistory', rid, ts, limit, ls, (err, result) ->
+			console.log(result)
+			console.log(err)
 			room.unreadNotLoaded.set result.unreadNotLoaded
 
 			wrapper = $('.messages-box .wrapper').get(0)
@@ -48,6 +50,7 @@
 
 			Meteor.defer ->
 				readMessage.refreshUnreadMark(rid, true)
+				console.log(subscription)
 				RoomManager.updateMentionsMarksOfRoom subscription.t + subscription.name
 
 			room.isLoading.set false
