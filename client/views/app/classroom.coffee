@@ -77,6 +77,10 @@ Template.classroomPage.events
 		$('#select-syllabus').hide()
 		$('.add-syllabus-label').hide()
 
+	'click ': (event, template) ->
+		Session.set('showUserInfo', $(e.currentTarget).data('username'))
+		Session.set('showUserProfile', true)
+
 Template.classroomPage.created = ->
 	path = window.location.pathname.split('/')
 	if path[1] is 'group'

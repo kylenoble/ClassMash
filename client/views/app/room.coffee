@@ -38,9 +38,22 @@ Template.room.helpers
 			when 'c' then return 'icon-globe-alt'
 			when 'p' then return 'icon-lock'
 
+	userProfile: ->
+		console.log(Session.get('showUserProfile'))
+		return Session.get('showUserProfile')
+
 	flexUserInfo: ->
+		roomData = Session.get('roomData' + this._id)
+		console.log(roomData)
+		if roomData.s
+			school = roomData.s._id
+		else
+			user = Meteor.users.findOne(Meteor.userId())
+			school = user.profile.school._id
 		username = Session.get('showUserInfo')
-		return Meteor.users.findOne({ username: String(username) }) or { username: String(username) }
+		user = Meteor.users.findOne({ username: String(username), "profile.school._id": school })
+		if user
+			return user
 
 	userStatus: ->
 		roomData = Session.get('roomData' + this._id)
@@ -469,6 +482,7 @@ Template.room.events
 Template.room.onCreated ->
 	# this.scrollOnBottom = true
 	# this.typing = new msgTyping this.data._id
+	Session.set('showUserProfile', false)
 	this.showUsersOffline = new ReactiveVar false
 	this.searchResult = new ReactiveVar
 	this.isThread = new ReactiveVar true

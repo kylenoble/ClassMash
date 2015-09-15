@@ -770,7 +770,7 @@ label.required:after {
 		background-color: #bc2031;
 	}
 	&.white {
-		background-color: white;
+		background-color: @primary-font-color;
 		&.green-border {
 			color: @primary-green;
 			border: solid 1px @primary-green;
@@ -3309,10 +3309,28 @@ a.github-fork {
 
 
 .user-view {
+	position: absolute;
+	width: 100%;
+	height: 100%;
 	padding: 20px;
+	display: flex;
+	background-color: #FDF7F2;
+	margin-top: 60px;
+	z-index: 1000;
+	.back {
+		position: absolute;
+    top: 25px;
+    right: 5%;
+	}
+	.pvt-msg {
+		position: absolute;
+    top: 150px;
+	}
 	.about {
 		width: 100%;
-		margin-bottom: 20px;
+    margin-bottom: 20px;
+    position: absolute;
+    margin-top: 10px;
 	}
 	.thumb {
 		float: left;
@@ -3329,6 +3347,9 @@ a.github-fork {
 		margin-left: 120px;
 		white-space: normal;
 		.calc(width, ~'100% - 130px');
+		.icon-clock {
+				margin-right: 5px;
+		}		
 		h3 {
 			font-size: 24px;
 			margin-bottom: 8px;
@@ -3337,7 +3358,7 @@ a.github-fork {
 			width: 100%;
 			overflow: hidden;
 			white-space: nowrap;
-
+			color: @secondary-font-color;
 			i:after {
 				content: " ";
 				display: inline-block;
@@ -4457,6 +4478,12 @@ a.github-fork {
 			width: 100%;
 			border-left: none;
 			border-right: none;
+		}
+	}
+
+	.user-view {
+		.pvt-msg {
+			top: 120px;
 		}
 	}
 

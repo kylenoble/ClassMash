@@ -3,13 +3,15 @@ Meteor.publish 'fullUserData', (filter, limit) ->
 		return @ready()
 
 	user = Meteor.users.findOne @userId
+	school = user.profile.school
 
 	fields =
 		name: 1
 		username: 1
 		status: 1
 		utcOffset: 1
-		
+		'profile.school': 1
+
 	if user.admin is true
 		fields = _.extend fields,
 			emails: 1
@@ -30,7 +32,7 @@ Meteor.publish 'fullUserData', (filter, limit) ->
 
 	if filter
 		if limit is 1
-			query = { username: filter }
+			query = { username: filter, 'profile.school._id': school._id }
 		else
 			filterReg = new RegExp filter, "i"
 			query = { $or: [ { username: filterReg }, { name: filterReg }, { "emails.address": filterReg } ] }
@@ -39,7 +41,7 @@ Meteor.publish 'fullUserData', (filter, limit) ->
 
 	console.log '[publish] fullUserData'.green, filter, limit
 
-	Meteor.users.find query, 
+	Meteor.users.find query,
 		fields: fields
 		limit: limit
 		sort: { username: 1 }

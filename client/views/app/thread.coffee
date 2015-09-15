@@ -115,7 +115,7 @@ Template.threadPage.events
 			FlowRouter.go 'channel', {name: channel, term: term}
 			return
 
-		Session.set('flexOpened', true)
+		Session.set('showUserProfile', true)
 		Session.set('showUserInfo', $(e.currentTarget).data('username'))
 
 	'click .image-to-download': (event) ->
@@ -156,11 +156,10 @@ Template.threadPage.events
 
 	'click .user-card-message': (e) ->
 		roomData = Session.get('roomData' + this._arguments[1].rid)
-		if roomData.t in ['c', 'p']
-			Session.set('flexOpened', true)
+		if roomData.t in ['c', 'p', 'd']
+			Session.set('showUserProfile', true)
+			console.log($(e.currentTarget).data('username'))
 			Session.set('showUserInfo', $(e.currentTarget).data('username'))
-		else
-			Session.set('flexOpened', true)
 
 	'click .user-view nav .back': (e) ->
 		Session.set('showUserInfo', null)

@@ -13,11 +13,11 @@ Template.userInfo.helpers
 			return "(#{@phoneNumber.substr(0,2)}) #{@phoneNumber.substr(2,5)}-#{@phoneNumber.substr(7)}"
 		else
 			return "(#{@phoneNumber.substr(0,2)}) #{@phoneNumber.substr(2,4)}-#{@phoneNumber.substr(6)}"
-	
+
 	lastLogin: ->
 		if @lastLogin
 			return moment(@lastLogin).format('LLL')
-	
+
 	createdAt: ->
 		if @createdAt
 			return moment(@createdAt).format('LLL')
@@ -55,6 +55,20 @@ Template.userInfo.helpers
 	userTime: ->
 		if @utcOffset?
 			return Template.instance().now.get().utcOffset(@utcOffset).format('HH:mm')
+
+Template.userInfo.events
+	'click .pvt-msg': (e) ->
+		Meteor.call 'createDirectMessage', Session.get('showUserInfo'), (error, result) ->
+			console.log result
+			if error
+				return Errors.throw error.reason
+
+			if result?.rid?
+				FlowRouter.go('direct', { username: Session.get('showUserInfo') })
+				Session.set('showUserProfile', false)
+
+	'click .back': (event, template) ->
+		Session.set('showUserProfile', false)
 
 Template.userInfo.onCreated ->
 	@now = new ReactiveVar moment()
