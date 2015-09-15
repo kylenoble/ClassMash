@@ -2590,6 +2590,14 @@ a.github-fork {
 	z-index: 10;
 }
 
+#select-syllabus {
+	opacity: 0;
+	position: absolute;
+	margin: 4px 2px 0px 2px;
+	width: 127px;
+	font-size: 27px;
+}
+
 // change to page-messages
 .messages-container {
 	position: absolute;
@@ -3204,10 +3212,21 @@ a.github-fork {
 			}
 			.teacher-email {
 				position: absolute;
-				padding: 15px 20px;
-				margin-top: 25px;
+		    padding: 15px 20px;
+		    margin-top: 25px;
+				&.adding-teacher-email {
+					margin-top: 15px;
+				}
 				i {
 					margin-right: 10px;
+				}
+				input {
+					width: 140px;
+					height: 28px;
+				}
+				button {
+					margin-left: 5px;
+			    padding: 6px;
 				}
 			}
 			.class-syllabus-icon {
@@ -3219,9 +3238,22 @@ a.github-fork {
 					margin-left: auto;
 					margin-right: auto;
 					margin-top: 5px;
-					label {
+					.add-syllabus-label {
+				    margin-left: 10px;
+				    margin-right: -5px;
+					}
+					i {
+						position: relative;
+				    font-size: 39px;
+				    top: 3px;
+				    color: @primary-blue;
+						&:hover {
+							color: lighten(@primary-blue, 20%);
+						}
+					}
+					.syllabus-footer-label {
 						position: absolute;
-						margin-left: -51px;
+						margin-left: -44px;
 						margin-right: auto;
 						margin-top: 50px;
 					}

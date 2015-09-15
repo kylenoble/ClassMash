@@ -42,3 +42,5 @@ Meteor.publish 'room', (typeName) ->
 			usernames: 1
 			term: 1
 			teacher: 1
+			teacherEmail: 1
+			syllabus: 1

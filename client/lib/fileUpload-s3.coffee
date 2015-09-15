@@ -18,7 +18,7 @@ readAsDataURL = (file, callback) ->
 	icon = ''
 	previewIcon = ''
 	shortFileType.set('')
-	metaContext = {roomId: roomId}
+	metaContext = {roomId: roomId, type: category}
 	uploader = new Slingshot.Upload("fileUploads", metaContext)
 	consume = ->
 		file = files.pop()
@@ -155,7 +155,6 @@ readAsDataURL = (file, callback) ->
 									<div class='download-file'><a href='#{downloadUrl}' class='linkable-title' target=_blank><i class="fa fa-cloud-download"></i></a></div>
 								</div>
 							"""
-
 						upload = fileCollection.insert
 							name: file.name
 							size: file.size
@@ -168,12 +167,16 @@ readAsDataURL = (file, callback) ->
 							room: {
 								_id: fileRoomId.get()
 							}
-							Meteor.call 'sendMessage', {
-								_id: Random.id()
-								t: shortFileType.get()
-								rid: Session.get('openedRoom')
-								msg: message
-								file:
-									_id: this._id
-							}
+
+							if metaContext.type is 'syllabus'
+								Meteor.call 'addSyllabus', file.name, downloadUrl, fileRoomId.get()
+							else
+								Meteor.call 'sendMessage', {
+									_id: Random.id()
+									t: shortFileType.get()
+									rid: Session.get('openedRoom')
+									msg: message
+									file:
+										_id: this._id
+								}
 	consume()

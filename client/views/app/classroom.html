@@ -5,14 +5,21 @@
         <label>{{teacherLabel}}</label>
         <div class="teacher-info">
           <span class="teacher-name"><i class="icon-user"></i>{{teacher}}</span>
-          <span class="teacher-email"><i class="icon-envelope-open"></i>{{{teacherEmail}}}</span>
+          <span class="teacher-email">
+            <i class="icon-envelope-open"></i>
+            {{#if addingTeacherEmail}}
+              <input type="text" id="teacher-email"><button class="add-teacher-email-button button white blue-border">Add</button>
+            {{else}}
+              {{{teacherEmail}}}
+            {{/if}}
+          </span>
         </div>
       </div>
       <div class="class-info-container">
         <label>Class Info</label>
         <div class="class-info">
           <div class="class-syllabus-icon">
-            <span class="syllabus">{{{syllabus}}}<label>Syllabus</label></span>
+            <span class="syllabus">{{{syllabus}}}<label class="syllabus-footer-label">Syllabus</label></span>
           </div>
           <div class="class-term">
             <span class="term"><div>{{term}}</div><label>Term</label></span>

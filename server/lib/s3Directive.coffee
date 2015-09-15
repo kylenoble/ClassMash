@@ -43,4 +43,7 @@ Slingshot.createDirective 'fileUploads', Slingshot.S3Storage,
     return true;
   key: (file, metaContext) ->
     user = Meteor.users.findOne(this.userId)
-    return [metaContext.roomId, "/", user.username, "/", file.name].join("")
+    if metaContext.type is 'syllabus'
+      return [metaContext.roomId, "/syllabus/", file.name].join("")
+    else
+      return [metaContext.roomId, "/", user.username, "/", file.name].join("")
