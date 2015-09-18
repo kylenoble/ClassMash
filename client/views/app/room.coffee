@@ -230,9 +230,6 @@ Template.room.helpers
 		if @lastLogin
 			return moment(@lastLogin).format('LLL')
 
-	canJoin: ->
-		return !! ChatRoom.findOne { _id: @_id, t: 'c' }
-
 	roomManager: ->
 		room = ChatRoom.findOne(this._id, { reactive: false })
 		return RoomManager.openedRooms[room.t + room.name]
@@ -241,43 +238,43 @@ Template.room.helpers
 		return 'admin' if Meteor.user()?.admin is true
 
 	thread: ->
-		if Template.instance().isThread.get()
+		if Session.get('isThread')
 			console.log('thread')
 			$('.room-icons .icon-list').addClass('active')
-		return Template.instance().isThread.get()
+		return Session.get('isThread')
 
 	classroom: ->
-		if Template.instance().isClassroom.get()
+		if Session.get('isClassroom')
 			$('.room-icons .icon-home').addClass('active')
-		return Template.instance().isClassroom.get()
+		return Session.get('isClassroom')
 
 	files: ->
-		if Template.instance().isFiles.get()
+		if Session.get('isFiles')
 			$('.room-icons .icon-docs').addClass('active')
-		return Template.instance().isFiles.get()
+		return Session.get('isFiles')
 
 	calendar: ->
-		if Template.instance().isCalendar.get()
+		if Session.get('isCalendar')
 			$('.room-icons .icon-calendar').addClass('active')
-		return Template.instance().isCalendar.get()
+		return Session.get('isCalendar')
 
 Template.room.events
 
 	"click .room-icons .icon-home": (e) ->
 		clearActive()
-		Template.instance().isClassroom.set(true)
+		Session.set('isClassroom', true)
 
 	"click .room-icons .icon-list": (e) ->
 		clearActive()
-		Template.instance().isThread.set(true)
+		Session.set('isThread', true)
 
 	"click .room-icons .icon-docs": (e) ->
 		clearActive()
-		Template.instance().isFiles.set(true)
+		Session.set('isFiles', true)
 
 	"click .room-icons .icon-calendar": (e) ->
 		clearActive()
-		Template.instance().isCalendar.set(true)
+		Session.set('isCalendar', true)
 
 	"keydown #room-search": (e) ->
 		if e.keyCode is 13
@@ -485,10 +482,10 @@ Template.room.onCreated ->
 	Session.set('showUserProfile', false)
 	this.showUsersOffline = new ReactiveVar false
 	this.searchResult = new ReactiveVar
-	this.isThread = new ReactiveVar true
-	this.isClassroom = new ReactiveVar false
-	this.isCalendar = new ReactiveVar false
-	this.isFiles = new ReactiveVar false
+	Session.set('isThread', true)
+	Session.set('isClassroom', false)
+	Session.set('isCalendar', false)
+	Session.set('isFiles', false)
 
 	self = @
 
@@ -503,10 +500,10 @@ clearActive = () ->
 	$('.room-icons .icon-home').removeClass('active')
 	$('.room-icons .icon-docs').removeClass('active')
 	$('.room-icons .icon-calendar').removeClass('active')
-	Template.instance().isClassroom.set(false)
-	Template.instance().isThread.set(false)
-	Template.instance().isCalendar.set(false)
-	Template.instance().isFiles.set(false)
+	Session.set('isClassroom', false)
+	Session.set('isThread', false)
+	Session.set('isCalendar', false)
+	Session.set('isFiles', false)
 
 renameRoom = (rid, name) ->
 	name = name?.toLowerCase().trim()

@@ -38,9 +38,13 @@ openRoom = (type, name, term) ->
 				roomDom = RoomManager.getDomOfRoom(type + name, room._id)
 				mainNode.appendChild roomDom
 				if roomDom.classList.contains('room-container')
-					roomDom.querySelector('.messages-box > .wrapper').scrollTop = roomDom.oldScrollTop
+					if roomDom.classList.contains('.messages-box.wrapper')
+						roomDom.querySelector('.messages-box > .wrapper').scrollTop = roomDom.oldScrollTop
 
 			Session.set 'openedRoom', room._id
+			Session.set 'isThread', true
+
+			console.log(room._id)
 
 			Session.set 'editRoomTitle', false
 			RoomManager.updateMentionsMarksOfRoom type + name
@@ -61,11 +65,12 @@ roomExit = ->
 		for child in mainNode.children
 			if child?
 				if child.classList.contains('room-container')
-					wrapper = child.querySelector('.messages-box > .wrapper')
-					if wrapper.scrollTop >= wrapper.scrollHeight - wrapper.clientHeight
-						child.oldScrollTop = 10e10
-					else
-						child.oldScrollTop = wrapper.scrollTop
+					if Session.get('isThread')
+						wrapper = child.querySelector('.messages-box > .wrapper')
+						if wrapper and wrapper.scrollTop >= wrapper.scrollHeight - wrapper.clientHeight
+							child.oldScrollTop = 10e10
+						else if wrapper
+							child.oldScrollTop = wrapper.scrollTop
 				mainNode.removeChild child
 
 

@@ -56,6 +56,8 @@ Template.chatRoomItem.events
 	'click .open-room': (e) ->
 		menu.close()
 		rightMenu.close()
+		clearActive()
+		$('.room-icons .icon-list').addClass('active')
 
 	'click .hide-room': (e) ->
 		e.stopPropagation()
@@ -85,3 +87,12 @@ Template.chatRoomItem.events
 		RoomManager.close roomType, term
 
 		Meteor.call 'leaveRoom', this.rid
+
+clearActive = () ->
+	$('.room-icons .icon-home').removeClass('active')
+	$('.room-icons .icon-docs').removeClass('active')
+	$('.room-icons .icon-calendar').removeClass('active')
+	Session.set('isClassroom', false)
+	Session.set('isCalendar', false)
+	Session.set('isFiles', false)
+	Session.set('isThread', false)

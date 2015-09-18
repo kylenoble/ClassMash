@@ -14,7 +14,6 @@ email
 fastclick
 http
 jquery
-less
 meteor-platform
 reactive-dict
 reactive-var
@@ -96,3 +95,4 @@ lookback:dropdowns
 outatime:geolib
 fortawesome:fontawesome
 edgee:slingshot
+flemay:less-autoprefixer

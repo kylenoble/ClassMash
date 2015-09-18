@@ -27,12 +27,8 @@ readAsDataURL = (file, callback) ->
 			return
 		fileType = file.type.split("/")
 		fileExtension = file.name.split('.')
-		console.log('file type 1 ' + fileType[1])
-		console.log(fileExtension[fileExtension.length - 2])
-		console.log(file)
 		readAsDataURL file, (fileContent) ->
 			text = ''
-			console.log(fileContent)
 			if file.type is 'audio'
 				text = """
 					<div class='upload-preview'>
@@ -85,7 +81,6 @@ readAsDataURL = (file, callback) ->
 				html: true
 			, (isConfirm) ->
 				consume()
-				console.log(isConfirm)
 				if isConfirm isnt true
 					return
 
@@ -96,7 +91,6 @@ readAsDataURL = (file, callback) ->
 							return
 						else
 							if uploader.xhr
-								console.log(uploader.xhr.response)
 								toastr.error 'Error uploading', uploader.xhr.response
 								return
 							else
@@ -160,9 +154,11 @@ readAsDataURL = (file, callback) ->
 							size: file.size
 							type: file.type
 							url: downloadUrl
+							date: new Date()
 							category: fileCategory.get()
 							user: {
 								_id: Meteor.userId()
+								username: Meteor.user().username
 							}
 							room: {
 								_id: fileRoomId.get()

@@ -1,7 +1,6 @@
 Template.threadPage.helpers
 	roomManager: ->
 		room = ChatRoom.findOne(Template.instance().roomId, { reactive: false })
-		console.log(room)
 		return RoomManager.openedRooms[room.t + room.name]
 
 	unreadCount: ->
@@ -51,6 +50,9 @@ Template.threadPage.helpers
 
 	subscribed: ->
 		return ChatSubscription.find({ rid: Template.instance().roomId }).count() > 0
+
+	canJoin: ->
+		return !! ChatRoom.findOne { _id: Template.instance().roomId, t: 'c' }		
 
 	usersTyping: ->
 		users = MsgTyping.get @_id
@@ -158,7 +160,6 @@ Template.threadPage.events
 		roomData = Session.get('roomData' + this._arguments[1].rid)
 		if roomData.t in ['c', 'p', 'd']
 			Session.set('showUserProfile', true)
-			console.log($(e.currentTarget).data('username'))
 			Session.set('showUserInfo', $(e.currentTarget).data('username'))
 
 	'click .user-view nav .back': (e) ->
@@ -200,8 +201,6 @@ Template.threadPage.events
 		if not files or files.length is 0
 			files = e.dataTransfer?.files or []
 
-		console.log(files)
-
 		fileUploadS3 files, 'regular', Template.instance().roomId
 
 		$('.adding-files').hide();
@@ -212,8 +211,6 @@ Template.threadPage.events
 		if not files or files.length is 0
 			files = e.dataTransfer?.files or []
 
-		console.log(files)
-
 		fileUploadS3 files, 'notes', Template.instance().roomId
 
 		$('.adding-files').hide();
@@ -223,8 +220,6 @@ Template.threadPage.events
 		files = document.getElementById('select-note-cards').files[0]
 		if not files or files.length is 0
 			files = e.dataTransfer?.files or []
-
-		console.log(files)
 
 		fileUploadS3 files, 'note-cards', Template.instance().roomId
 
@@ -282,14 +277,13 @@ Template.threadPage.onRendered ->
 	this.chatMessages = new ChatMessages
 	this.chatMessages.init(this.firstNode)
 	# ScrollListener.init()
-	console.log('thread ' + Template.instance().roomId)
 
 	wrapper = this.find('.wrapper')
 	newMessage = this.find(".new-message")
 
 	template = this
-
-	wrapperOffset = $('.messages-box > .wrapper').offset()
+	if $('.messages-box > .wrapper')
+		wrapperOffset = $('.messages-box > .wrapper').offset()
 
 	onscroll = _.throttle ->
 		template.atBottom = wrapper.scrollTop >= wrapper.scrollHeight - wrapper.clientHeight

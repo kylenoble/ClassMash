@@ -56,7 +56,7 @@ Template.adminUsers.onCreated ->
 			query = { $or: [ { username: filterReg }, { name: filterReg }, { "emails.address": filterReg } ] }
 		else
 			query = {}
-		
+
 		return Meteor.users.find(query, { limit: instance.limit?.get(), sort: { username: 1, name: 1 } }).fetch()
 
 Template.adminUsers.onRendered ->

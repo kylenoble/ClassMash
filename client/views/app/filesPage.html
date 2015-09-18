@@ -1,0 +1,30 @@
+<template name="filesPage">
+  <div class="files-container">
+    <div class="filter-container">
+      <div class="filters">
+        <div class="filter-item files">
+          <span>Files</span>
+        </div>
+        <div class="filter-item notes">
+          <span>Notes</span>
+        </div>
+        <div class="filter-item note-cards">
+          <span>Note Cards</span>
+        </div>
+      </div>
+    </div>
+    <div class="file-list-container">
+      <div class="files-list">
+        {{#each roomFiles}}
+          <div class="file">
+            <i class="{{icon type}}"></i>
+            <span class="filename">{{name}}</span>
+            <a href="{{url}}"><i class="icon-cloud-download"></i></a>
+            <span class="username">{{user.username}}</span>
+            <span class="date">{{cleanDate date}}</span>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</template>

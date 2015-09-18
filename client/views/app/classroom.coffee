@@ -24,7 +24,7 @@ Template.classroomPage.helpers
 		Template.instance().room = ChatRoom.findOne(Template.instance().roomId, term: Template.instance().term)
 		if Template.instance().room.syllabus
 			return "
-			        <a href='#{Template.instance().room.syllabus.url}'><i class='icon-book-open'></i></a>
+			        <a href='#{Template.instance().room.syllabus.url}'><i class='icon-notebook'></i></a>
 						"
 		else
 			return "

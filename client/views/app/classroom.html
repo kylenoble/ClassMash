@@ -4,7 +4,7 @@
       <div class="teacher-container">
         <label>{{teacherLabel}}</label>
         <div class="teacher-info">
-          <span class="teacher-name"><i class="icon-user"></i>{{teacher}}</span>
+          <span class="teacher-name"><i class="icon-chemistry"></i>{{teacher}}</span>
           <span class="teacher-email">
             <i class="icon-envelope-open"></i>
             {{#if addingTeacherEmail}}
@@ -32,7 +32,7 @@
         <label>Members</label>
         {{#each classMembers}}
           <div class="member-info">
-            {{this}}
+            <i class="icon-user"></i> {{this}}
           </div>
         {{/each}}
       </div>
