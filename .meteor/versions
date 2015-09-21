@@ -110,6 +110,7 @@ ordered-dict@1.0.3
 outatime:geolib@2.0.15
 pauli:accounts-linkedin@1.1.2
 pauli:linkedin@1.1.2
+peppelg:bootstrap-3-modal@1.0.3
 percolate:migrations@0.7.6
 percolate:momentum@0.7.2
 percolate:synced-cron@1.2.1
@@ -145,6 +146,7 @@ rocketchat:slashcommands-leave@0.0.1
 rocketchat:statistics@0.0.1
 rocketchat:webrtc@0.0.1
 routepolicy@1.0.5
+rzymek:fullcalendar@2.3.1
 service-configuration@1.0.4
 session@1.1.0
 sha@1.0.3
@@ -161,6 +163,8 @@ tmeasday:crypto-md5@3.1.2
 tmeasday:errors@2.0.0
 todda00:friendly-slugs@0.3.4
 tracker@1.0.7
+tsega:bootstrap3-datetimepicker@4.14.30_4
+twbs:bootstrap@3.3.5
 twitter@1.1.4
 ui@1.0.6
 underscore@1.0.3

@@ -52,11 +52,11 @@ a {
 	src: url("/fonts/axis.otf") format("opentype");
 }
 
-.row {
-	width: 100%;
-	display: flex;
-	margin: auto;
-}
+// .row {
+// 	width: 100%;
+// 	display: flex;
+// 	margin: auto;
+// }
 
 code {
 	background: #f8f8f8;
@@ -720,6 +720,7 @@ label.required:after {
 }
 
 // new layout buttons
+.fc-button,
 .button {
 	&:extend(.unselectable);
 	display: inline-block;
@@ -3306,6 +3307,12 @@ a.github-fork {
 		padding: 16px 15px;
 		font-family: Axis, 'Avenir', 'Helvetica Nueue';
 		font-size: 16px;
+		cursor: pointer;
+		&:hover {
+			background-color: @secondary-blue;
+			color: white;
+			border: solid 1px @primary-blue;
+		}
 		i {
 			margin-right: 10px;
 		}
@@ -3454,6 +3461,178 @@ a.github-fork {
 		}
 	}
 }
+
+.classCalendar {
+	color: @secondary-font-color;
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	.fc-toolbar {
+		margin-bottom: 0px;
+		.fc-state-active {
+			background-color: @primary-red;
+			color: white;
+		}
+	}
+	.fc-prev-button {
+		margin-right: 5px;
+	}
+	.fc-right {
+		margin-top: 15px;
+	}
+}
+
+.show-add-event {
+	position: absolute;
+	right: 50%;
+	z-index: 1050;
+	top: 12px;
+	height: 30px;
+	padding: 6px 8px;
+}
+
+.modal {
+	color: @secondary-font-color;
+}
+
+.modal-backdrop {
+  z-index: -1;
+}
+
+// .event-form {
+// 	.container {
+// 		color: @secondary-font-color;
+// 		position: absolute;
+// 		margin-left: auto;
+// 		margin-right: auto;
+// 		height: 330px;
+// 		width: 50%;
+// 		z-index: 1000;
+// 		background-color: @secondary-background-color;
+// 		border: solid 1px @primary-blue;
+// 		padding: 20px;
+// 	}
+// }
+
+/* Buttons
+------------------------------------------------------------------------*/
+.fc-button {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.fc-state-default {
+	/* non-theme */
+	border-style: solid;
+	border-width: 1px 0;
+  text-shadow: none;
+}
+
+.fc-button-inner {
+	position: relative;
+	float: left;
+	overflow: hidden;
+}
+
+.fc-state-default .fc-button-inner {
+	/* non-theme */
+	border-style: solid;
+	border-width: 0 1px;
+}
+
+.fc-button-content {
+	position: relative;
+	float: left;
+	height: 1.9em;
+	line-height: 1.9em;
+	padding: 0 0.6em;
+	white-space: nowrap;
+}
+
+/* icon (for jquery ui) */
+.fc-button-content .fc-icon-wrap {
+	position: relative;
+	float: left;
+	top: 50%;
+}
+
+.fc-button-content .ui-icon {
+	position: relative;
+	float: left;
+	margin-top: -50%;
+	*margin-top: 0;
+	*top: -50%;
+}
+
+/* gloss effect */
+.fc-state-default .fc-button-effect {
+	position: absolute;
+	top: 50%;
+	left: 0;
+}
+
+.fc-state-down,
+.fc-state-active {
+	background-color: none;
+	background-image: none;
+	box-shadow: none;
+}
+
+.fc-state-default .fc-button-effect span {
+	position: absolute;
+	top: -100px;
+	left: 0;
+	width: 500px;
+	height: 100px;
+	border-width: 100px 0 0 1px;
+	border-style: solid;
+	border-color: #fff;
+	background: none;
+	opacity: none;
+	filter: none;
+}
+
+/* button states (determines colors)  */
+.fc-state-default,
+.fc-state-default .fc-button-inner {
+	border-style: none;
+	border-color: none;
+	background: none;
+	color: none;
+}
+
+.fc-state-hover,
+.fc-state-hover .fc-button-inner {
+	border-color: none;
+}
+
+.fc-state-down,
+.fc-state-down .fc-button-inner {
+	border-color: #555;
+	background: #777;
+}
+
+.fc-state-active,
+.fc-state-active .fc-button-inner {
+	background-color: @primary-blue;
+	color: #fff;
+}
+
+.fc-state-disabled,
+.fc-state-disabled .fc-button-inner {
+	color: rgb(122, 69, 69);
+	border-color: #ddd;
+}
+
+.fc-state-disabled {
+	cursor: default;
+}
+
+.fc-state-disabled .fc-button-effect {
+	display: none;
+}
+
 
 .user-view {
 	position: absolute;
@@ -4488,7 +4667,8 @@ a.github-fork {
 }
 
 @media all and(max-width: 1000px) {
-	.classroom-container {
+	.classroom-container,
+	.calendar-container {
 		top: 100px;
 	}
 
@@ -4695,7 +4875,7 @@ a.github-fork {
 					overflow: hidden;
 			    white-space: nowrap;
 			    text-overflow: ellipsis;
-			    width: 160px;					
+			    width: 160px;
 				}
 				.teacher-name {
 					padding: 15px 15px;

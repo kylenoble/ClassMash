@@ -52,7 +52,7 @@ Template.threadPage.helpers
 		return ChatSubscription.find({ rid: Template.instance().roomId }).count() > 0
 
 	canJoin: ->
-		return !! ChatRoom.findOne { _id: Template.instance().roomId, t: 'c' }		
+		return !! ChatRoom.findOne { _id: Template.instance().roomId, t: 'c' }
 
 	usersTyping: ->
 		users = MsgTyping.get @_id

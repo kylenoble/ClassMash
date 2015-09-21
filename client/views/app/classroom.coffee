@@ -46,6 +46,16 @@ Template.classroomPage.helpers
 			return students
 
 Template.classroomPage.events
+
+	"click .member-info": (e) ->
+		# channel = $(e.currentTarget).data('channel')
+		# term = $(e.currentTarget).data('term')
+		# if channel?
+		# 	FlowRouter.go 'channel', {name: channel, term: term}
+		# 	return
+		Session.set('showUserProfile', true)
+		Session.set('showUserInfo', $(e.target).text().trim())
+
 	'click .add-teacher-email': (e, t) ->
 		console.log 'adding teacher email'
 		addTeacherEmail.set(true)
@@ -76,10 +86,6 @@ Template.classroomPage.events
 		fileUploadS3 files, 'syllabus', Template.instance().roomId
 		$('#select-syllabus').hide()
 		$('.add-syllabus-label').hide()
-
-	'click ': (event, template) ->
-		Session.set('showUserInfo', $(e.currentTarget).data('username'))
-		Session.set('showUserProfile', true)
 
 Template.classroomPage.created = ->
 	path = window.location.pathname.split('/')

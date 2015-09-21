@@ -13,9 +13,7 @@ Meteor.publish 'fileList', (limit, rid) ->
 
 	query = { "room._id": rid }
 
-	console.log(query)
-
-	console.log '[publish] file uploads'.green, limit
+	console.log '[publish] file uploads'.green, limit, rid
 
 	return fileCollection.find query,
 		fields: fields

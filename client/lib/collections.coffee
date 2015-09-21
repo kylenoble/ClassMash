@@ -4,3 +4,4 @@
 @UserAndRoom = new Meteor.Collection null
 @Schools = new Meteor.Collection 'schools'
 @SchoolsNew = new Meteor.Collection 'schools.new'
+@Events = new Meteor.Collection 'events'
