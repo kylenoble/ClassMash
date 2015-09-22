@@ -52,11 +52,11 @@ a {
 	src: url("/fonts/axis.otf") format("opentype");
 }
 
-// .row {
-// 	width: 100%;
-// 	display: flex;
-// 	margin: auto;
-// }
+.class-row {
+	width: 100%;
+	display: flex;
+	margin: auto;
+}
 
 code {
 	background: #f8f8f8;
@@ -773,39 +773,43 @@ label.required:after {
 	&.white {
 		background-color: @primary-font-color;
 		&.green-border {
-			color: @primary-green;
+			background-color: @primary-green;
 			border: solid 1px @primary-green;
+			color: white;
 			&:hover {
 				color: white;
-				background-color: @primary-green;
-				border: solid 1px @primary-green;
+				background-color: lighten(@primary-green, 5%);
+				border: solid 1px lighten(@primary-green, 5%);
 			}
 		}
 		&.blue-border {
-			color: @primary-blue;
+			background-color: @primary-blue;
 			border: solid 1px @primary-blue;
+			color: white;
 			&:hover {
 				color: white;
-				background-color: @primary-blue;
-				border: solid 1px @primary-blue;
+				background-color: lighten(@primary-blue, 5%);
+				border: solid 1px lighten(@primary-blue, 5%);
 			}
 		}
 		&.light-blue-border {
-			color: @secondary-blue;
+			background-color: @secondary-blue;
 			border: solid 1px @secondary-blue;
+			color: white;
 			&:hover {
 				color: white;
-				background-color: @secondary-blue;
-				border: solid 1px @secondary-blue;
+				background-color: lighten(@secondary-blue, 5%);
+				border: solid 1px lighten(@secondary-blue, 5%);
 			}
 		}
 		&.red-border {
-			color: @primary-red;
+			background-color: @primary-red;
 			border: solid 1px @primary-red;
+			color: white;
 			&:hover {
 				color: white;
-				background-color: @primary-red;
-				border: solid 1px @primary-red;
+				background-color: lighten(@primary-red, 5%);
+				border: solid 1px lighten(@primary-red, 5%);
 			}
 		}
 	}
@@ -3474,6 +3478,9 @@ a.github-fork {
 			color: white;
 		}
 	}
+	.fc-event-container {
+		cursor: pointer;
+	}
 	.fc-prev-button {
 		margin-right: 5px;
 	}
@@ -3485,7 +3492,7 @@ a.github-fork {
 .show-add-event {
 	position: absolute;
 	right: 50%;
-	z-index: 1050;
+	z-index: 999;
 	top: 12px;
 	height: 30px;
 	padding: 6px 8px;
@@ -3520,6 +3527,17 @@ a.github-fork {
 	position: relative;
 	display: inline-block;
 	cursor: pointer;
+	&.line {
+		background-color: @secondary-background-color;
+		color: @primary-red;
+		&.red-border {
+			border: 1px solid @primary-red;
+			&:hover {
+				background-color: @primary-red;
+				color: white;
+			}
+		}
+	}
 }
 
 .fc-state-default {
@@ -3527,6 +3545,7 @@ a.github-fork {
 	border-style: solid;
 	border-width: 1px 0;
   text-shadow: none;
+	box-shadow: none;
 }
 
 .fc-button-inner {
@@ -3561,8 +3580,8 @@ a.github-fork {
 	position: relative;
 	float: left;
 	margin-top: -50%;
-	*margin-top: 0;
-	*top: -50%;
+	margin-top: 0;
+	top: -50%;
 }
 
 /* gloss effect */
@@ -3633,6 +3652,35 @@ a.github-fork {
 	display: none;
 }
 
+.form-group {
+	label {
+		margin-bottom: 10px;
+	}
+	&.type-label {
+		margin-bottom: 0px;
+	}
+	.type-item {
+		text-align: center;
+		cursor: pointer;
+		.icon-note {
+			color: @secondary-font-color;
+		}
+		&.active {
+			padding-bottom: 4px;
+			border-bottom: 3px solid @secondary-blue;
+			color: @secondary-blue;
+			.icon-note {
+				color: @secondary-blue;
+			}
+		}
+	}
+}
+
+.event-types {
+	width: 98%;
+	margin-left: auto;
+	margin-right: auto;
+}
 
 .user-view {
 	position: absolute;
@@ -4419,10 +4467,7 @@ a.github-fork {
 	text-align: center;
 	position: relative;
 	z-index: 1;
-	display: -webkit-flex;
 	display: flex;
-	flex-wrap: wrap;
-	-webkit-flex-wrap: wrap;
 	margin-bottom: 20px;
 	color: white;
 	h3 {
@@ -4431,6 +4476,9 @@ a.github-fork {
 		margin-bottom: 12px;
 	}
 	.button {
+		position: relative;
+		float: left;
+		display: inline-block;
 		border-radius: 2px;
 		border: none;
 		min-height: 40px;
@@ -4438,8 +4486,9 @@ a.github-fork {
 		font-size: 18px;
 		margin: 2px;
 		padding: 0;
-		-webkit-flex-grow: 1;
-		flex-grow: 1;
+		width: 50%;
+		// -webkit-flex-grow: 1;
+		// flex-grow: 1;
 	}
 }
 
@@ -4713,9 +4762,32 @@ a.github-fork {
 		i:last-child {
 			margin-right: 0px;
 		}
-		.container {
+		.icon-container {
 			margin-top: -10px;
 		}
+	}
+}
+
+@media (min-width: 900px) {
+	#eventModal {
+		margin-left: 266px;
+	}
+}
+
+@media (min-width: 781px) and (max-width: 899px) {
+	#eventModal {
+		width: 80%;
+		margin-left: 266px;
+		.modal-content {
+			width: 80%;
+		}
+	}
+}
+
+@media (max-width: 780px) {
+	#eventModal {
+		margin-left: 0;
+		width: 100%;
 	}
 }
 
