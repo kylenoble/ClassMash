@@ -1,72 +1,68 @@
 Meteor.startup ->
-	ServiceConfiguration.configurations.find({custom: true}).observe
-		added: (record) ->
-			new CustomOAuth record.service,
-				serverURL: record.serverURL
-				authorizePath: record.authorizePath
+  ServiceConfiguration.configurations.find({custom: true}).observe
+    added: (record) ->
+      new CustomOAuth record.service,
+        serverURL: record.serverURL
+        authorizePath: record.authorizePath
 
 Template.loginServices.helpers
-	loginService: ->
-		services = []
+  loginService: ->
+    services = []
 
-		authServices = ServiceConfiguration.configurations.find({}, { sort: {service: 1} }).fetch()
+    authServices = ServiceConfiguration.configurations.find({}, { sort: {service: 1} }).fetch()
 
-		authServices.forEach (service) ->
-			switch service.service
-				when 'meteor-developer'
-					serviceName = 'Meteor'
-					icon = 'meteor'
-				when 'github'
-					serviceName = 'GitHub'
-					icon = 'github-circled'
-				when 'gitlab'
-					serviceName = 'Gitlab'
-					icon = service.service
-				else
-					serviceName = _.capitalize service.service
-					icon = service.service
+    authServices.forEach (service) ->
+      switch service.service
+        when 'meteor-developer'
+          serviceName = 'Meteor'
+          icon = 'meteor'
+        when 'github'
+          serviceName = 'GitHub'
+          icon = 'github-circled'
+        when 'gitlab'
+          serviceName = 'Gitlab'
+          icon = service.service
+        else
+          serviceName = _.capitalize service.service
+          icon = service.service
 
-			services.push
-				service: service
-				displayName: serviceName
-				icon: icon
+      services.push
+        service: service
+        displayName: serviceName
+        icon: icon
 
-		return services
-
-Template.loginServices.onRendered ->
-	$('.icon-facebook').addClass('icon-social-facebook')
-	$('.icon-twitter').addClass('icon-social-twitter')
+    return services
 
 Template.loginServices.events
-	'click .external-login': (e, t)->
-		return unless this.service?.service?
+  'click .external-login': (e, t)->
+    return unless this.service?.service?
 
-		loadingIcon = $(e.currentTarget).find('.loading-icon')
-		serviceIcon = $(e.currentTarget).find('.service-icon')
+    loadingIcon = $(e.currentTarget).find('.loading-icon')
+    serviceIcon = $(e.currentTarget).find('.service-icon')
 
-		loadingIcon.removeClass 'hidden'
-		serviceIcon.addClass 'hidden'
+    loadingIcon.removeClass 'hidden'
+    serviceIcon.addClass 'hidden'
 
-		# login with native facebook app
-		if Meteor.isCordova and this.service.service is 'facebook'
-			Meteor.loginWithFacebookCordova {}, (error) ->
-				loadingIcon.addClass 'hidden'
-				serviceIcon.removeClass 'hidden'
+    # login with native facebook app
+    if Meteor.isCordova and this.service.service is 'facebook'
+      Meteor.loginWithFacebookCordova {}, (error) ->
+        loadingIcon.addClass 'hidden'
+        serviceIcon.removeClass 'hidden'
 
-				if error
-					console.log JSON.stringify(error), error.message
-					toastr.error error.message
-					return
+        if error
+          console.log JSON.stringify(error), error.message
+          toastr.error error.message
+          return
 
-				FlowRouter.go 'index'
-		else
-			loginWithService = "loginWith" + (if this.service.service is 'meteor-developer' then 'MeteorDeveloperAccount' else _.capitalize(this.service.service))
-			serviceConfig = this.service.clientConfig or {}
-			Meteor[loginWithService] serviceConfig, (error) ->
-				loadingIcon.addClass 'hidden'
-				serviceIcon.removeClass 'hidden'
-				if error
-					console.log JSON.stringify(error), error.message
-					toastr.error error.message
-					return
-				FlowRouter.go 'index'
+        FlowRouter.go 'app'
+    else
+      loginWithService = "loginWith" + (if this.service.service is 'meteor-developer' then 'MeteorDeveloperAccount' else _.capitalize(this.service.service))
+      serviceConfig = this.service.clientConfig or {}
+      Meteor[loginWithService] serviceConfig, (error) ->
+        loadingIcon.addClass 'hidden'
+        serviceIcon.removeClass 'hidden'
+        if error
+          console.log JSON.stringify(error), error.message
+          toastr.error error.message
+          return
+        FlowRouter.go 'app'

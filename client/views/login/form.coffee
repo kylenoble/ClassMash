@@ -108,7 +108,7 @@ Template.loginForm.events
             else
               toastr.error error.reason
             return
-          FlowRouter.go 'index'
+          FlowRouter.go 'app'
 
   'click .register': ->
     element = $("#login-card")
@@ -192,30 +192,17 @@ Template.loginForm.onCreated ->
     $("#login-card input.error").removeClass "error"
     return formObj
 
-Template.loginForm.onRendered ->
-  # element = $(".icon-facebook")
-  # if !element.hasClass("icon-social-facebook")
-  #   element.addClass("icon-social-facebook")
-	#
-  # element = $(".icon-twitter")
-  # if !element.hasClass("icon-social-twitter")
-  #   element.addClass("icon-social-twitter")
 
+Template.loginForm.onRendered ->
   if this.state.get() is 'login'
     $("#login-card").addClass("blue-background")
     $(".full-page") .addClass("blue-background")
     $('body').css('background-color', '#34495e')
-    # $('.icon-facebook').addClass('icon-social-facebook')
-    # $('.icon-twitter').addClass('icon-social-twitter')
-
 
   if this.state.get() is 'register'
     $("#login-card").addClass("green-background")
     $(".full-page").addClass("green-background")
     $('body').css("background-color", )
-    # $('.icon-facebook').addClass('icon-social-facebook')
-    # $('.icon-twitter').addClass('icon-social-twitter')
-
 
   if this.state.get() is 'add-school'
     $("#login-card").addClass("red-background")
