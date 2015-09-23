@@ -29,6 +29,9 @@ Template.calendarPage.events
     template.$('.classCalendar').fullCalendar 'refetchEvents'
     return
 
+  'click .cancel-add-event': (e, template) ->
+    clearPage()
+
   'click .type-item': (e, template) ->
     console.log $(e.target)
     $('.type-item').removeClass('active')
@@ -45,16 +48,13 @@ Template.calendarPage.events
     console.log(description)
     console.log(start)
     console.log(end)
+    console.log(type)
 
     Meteor.call "addEvent", Template.instance().rid.get(), title, description, type, start, end, (error, result) ->
       if error
         console.log "error", error
       if result
-        $('#event-title').val('')
-        $('#event-description').val('')
-        $('#start-date').val('')
-        $('#end-date').val('')
-        $('.type-item.active').removeClass('active')
+        clearPage()
         console.log result
 
 Template.calendarPage.rendered = ->
@@ -100,3 +100,10 @@ Template.calendarPage.onCreated ->
   @showAddCalendarForm = new ReactiveVar false
   @rid = new ReactiveVar ''
   @calendarEvents = new ReactiveVar []
+
+clearPage = ->
+  $('#event-title').val('')
+  $('#event-description').val('')
+  $('#start-date').val('')
+  $('#end-date').val('')
+  $('.type-item.active').removeClass('active')
