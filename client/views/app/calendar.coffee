@@ -39,26 +39,25 @@ Template.calendarPage.events
     description = $('#event-description').val()
     start = new Date($('#start-date').val())
     end = new Date($('#end-date').val())
-    eventType = $('.type-item.active').text().trim()
+    type = $('.type-item.active').text().trim()
 
     console.log(title)
     console.log(description)
     console.log(start)
     console.log(end)
 
-    Meteor.call "addEvent", Template.instance().rid.get(), title, description, start, end, (error, result) ->
+    Meteor.call "addEvent", Template.instance().rid.get(), title, description, type, start, end, (error, result) ->
       if error
         console.log "error", error
       if result
+        $('#event-title').val('')
+        $('#event-description').val('')
+        $('#start-date').val('')
+        $('#end-date').val('')
+        $('.type-item.active').removeClass('active')
         console.log result
 
 Template.calendarPage.rendered = ->
-  $('.fc-toolbar .fc-right').prepend $('<button type="button" class="fc-button
-  fc-state-default fc-corner-left fc-corner-right" data-toggle="modal"
-  data-target="#eventModal">Add</button>')
-
-
-  $('.fc-right .fc-button').addClass('line red-border')
   $('.bootstrap-datetimepicker-widget').hide()
   instance = @
   fc = @$('.fc')
@@ -78,11 +77,19 @@ Template.calendarPage.rendered = ->
     return
 
 Template.calendarPage.onRendered ->
+  $('.fc-toolbar .fc-right').prepend $('<button type="button" class="fc-button
+  fc-state-default fc-corner-left fc-corner-right" data-toggle="modal"
+  data-target="#eventModal">Add</button>')
+
+  $('.fc-right .fc-button').addClass('line red-border')
+
   @$('#datetimepicker1').datetimepicker(
     inline: true
+    focusOnShow: false
   )
   @$('#datetimepicker2').datetimepicker(
     inline: true
+    focusOnShow: false
   )
   @$('#datetimepicker1').data("DateTimePicker").toggle()
   @$('#datetimepicker2').data("DateTimePicker").toggle()
