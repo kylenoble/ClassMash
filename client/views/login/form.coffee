@@ -1,7 +1,7 @@
-primaryBlue = '#34495E'
-primaryGreen = '#2ECC71'
-primaryRed = '#E74C3C'
-secondaryBlue = '#3498DB'
+primaryBlue = '#546A76'
+primaryGreen = '#5DCA8B'
+primaryRed = '#F06475'
+secondaryBlue = '#9BC4F2'
 
 Template.loginForm.helpers
   userName: ->
@@ -90,7 +90,7 @@ Template.loginForm.events
             console.log(error)
             if error?.error is 'no-valid-email'
               instance.state.set 'wait-activation'
-              Session.set('validatingEmailInfo', true)
+              # Session.set('validatingEmailInfo', true)
             else if error?.error is 'inactive-user'
               instance.state.set 'wait-activation'
             else

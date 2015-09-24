@@ -1,3 +1,54 @@
 <template name="landingPage">
-  <h2>Landing Page</h2>
+	<div class="landing-page">
+		<!-- Header -->
+		<header id="top" class="header">
+			<div class="text-vertical-center">
+        <img class="logo" src="/images/logo/white-logo.svg?v=1" />
+				<h1>ClassMash</h1>
+				<h3>Your Class is Here</h3>
+				<br><br> <a href="" class="btn btn-dark btn-lg show-waitlist-form">Join Waitlist</a>
+        {{#if joinWaitlist}}
+        <form id="login-card" method="/" class="blue-background">
+    			<div class="fields">
+    				<div class="input-text active hidden">
+    					<input type="text" name="name" placeholder="Name" dir="auto">
+    					<i class="login icon-user"></i>
+    				</div>
+    				<div class="input-text form-group has-feedback has-feedback-left active">
+    					<input spellcheck="false" type="email" name="email" placeholder="Email">
+    					<i class="login icon-envelope"></i>
+    				</div>
+    				<div class="input-text active">
+    					<input type="password" name="pass" placeholder="Password">
+    					<i class="login icon-lock"></i>
+    				</div>
+    			</div>
+    			<div class="submit">
+    				<button data-loading-text="Please wait..." class="button white primary login"><span>Join</span></button>
+    			</div>
+      	</form>
+        {{/if}}
+      </div>
+		</header>
+		<!-- Footer -->
+		<footer>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-10 col-lg-offset-1 text-center">
+						<h4>
+							<strong>Follow Us For Updates!</strong>
+						</h4>
+						<br>
+						<ul class="list-inline">
+							<li> <a href="https://www.facebook.com/ClassMash-912525175489499" target="_blank"><i class="fa fa-facebook fa-fw fa-3x"></i></a> </li>
+							<li> <a href="https://twitter.com/ClassMashApp" target="_blank"><i class="fa fa-twitter fa-fw fa-3x"></i></a> </li>
+							<li> <a href="https://instagram.com/classmash/" target="_blank"><i class="fa fa-instagram fa-fw fa-3x"></i></a> </li>
+						</ul>
+						<hr class="small">
+						<p class="text-muted">Copyright &copy; ClassMash 2015</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
 </template>

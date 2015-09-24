@@ -1,4 +1,22 @@
 Meteor.methods
+  checkSchoolCode: (code) ->
+    school = Schools.findOne(code: code)
+    if school
+      Meteor.users.update(
+        {_id: Meteor.userId()}, {
+          $set: {
+            'profile.school':
+              {_id: school._id._str, name: school.name}
+          }
+        }
+      )
+
+      {_id: Meteor.userId()}
+      return
+    else
+      throw new Meteor.Error 203, 'Incorrect Code'
+
+
   userAddSchool: (schoolId, schoolName) ->
     # user = Meteor.users.findOne(
     #   { emails: { $elemMatch: { address: "kyle.noble@me.com" } } }
