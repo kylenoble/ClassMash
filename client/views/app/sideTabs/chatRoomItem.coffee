@@ -95,4 +95,5 @@ clearActive = () ->
   Session.set('isClassroom', false)
   Session.set('isCalendar', false)
   Session.set('isFiles', false)
-  Session.set('isThread', false)
+  if !Session.get('isThread')
+    Session.set('isThread', false)
