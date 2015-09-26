@@ -4313,6 +4313,9 @@ a.github-fork {
 		}
 
 		}
+		.fields {
+		  margin-top: 15px;
+		}
 }
 
 .form-register-heading-two {
@@ -4338,6 +4341,12 @@ a.github-fork {
 
 .red-background {
 	background-color: @primary-red;
+}
+
+.landing-page {
+	#login-card {
+		border-radius: 10px;
+	}
 }
 
 #login-card,
@@ -4383,6 +4392,9 @@ a.github-fork {
 		width: 100%;
 		font-size: 10px;
 	}
+	input[type="checkbox"] {
+		margin-right: 10px;
+	}
 	.submit {
 		margin: 12px 0;
 		.button {
@@ -4404,6 +4416,23 @@ a.github-fork {
 	    	background-color: darken(white, 5%);
 	    	color: @primary-blue;
 	    }
+			&.close-waitlist-signup {
+				width: 48%;
+				color: white;
+				&:hover {
+					background-color: @primary-red;
+				}
+			}
+			&.join-waitlist-signup {
+				width: 48%;
+				margin-right: 2%;
+				background-color: @primary-green;
+				border: 1px solid @primary-green;
+				color: white;
+				&:hover {
+					background-color: darken(@primary-green, 10%);
+				}
+			}
 		}
 	}
 	.remember {
@@ -4419,6 +4448,9 @@ a.github-fork {
 	.input-text {
 		margin: 0 0 14px 0;
 		position: relative;
+		&.error {
+			border: 1px solid @primary-red;
+		}
 		&:before {
 			content: " ";
 			width: 100%;
@@ -4438,7 +4470,8 @@ a.github-fork {
 		.icon-user,
 		.icon-check,
 		.icon-magnifier,
-		.icon-plus {
+		.icon-plus,
+		.icon-chemistry {
 			color: white;
 			font-size: 14px;
 			position: absolute;
@@ -4919,6 +4952,13 @@ a.github-fork {
 
 @media all and(max-width: 500px) {
 
+	#login-card {
+		input[type="checkbox"] {
+			height: 5px !important;
+			width: 5px !important;
+		}
+	}
+
 	.files-container {
 		.filter-container {
 			.filters {
@@ -5164,7 +5204,9 @@ a.github-fork {
 	#login-card {
 		padding: 10px;
 		margin: 10px auto;
-
+		input[type="checkbox"] {
+			margin-right: 10px;
+		}
 		.input-text {
 			margin-bottom: 6px;
 		}

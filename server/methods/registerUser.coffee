@@ -1,14 +1,14 @@
 Meteor.methods
-	registerUser: (formData) ->
-		userData =
-			email: formData.email
-			password: formData.pass
+  registerUser: (formData) ->
+    userData =
+      email: formData.email
+      password: formData.pass
 
-		userId = Accounts.createUser userData
+    userId = Accounts.createUser userData
 
-		Meteor.users.update userId,
-			$set:
-				name: formData.name
+    Meteor.users.update userId,
+      $set:
+        name: formData.name
 
-		if userData.email
-			Accounts.sendVerificationEmail(userId, userData.email);
+    if userData.email
+      Accounts.sendVerificationEmail(userId, userData.email)

@@ -41,18 +41,19 @@ Meteor.methods
 
     {_id: Meteor.userId()}
 
-  schoolsNewInsert: (schoolName) ->
+  schoolsNewInsert: (email, name, schoolName) ->
     user = Meteor.user()
 
-    check(user._id, String)
+    check(email, String)
+    check(name, String)
+    check(schoolName, String)
 
     schoolsNew = {
       created_at: new Date()
-      emails: user.emails[0].address
+      name: name
+      email: email
       schoolName: schoolName
     }
-
-    Meteor.users.remove(user._id)
 
     schoolsNewId = SchoolsNew.insert(schoolsNew)
 

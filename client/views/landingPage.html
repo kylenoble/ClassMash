@@ -6,28 +6,33 @@
         <img class="logo" src="/images/logo/white-logo.svg?v=1" />
 				<h1>ClassMash</h1>
 				<h3>Your Class is Here</h3>
-				<br><br> <a href="" class="btn btn-dark btn-lg show-waitlist-form">Join Waitlist</a>
         {{#if joinWaitlist}}
-        <form id="login-card" method="/" class="blue-background">
+        <div id="login-card" class="blue-background">
     			<div class="fields">
-    				<div class="input-text active hidden">
-    					<input type="text" name="name" placeholder="Name" dir="auto">
+    				<div class="input-text name active">
+    					<input id="waitlistName" type="text" name="name" placeholder="Name" dir="auto">
     					<i class="login icon-user"></i>
     				</div>
-    				<div class="input-text form-group has-feedback has-feedback-left active">
-    					<input spellcheck="false" type="email" name="email" placeholder="Email">
+    				<div class="input-text email form-group has-feedback has-feedback-left active">
+    					<input id="waitlistEmail" spellcheck="false" type="email" name="email" placeholder="Email">
     					<i class="login icon-envelope"></i>
     				</div>
-    				<div class="input-text active">
-    					<input type="password" name="pass" placeholder="Password">
-    					<i class="login icon-lock"></i>
+						<div class="input-text school form-group has-feedback has-feedback-left active">
+    					<input id="waitlistSchool" spellcheck="false" type="text" name="school" placeholder="School">
+    					<i class="login icon-chemistry"></i>
+    				</div>
+						<div class="input-text active">
+    					<input id="termsAgree" type="checkbox" name="agree" value="true"> I Accept the Terms and Conditions
     				</div>
     			</div>
     			<div class="submit">
-    				<button data-loading-text="Please wait..." class="button white primary login"><span>Join</span></button>
+    				<button data-loading-text="Please wait..." class="button white primary join-waitlist-signup"><span>Join</span></button>
+						<button class="button white blue-border close-waitlist-signup"><span>Cancel</span></button>
     			</div>
-      	</form>
-        {{/if}}
+      	</div>
+        {{else}}
+				<br><br> <a href="" class="btn btn-dark btn-lg show-waitlist-form">Join Waitlist</a>
+				{{/if}}
       </div>
 		</header>
 		<!-- Footer -->

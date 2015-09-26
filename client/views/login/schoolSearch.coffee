@@ -1,25 +1,25 @@
-addingSchool = new ReactiveVar(false)
-lat = new ReactiveVar(null)
-lon = new ReactiveVar(null)
+# addingSchool = new ReactiveVar(false)
+# lat = new ReactiveVar(null)
+# lon = new ReactiveVar(null)
+#
+# fields = [ 'name' ]
+#
+# options =
+#   lat: lat.get(),
+#   lon: lat.get()
 
-fields = [ 'name' ]
-
-options =
-  lat: lat.get(),
-  lon: lat.get()
-
-SchoolSearch = new SearchSource('schools', fields, options)
-
-Template.schoolSearchBox.created = ->
-  $('.school-search-result').hide()
-
-  location = Meteor.setInterval (->
-    navigator.geolocation.getCurrentPosition (position) ->
-      lat.set(position.coords.latitude)
-      lon.set(position.coords.longitude)
-      return
-    return
-  ), 500
+# SchoolSearch = new SearchSource('schools', fields, options)
+#
+# Template.schoolSearchBox.created = ->
+#   $('.school-search-result').hide()
+#
+#   location = Meteor.setInterval (->
+#     navigator.geolocation.getCurrentPosition (position) ->
+#       lat.set(position.coords.latitude)
+#       lon.set(position.coords.longitude)
+#       return
+#     return
+#   ), 500
 
 Template.schoolSearchBox.events
   'click .add-user-school': (e, template) ->

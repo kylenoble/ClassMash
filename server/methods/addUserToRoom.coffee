@@ -1,48 +1,48 @@
 Meteor.methods
-	addUserToRoom: (data) ->
-		fromId = Meteor.userId()
-		# console.log '[methods] addUserToRoom -> '.green, 'fromId:', fromId, 'data:', data
+  addUserToRoom: (data) ->
+    fromId = Meteor.userId()
+    # console.log '[methods] addUserToRoom -> '.green, 'fromId:', fromId, 'data:', data
 
-		room = ChatRoom.findOne data.rid
+    room = ChatRoom.findOne data.rid
 
-		# if room.username isnt Meteor.user().username and room.t is 'c'
-		if room.t is 'c' and room.u?.username isnt Meteor.user().username
-			throw new Meteor.Error 403, '[methods] addUserToRoom -> Not allowed'
+    # if room.username isnt Meteor.user().username and room.t is 'c'
+    if room.t is 'c' and room.u?.username isnt Meteor.user().username
+      throw new Meteor.Error 403, '[methods] addUserToRoom -> Not allowed'
 
-		# verify if user is already in room
-		if room.usernames.indexOf(data.username) isnt -1
-			return
+    # verify if user is already in room
+    if room.usernames.indexOf(data.username) isnt -1
+      return
 
-		now = new Date()
+    now = new Date()
 
-		update =
-			$addToSet:
-				usernames: data.username
+    update =
+      $addToSet:
+        usernames: data.username
 
-		newUser = Meteor.users.findOne username: data.username
+    newUser = Meteor.users.findOne username: data.username
 
-		ChatRoom.update data.rid, update
+    ChatRoom.update data.rid, update
 
-		ChatSubscription.insert
-			rid: data.rid
-			ts: now
-			name: room.name
-			t: room.t
-			open: true
-			alert: true
-			term: room.term
-			unread: 1
-			u:
-				_id: newUser._id
-				username: data.username
+    ChatSubscription.insert
+      rid: data.rid
+      ts: now
+      name: room.name
+      t: room.t
+      open: true
+      alert: true
+      term: room.term
+      unread: 1
+      u:
+        _id: newUser._id
+        username: data.username
 
-		ChatMessage.insert
-			rid: data.rid
-			ts: now
-			t: 'au'
-			msg: newUser.name
-			u:
-				_id: fromId
-				username: Meteor.user().username
+    ChatMessage.insert
+      rid: data.rid
+      ts: now
+      t: 'au'
+      msg: newUser.name
+      u:
+        _id: fromId
+        username: Meteor.user().username
 
-		return true
+    return true
