@@ -1,46 +1,48 @@
 Meteor.publish 'room', (typeName) ->
-	unless this.userId
-		return this.ready()
+  unless this.userId
+    return this.ready()
 
-	console.log '[publish] room ->'.green, 'arguments:', arguments
+  console.log '[publish] room ->'.green, 'arguments:', arguments
 
-	if typeof typeName isnt 'string'
-		return this.ready()
+  if typeof typeName isnt 'string'
+    return this.ready()
 
-	type = typeName.substr(0, 1)
-	name = typeName.substr(1)
+  type = typeName.substr(0, 1)
+  name = typeName.substr(1)
 
-	query = {}
+  user = Meteor.users.findOne this.userId, fields: username: 1, profile: 1
 
-	if type in ['c', 'p']
-		query =
-			t: type
-			name: name
+  query = {}
 
-		if type is 'p'
-			user = Meteor.users.findOne this.userId, fields: username: 1
-			query.usernames = user.username
+  if type in ['c', 'p']
+    query =
+      t: type
+      name: name
+      's._id': user.profile.school._id
 
-	else if type is 'd'
-		user = Meteor.users.findOne this.userId, fields: username: 1
-		query =
-			t: 'd'
-			usernames:
-				$all: [user.username, name]
+    if type is 'p'
+      query.usernames = user.username
 
-	# Change to validate access manualy
-	# if not Meteor.call 'canAccessRoom', rid, this.userId
-	# 	return this.ready()
+  else if type is 'd'
+    query =
+      t: 'd'
+      's._id': user.profile.school._id
+      usernames:
+        $all: [user.username, name]
 
-	ChatRoom.find query,
-		fields:
-			name: 1
-			t: 1
-			cl: 1
-			u: 1
-			s: 1
-			usernames: 1
-			term: 1
-			teacher: 1
-			teacherEmail: 1
-			syllabus: 1
+  # Change to validate access manualy
+  # if not Meteor.call 'canAccessRoom', rid, this.userId
+  #   return this.ready()
+
+  ChatRoom.find query,
+    fields:
+      name: 1
+      t: 1
+      cl: 1
+      u: 1
+      s: 1
+      usernames: 1
+      term: 1
+      teacher: 1
+      teacherEmail: 1
+      syllabus: 1
