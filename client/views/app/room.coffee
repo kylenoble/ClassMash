@@ -486,7 +486,15 @@ Template.room.onCreated ->
     self.subscribe 'fullUserData', Session.get('showUserInfo'), 1
 
 Template.room.onRendered ->
+  self = @
+
   $('.room-icons .icon-list').addClass('active')
+
+  roomData = Session.get('roomData' + self.data._id)
+  if roomData.t is "c"
+    $('.room-icons .icon-home').removeClass('hidden')
+  else
+    $('.room-icons .icon-home').addClass('hidden')
 
 clearActive = () ->
   $('.room-icons .icon-list').removeClass('active')
