@@ -218,6 +218,6 @@ Template.main.events
 
 
 Template.main.onRendered ->
-  # RTL Support - Need config option on the UI    
+  # RTL Support - Need config option on the UI
   if isRtl localStorage.getItem "userLanguage"
     $('html').addClass "rtl"

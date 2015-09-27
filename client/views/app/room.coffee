@@ -487,7 +487,6 @@ Template.room.onCreated ->
 
 Template.room.onRendered ->
   self = @
-
   $('.room-icons .icon-list').addClass('active')
 
   roomData = Session.get('roomData' + self.data._id)
@@ -497,14 +496,19 @@ Template.room.onRendered ->
     $('.room-icons .icon-home').addClass('hidden')
 
 clearActive = () ->
-  $('.room-icons .icon-list').removeClass('active')
-  $('.room-icons .icon-home').removeClass('active')
-  $('.room-icons .icon-docs').removeClass('active')
-  $('.room-icons .icon-calendar').removeClass('active')
-  Session.set('isClassroom', false)
-  Session.set('isThread', false)
-  Session.set('isCalendar', false)
-  Session.set('isFiles', false)
+  if Session.get('isClassroom')
+    Session.set('isClassroom', false)
+    $('.room-icons .icon-home').removeClass('active')
+  if Session.get('isCalendar')
+    Session.set('isCalendar', false)
+    $('.room-icons .icon-calendar').removeClass('active')
+  if Session.get('isFiles')
+    Session.set('isFiles', false)
+    $('.room-icons .icon-docs').removeClass('active')
+  if Session.get('isThread')
+    Session.set('isThread', false)
+    $('.room-icons .icon-list').removeClass('active')
+
 
 renameRoom = (rid, name) ->
   name = name?.toLowerCase().trim()
