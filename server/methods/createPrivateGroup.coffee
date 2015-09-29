@@ -24,6 +24,7 @@ Meteor.methods
     # create new room
     rid = ChatRoom.insert
       usernames: members
+      term: 'all'
       ts: now
       t: 'p'
       s:

@@ -1,71 +1,71 @@
 Template.directMessagesFlex.helpers
-	error: ->
-		return Template.instance().error.get()
+  error: ->
+    return Template.instance().error.get()
 
-	autocompleteSettings: ->
-		user = Meteor.users.findOne _id: Meteor.userId()
-		return {
-			limit: 10
-			# inputDelay: 300
-			rules: [
-				{
-					# @TODO maybe change this 'collection' and/or template
-					collection: 'UserAndRoom'
-					subscription: 'roomSearch'
-					field: 'username'
-					template: Template.userSearch
-					noMatchTemplate: Template.userSearchEmpty
-					matchAll: true
-					filter:
-						type: 'u'
-						_id: { $ne: user._id }
-						'profile.school._id': user.profile.school._id
-					sort: 'username'
-				}
-			]
-		}
+  autocompleteSettings: ->
+    user = Meteor.users.findOne _id: Meteor.userId()
+    return {
+      limit: 10
+      # inputDelay: 300
+      rules: [
+        {
+          # @TODO maybe change this 'collection' and/or template
+          collection: 'UserAndRoom'
+          subscription: 'roomSearch'
+          field: 'username'
+          template: Template.userSearch
+          noMatchTemplate: Template.userSearchEmpty
+          matchAll: true
+          filter:
+            type: 'u'
+            _id: { $ne: user._id }
+            'profile.school._id': user.profile.school._id
+          sort: 'username'
+        }
+      ]
+    }
 
 Template.directMessagesFlex.events
-	'autocompleteselect #who': (event, instance, doc) ->
-		instance.selectedUser.set doc.username
-		event.currentTarget.focus()
+  'autocompleteselect #who': (event, instance, doc) ->
+    instance.selectedUser.set doc.username
+    event.currentTarget.focus()
 
-	'click .cancel-direct-message': (e, instance) ->
-		FlexTab.closeFlex()
-		instance.clearForm()
+  'click .cancel-direct-message': (e, instance) ->
+    FlexTab.closeFlex()
+    instance.clearForm()
 
-	'click header': (e, instance) ->
-		FlexTab.closeFlex()
-		instance.clearForm()
+  'click header': (e, instance) ->
+    FlexTab.closeFlex()
+    instance.clearForm()
 
-	'mouseenter header': ->
-		FlexTab.overArrow()
+  'mouseenter header': ->
+    FlexTab.overArrow()
 
-	'mouseleave header': ->
-		FlexTab.leaveArrow()
+  'mouseleave header': ->
+    FlexTab.leaveArrow()
 
-	'keydown input[type="text"]': (e, instance) ->
-		Template.instance().error.set([])
+  'keydown input[type="text"]': (e, instance) ->
+    Template.instance().error.set([])
 
-	'click .save-direct-message': (e, instance) ->
-		err = FlexTab.validate()
-		if not err
-			username = instance.selectedUser.get()
-			Meteor.call 'createDirectMessage', username, (err, result) ->
-				if err
-					return toastr.error err.reason
-				FlexTab.closeFlex()
-				instance.clearForm()
-				FlowRouter.go 'direct', { username: username }
-		else
-			Template.instance().error.set(err)
+  'click .save-direct-message': (e, instance) ->
+    err = FlexTab.validate()
+    if not err
+      username = instance.selectedUser.get()
+      Meteor.call 'createDirectMessage', username, (err, result) ->
+        if err
+          return toastr.error err.reason
+        FlexTab.closeFlex()
+        instance.clearForm()
+        FlowRouter.go 'direct', { username: username }
+    else
+      Template.instance().error.set(err)
 
 Template.directMessagesFlex.onCreated ->
-	instance = this
-	instance.selectedUser = new ReactiveVar
-	instance.error = new ReactiveVar []
+  instance = this
+  instance.selectedUser = new ReactiveVar
+  instance.error = new ReactiveVar []
 
-	instance.clearForm = ->
-		instance.error.set([])
-		instance.selectedUser.set null
-		instance.find('#who').value = ''
+  instance.clearForm = ->
+    instance.error.set([])
+    instance.selectedUser.set null
+    instance.find('#who').value = ''

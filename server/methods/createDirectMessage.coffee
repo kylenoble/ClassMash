@@ -20,11 +20,14 @@ Meteor.methods
 
     now = new Date()
     school = me.profile.school
+    console.log(school)
     # Make sure we have a room
     ChatRoom.upsert
       _id: rid
     ,
       $set:
+        term: 'all'
+        name: me.username + '-' + to.username
         usernames: [me.username, to.username]
         s:
           _id: school._id
