@@ -4,28 +4,30 @@
 ###
 
 if Meteor.isClient
-	RocketChat.slashCommands.add 'invite', undefined,
-		description: 'Invite one user to join this channel'
-		params: '@username'
+  RocketChat.slashCommands.add 'invite', undefined,
+    description: 'Invite one user to join this channel'
+    params: '@username'
 else
-	class Invite
-		constructor: (command, params, item) ->
-			if command isnt 'invite' or not Match.test params, String
-				return
+  class Invite
+    constructor: (command, params, item) ->
+      if command isnt 'invite' or not Match.test params, String
+        return
 
-			username = params.trim()
-			if username is ''
-				return
+      username = params.trim()
+      if username is ''
+        return
 
-			username = username.replace('@', '')
+      username = username.replace('@', '')
+      currentUser = Meteor.user()
+      school = currentUser.profile.school
 
-			user = Meteor.users.findOne({ username: username })
+      user = Meteor.users.findOne({ username: username, 'profile.school._id': school._id })
 
-			if not user?
-				return
+      if not user?
+        return
 
-			Meteor.runAsUser user._id, ->
-				Meteor.call 'joinRoom', item.rid
+      Meteor.runAsUser user._id, ->
+        Meteor.call 'joinRoom', item.rid
 
 
-	RocketChat.slashCommands.add 'invite', Invite
+  RocketChat.slashCommands.add 'invite', Invite

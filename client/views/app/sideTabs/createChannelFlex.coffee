@@ -47,6 +47,7 @@ Template.createChannelFlex.helpers
     return Template.instance().roomName.get()
 
   autocompleteSettings: ->
+    user = Meteor.users.findOne _id: Meteor.userId()
     return {
       limit: 10
       # inputDelay: 300
@@ -61,6 +62,7 @@ Template.createChannelFlex.helpers
           matchAll: true
           filter:
             type: 'u'
+            'profile.school._id': user.profile.school._id
             $and: [
               { _id: { $ne: Meteor.userId() } }
               { username: { $nin: Template.instance().selectedUsers.get() } }
