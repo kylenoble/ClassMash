@@ -54,11 +54,13 @@ Template.chatRoomItem.rendered = ->
 Template.chatRoomItem.events
 
   'click .open-room': (e) ->
-    menu.close()
-    rightMenu.close()
-    if e.currentTarget.baseURI is window.location.href
+    roomData = Session.get('roomData' + this.rid)
+    path = window.location.pathname.split('/')
+    if roomData.name + roomData.term is path[2] + path[3]
       console.log("returning")
       return
+    menu.close()
+    rightMenu.close()
     clearActive()
     $('.room-icons .icon-list').addClass('active')
 
