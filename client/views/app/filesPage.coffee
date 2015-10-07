@@ -67,7 +67,7 @@ Template.filesPage.onCreated ->
     typeLetter = path[1][0]
 
   instance = @
-  @limit = new ReactiveVar 50
+  @limit = new ReactiveVar 10
   @currentFilter = new ReactiveVar 'regular'
   @roomId = new ReactiveVar RoomManager.openedRooms[typeLetter + path[2]].rid
   @ready = new ReactiveVar true
