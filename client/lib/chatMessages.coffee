@@ -1,10 +1,11 @@
 class @ChatMessages
   init: (node) ->
     this.editing = {}
-
+    console.log node
     this.messageMaxSize = RocketChat.settings.get('Message_MaxAllowedSize')
     this.wrapper = $(node).find(".wrapper")
     this.input = $(node).find(".input-message").get(0)
+    console.log this.input
     this.bindEvents()
     return
 
@@ -66,6 +67,7 @@ class @ChatMessages
       this.editing.index = null
       this.input.value = this.editing.saved or ""
     else
+      console.log this.input
       this.editing.saved = this.input.value
 
   send: (rid, input) ->

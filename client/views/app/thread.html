@@ -1,113 +1,115 @@
 <template name="threadPage">
-  <div class="upload-progress">
-    {{#each uploading}}
-      <div class="upload-progress-item {{#if error}}upload-error{{/if}}">
-        {{#if error}}
-          {{error}}
-          <a>
-            close
-          </a>
-        {{else}}
-          <div class="upload-progress-progress" style="width: {{percentage}}%;"></div>
-          {{name}}... {{percentage}}%
-          <a>
-            cancel
-          </a>
-        {{/if}}
-      </div>
-    {{/each}}
-  </div>
-  <div class="messages-box">
-    <span class="date-line"></span>
-    <div class="wrapper">
-      <ul>
-        {{#if hasMore}}
-          <li class="load-more">
-            <button class="button secondary load-more {{isLoading}}">
-              <i class="icon-spin4 animate-spin loading-icon hidden"></i>
-              <div>{{_ "Load_more"}}</div>
-            </button>
-          </li>
-        {{else}}
-          <li class="start">
-            {{_ "Start_of_conversation"}}
-          </li>
-        {{/if}}
-        {{#each messagesHistory}}
-          {{#nrr nrrargs 'message' .}}{{/nrr}}
-        {{/each}}
-      </ul>
+  <div class="thread-container">
+    <div class="upload-progress">
+      {{#each uploading}}
+        <div class="upload-progress-item {{#if error}}upload-error{{/if}}">
+          {{#if error}}
+            {{error}}
+            <a>
+              close
+            </a>
+          {{else}}
+            <div class="upload-progress-progress" style="width: {{percentage}}%;"></div>
+            {{name}}... {{percentage}}%
+            <a>
+              cancel
+            </a>
+          {{/if}}
+        </div>
+      {{/each}}
     </div>
-    <div class="new-message not">
-      <i class="icon-down-big"></i>
-      <span>{{_ "New_messages"}}</span>
-    </div>
-  </div>
-  <footer class="footer">
-    {{#if subscribed}}
-      <form class="message-form" method="post" action="/">
-        <div style="display: flex">
-          <div class="file">
-            <i class="icon-arrow-up"></i>
-          </div>
-          <div class="adding-files">
-            <div class="regular-files">
-              <input type="file" id="select-regular-file">
-              <label class="label-regular-files" for="select-regular-file"><i class="icon-paper-clip"></i><span class="file-upload-text">Files</span></label>
-            </div>
-            <div class="add-notes">
-              <input type="file" id="select-notes">
-              <label class="label-add-notes" for="select-notes"><i class="icon-list"></i><span class="file-upload-text">Notes</span></label>
-            </div>
-            <div class="add-note-cards">
-              <input type="file" id="select-note-cards">
-              <label class="label-add-note-cards" for="select-note-cards"><i class="icon-layers"><span class="file-upload-text">Note Cards</span></i></label>
-            </div>
-          </div>
-          <div class="input-message-container">
-            {{> messagePopupConfig getPupupConfig}}
-            <textarea dir="auto" name="msg" maxlength="{{maxMessageLength}}" class="input-message autogrow-short" placeholder="{{_ 'Message'}}"></textarea>
-            <i class="icon-paper-plane" title="{{_ "Send_Message"}}"></i>
-          </div>
-        </div>
-        <div class="users-typing">
-          {{#with usersTyping}}
-            <strong>{{users}}</strong>
-            {{#if multi}}
-              {{#if selfTyping}}
-                {{_ "are_also_typing"}}
-              {{else}}
-                {{_ "are_typing"}}
-              {{/if}}
-            {{else}}
-              {{#if selfTyping}}
-                {{_ "is_also_typing" context="male"}}
-              {{else}}
-                {{_ "is_typing" context="male"}}
-              {{/if}}
-            {{/if}}
-          {{/with}}
-        </div>
-        <div class="formatting-tips" aria-hidden="true" dir="auto">
-          <b>*{{_ "bold"}}*</b>
-          <i>_{{_ "italics"}}_</i>
-          <span>~<strike>{{_ "strike"}}</strike>~</span>
-          <code class="inline">`{{_ "inline_code"}}`</code>
-          <code class="inline"><span class="hidden-br"><br></span>```<span class="hidden-br"><br></span><i class="icon-level-down"></i>{{_ "multi"}}<span class="hidden-br"><br></span><i class="icon-level-down"></i>{{_ "line"}}<span class="hidden-br"><br></span><i class="icon-level-down"></i>```</code>
-          <q><span class="hidden-br"><br></span>&gt;{{_ "quote"}}</q>
-        </div>
-        <div class="editing-commands" aria-hidden="true" dir="auto">
-          <div class="editing-commands-cancel">{{_ 'Esc_to'}} <a href="">{{_ 'Cancel'}}</a></div>
-          <div class="editing-commands-save">{{_ 'Enter_to'}} <a href="">{{_ 'Save_changes'}}</a></div>
-        </div>
-      </form>
-    {{else}}
-      {{#if canJoin}}
-      <div class="join-container">
-        {{{_ "you_are_in_preview_mode_of" room_name=roomName}}}
-        <button class="button white light-blue-border join"><span><i class="icon-login"></i> {{_ "join"}}</span></button>
+    <div class="messages-box">
+      <span class="date-line"></span>
+      <div class="wrapper">
+        <ul>
+          {{#if hasMore}}
+            <li class="load-more">
+              <button class="button secondary load-more {{isLoading}}">
+                <i class="icon-spin4 animate-spin loading-icon hidden"></i>
+                <div>{{_ "Load_more"}}</div>
+              </button>
+            </li>
+          {{else}}
+            <li class="start">
+              {{_ "Start_of_conversation"}}
+            </li>
+          {{/if}}
+          {{#each messagesHistory}}
+            {{#nrr nrrargs 'message' .}}{{/nrr}}
+          {{/each}}
+        </ul>
       </div>
+      <div class="new-message not">
+        <i class="icon-down-big"></i>
+        <span>{{_ "New_messages"}}</span>
+      </div>
+    </div>
+    <footer class="footer">
+      {{#if subscribed}}
+        <form class="message-form" method="post" action="/">
+          <div style="display: flex">
+            <div class="file">
+              <i class="icon-arrow-up"></i>
+            </div>
+            <div class="adding-files">
+              <div class="regular-files">
+                <input type="file" id="select-regular-file">
+                <label class="label-regular-files" for="select-regular-file"><i class="icon-paper-clip"></i><span class="file-upload-text">Files</span></label>
+              </div>
+              <div class="add-notes">
+                <input type="file" id="select-notes">
+                <label class="label-add-notes" for="select-notes"><i class="icon-list"></i><span class="file-upload-text">Notes</span></label>
+              </div>
+              <div class="add-note-cards">
+                <input type="file" id="select-note-cards">
+                <label class="label-add-note-cards" for="select-note-cards"><i class="icon-layers"><span class="file-upload-text">Note Cards</span></i></label>
+              </div>
+            </div>
+            <div class="input-message-container">
+              {{> messagePopupConfig getPupupConfig}}
+              <textarea dir="auto" name="msg" maxlength="{{maxMessageLength}}" class="input-message autogrow-short" placeholder="{{_ 'Message'}}"></textarea>
+              <i class="icon-paper-plane" title="{{_ "Send_Message"}}"></i>
+            </div>
+          </div>
+          <div class="users-typing">
+            {{#with usersTyping}}
+              <strong>{{users}}</strong>
+              {{#if multi}}
+                {{#if selfTyping}}
+                  {{_ "are_also_typing"}}
+                {{else}}
+                  {{_ "are_typing"}}
+                {{/if}}
+              {{else}}
+                {{#if selfTyping}}
+                  {{_ "is_also_typing" context="male"}}
+                {{else}}
+                  {{_ "is_typing" context="male"}}
+                {{/if}}
+              {{/if}}
+            {{/with}}
+          </div>
+          <div class="formatting-tips" aria-hidden="true" dir="auto">
+            <b>*{{_ "bold"}}*</b>
+            <i>_{{_ "italics"}}_</i>
+            <span>~<strike>{{_ "strike"}}</strike>~</span>
+            <code class="inline">`{{_ "inline_code"}}`</code>
+            <code class="inline"><span class="hidden-br"><br></span>```<span class="hidden-br"><br></span><i class="icon-level-down"></i>{{_ "multi"}}<span class="hidden-br"><br></span><i class="icon-level-down"></i>{{_ "line"}}<span class="hidden-br"><br></span><i class="icon-level-down"></i>```</code>
+            <q><span class="hidden-br"><br></span>&gt;{{_ "quote"}}</q>
+          </div>
+          <div class="editing-commands" aria-hidden="true" dir="auto">
+            <div class="editing-commands-cancel">{{_ 'Esc_to'}} <a href="">{{_ 'Cancel'}}</a></div>
+            <div class="editing-commands-save">{{_ 'Enter_to'}} <a href="">{{_ 'Save_changes'}}</a></div>
+          </div>
+        </form>
+      {{else}}
+        {{#if canJoin}}
+        <div class="join-container">
+          {{{_ "you_are_in_preview_mode_of" room_name=roomName}}}
+          <button class="button white light-blue-border join"><span><i class="icon-login"></i> {{_ "join"}}</span></button>
+        </div>
+        {{/if}}
       {{/if}}
-    {{/if}}
-  </footer>
+    </footer>
+  </div>
 </template>
