@@ -47,8 +47,6 @@ openRoom = (type, name, term) ->
 
       Session.set 'openedRoom', room._id
       Session.set 'isThread', true
-      console.log(roomDom)
-      console.log(room._id)
 
       Session.set 'editRoomTitle', false
       RoomManager.updateMentionsMarksOfRoom type + name
