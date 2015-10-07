@@ -54,9 +54,8 @@ Template.chatRoomItem.rendered = ->
 Template.chatRoomItem.events
 
   'click .open-room': (e) ->
-    roomData = Session.get('roomData' + this.rid)
     path = window.location.pathname.split('/')
-    if roomData.name + roomData.term is path[2] + path[3]
+    if this.name + this.term is path[2] + path[3]
       console.log("returning")
       return
     menu.close()
