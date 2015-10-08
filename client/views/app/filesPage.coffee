@@ -1,9 +1,7 @@
 Template.filesPage.helpers
   roomFiles: ->
     filter = Template.instance().currentFilter.get()
-    console.log(filter)
-    console.log(fileCollection.find({category: filter}).fetch())
-    return fileCollection.find({category: filter}).fetch()
+    return fileCollection.find({category: filter}, {sort: {date: -1}}).fetch()
 
   cleanDate: (date) ->
     return moment(date).format("MM/D/YY h:mm a")
