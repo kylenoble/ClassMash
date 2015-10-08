@@ -87,13 +87,16 @@ readAsDataURL = (file, callback) ->
         uploader.send file, (error, downloadUrl) ->
           if error
             if error.error
+              console.log(error)
               toastr.error error.error
               return
             else
               if uploader.xhr
+                console.log uploader.xhr.response
                 toastr.error 'Error uploading', uploader.xhr.response
                 return
               else
+                console.log error
                 toastr.error error
                 return
           else

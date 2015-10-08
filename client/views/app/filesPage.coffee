@@ -2,6 +2,7 @@ Template.filesPage.helpers
   roomFiles: ->
     filter = Template.instance().currentFilter.get()
     console.log(filter)
+    console.log(fileCollection.find({category: filter}).fetch())
     return fileCollection.find({category: filter}).fetch()
 
   cleanDate: (date) ->
@@ -37,6 +38,39 @@ Template.filesPage.helpers
         return 'fa fa-file-o'
 
 Template.filesPage.events
+  'click .file': (event) ->
+    $('.adding-files').toggle()
+
+  'change #select-regular-file': (event, tmplate) ->
+    e = event.originalEvent or event
+    files = document.getElementById('select-regular-file').files[0]
+    if not files or files.length is 0
+      files = e.dataTransfer?.files or []
+
+    fileUploadS3 files, 'regular', Template.instance().roomId.get()
+
+    $('.adding-files').hide()
+
+  'change #select-notes': (event, tmpl) ->
+    e = event.originalEvent or event
+    files = document.getElementById('select-notes').files[0]
+    if not files or files.length is 0
+      files = e.dataTransfer?.files or []
+
+    fileUploadS3 files, 'notes', Template.instance().roomId.get()
+
+    $('.adding-files').hide()
+
+  'change #select-note-cards': (event, tmpl) ->
+    e = event.originalEvent or event
+    files = document.getElementById('select-note-cards').files[0]
+    if not files or files.length is 0
+      files = e.dataTransfer?.files or []
+
+    fileUploadS3 files, 'note-cards', Template.instance().roomId.get()
+
+    $('.adding-files').hide()
+
   "click .filter-item.files": (event, template) ->
     clearFilters()
     Template.instance().isFilesFilter = true

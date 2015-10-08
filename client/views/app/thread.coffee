@@ -281,7 +281,6 @@ Template.threadPage.onRendered ->
   console.log("thread page rendered")
   this.chatMessages = new ChatMessages
   this.chatMessages.init(this.firstNode)
-  console.log this.firstNode
   # ScrollListener.init()
 
   wrapper = this.find('.wrapper')

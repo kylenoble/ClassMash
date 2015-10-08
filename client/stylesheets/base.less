@@ -3221,6 +3221,34 @@ a.github-fork {
 	}
 }
 
+.files-add-file {
+	.adding-files {
+		&.file-page {
+			bottom: 115px;
+			left: 15px;
+		}
+	}
+	.file {
+		position: absolute;
+		bottom: 70px;
+		height: 40px;
+		width: 40px;
+		left: 10px;
+		border-radius: 20px;
+		padding-top: 10px;
+		background-color: @secondary-blue;
+		cursor: pointer;
+		&:hover {
+			background-color: darken(@secondary-blue, 10%);
+		}
+		i {
+			font-size: 20px;
+			margin-left: 10px;
+		}
+	}
+}
+
+
 .classroom-container {
 	.teacher-container {
 		margin-left: auto;

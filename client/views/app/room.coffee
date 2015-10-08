@@ -44,7 +44,6 @@ Template.room.helpers
 
   flexUserInfo: ->
     roomData = Session.get('roomData' + this._id)
-    console.log(roomData)
     if roomData.s
       school = roomData.s._id
     else
@@ -232,7 +231,6 @@ Template.room.helpers
 
   thread: ->
     if Session.get('isThread')
-      console.log('thread')
       $('.room-icons .icon-list').addClass('active')
     return Session.get('isThread')
 

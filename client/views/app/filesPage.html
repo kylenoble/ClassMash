@@ -13,6 +13,25 @@
         </div>
       </div>
     </div>
+    <div class="files-add-file">
+      <div class="file">
+        <i class="icon-arrow-up"></i>
+      </div>
+      <div class="adding-files file-page">
+        <div class="regular-files">
+          <input type="file" id="select-regular-file">
+          <label class="label-regular-files" for="select-regular-file"><i class="icon-paper-clip"></i><span class="file-upload-text">Files</span></label>
+        </div>
+        <div class="add-notes">
+          <input type="file" id="select-notes">
+          <label class="label-add-notes" for="select-notes"><i class="icon-list"></i><span class="file-upload-text">Notes</span></label>
+        </div>
+        <div class="add-note-cards">
+          <input type="file" id="select-note-cards">
+          <label class="label-add-note-cards" for="select-note-cards"><i class="icon-layers"><span class="file-upload-text">Note Cards</span></i></label>
+        </div>
+      </div>
+    </div>
     <div class="file-list-container">
       <div class="files-list">
         {{#each roomFiles}}

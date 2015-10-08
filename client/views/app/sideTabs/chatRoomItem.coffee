@@ -56,7 +56,6 @@ Template.chatRoomItem.events
   'click .open-room': (e) ->
     path = window.location.pathname.split('/')
     if this.name + this.term is path[2] + path[3]
-      console.log("returning")
       return
     menu.close()
     rightMenu.close()
