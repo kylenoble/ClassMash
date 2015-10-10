@@ -40,10 +40,10 @@ Slingshot.createDirective 'fileUploads', Slingshot.S3Storage,
     console.log(file.type)
     if !this.userId
       throw new Meteor.Error(error, reason)
-    return true;
+    return true
   key: (file, metaContext) ->
     user = Meteor.users.findOne(this.userId)
     if metaContext.type is 'syllabus'
-      return [metaContext.roomId, "/syllabus/", file.name].join("")
+      return [metaContext.roomId, "/syllabus/", encodeURIComponent(file.name)].join("")
     else
-      return [metaContext.roomId, "/", user.username, "/", file.name].join("")
+      return [metaContext.roomId, "/", user.username, "/", encodeURIComponent(file.name)].join("")
