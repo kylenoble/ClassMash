@@ -1,7 +1,7 @@
 Template.filesPage.helpers
   roomFiles: ->
     filter = Template.instance().currentFilter.get()
-    return fileCollection.find({category: filter}, {sort: {date: -1}}).fetch()
+    return fileCollection.find({category: filter}, {sort: {date: -1}}, {limit: 10})
 
   cleanDate: (date) ->
     return moment(date).format("MM/D/YY h:mm a")
@@ -99,7 +99,7 @@ Template.filesPage.onCreated ->
     typeLetter = path[1][0]
 
   instance = @
-  @limit = new ReactiveVar 10
+  @limit = new ReactiveVar 50
   @currentFilter = new ReactiveVar 'regular'
   @roomId = new ReactiveVar RoomManager.openedRooms[typeLetter + path[2]].rid
   @ready = new ReactiveVar true
@@ -113,7 +113,6 @@ Template.filesPage.onCreated ->
 
 
 clearFilters = ->
-  console.log('clear filters')
   Template.instance().isFilesFilter = false
   Template.instance().isNotesFilter = false
   Template.instance().isNoteCardsFilter = false

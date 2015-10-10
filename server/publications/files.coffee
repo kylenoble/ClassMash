@@ -18,4 +18,4 @@ Meteor.publish 'fileList', (limit, rid) ->
 	return fileCollection.find query,
 		fields: fields
 		limit: limit
-		sort: { date: 1 }
+		sort: { date: -1 }
