@@ -38,12 +38,10 @@ Meteor.startup ->
       this.params.username = this.params.username.replace '@', ''
 
     res.setHeader 'Content-Disposition', 'inline'
-    res.setHeader 'Cache-Control', 'no-cache'
-    res.setHeader 'Pragma', 'no-cache'
-    res.setHeader 'Expires', '0'
 
     if not file?
       res.setHeader 'content-type', 'image/svg+xml'
+      res.setHeader 'cache-control', 'public, max-age=31536000'
 
       colors = ['#546a76','#a0ca92','#dce0d9','#dcebcb','#f06475','#72acef','#7fb3ef','#C9EFD5','#F3919D','#86959E','#E5E8E3','#9BC4F2','#BBD9B1']
 
@@ -74,6 +72,15 @@ Meteor.startup ->
       res.end()
       return
 
+    reqModifiedHeader = req.headers["if-modified-since"]
+    if reqModifiedHeader?
+      if reqModifiedHeader == file.uploadDate?.toUTCString()
+        res.setHeader 'Last-Modified', reqModifiedHeader
+        res.writeHead 304
+        res.end()
+        return
+
+    res.setHeader 'Last-Modified', file.uploadDate?.toUTCString() or new Date().toUTCString()
     res.setHeader 'content-type', 'image/jpeg'
     res.setHeader 'Content-Length', file.length
 
