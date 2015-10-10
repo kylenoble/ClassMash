@@ -1,7 +1,7 @@
 Template.filesPage.helpers
   roomFiles: ->
     filter = Template.instance().currentFilter.get()
-    return fileCollection.find({category: filter}, {sort: {date: -1}, limit: 10})
+    return fileCollection.find({category: filter}, {limit: 10})
 
   cleanDate: (date) ->
     return moment(date).format("MM/D/YY h:mm a")
