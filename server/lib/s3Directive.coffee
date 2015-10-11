@@ -46,4 +46,4 @@ Slingshot.createDirective 'fileUploads', Slingshot.S3Storage,
     if metaContext.type is 'syllabus'
       return [metaContext.roomId, "/syllabus/", encodeURIComponent(file.name)].join("")
     else
-      return [metaContext.roomId, "/", user.username, "/", encodeURIComponent(file.name)].join("")
+      return [metaContext.roomId, "/", user.username, "/", new Date().getTime(), "/",encodeURIComponent(file.name)].join("")

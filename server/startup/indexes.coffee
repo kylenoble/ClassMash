@@ -1,5 +1,8 @@
 Meteor.startup ->
   Meteor.defer ->
+    try Meteor.users._ensureIndex { 'username': 1, 'profile.school._id': 1 }, { unique: 1, sparse: 1 } catch e then console.log e
+    try Meteor.users._ensureIndex { 'status': 1 } catch e then console.log e
+
     try ChatRoom._ensureIndex { 'name': 1, 's._id': 1, 'term': 1 }, { unique: 1, sparse: 1 } catch e then console.log e
     try ChatRoom._ensureIndex { 'u._id': 1 } catch e then console.log e
 
