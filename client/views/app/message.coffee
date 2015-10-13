@@ -57,22 +57,6 @@ Template.message.helpers
   showEditedStatus: ->
     return RocketChat.settings.get 'Message_ShowEditedStatus'
 
-Template.message.events
-  'click .pvt-msg': (e) ->
-    console.log e
-    return
-    Meteor.call 'createDirectMessage', Session.get('showUserInfo'), (error, result) ->
-      console.log result
-      if error
-        return Errors.throw error.reason
-
-      if result?.rid?
-        clearActive()
-        $('.room-icons .icon-list').addClass('active')
-        FlowRouter.go('direct', { username: Session.get('showUserInfo') })
-        Session.set('showUserProfile', false)
-
-
 Template.message.onViewRendered = (context) ->
   view = this
   this._domrange.onAttached (domRange) ->

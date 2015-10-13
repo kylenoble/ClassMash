@@ -173,8 +173,10 @@ Template.threadPage.events
     console.log template
     console.log e.currentTarget.innerText
     console.log Meteor.user().username
+    path = window.location.pathname.split('/')
+    chatUsername = path[2]
     username = e.currentTarget.innerText
-    if Meteor.user().username == username
+    if Meteor.user().username == username or chatUsername == username
       return
     Meteor.call 'createDirectMessage', username, (error, result) ->
       if error
