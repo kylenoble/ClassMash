@@ -67,6 +67,8 @@ Template.message.events
         return Errors.throw error.reason
 
       if result?.rid?
+        clearActive()
+        $('.room-icons .icon-list').addClass('active')
         FlowRouter.go('direct', { username: Session.get('showUserInfo') })
         Session.set('showUserProfile', false)
 
@@ -109,3 +111,15 @@ Template.message.onViewRendered = (context) ->
         if view.parentView.parentView.parentView.parentView.parentView.templateInstance?().atBottom isnt true
           newMessage = document.querySelector(".new-message")
           newMessage.className = "new-message"
+
+clearActive = () ->
+  $('.room-icons .icon-home').removeClass('active')
+  $('.room-icons .icon-docs').removeClass('active')
+  $('.room-icons .icon-calendar').removeClass('active')
+  $('.room-icons .icon-user').removeClass('active')
+  Session.set('isClassroom', false)
+  Session.set('isCalendar', false)
+  Session.set('isFiles', false)
+  Session.set('isProfile', false)
+  if Session.get('isThread')
+    Session.set('isThread', false)

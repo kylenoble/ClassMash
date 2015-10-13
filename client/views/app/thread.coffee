@@ -160,14 +160,14 @@ Template.threadPage.events
     else
       instance.chatMessages.pinMsg(message)
 
-  'click .user-card-message': (e) ->
-    roomData = Session.get('roomData' + this._arguments[1].rid)
-    if roomData.t in ['c', 'p', 'd']
-      Session.set('showUserProfile', true)
-      Session.set('showUserInfo', $(e.currentTarget).data('username'))
-
-  'click .user-view nav .back': (e) ->
-    Session.set('showUserInfo', null)
+  # 'click .user-card-message': (e) ->
+  #   roomData = Session.get('roomData' + this._arguments[1].rid)
+  #   if roomData.t in ['c', 'p', 'd']
+  #     Session.set('showUserProfile', true)
+  #     Session.set('showUserInfo', $(e.currentTarget).data('username'))
+  #
+  # 'click .user-view nav .back': (e) ->
+  #   Session.set('showUserInfo', null)
 
   'click .pvt-msg': (e, template) ->
     console.log template
@@ -181,6 +181,8 @@ Template.threadPage.events
         return Errors.throw error.reason
 
       if result?.rid?
+        clearActive()
+        $('.room-icons .icon-list').addClass('active')
         FlowRouter.go('direct', { username: username })
 
   'click button.load-more': (e) ->
@@ -354,3 +356,15 @@ Template.threadPage.onRendered ->
     Session.set('selfVideoUrl', url)
 
   RoomHistoryManager.getMoreIfIsEmpty this.data._id
+
+clearActive = () ->
+  $('.room-icons .icon-home').removeClass('active')
+  $('.room-icons .icon-docs').removeClass('active')
+  $('.room-icons .icon-calendar').removeClass('active')
+  $('.room-icons .icon-user').removeClass('active')
+  Session.set('isClassroom', false)
+  Session.set('isCalendar', false)
+  Session.set('isFiles', false)
+  Session.set('isProfile', false)
+  if Session.get('isThread')
+    Session.set('isThread', false)

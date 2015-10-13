@@ -95,6 +95,7 @@ clearActive = () ->
   $('.room-icons .icon-home').removeClass('active')
   $('.room-icons .icon-docs').removeClass('active')
   $('.room-icons .icon-calendar').removeClass('active')
+  $('.room-icons .icon-user').removeClass('active')
   Session.set('isClassroom', false)
   Session.set('isCalendar', false)
   Session.set('isFiles', false)
