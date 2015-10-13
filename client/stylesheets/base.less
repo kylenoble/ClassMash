@@ -929,6 +929,13 @@ label.required:after {
 					font-weight: bold;
 				}
 			}
+			&.profile {
+				margin-left: -33px;
+				&:hover {
+					color: @primary-blue;
+					font-weight: bold;
+				}
+			}
 			&.thread {
 				margin-left: -34px;
 				&:hover {
@@ -3746,23 +3753,11 @@ a.github-fork {
 }
 
 .user-view {
-	position: absolute;
 	width: 100%;
 	height: 100%;
 	padding: 20px;
-	display: flex;
 	background-color: #FDF7F2;
-	margin-top: 60px;
-	z-index: 1000;
-	.back {
-		position: absolute;
-    top: 25px;
-    right: 5%;
-	}
-	.pvt-msg {
-		position: absolute;
-    top: 150px;
-	}
+	margin-top: 110px;
 	.about {
 		width: 100%;
     margin-bottom: 20px;

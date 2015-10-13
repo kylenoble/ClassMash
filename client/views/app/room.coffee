@@ -38,9 +38,9 @@ Template.room.helpers
       when 'c' then return 'icon-globe-alt'
       when 'p' then return 'icon-lock'
 
-  userProfile: ->
-    console.log(Session.get('showUserProfile'))
-    return Session.get('showUserProfile')
+  # userProfile: ->
+  #   console.log(Session.get('showUserProfile'))
+  #   return Session.get('showUserProfile')
 
   flexUserInfo: ->
     roomData = Session.get('roomData' + this._id)
@@ -239,6 +239,11 @@ Template.room.helpers
       $('.room-icons .icon-home').addClass('active')
     return Session.get('isClassroom')
 
+  profile: ->
+    if Session.get('isProfile')
+      $('.room-icons .icon-user').addClass('active')
+    return Session.get('isProfile')
+
   files: ->
     if Session.get('isFiles')
       $('.room-icons .icon-docs').addClass('active')
@@ -254,6 +259,10 @@ Template.room.events
   "click .room-icons .icon-home": (e) ->
     clearActive()
     Session.set('isClassroom', true)
+
+  "click .room-icons .icon-user": (e) ->
+    clearActive()
+    Session.set('isProfile', true)
 
   "click .room-icons .icon-list": (e) ->
     clearActive()
@@ -470,13 +479,13 @@ Template.room.events
 Template.room.onCreated ->
   # this.scrollOnBottom = true
   # this.typing = new msgTyping this.data._id
-  Session.set('showUserProfile', false)
   this.showUsersOffline = new ReactiveVar false
   this.searchResult = new ReactiveVar
   Session.set('isThread', true)
   Session.set('isClassroom', false)
   Session.set('isCalendar', false)
   Session.set('isFiles', false)
+  Session.set('isProfile', false)
 
   self = @
 
@@ -490,8 +499,13 @@ Template.room.onRendered ->
   roomData = Session.get('roomData' + self.data._id)
   if roomData.t is "c"
     $('.room-icons .icon-home').removeClass('hidden')
+    $('.room-icons .icon-user').addClass('hidden')
+  else if roomData.t is "d"
+    $('.room-icons .icon-user').removeClass('hidden')
+    $('.room-icons .icon-home').addClass('hidden')
   else
     $('.room-icons .icon-home').addClass('hidden')
+    $('.room-icons .icon-user').addClass('hidden')
 
 clearActive = () ->
   if Session.get('isClassroom')
@@ -506,6 +520,9 @@ clearActive = () ->
   if Session.get('isThread')
     Session.set('isThread', false)
     $('.room-icons .icon-list').removeClass('active')
+  if Session.get('isProfile')
+    Session.set('isProfile', false)
+    $('.room-icons .icon-user').removeClass('active')
 
 
 renameRoom = (rid, name) ->

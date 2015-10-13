@@ -169,13 +169,19 @@ Template.threadPage.events
   'click .user-view nav .back': (e) ->
     Session.set('showUserInfo', null)
 
-  'click .user-view nav .pvt-msg': (e) ->
-    Meteor.call 'createDirectMessage', Session.get('showUserInfo'), (error, result) ->
+  'click .pvt-msg': (e, template) ->
+    console.log template
+    console.log e.currentTarget.innerText
+    console.log Meteor.user().username
+    username = e.currentTarget.innerText
+    if Meteor.user().username == username
+      return
+    Meteor.call 'createDirectMessage', username, (error, result) ->
       if error
         return Errors.throw error.reason
 
       if result?.rid?
-        FlowRouter.go('direct', { username: Session.get('showUserInfo') })
+        FlowRouter.go('direct', { username: username })
 
   'click button.load-more': (e) ->
     RoomHistoryManager.getMore @_id
