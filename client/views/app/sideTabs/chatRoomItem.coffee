@@ -22,7 +22,7 @@ Template.chatRoomItem.helpers
     switch this.t
       when 'd' then return 'icon-bubbles'
       when 'c' then return 'icon-globe-alt'
-      when 'p' then return 'icon-lock'
+      when 'p' then return 'icon-chemistry'
 
   active: ->
     if Session.get('openedRoom') is this.rid
@@ -46,6 +46,10 @@ Template.chatRoomItem.helpers
         FlowRouter.path('group', {name: this.name})
       when 'c'
         FlowRouter.path('channel', {name: this.name, term: this.term})
+      when 'f'
+        FlowRouter.path('files', {_id: this._id})
+      when 'e'
+        FlowRouter.path('events', {_id: this._id})
 
 Template.chatRoomItem.rendered = ->
   if not (FlowRouter.getParam('_id')? and FlowRouter.getParam('_id') is this.data.rid) and not this.data.ls
@@ -96,9 +100,15 @@ clearActive = () ->
   $('.room-icons .icon-docs').removeClass('active')
   $('.room-icons .icon-calendar').removeClass('active')
   $('.room-icons .icon-user').removeClass('active')
+  $('.room-icons .icon-doc').removeClass('active')
+  $('.room-icons .icon-notebook').removeClass('active')
+  $('.room-icons .icon-graph').removeClass('active')
   Session.set('isClassroom', false)
   Session.set('isCalendar', false)
   Session.set('isFiles', false)
   Session.set('isProfile', false)
+  Session.set('isFileDetails', false)
+  Session.set('isEventDetails', false)
+  Session.set('isFileHistory', false)
   if Session.get('isThread')
     Session.set('isThread', false)

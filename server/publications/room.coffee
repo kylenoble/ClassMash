@@ -30,6 +30,17 @@ Meteor.publish 'room', (typeName) ->
       usernames:
         $all: [user.username, name]
 
+  else if type is 'f'
+    query =
+      t: 'f'
+      's._id': user.profile.school._id
+      'f._id': name
+
+  else if type is 'e'
+    query =
+      t: 'e'
+      's._id': user.profile.school._id
+      'e._id': name
   # Change to validate access manualy
   # if not Meteor.call 'canAccessRoom', rid, this.userId
   #   return this.ready()
@@ -41,6 +52,8 @@ Meteor.publish 'room', (typeName) ->
       cl: 1
       u: 1
       s: 1
+      f: 1
+      e: 1
       usernames: 1
       term: 1
       teacher: 1

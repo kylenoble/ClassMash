@@ -36,7 +36,7 @@ Template.room.helpers
     switch roomData.t
       when 'd' then return 'icon-bubbles'
       when 'c' then return 'icon-globe-alt'
-      when 'p' then return 'icon-lock'
+      when 'p' then return 'icon-chemistry'
 
   # userProfile: ->
   #   console.log(Session.get('showUserProfile'))
@@ -254,6 +254,46 @@ Template.room.helpers
       $('.room-icons .icon-calendar').addClass('active')
     return Session.get('isCalendar')
 
+  fileDetails: ->
+    if Session.get('isFileDetails')
+      $('.room-icons .icon-doc').addClass('active')
+    return Session.get('isFileDetails')
+
+  eventDetails: ->
+    if Session.get('isEventDetails')
+      $('.room-icons .icon-notebook').addClass('active')
+    return Session.get('isEventDetails')
+
+  fileHistory: ->
+    if Session.get('isFileHistory')
+      $('.room-icons .icon-graph').addClass('active')
+    return Session.get('isFileHistory')
+
+  roomIcons: ->
+    roomData = Session.get('roomData' + this._id)
+    if roomData.t is "c"
+      return "<li><i class='icon-home'><label class='tab-label classroom'>Classroom</label></i></li>
+            <li><i class='icon-list'><label class='tab-label thread'>Thread</label></i></li>
+            <li><i class='icon-docs'><label class='tab-label files'>Files</label></i></li>
+            <li><i class='icon-calendar'><label class='tab-label cal'>Cal</label></i></li>"
+    if roomData.t is 'p'
+      return "<li><i class='icon-list'><label class='tab-label thread'>Thread</label></i></li>
+            <li><i class='icon-docs'><label class='tab-label files'>Files</label></i></li>
+            <li><i class='icon-calendar'><label class='tab-label cal'>Cal</label></i></li>"
+    else if roomData.t is 'd'
+      return "<li><i class='icon-user'><label class='tab-label profile'>Profile</label></i></li>
+              <li><i class='icon-list'><label class='tab-label thread'>Thread</label></i></li>
+              <li><i class='icon-docs'><label class='tab-label files'>Files</label></i></li>
+              <li><i class='icon-calendar'><label class='tab-label cal'>Cal</label></i></li>"
+    else if roomData.t is 'f'
+      return "<li><i class='icon-doc'><label class='tab-label fileDetails'>Details</label></i></li>
+              <li><i class='icon-list'><label class='tab-label thread'>Thread</label></i></li>
+              <li><i class='icon-graph'><label class='tab-label fileHistory'>History</label></i></li>"
+    else if roomData.t is 'e'
+      return "<li><i class='icon-notebook'><label class='tab-label eventDetails'>Details</label></i></li>
+              <li><i class='icon-list'><label class='tab-label thread'>Thread</label></i></li>
+              <li><i class='icon-docs'><label class='tab-label files'>Files</label></i></li>"
+
 Template.room.events
 
   "click .room-icons .icon-home": (e) ->
@@ -275,6 +315,18 @@ Template.room.events
   "click .room-icons .icon-calendar": (e) ->
     clearActive()
     Session.set('isCalendar', true)
+
+  "click .room-icons .icon-doc": (e) ->
+    clearActive()
+    Session.set('isFileDetails', true)
+
+  "click .room-icons .icon-notebook": (e) ->
+    clearActive()
+    Session.set('isEventDetails', true)
+
+  "click .room-icons .icon-graph": (e) ->
+    clearActive()
+    Session.set('isFileHistory', true)
 
   "keydown #room-search": (e) ->
     if e.keyCode is 13
@@ -486,6 +538,9 @@ Template.room.onCreated ->
   Session.set('isCalendar', false)
   Session.set('isFiles', false)
   Session.set('isProfile', false)
+  Session.set('isFileDetails', false)
+  Session.set('isFileHistory', false)
+  Session.set('isEventDetails', false)
 
   self = @
 
@@ -495,17 +550,6 @@ Template.room.onCreated ->
 Template.room.onRendered ->
   self = @
   $('.room-icons .icon-list').addClass('active')
-
-  roomData = Session.get('roomData' + self.data._id)
-  if roomData.t is "c"
-    $('.room-icons .icon-home').removeClass('hidden')
-    $('.room-icons .icon-user').addClass('hidden')
-  else if roomData.t is "d"
-    $('.room-icons .icon-user').removeClass('hidden')
-    $('.room-icons .icon-home').addClass('hidden')
-  else
-    $('.room-icons .icon-home').addClass('hidden')
-    $('.room-icons .icon-user').addClass('hidden')
 
 clearActive = () ->
   if Session.get('isClassroom')
@@ -523,7 +567,15 @@ clearActive = () ->
   if Session.get('isProfile')
     Session.set('isProfile', false)
     $('.room-icons .icon-user').removeClass('active')
-
+  if Session.get('isFileDetails')
+    Session.set('isFileDetails', false)
+    $('.room-icons .icon-doc').removeClass('active')
+  if Session.get('isEventDetails')
+    Session.set('isEventDetails', false)
+    $('.room-icons .icon-notebook').removeClass('active')
+  if Session.get('isFileHistory')
+    Session.set('isFileHistory', false)
+    $('.room-icons .icon-graph').removeClass('active')
 
 renameRoom = (rid, name) ->
   name = name?.toLowerCase().trim()

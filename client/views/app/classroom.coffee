@@ -47,14 +47,14 @@ Template.classroomPage.helpers
 
 Template.classroomPage.events
 
-  "click .member-info": (e) ->
-    # channel = $(e.currentTarget).data('channel')
-    # term = $(e.currentTarget).data('term')
-    # if channel?
-    #   FlowRouter.go 'channel', {name: channel, term: term}
-    #   return
-    Session.set('showUserProfile', true)
-    Session.set('showUserInfo', $(e.target).text().trim())
+  # "click .member-info": (e) ->
+  #   # channel = $(e.currentTarget).data('channel')
+  #   # term = $(e.currentTarget).data('term')
+  #   # if channel?
+  #   #   FlowRouter.go 'channel', {name: channel, term: term}
+  #   #   return
+  #   Session.set('showUserProfile', true)
+  #   Session.set('showUserInfo', $(e.target).text().trim())
 
   'click .add-teacher-email': (e, t) ->
     console.log 'adding teacher email'

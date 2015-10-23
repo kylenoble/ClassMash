@@ -1,51 +1,51 @@
 Meteor.methods
-	joinRoom: (rid) ->
+  joinRoom: (rid) ->
 
-		room = ChatRoom.findOne rid
+    room = ChatRoom.findOne rid
 
-		if room.t isnt 'c'
-			throw new Meteor.Error 403, '[methods] joinRoom -> Not allowed'
+    if room.t != 'c' and room.t != 'f' and room.t != 'e'
+      throw new Meteor.Error 403, '[methods] joinRoom -> Not allowed'
 
-		# verify if user is already in room
-		# if room.usernames.indexOf(user.username) is -1
-		console.log '[methods] joinRoom -> '.green, 'userId:', Meteor.userId(), 'arguments:', arguments
+    # verify if user is already in room
+    # if room.usernames.indexOf(user.username) is -1
+    console.log '[methods] joinRoom -> '.green, 'userId:', Meteor.userId(), 'arguments:', arguments
 
-		now = new Date()
+    now = new Date()
 
-		user = Meteor.users.findOne Meteor.userId()
+    user = Meteor.users.findOne Meteor.userId()
 
-		RocketChat.callbacks.run 'beforeJoinRoom', user, room
+    RocketChat.callbacks.run 'beforeJoinRoom', user, room
 
-		update =
-			$addToSet:
-				usernames: user.username
+    update =
+      $addToSet:
+        usernames: user.username
 
-		ChatRoom.update rid, update
+    ChatRoom.update rid, update
 
-		ChatSubscription.insert
-			rid: rid
-			ts: now
-			name: room.name
-			t: room.t
-			open: true
-			alert: true
-			term: room.term
-			unread: 1
-			u:
-				_id: user._id
-				username: user.username
+    ChatSubscription.insert
+      rid: rid
+      ts: now
+      name: room.name
+      t: room.t
+      open: true
+      alert: true
+      term: room.term
+      unread: 1
+      u:
+        _id: user._id
+        username: user.username
 
-		ChatMessage.insert
-			rid: rid
-			ts: now
-			t: 'uj'
-			msg: user.name
-			u:
-				_id: user._id
-				username: user.username
+    ChatMessage.insert
+      rid: rid
+      ts: now
+      t: 'uj'
+      msg: user.name
+      u:
+        _id: user._id
+        username: user.username
 
-		Meteor.defer ->
+    Meteor.defer ->
 
-			RocketChat.callbacks.run 'afterJoinRoom', user, room
+      RocketChat.callbacks.run 'afterJoinRoom', user, room
 
-		return true
+    return true

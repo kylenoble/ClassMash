@@ -1,0 +1,19 @@
+<template name="fileHistoryPage">
+  <div class="fileHistoryPage">
+    <span class="history-line"></span>
+    {{#each files}}
+      <div class="file">
+        <span class="date">Uploaded on {{cleanDate date}}</span>
+        <span class="file-marker"></span>
+        <div class="info">
+          <i class="{{icon type}}"></i>
+          <div class="metadata">
+            <span class="filename">{{name}}</span>
+            <span class="username">{{user.username}}</span>
+          </div>
+          <a href="{{url}}" target="_blank"><i class="icon-cloud-download"></i></a>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</template>

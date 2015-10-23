@@ -100,6 +100,7 @@ readAsDataURL = (file, callback) ->
                 toastr.error error
                 return
           else
+            uploadId = Random.id()
             if file.type is 'audio'
               shortFileType.set('audio')
               message = """
@@ -110,9 +111,9 @@ readAsDataURL = (file, callback) ->
               downloadUrl = encodeURI(downloadUrl)
               shortFileType.set('image')
               message = """
-                File Uploaded: <a class="linkable-title" href="#{downloadUrl}" target=_blank>#{file.name}</a>
+                File Uploaded: <a class="linkable-title" href="/files/#{uploadId}">#{file.name}</a> <a href='#{downloadUrl}' class='linkable-title' target=_blank><i class="fa fa-cloud-download"></i></a>
                 <a href="#{downloadUrl}" class="swipebox" target="_blank">
-                  <div style="background-image: url(#{downloadUrl}); background-size: contain; background-repeat: no-repeat; background-position: center left; height: 200px;"></div>
+                  <div style="background-image: url(#{downloadUrl}); background-size: contain; background-repeat: no-repeat; background-position: center left; height: 200px; margin-top: 5px;"></div>
                 </a>
               """
             else
@@ -149,11 +150,19 @@ readAsDataURL = (file, callback) ->
               message = """
                 File Uploaded:
                 <div class='uploaded-file'>
-                  <i class="#{icon}"></i><div class='file-upload-metadata'>#{file.name}</div>
-                  <div class='download-file'><a href='#{downloadUrl}' class='linkable-title' target=_blank><i class="fa fa-cloud-download"></i></a></div>
+                  <i class="#{icon}"></i><div class='file-upload-metadata'><a href="/files/#{uploadId}">#{file.name}</a></div>
+                  <div class='download-file'>
+                    <a href='#{downloadUrl}' class='linkable-title' target=_blank>
+                      <i class="fa fa-cloud-download"></i>
+                    </a>
+                    <a href="/files/#{uploadId}" class='linkable-title'>
+                      <i class="icon-bubble"></i>
+                    </a>
+                  </div>
                 </div>
               """
             upload = fileCollection.insert
+              _id: uploadId
               name: file.name
               size: file.size
               type: file.type
@@ -177,6 +186,8 @@ readAsDataURL = (file, callback) ->
                   rid: Session.get('openedRoom')
                   msg: message
                   file:
-                    _id: this._id
+                    _id: uploadId
                 }
+
+              Meteor.call 'createFileRoom', file.name, uploadId
   consume()

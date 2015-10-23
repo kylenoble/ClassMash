@@ -326,7 +326,7 @@
   "Welcome_to_the" : "Welcome to the",
   "With_whom" : "Add Classmate",
   "Yes_delete_it" : "Yes, delete it!",
-  "you_are_in_preview_mode_of" : "You are in preview mode of the class #<strong>__room_name__</strong>",
+  "you_are_in_preview_mode_of" : "You are previewing #<strong>__room_name__</strong>",
   "You_need_confirm_email" : "You need to confirm your email to login!",
   "You_will_not_be_able_to_recover" : "You will not be able to recover!",
   "Your_entry_has_been_deleted" : "Your entry has been deleted.",

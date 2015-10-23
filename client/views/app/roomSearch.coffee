@@ -5,8 +5,8 @@ Template.roomSearch.helpers
 		if this.type is 'r'
 			switch this.t
 				when 'd' then return 'icon-at'
-				when 'c' then return 'icon-hash'
-				when 'p' then return 'icon-lock'
+				when 'c' then return 'icon-globe-alt'
+				when 'p' then return 'icon-chemistry'
 
 	userStatus: ->
 		if this.type is 'u'

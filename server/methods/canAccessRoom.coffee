@@ -13,7 +13,7 @@ Meteor.methods
 		room = ChatRoom.findOne rid, { fields: { usernames: 1, t: 1, name: 1 } }
 
 		if room
-			if room.t is 'c'
+			if room.t is 'c' or room.t is 'f' or room.t is 'e'
 				canAccess = true
 			else if room.usernames.indexOf(user.username) isnt -1
 				canAccess = true

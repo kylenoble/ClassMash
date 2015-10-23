@@ -62,6 +62,8 @@ Meteor.methods
         _id: me._id
         username: me.username
 
+    Meteor.call 'createEventRoom', title, eventId
+
     return {
       eventId: eventId
     }

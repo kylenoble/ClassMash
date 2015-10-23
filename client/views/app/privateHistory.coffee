@@ -13,7 +13,7 @@ Template.privateHistory.helpers
 		switch this.t
 			when 'd' then 'icon-at'
 			when 'c' then 'icon-hash'
-			when 'p' then 'icon-lock'
+			when 'p' then 'icon-chemistry'
 
 	creation: ->
 		return moment(this.ts).format('LLL')

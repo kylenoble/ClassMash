@@ -1,0 +1,18 @@
+<template name="eventDetailsPage">
+  <div class="eventDetailsPage">
+    <div class="event-list-container">
+      <div class="events-list">
+        {{#each event}}
+          <div class="event">
+            <i class="{{icon type}}"></i>
+            <span class="event-name">{{title}}</span>
+            <span class="event-description">{{description}}</span>
+            <span class="username">{{u.username}}</span>
+            <span class="date">{{cleanDate start}}</span>
+            <span class="date">{{cleanDate end}}</span>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</template>

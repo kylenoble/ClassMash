@@ -54,13 +54,20 @@ Template.userStatus.events
 Template.userStatus.rendered = ->
   AccountBox.init()
 
-
 clearActive = () ->
   $('.room-icons .icon-home').removeClass('active')
   $('.room-icons .icon-docs').removeClass('active')
   $('.room-icons .icon-calendar').removeClass('active')
   $('.room-icons .icon-user').removeClass('active')
+  $('.room-icons .icon-doc').removeClass('active')
+  $('.room-icons .icon-notebook').removeClass('active')
+  $('.room-icons .icon-graph').removeClass('active')
   Session.set('isClassroom', false)
   Session.set('isCalendar', false)
   Session.set('isFiles', false)
-  Session.set('isThread', false)
+  Session.set('isProfile', false)
+  Session.set('isFileDetails', false)
+  Session.set('isEventDetails', false)
+  Session.set('isFileHistory', false)
+  if Session.get('isThread')
+    Session.set('isThread', false)

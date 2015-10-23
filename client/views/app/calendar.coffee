@@ -17,11 +17,8 @@ Template.calendarPage.helpers
         start = new Date(start)
         callback(Events.find({start: {$gt:start}}).fetch())
       eventClick: (calEvent, jsEvent, view) ->
-        alert('Event: ' + calEvent.title)
-        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY)
-        alert('View: ' + view.name)
-
-        $(this).css('border-color', 'red')
+        $('.room-icons .icon-calendar').removeClass('active')
+        FlowRouter.go '/events/' + calEvent._id
     }
 
 Template.calendarPage.events
@@ -43,12 +40,6 @@ Template.calendarPage.events
     start = new Date($('#start-date').val())
     end = new Date($('#end-date').val())
     type = $('.type-item.active').text().trim()
-
-    console.log(title)
-    console.log(description)
-    console.log(start)
-    console.log(end)
-    console.log(type)
 
     Meteor.call "addEvent", Template.instance().rid.get(), title, description, type, start, end, (error, result) ->
       if error

@@ -56,7 +56,7 @@ Template.threadPage.helpers
     return ChatSubscription.find({ rid: Template.instance().roomId }).count() > 0
 
   canJoin: ->
-    return !! ChatRoom.findOne { _id: Template.instance().roomId, t: 'c' }
+    return !! ChatRoom.findOne { _id: Template.instance().roomId, t: { $in: ['c', 'e', 'f'] } }
 
   usersTyping: ->
     users = MsgTyping.get @_id
@@ -121,8 +121,19 @@ Template.threadPage.events
       FlowRouter.go 'channel', {name: channel, term: term}
       return
 
-    Session.set('showUserProfile', true)
-    Session.set('showUserInfo', $(e.currentTarget).data('username'))
+    path = window.location.pathname.split('/')
+    chatUsername = path[2]
+    username = e.currentTarget.innerText
+    if Meteor.user().username == username or chatUsername == username
+      return
+    Meteor.call 'createDirectMessage', username, (error, result) ->
+      if error
+        return Errors.throw error.reason
+
+      if result?.rid?
+        clearActive()
+        $('.room-icons .icon-list').addClass('active')
+        FlowRouter.go('direct', { username: username })
 
   'click .image-to-download': (event) ->
     ChatMessage.update {_id: this._arguments[1]._id, 'urls.url': $(event.currentTarget).data('url')}, {$set: {'urls.$.downloadImages': true}}
@@ -170,9 +181,6 @@ Template.threadPage.events
   #   Session.set('showUserInfo', null)
 
   'click .pvt-msg': (e, template) ->
-    console.log template
-    console.log e.currentTarget.innerText
-    console.log Meteor.user().username
     path = window.location.pathname.split('/')
     chatUsername = path[2]
     username = e.currentTarget.innerText
@@ -200,10 +208,25 @@ Template.threadPage.events
     event.preventDefault()
     Meteor.call 'joinRoom', @_id
 
-  'focus .input-message': (event) ->
+  'focusin .input-message': (event) ->
+    if $("body").width() < 501
+      $(".room-icons").css('height', 0)
+      $(".room-icons").hide()
+      $(".footer").css("bottom", 0)
+      $(".messages-box").css('height', 'calc(100% - 44px)')
     KonchatNotification.removeRoomNotification @_id
 
+  'focusout .input-message': (event) ->
+    event.preventDefault()
+    if $("body").width() < 501
+      $(".room-icons").css('height', 49)
+      $(".room-icons").show()
+      $(".footer").css("bottom", 49)
+      $(".messages-box").css('height', 'calc(100% - 90px)')
+      $(".wrapper").animate({ scrollTop: $(".wrapper")[0].scrollHeight })
+
   'keyup .input-message': (event) ->
+    event.preventDefault()
     Template.instance().chatMessages.keyup(@_id, event, Template.instance())
 
   'click .file': (event) ->
@@ -272,13 +295,16 @@ Template.threadPage.events
   "click .unread-bar > a": ->
     readMessage.readNow(true)
 
-
 Template.threadPage.onCreated ->
   # this.scrollOnBottom = true
   # this.typing = new msgTyping this.data._id
   path = window.location.pathname.split('/')
   if path[1] is 'group'
     typeLetter = 'p'
+  else if path[1] is 'files'
+    typeLetter = 'f'
+  else if path[1] is 'events'
+    typeLetter = 'e'
   else
     typeLetter = path[1][0]
 
@@ -364,9 +390,15 @@ clearActive = () ->
   $('.room-icons .icon-docs').removeClass('active')
   $('.room-icons .icon-calendar').removeClass('active')
   $('.room-icons .icon-user').removeClass('active')
+  $('.room-icons .icon-doc').removeClass('active')
+  $('.room-icons .icon-notebook').removeClass('active')
+  $('.room-icons .icon-graph').removeClass('active')
   Session.set('isClassroom', false)
   Session.set('isCalendar', false)
   Session.set('isFiles', false)
   Session.set('isProfile', false)
+  Session.set('isFileDetails', false)
+  Session.set('isEventDetails', false)
+  Session.set('isFileHistory', false)
   if Session.get('isThread')
     Session.set('isThread', false)

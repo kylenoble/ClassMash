@@ -1,10 +1,13 @@
-openRoom = (type, name, term) ->
+openRoom = (type, name, term, id) ->
   Session.set 'openedRoom', null
   console.log("open room firing")
   BlazeLayout.render 'main', {center: 'loading'}
 
   Meteor.defer ->
     Tracker.autorun (c) ->
+      if type is 'f' or type is 'e'
+        name = id
+
       if RoomManager.open(type + name).ready() isnt true
         return
 
@@ -18,6 +21,16 @@ openRoom = (type, name, term) ->
           name: name
           term: term
           's._id': user.profile.school._id
+      else if type is 'f'
+        query =
+          t: type
+          's._id': user.profile.school._id
+          'f._id': id
+      else if type is 'e'
+        query =
+          t: type
+          's._id': user.profile.school._id
+          'e._id': id
       else
         query =
           t: type
@@ -29,6 +42,7 @@ openRoom = (type, name, term) ->
         query.usernames =
           $all: [name, Meteor.user().username]
 
+      console.log(query)
       room = ChatRoom.findOne(query)
       if not room?
         Session.set 'roomNotFound', {type: type, name: name}
@@ -55,10 +69,10 @@ openRoom = (type, name, term) ->
       , 2000
       # KonchatNotification.removeRoomNotification(params._id)
 
-      if Meteor.Device.isDesktop()
-        setTimeout ->
-          $('.message-form .input-message').focus()
-        , 100
+      # if Meteor.Device.isDesktop()
+      #   setTimeout ->
+      #     $('.message-form .input-message').focus()
+      #   , 100
 
 
 roomExit = ->
@@ -81,7 +95,7 @@ FlowRouter.route '/class/:name/:term',
 
   action: (params, queryParams) ->
     Session.set 'showUserInfo'
-    openRoom 'c', params.name, params.term
+    openRoom 'c', params.name, params.term, ''
 
   triggersExit: [roomExit]
 
@@ -91,7 +105,7 @@ FlowRouter.route '/group/:name',
 
   action: (params, queryParams) ->
     Session.set 'showUserInfo'
-    openRoom 'p', params.name, ''
+    openRoom 'p', params.name, '', ''
 
   triggersExit: [roomExit]
 
@@ -101,6 +115,26 @@ FlowRouter.route '/direct/:username',
 
   action: (params, queryParams) ->
     Session.set 'showUserInfo', params.username
-    openRoom 'd', params.username, ''
+    openRoom 'd', params.username, '', ''
+
+  triggersExit: [roomExit]
+
+
+FlowRouter.route '/files/:id',
+  name: 'files'
+
+  action: (params, queryParams) ->
+    Session.set 'showUserInfo'
+    openRoom 'f', '', '', params.id
+
+  triggersExit: [roomExit]
+
+
+FlowRouter.route '/events/:id',
+  name: 'events'
+
+  action: (params, queryParams) ->
+    Session.set 'showUserInfo'
+    openRoom 'e', '', '', params.id
 
   triggersExit: [roomExit]

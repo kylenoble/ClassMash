@@ -8,7 +8,11 @@ class @ChatMessages
     return
 
   resize: ->
-    dif = 60 + $(".messages-container").find("footer").outerHeight()
+    if $("body").width() < 501
+      dif = $(".messages-container").find("footer").outerHeight() +
+        $(".room-container").find(".room-icons").outerHeight()
+    else
+      dif = 60 + $(".messages-container").find("footer").outerHeight()
     $(".messages-box").css
       height: "calc(100% - #{dif}px)"
 

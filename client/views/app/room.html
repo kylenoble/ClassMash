@@ -3,15 +3,6 @@
 		<header class="fixed-title">
 			{{> burger}}
 		  <!-- <i class="{{roomIcon}} status-{{userStatus}}"></i> -->
-			<div class="room-icons">
-				<div class="icon-container">
-					<i class="icon-user"><label class="tab-label profile">Profile</label></i>
-					<i class="icon-home"><label class="tab-label classroom">Classroom</label></i>
-					<i class="icon-list"><label class="tab-label thread">Thread</label></i>
-					<i class="icon-docs"><label class="tab-label files">Files</label></i>
-					<i class="icon-calendar"><label class="tab-label cal">Cal</label></i>
-				</div>
-			</div>
 			<h2>
 				<span class="room-title {{editingTitle}}">{{roomName}}</span>
 				{{#if canEditName}}
@@ -21,11 +12,6 @@
 			</h2>
 			{{> rightBurger}}
 		</header>
-		<!-- {{#if userProfile}}
-			<div class="user-view animated{{#unless $.Session.get 'showUserInfo'}} -hidden{{/unless}}">
-				{{> userInfo user=flexUserInfo showAll=true video=isDirectChat}}
-			</div>
-		{{/if}} -->
 		{{#if thread}}
 			{{> threadPage}}
 		{{else}}
@@ -40,10 +26,27 @@
 					{{else}}
 						{{#if profile}}
 							{{> userProfile}}
+						{{else}}
+							{{#if fileDetails}}
+								{{> fileDetailsPage}}
+							{{else}}
+								{{#if eventDetails}}
+									{{> eventDetailsPage}}
+								{{else}}
+									{{#if fileHistory}}
+										{{> fileHistoryPage}}
+									{{/if}}
+								{{/if}}
+							{{/if}}
 						{{/if}}
 					{{/if}}
 				{{/if}}
 			{{/if}}
 		{{/if}}
 	</section>
+	<div class="room-icons">
+		<div class="icon-container">
+			{{{roomIcons}}}
+		</div>
+	</div>
 </template>

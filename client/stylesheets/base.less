@@ -891,70 +891,101 @@ label.required:after {
   top: 13px;
 	left: 90px;
 	cursor: pointer;
-	i {
-		margin-right: 40px;
-    font-size: 24px;
-    color: @info-font-color;
-		cursor: pointer;
-		&:hover {
-			color: @primary-blue;
-			font-weight: bold;
+	z-index: 100;
+	animation: fadeIn 1s;
+	li {
+		list-style-type: none;
+		float: left;
+    margin-right: 40px;
+		&:last-child {
+			margin-right: 0;
 		}
-		&.active {
-			color: @primary-blue;
-			font-weight: bold;
-			.tab-label {
-				color: @primary-blue;
-			}
-			&:hover {
-				color: lighten(@primary-blue, 10%);
-				.tab-label {
-					color: lighten(@primary-blue, 10%);
-				}
-			}
-		}
-		.tab-label {
-			position: absolute;
-			font-size: 12px;
-			margin-top: 26px;
+		i {
+	    font-size: 24px;
+	    color: @info-font-color;
 			cursor: pointer;
 			&:hover {
 				color: @primary-blue;
 				font-weight: bold;
 			}
-			&.classroom {
-				margin-left: -44px;
+			&.active {
+				color: @primary-blue;
+				font-weight: bold;
+				.tab-label {
+					color: @primary-blue;
+				}
+				&:hover {
+					color: lighten(@primary-blue, 10%);
+					.tab-label {
+						color: lighten(@primary-blue, 10%);
+					}
+				}
+			}
+			.tab-label {
+				position: absolute;
+				font-size: 12px;
+				margin-top: 28px;
+				cursor: pointer;
+				font-family: "Axis";
 				&:hover {
 					color: @primary-blue;
 					font-weight: bold;
 				}
-			}
-			&.profile {
-				margin-left: -33px;
-				&:hover {
-					color: @primary-blue;
-					font-weight: bold;
+				&.classroom {
+					margin-left: -49px;
+					&:hover {
+						color: @primary-blue;
+						font-weight: bold;
+					}
 				}
-			}
-			&.thread {
-				margin-left: -34px;
-				&:hover {
-					color: @primary-blue;
-					font-weight: bold;
+				&.profile {
+					margin-left: -33px;
+					&:hover {
+						color: @primary-blue;
+						font-weight: bold;
+					}
 				}
-			}
-			&.files {
-				margin-left: -26px;
-				&:hover {
-					color: @primary-blue;
-					font-weight: bold;
+				&.thread {
+					margin-left: -34px;
+					&:hover {
+						color: @primary-blue;
+						font-weight: bold;
+					}
 				}
-			}
-			&.cal {
-				margin-left: -21px;
-				&:hover {
-					color: @primary-blue;
-					font-weight: bold;
+				&.files {
+					margin-left: -26px;
+					&:hover {
+						color: @primary-blue;
+						font-weight: bold;
+					}
+				}
+				&.cal {
+					margin-left: -23px;
+					&:hover {
+						color: @primary-blue;
+						font-weight: bold;
+					}
+				}
+				&.fileDetails {
+					margin-left: -34px;
+					&:hover {
+						color: @primary-blue;
+						font-weight: bold;
+					}
+				}
+				&.eventDetails {
+					margin-left: -34px;
+					&:hover {
+						color: @primary-blue;
+						font-weight: bold;
+					}
+				}
+				&.fileHistory {
+					margin-left: -34px;
+					&:hover {
+						color: @primary-blue;
+						font-weight: bold;
+					}
 				}
 			}
 		}
@@ -1879,6 +1910,7 @@ a.github-fork {
 			background-color: rgba(0, 0, 0, 0.1);
 		}
 		&.add-room {
+			border-bottom: solid 1px rgba(211, 211, 211, 0.33);
 			&:hover {
 				i {
 					&:before {
@@ -2837,9 +2869,9 @@ a.github-fork {
 			padding: 8px;
 			font-size: 16px;
 			color: @secondary-font-color;
-			&:hover {
-				color: @primary-font-color;
-			}
+			// &:hover {
+			// 	color: @primary-font-color;
+			// }
 		}
 		.add-file {
 			position: relative;
@@ -3535,6 +3567,285 @@ a.github-fork {
 		}
 	}
 }
+
+.fileDetailsPage {
+	.file-list-container {
+		width: 100%;
+		display: flex;
+		margin-top: 60px;
+		.files-list {
+			display: flex;
+	    width: 100%;
+	    margin-top: 40px;
+	    margin-right: auto;
+	    margin-left: auto;
+			flex-direction: column;
+			.file {
+				background-color: white;
+				border: 1px solid lightgray;
+				padding: 5px 10px;
+				margin-left: auto;
+				margin-right: auto;
+				margin-left: auto;
+				margin-right: auto;
+				width: 60%;
+				height: 60px;
+				font-family: Axis, "Avenir Next", "HelveticaNeue-Light", "sans-serif";
+				margin-top: -3px;
+				.filename {
+					position: absolute;
+			    font-size: 22px;
+			    width: 40%;
+			    height: 26px;
+			    padding-top: 6px;
+			    white-space: nowrap;
+			    text-overflow: ellipsis;
+			    overflow: hidden;
+			    margin-left: 15px;
+				}
+				.username {
+					margin-left: 18px;
+					white-space: nowrap;
+			    text-overflow: ellipsis;
+			    overflow: hidden;
+				}
+				.date {
+			    margin-top: 22px;
+					text-overflow: ellipsis;
+				}
+				i {
+					font-size: 45px;
+			    margin-top: 0px;
+					&.fa-sound-o {
+						color: @light-green;
+					}
+					&.fa-picture-o {
+						color: #7DB2F1;
+					}
+					&.fa-file-pdf-o {
+						color: #F06475;
+					}
+					&.fa-file-excel-o {
+						color: #A0CA92;
+					}
+					&.fa-file-powerpoint-o {
+						color: #F59D1A;
+					}
+					&.fa-file-word-o {
+						color: #637883;
+					}
+					&.fa-file-text-o {
+						color: #85949D;
+					}
+					&.fa-file-o {
+						color: #FFF35D;
+					}
+				}
+				span {
+					color: #A7AAA4;
+				}
+				.icon-cloud-download {
+					font-size: 25px;
+			    float: right;
+			    margin-right: 20px;
+			    color: #F3919D;
+					margin-top: 10px;
+					&:hover {
+						color: darken(#F3919D, 20%);
+						font-size: 27px;
+					}
+				}
+			}
+		}
+	}
+}
+
+.fileHistoryPage {
+	margin-top: 60px;
+	background-color: @secondary-background-color;
+	height: 100%;
+	.history-line {
+		position: absolute;
+    display: block;
+    left: 25px;
+    height: 100%;
+    width: 1px;
+    background-color: #ddd;
+	}
+	.file-marker {
+		width: 10px;
+    height: 10px;
+    position: absolute;
+    left: 21px;
+    background: @tertiary-background-color;
+    border-radius: 10px;
+		margin-top: 3px;
+	}
+	.file {
+		margin-left: 50px;
+		margin-top: 20px;
+		color: @secondary-font-color;
+		padding-top: 30px;
+		.date {
+			font-size: 12px;
+			font-family: "Axis";
+		}
+		.info {
+			border: 1px solid;
+	    width: 250px;
+	    height: 60px;
+	    padding: 10px;
+	    margin-top: 10px;
+	    border-radius: 5px;
+			background-color: #fff;
+			.metadata {
+				margin-left: 45px;
+				margin-top: 2px;
+				width: 80%;
+				color: #A7AAA4;
+			}
+			a {
+				display: inline-block;
+		    float: right;
+		    margin-top: -28px;
+		    font-size: 25px;
+				color: @primary-red;
+				&:hover {
+					color: lighten(@primary-red, 10%);
+				}
+			}
+			.username {
+				display: block;
+		    margin-left: 5px;
+		    width: 75%;
+		    white-space: nowrap;
+		    text-overflow: ellipsis;
+				margin-top: 2px;
+				font-family: "Axis";
+				font-size: 12px;
+			}
+			.fa {
+				font-size: 40px;
+		    display: inline-block;
+		    float: left;
+				&.fa-sound-o {
+					color: @light-green;
+				}
+				&.fa-picture-o {
+					color: #7DB2F1;
+				}
+				&.fa-file-pdf-o {
+					color: #F06475;
+				}
+				&.fa-file-excel-o {
+					color: #A0CA92;
+				}
+				&.fa-file-powerpoint-o {
+					color: #F59D1A;
+				}
+				&.fa-file-word-o {
+					color: #637883;
+				}
+				&.fa-file-text-o {
+					color: #85949D;
+				}
+				&.fa-file-o {
+					color: #FFF35D;
+				}
+			}
+			.filename {
+				display: block;
+		    margin-left: 5px;
+		    width: 75%;
+		    white-space: nowrap;
+		    text-overflow: ellipsis;
+				font-family: "Axis";
+			}
+		}
+	}
+}
+
+.eventDetailsPage {
+	.event-list-container {
+		width: 100%;
+		display: flex;
+		margin-top: 60px;
+		.events-list {
+			display: flex;
+	    width: 100%;
+	    margin-top: 40px;
+	    margin-right: auto;
+	    margin-left: auto;
+			flex-direction: column;
+			.event {
+				background-color: white;
+				border: 1px solid lightgray;
+				padding: 5px 10px;
+				margin-left: auto;
+				margin-right: auto;
+				margin-left: auto;
+				margin-right: auto;
+				width: 60%;
+				height: 100px;
+				font-family: Axis, "Avenir Next", "HelveticaNeue-Light", "sans-serif";
+				margin-top: -3px;
+				.event-name {
+			    font-size: 22px;
+			    height: 26px;
+			    padding-top: 6px;
+			    white-space: nowrap;
+			    text-overflow: ellipsis;
+			    overflow: hidden;
+			    display: block;
+				}
+				.username {
+					white-space: nowrap;
+			    text-overflow: ellipsis;
+			    overflow: hidden;
+					display: block;
+				}
+				.date {
+			    margin-top: 22px;
+					text-overflow: ellipsis;
+				}
+				i {
+					font-size: 45px;
+			    margin-top: 0px;
+					&.icon-chemistry {
+						color: #5DCA8B;
+					}
+					&.icon-notebook {
+						color: #04436A;
+					}
+					&.icon-home {
+						color: #546A76;
+					}
+					&.icon-note {
+						color: #9BC4F2;
+					}
+					&.icon-hourglass {
+						color: #F06475;
+					}
+				}
+				span {
+					color: #A7AAA4;
+				}
+				.icon-cloud-download {
+					font-size: 25px;
+			    float: right;
+			    margin-right: 20px;
+			    color: #F3919D;
+					margin-top: 10px;
+					&:hover {
+						color: darken(#F3919D, 20%);
+						font-size: 27px;
+					}
+				}
+			}
+		}
+	}
+}
+
 
 .classCalendar {
 	color: @secondary-font-color;
@@ -4813,6 +5124,11 @@ a.github-fork {
 		top: 100px;
 	}
 
+	.eventDetailsPage,
+	.fileHistoryPage {
+		margin-top: 110px;
+	}
+
 	.files-container {
 		.filter-container {
 			margin-top: 50px;
@@ -4823,6 +5139,26 @@ a.github-fork {
 		.file-list-container {
 			.files-list {
 				margin-top: 50px;
+				.file {
+					width: 80%;
+					.filename {
+						font-size: 18px;
+					}
+					.username,
+					.date {
+						font-size: 14px;
+					}
+				}
+			}
+		}
+	}
+
+	.fileDetailsPage {
+		background-color: @secondary-background-color;
+		height: 100%;
+		.file-list-container {
+			.files-list {
+				margin-top: 80px;
 				.file {
 					width: 80%;
 					.filename {
@@ -4848,11 +5184,8 @@ a.github-fork {
 		background-color: white;
 		width: 100%;
     border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-		i {
+		li {
 			margin-right: 60px;
-		}
-		i:last-child {
-			margin-right: 0px;
 		}
 		.icon-container {
 			margin-top: -10px;
@@ -4887,6 +5220,17 @@ a.github-fork {
 }
 
 @media all and(max-width: 780px) {
+
+	.eventDetailsPage {
+		background-color: @secondary-background-color;
+		height: 100%;
+	}
+
+	.fileHistoryPage {
+		background-color: @secondary-background-color;
+		height: 100%;
+	}
+
 	#rocket-chat {
 		.right-burger,
 		.burger {
@@ -4987,6 +5331,45 @@ a.github-fork {
 }
 
 @media all and(max-width: 500px) {
+	.messages-container {
+		.footer {
+			padding: 5px 5px 0 5px;
+			bottom: 49px;
+			transition: bottom .4s ease;
+			.file {
+				height: 35px;
+			}
+		}
+	}
+
+	.messages-box {
+		margin-top: 0px;
+		height: calc(~"100% -" 90px);
+		transition: height .4s ease;
+	}
+
+	.user-view,
+	.fileHistoryPage {
+		margin-top: 60px;
+	}
+
+	.room-icons {
+		display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+		top: initial;
+    left: 0;
+    height: 49px;
+    background-color: white;
+    width: 100%;
+    border-bottom: 1px solid;
+		transition: display .4s ease;
+		i:last-child {
+			margin-right: 0;
+		}
+	}
 
 	#login-card {
 		input[type="checkbox"] {
@@ -4995,8 +5378,16 @@ a.github-fork {
 		}
 	}
 
+	.calendar-container {
+		top: 55px;
+		.fc-center {
+			margin-bottom: -10px;
+		}
+	}
+
 	.files-container {
 		.filter-container {
+			margin-top: 0;
 			.filters {
 		    width: 90%;
 				span {
@@ -5004,6 +5395,30 @@ a.github-fork {
 				}
 			}
 		}
+		.file-list-container {
+			width: 100%;
+			.files-list {
+				margin-top: 0;
+		    width: 100%;
+				.file {
+					width: 100%;
+					.filename {
+						font-size: 14px;
+					}
+					.username,
+					.date {
+						font-size: 12px;
+					}
+				}
+			}
+		}
+	}
+
+	.eventDetailsPage {
+		margin-top: 60px;
+	}
+
+	.fileDetailsPage {
 		.file-list-container {
 			width: 100%;
 			.files-list {
@@ -5042,6 +5457,7 @@ a.github-fork {
 	}
 
 	.classroom-container {
+		top: 60px;
 		.teacher-container {
 			.teacher-info {
 				.teacher-email {
@@ -5159,24 +5575,20 @@ a.github-fork {
 	}
 	.messages-container {
 		.message-form {
+			.users-typing {
+				display: none;
+			}
 			> .formatting-tips {
 				display: none;
 			}
 			> div {
 				> .file {
-					height: 37px;
+					height: 35px;
 				}
 			}
-			// textarea {
-			// 	width: 80%;
-			// }
-			// .add-file {
-			// 	width: 15%;
-			// 	i {
-			// 		margin-left: 0px;
-			// 		margin-right: 0px;
-			// 	}
-			// }
+			textarea {
+				height: 35px !important;
+			}
 		}
 	}
 }
