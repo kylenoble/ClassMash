@@ -13,30 +13,30 @@ Template.fileDetailsPage.helpers
     fileType = fileName.split("/")
     fileExtension = fileName.split('.')
     if fileName.type is 'audio'
-      return 'fa fa-sound-o'
+      return 'audio'
     else if fileType[0] is 'image'
-      return 'fa fa-picture-o'
+      return 'image'
     else
       if fileType[1] is 'pdf'
-        return 'fa fa-file-pdf-o'
+        return 'pdf'
       else if (fileType[1] == 'vnd.ms-excel' or fileType[1] == 'vnd.openxmlformats-officedocument.spreadsheetml.sheet') or fileExtension[fileExtension.length - 1] == '.xls'
-        return 'fa fa-file-excel-o'
+        return 'excel'
       else if fileType[1] is 'vnd.ms-powerpoint'
-        return 'fa fa-file-powerpoint-o'
+        return 'powerpoint'
       else if fileType[1] == 'vnd.msword' or fileType[1] == 'msword'
-        return 'fa fa-file-word-o'
+        return 'word'
       else if fileType[1] is 'csv'
-        return 'fa fa-file-excel-o'
+        return 'csv'
       else if fileType[1] is 'rtf'
-        return 'fa fa-file-text-o'
+        return 'rtf'
       else if fileExtension[fileExtension.length - 2] == 'pages'
-        return 'fa fa-file-text-o'
+        return 'pages'
       else if fileExtension[fileExtension.length - 2] == 'numbers'
-        return 'fa fa-file-o'
+        return 'numbers'
       else if fileExtension[fileExtension.length - 2] == 'key'
-        return 'fa fa-file-o'
+        return 'keynote'
       else
-        return 'fa fa-file-o'
+        return 'unknown'
 
 Template.fileDetailsPage.events
   "click #foo": (event, template) ->

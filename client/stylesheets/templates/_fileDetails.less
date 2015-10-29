@@ -1,0 +1,186 @@
+@import "../global/_variables.less";
+
+.fileDetailsPage {
+  background-color: @secondary-background-color;
+  height: 100%;
+	.file-list-container {
+		width: 100%;
+		display: flex;
+		margin-top: 60px;
+		.files-list {
+			display: flex;
+	    width: 100%;
+	    margin-top: 40px;
+	    margin-right: auto;
+	    margin-left: auto;
+			flex-direction: column;
+			.file {
+				background-color: white;
+				border: 1px solid lightgray;
+				margin-left: auto;
+				margin-right: auto;
+				margin-left: auto;
+				margin-right: auto;
+        padding: 0px;
+				width: 60%;
+				height: 70%;
+				font-family: Axis, "Avenir Next", "HelveticaNeue-Light", "sans-serif";
+        border-radius: 5px;
+				margin-top: -3px;
+        .header {
+          padding: 0px;
+          color: white;
+          font-size: 24px;
+          background-color: @primary-blue;
+          border-radius: 5px 5px 0px 0px;
+          h2 {
+            padding: 12px 15px 12px 15px;
+          }
+        }
+				.file-name {
+			    font-size: 22px;
+			    height: 26px;
+			    padding-top: 6px;
+			    white-space: nowrap;
+			    text-overflow: ellipsis;
+			    overflow: hidden;
+			    display: block;
+				}
+				.username {
+					white-space: nowrap;
+			    text-overflow: ellipsis;
+			    overflow: hidden;
+					display: block;
+				}
+				.date {
+			    margin-top: 22px;
+					text-overflow: ellipsis;
+				}
+				i {
+					font-size: 45px;
+			    margin-top: 0px;
+					&.icon-chemistry {
+						color: #5DCA8B;
+					}
+					&.icon-notebook {
+						color: #04436A;
+					}
+					&.icon-home {
+						color: #546A76;
+					}
+					&.icon-note {
+						color: #9BC4F2;
+					}
+					&.icon-hourglass {
+						color: #F06475;
+					}
+				}
+				.icon-cloud-download {
+					font-size: 25px;
+			    float: right;
+			    margin-right: 20px;
+			    color: #F3919D;
+					margin-top: 10px;
+					&:hover {
+						color: darken(#F3919D, 20%);
+						font-size: 27px;
+					}
+				}
+			}
+		}
+	}
+}
+
+.file-title,
+.file-description,
+.file-username,
+.start-date,
+.end-date,
+.file-type {
+  display: block;
+  padding: 12px 15px 12px 15px;
+  font-size: 18px;
+  color: @primary-blue;
+  .title-header,
+  .description-header,
+  .username-header,
+  .start-date-header,
+  .end-date-header,
+  .type-header {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: #A7AAA4;
+  }
+
+  .file-description {
+    .button {
+      a:link {
+        color: white;
+      }
+    }
+  }
+
+  .file-title {
+    font-size: 20px
+  }
+}
+
+@media all and(max-width: 1000px) {
+  .fileDetailsPage {
+    margin-top: 110px;
+  	.file-list-container {
+  		.files-list {
+  			.file {
+          width: 80%;
+        }
+      }
+    }
+  }
+}
+
+@media all and(max-width: 500px) {
+  .fileDetailsPage {
+    margin-top: 60px;
+  	.file-list-container {
+  		.files-list {
+  			.file {
+          width: 100%;
+          border-radius: 0;
+          height: 100%;
+          .header {
+            border-radius: 0;
+            h2 {
+              font-size: 20px;
+              padding: 12px 15px 12px 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .file-title,
+  .file-description,
+  .file-username,
+  .start-date,
+  .end-date,
+  .file-type {
+    padding: 6px 8px 6px 8px;
+    font-size: 15px;
+    .title-header,
+    .description-header,
+    .username-header,
+    .start-date-header,
+    .end-date-header,
+    .type-header {
+      font-size: 11px;
+      margin-bottom: 3px;
+    }
+  }
+
+  .file-title {
+    font-size: 18px;
+  }
+
+}

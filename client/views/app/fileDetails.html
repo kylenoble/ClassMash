@@ -1,15 +1,43 @@
 <template name="fileDetailsPage">
   <div class="fileDetailsPage">
-    <div class="file-list-container">     
+    <div class="file-list-container">
       <div class="files-list">
         {{#each file}}
           <div class="file">
-            <i class="{{icon type}}"></i>
-            <span class="filename">{{name}}</span>
-            <a href="{{url}}" target="_blank"><i class="icon-cloud-download"></i></a>
-            <span class="username">{{user.username}}</span>
-            <span class="date">{{cleanDate date}}</span>
+            <div class="header">
+              <h2>Details</h2>
+            </div>
+            <div class="file-title">
+              <span class="title-header">Name</span>
+              <span>{{name}}</span>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-6">
+                <div class="file-username">
+                  <span class="username-header">Uploaded By</span>
+                  <span>{{user.username}}</span>
+                </div>
+              </div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+              <div class="file-type">
+                <span class="type-header">Type</span>
+                <span>{{icon type}}</span>
+              </div>
+            </div>
           </div>
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+              <div class="end-date">
+                <span class="start-date-header">Date</span>
+                <span class="date">{{cleanDate date}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="file-description">
+            <span class="description-header">File</span>
+            <a href="{{url}}" target="_blank"><button class="button white blue-border primary">Download</button></a>
+          </div>
+        </div>
         {{/each}}
       </div>
     </div>

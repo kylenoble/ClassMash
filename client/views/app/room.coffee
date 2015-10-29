@@ -487,7 +487,6 @@ Template.room.events
     webrtc.mode = 2
     webrtc.activateLocalStream()
 
-
   'dragenter .dropzone': (e) ->
     e.currentTarget.classList.add 'over'
 

@@ -5,6 +5,8 @@
 @import "utils/_keyframes.import.less";
 @import "utils/_preloader.import.less";
 @import "utils/_emojione.import.less";
+@import "templates/_templates.less";
+
 .clearfix {
 	clear: both;
 	&::after {
@@ -3568,98 +3570,6 @@ a.github-fork {
 	}
 }
 
-.fileDetailsPage {
-	.file-list-container {
-		width: 100%;
-		display: flex;
-		margin-top: 60px;
-		.files-list {
-			display: flex;
-	    width: 100%;
-	    margin-top: 40px;
-	    margin-right: auto;
-	    margin-left: auto;
-			flex-direction: column;
-			.file {
-				background-color: white;
-				border: 1px solid lightgray;
-				padding: 5px 10px;
-				margin-left: auto;
-				margin-right: auto;
-				margin-left: auto;
-				margin-right: auto;
-				width: 60%;
-				height: 60px;
-				font-family: Axis, "Avenir Next", "HelveticaNeue-Light", "sans-serif";
-				margin-top: -3px;
-				.filename {
-					position: absolute;
-			    font-size: 22px;
-			    width: 40%;
-			    height: 26px;
-			    padding-top: 6px;
-			    white-space: nowrap;
-			    text-overflow: ellipsis;
-			    overflow: hidden;
-			    margin-left: 15px;
-				}
-				.username {
-					margin-left: 18px;
-					white-space: nowrap;
-			    text-overflow: ellipsis;
-			    overflow: hidden;
-				}
-				.date {
-			    margin-top: 22px;
-					text-overflow: ellipsis;
-				}
-				i {
-					font-size: 45px;
-			    margin-top: 0px;
-					&.fa-sound-o {
-						color: @light-green;
-					}
-					&.fa-picture-o {
-						color: #7DB2F1;
-					}
-					&.fa-file-pdf-o {
-						color: #F06475;
-					}
-					&.fa-file-excel-o {
-						color: #A0CA92;
-					}
-					&.fa-file-powerpoint-o {
-						color: #F59D1A;
-					}
-					&.fa-file-word-o {
-						color: #637883;
-					}
-					&.fa-file-text-o {
-						color: #85949D;
-					}
-					&.fa-file-o {
-						color: #FFF35D;
-					}
-				}
-				span {
-					color: #A7AAA4;
-				}
-				.icon-cloud-download {
-					font-size: 25px;
-			    float: right;
-			    margin-right: 20px;
-			    color: #F3919D;
-					margin-top: 10px;
-					&:hover {
-						color: darken(#F3919D, 20%);
-						font-size: 27px;
-					}
-				}
-			}
-		}
-	}
-}
-
 .fileHistoryPage {
 	margin-top: 60px;
 	background-color: @secondary-background-color;
@@ -3764,88 +3674,6 @@ a.github-fork {
 		}
 	}
 }
-
-.eventDetailsPage {
-	.event-list-container {
-		width: 100%;
-		display: flex;
-		margin-top: 60px;
-		.events-list {
-			display: flex;
-	    width: 100%;
-	    margin-top: 40px;
-	    margin-right: auto;
-	    margin-left: auto;
-			flex-direction: column;
-			.event {
-				background-color: white;
-				border: 1px solid lightgray;
-				padding: 5px 10px;
-				margin-left: auto;
-				margin-right: auto;
-				margin-left: auto;
-				margin-right: auto;
-				width: 60%;
-				height: 100px;
-				font-family: Axis, "Avenir Next", "HelveticaNeue-Light", "sans-serif";
-				margin-top: -3px;
-				.event-name {
-			    font-size: 22px;
-			    height: 26px;
-			    padding-top: 6px;
-			    white-space: nowrap;
-			    text-overflow: ellipsis;
-			    overflow: hidden;
-			    display: block;
-				}
-				.username {
-					white-space: nowrap;
-			    text-overflow: ellipsis;
-			    overflow: hidden;
-					display: block;
-				}
-				.date {
-			    margin-top: 22px;
-					text-overflow: ellipsis;
-				}
-				i {
-					font-size: 45px;
-			    margin-top: 0px;
-					&.icon-chemistry {
-						color: #5DCA8B;
-					}
-					&.icon-notebook {
-						color: #04436A;
-					}
-					&.icon-home {
-						color: #546A76;
-					}
-					&.icon-note {
-						color: #9BC4F2;
-					}
-					&.icon-hourglass {
-						color: #F06475;
-					}
-				}
-				span {
-					color: #A7AAA4;
-				}
-				.icon-cloud-download {
-					font-size: 25px;
-			    float: right;
-			    margin-right: 20px;
-			    color: #F3919D;
-					margin-top: 10px;
-					&:hover {
-						color: darken(#F3919D, 20%);
-						font-size: 27px;
-					}
-				}
-			}
-		}
-	}
-}
-
 
 .classCalendar {
 	color: @secondary-font-color;
@@ -4068,7 +3896,7 @@ a.github-fork {
 	height: 100%;
 	padding: 20px;
 	background-color: #FDF7F2;
-	margin-top: 110px;
+	margin-top: 60px;
 	.about {
 		width: 100%;
     margin-bottom: 20px;
@@ -5119,6 +4947,10 @@ a.github-fork {
 }
 
 @media all and(max-width: 1000px) {
+	.user-view {
+		margin-top: 110px;
+	}
+
 	.classroom-container,
 	.calendar-container {
 		top: 100px;
@@ -5139,26 +4971,6 @@ a.github-fork {
 		.file-list-container {
 			.files-list {
 				margin-top: 50px;
-				.file {
-					width: 80%;
-					.filename {
-						font-size: 18px;
-					}
-					.username,
-					.date {
-						font-size: 14px;
-					}
-				}
-			}
-		}
-	}
-
-	.fileDetailsPage {
-		background-color: @secondary-background-color;
-		height: 100%;
-		.file-list-container {
-			.files-list {
-				margin-top: 80px;
 				.file {
 					width: 80%;
 					.filename {
@@ -5414,29 +5226,6 @@ a.github-fork {
 		}
 	}
 
-	.eventDetailsPage {
-		margin-top: 60px;
-	}
-
-	.fileDetailsPage {
-		.file-list-container {
-			width: 100%;
-			.files-list {
-		    width: 100%;
-				.file {
-					width: 100%;
-					.filename {
-						font-size: 14px;
-					}
-					.username,
-					.date {
-						font-size: 12px;
-					}
-				}
-			}
-		}
-	}
-
 	.teacher-container,
 	.class-info-container {
 		.class-info,
@@ -5535,6 +5324,21 @@ a.github-fork {
 		}
 	}
 
+	.files-add-file {
+		.file {
+			bottom: 115px;
+		}
+	}
+
+	.files-container {
+		.files-add-file {
+			.adding-files {
+				&.file-page {
+		    	bottom: 160px;
+				}
+			}
+		}
+	}
 
 	.page-home {
 		.fixed-title {

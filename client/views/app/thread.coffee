@@ -97,6 +97,9 @@ Template.threadPage.events
     Template.instance().atBottom = true
     Template.instance().find('.input-message').focus()
 
+  'click .linkable-title': (event, template) ->
+    clearActive()
+
   'click .see-all': (e, instance) ->
     instance.showUsersOffline.set(!instance.showUsersOffline.get())
 

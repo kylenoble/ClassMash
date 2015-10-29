@@ -4,13 +4,46 @@
       <div class="events-list">
         {{#each event}}
           <div class="event">
-            <i class="{{icon type}}"></i>
-            <span class="event-name">{{title}}</span>
-            <span class="event-description">{{description}}</span>
-            <span class="username">{{u.username}}</span>
-            <span class="date">{{cleanDate start}}</span>
-            <span class="date">{{cleanDate end}}</span>
+            <div class="header">
+              <h2>Details</h2>
+            </div>
+            <div class="event-title">
+              <span class="title-header">Title</span>
+              <span>{{title}}</span>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-6">
+                <div class="event-username">
+                  <span class="username-header">Created By</span>
+                  <span>{{u.username}}</span>
+                </div>
+              </div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+              <div class="event-type">
+                <span class="type-header">Type</span>
+                <span>{{type}}</span>
+              </div>
+            </div>
           </div>
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+              <div class="start-date">
+                <span class="start-date-header">Start Time</span>
+                <span class="date">{{cleanDate start}}</span>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+              <div class="end-date">
+                <span class="start-date-header">End Time</span>
+                <span class="date">{{cleanDate end}}</span>
+              </div>
+            </div>
+          </div>          
+          <div class="event-description">
+            <span class="description-header">Description</span>
+            <span>{{description}}</span>
+          </div>
+        </div>
         {{/each}}
       </div>
     </div>
