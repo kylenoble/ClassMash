@@ -18,7 +18,7 @@ Template.room.helpers
     roomData = Session.get('roomData' + this._id)
     return '' unless roomData
 
-    if roomData.t is 'f' or roomData.t is 'e'
+    if roomData.t in ['f', 'a', 'q', 'o']
       return true
     else
       return false
@@ -268,7 +268,7 @@ Template.room.helpers
       $('.room-icons .icon-doc').addClass('active')
     return Session.get('isFileDetails')
 
-  eventDetails: ->
+  calendarItemDetails: ->
     if Session.get('isEventDetails')
       $('.room-icons .icon-notebook').addClass('active')
     return Session.get('isEventDetails')
@@ -298,8 +298,8 @@ Template.room.helpers
       return "<li><i class='icon-doc'><label class='tab-label fileDetails'>Details</label></i></li>
               <li><i class='icon-list'><label class='tab-label thread'>Thread</label></i></li>
               <li><i class='icon-graph'><label class='tab-label fileHistory'>History</label></i></li>"
-    else if roomData.t is 'e'
-      return "<li><i class='icon-notebook'><label class='tab-label eventDetails'>Details</label></i></li>
+    else if roomData.t in ['a', 'q', 'o']
+      return "<li><i class='icon-notebook'><label class='tab-label calendarItemDetails'>Details</label></i></li>
               <li><i class='icon-list'><label class='tab-label thread'>Thread</label></i></li>
               <li><i class='icon-docs'><label class='tab-label files'>Files</label></i></li>"
 
@@ -584,7 +584,7 @@ Template.room.onRendered ->
   roomData = Session.get('roomData' + self.data._id)
   return '' unless roomData
 
-  if roomData.t is 'f' or roomData.t is 'e'
+  if roomData.t in ['f','a','o','q']
     console.log("show back button")
     $(".unread-burger-alert, .icon-globe-alt").css({'display':'none'})
   else

@@ -1,5 +1,5 @@
 Meteor.methods
-  createEventRoom: (eventName, eventId, parentRoomId) ->
+  createCalendarItemRoom: (eventName, eventId, parentRoomId, type) ->
     if not Meteor.userId()
       throw new Meteor.Error 'invalid-user', "[methods] createEventRoom -> Invalid user"
 
@@ -15,8 +15,14 @@ Meteor.methods
 
     me = Meteor.user()
 
+    switch type
+      when 'Lab' then roomType = 'o'
+      when 'Lecture' then roomType = 'o'
+      when 'Homework' then roomType = 'a'
+      when 'Paper' then roomType = 'a'
+      when 'Quiz/Test' then roomType = 'q'
+      
     # members.push me.username
-
     # name = s.slugify name
 
     school = me.profile.school
@@ -30,8 +36,8 @@ Meteor.methods
       usernames: []
       term: 'all'
       ts: now
-      t: 'e'
-      e:
+      t: roomType
+      ci:
         _id: eventId
       s:
         _id: school._id

@@ -1,25 +1,25 @@
-<template name="eventDetailsPage">
-  <div class="eventDetailsPage">
-    <div class="event-list-container">
-      <div class="events-list">
-        {{#each event}}
-          <div class="event">
+<template name="calendarItemDetailsPage">
+  <div class="calendarItemDetailsPage">
+    <div class="calendarItem-list-container">
+      <div class="calendarItems-list">
+        {{#each calendarItem}}
+          <div class="calendarItem">
             <div class="header">
               <h2>Details</h2>
             </div>
-            <div class="event-title">
+            <div class="calendarItem-title">
               <span class="title-header">Title</span>
               <span>{{title}}</span>
             </div>
             <div class="row">
               <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="event-username">
+                <div class="calendarItem-username">
                   <span class="username-header">Created By</span>
                   <span>{{u.username}}</span>
                 </div>
               </div>
             <div class="col-md-6 col-sm-6 col-xs-6">
-              <div class="event-type">
+              <div class="calendarItem-type">
                 <span class="type-header">Type</span>
                 <span>{{type}}</span>
               </div>
@@ -38,8 +38,8 @@
                 <span class="date">{{cleanDate end}}</span>
               </div>
             </div>
-          </div>          
-          <div class="event-description">
+          </div>
+          <div class="calendarItem-description">
             <span class="description-header">Description</span>
             <span>{{description}}</span>
           </div>

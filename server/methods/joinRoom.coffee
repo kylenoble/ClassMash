@@ -3,7 +3,7 @@ Meteor.methods
 
     room = ChatRoom.findOne rid
 
-    if room.t != 'c' and room.t != 'f' and room.t != 'e'
+    if room.t != 'c' and room.t != 'f' and room.t != 'a' and room.t != 'o' and room.t != 'q'
       throw new Meteor.Error 403, '[methods] joinRoom -> Not allowed'
 
     # verify if user is already in room

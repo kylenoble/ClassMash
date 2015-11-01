@@ -5,4 +5,4 @@
 @Schools = new Meteor.Collection 'schools'
 @SchoolsNew = new Meteor.Collection 'schools.new'
 @ChatReports = new Meteor.Collection 'rocketchat_reports'
-@Events = new Meteor.Collection 'events'
+@CalendarItems = new Meteor.Collection 'calendar_items'

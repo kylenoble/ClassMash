@@ -5,7 +5,7 @@ openRoom = (type, name, term, id) ->
 
   Meteor.defer ->
     Tracker.autorun (c) ->
-      if type is 'f' or type is 'e'
+      if type in ['f', 'a', 'q', 'o']
         name = id
 
       if RoomManager.open(type + name).ready() isnt true
@@ -26,11 +26,21 @@ openRoom = (type, name, term, id) ->
           t: type
           's._id': user.profile.school._id
           'f._id': id
-      else if type is 'e'
+      else if type is 'a'
         query =
           t: type
           's._id': user.profile.school._id
-          'e._id': id
+          'ci._id': id
+      else if type is 'q'
+        query =
+          t: type
+          's._id': user.profile.school._id
+          'ci._id': id
+      else if type is 'o'
+        query =
+          t: type
+          's._id': user.profile.school._id
+          'ci._id': id
       else
         query =
           t: type
@@ -42,6 +52,7 @@ openRoom = (type, name, term, id) ->
         query.usernames =
           $all: [name, Meteor.user().username]
 
+      console.log(query)
       room = ChatRoom.findOne(query)
       if not room?
         Session.set 'roomNotFound', {type: type, name: name}
@@ -129,11 +140,25 @@ FlowRouter.route '/files/:id',
   triggersExit: [roomExit]
 
 
-FlowRouter.route '/events/:id',
-  name: 'events'
+FlowRouter.route '/calendar-item/:id',
+  name: 'calendar-item'
 
   action: (params, queryParams) ->
     Session.set 'showUserInfo'
-    openRoom 'e', '', '', params.id
+    openRoom 'o', '', '', params.id
+
+FlowRouter.route '/assignment/:id',
+  name: 'assignment'
+
+  action: (params, queryParams) ->
+    Session.set 'showUserInfo'
+    openRoom 'a', '', '', params.id
+
+FlowRouter.route '/quiz-test/:id',
+  name: 'quiz-test'
+
+  action: (params, queryParams) ->
+    Session.set 'showUserInfo'
+    openRoom 'q', '', '', params.id
 
   triggersExit: [roomExit]

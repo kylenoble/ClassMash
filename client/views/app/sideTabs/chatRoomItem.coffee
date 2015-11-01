@@ -48,8 +48,12 @@ Template.chatRoomItem.helpers
         FlowRouter.path('channel', {name: this.name, term: this.term})
       when 'f'
         FlowRouter.path('files', {_id: this._id})
-      when 'e'
-        FlowRouter.path('events', {_id: this._id})
+      when 'a'
+        FlowRouter.path('assignment', {_id: this._id})
+      when 'q'
+        FlowRouter.path('quiz-test', {_id: this._id})
+      when 'o'
+        FlowRouter.path('calendar-item', {_id: this._id})
 
 Template.chatRoomItem.rendered = ->
   if not (FlowRouter.getParam('_id')? and FlowRouter.getParam('_id') is this.data.rid) and not this.data.ls

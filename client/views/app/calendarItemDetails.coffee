@@ -1,9 +1,9 @@
-Template.eventDetailsPage.helpers
-  event: ->
+Template.calendarItemDetailsPage.helpers
+  calendarItem: ->
     path = window.location.pathname.split('/')
-    eventId = path[2]
-    event = Events.find(_id: eventId)
-    return event
+    calendarItemId = path[2]
+    calendarItem = CalendarItems.find(_id: calendarItemId)
+    return calendarItem
 
   cleanDate: (date) ->
     return moment(date).format("MM/D/YY h:mm a")
@@ -21,20 +21,17 @@ Template.eventDetailsPage.helpers
     else if type is "Quiz/Test"
       return "icon-hourglass"
 
-Template.eventDetailsPage.events
+Template.calendarItemDetailsPage.events
+  "click #foo": (calendarItem, template) ->
 
-
-Template.eventDetailsPage.events
-  "click #foo": (event, template) ->
-
-Template.eventDetailsPage.onCreated ->
+Template.calendarItemDetailsPage.onCreated ->
   path = window.location.pathname.split('/')
 
   instance = @
-  @eventId = new ReactiveVar path[2]
+  @calendarItemId = new ReactiveVar path[2]
   @ready = new ReactiveVar true
 
   @autorun ->
-    eventId = instance.eventId.get()
-    fileDetails = Meteor.subscribe 'eventDetails', eventId
+    calendarItemId = instance.calendarItemId.get()
+    fileDetails = Meteor.subscribe 'calendarItemDetails', calendarItemId
     instance.ready.set fileDetails.ready()

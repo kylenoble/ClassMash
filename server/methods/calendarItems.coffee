@@ -1,5 +1,5 @@
 Meteor.methods
-  addEvent: (rid, title, description, type, start, end) ->
+  addCalendarItem: (rid, title, description, type, start, end) ->
     unless Meteor.userId()
       return
 
@@ -13,7 +13,7 @@ Meteor.methods
       when type == 'Paper' then backgroundColor = '#9BC4F2' and borderColor = '#9BC4F2'
       when type == 'Quiz/Test' then backgroundColor = '#F06475' and borderColor = '#F06475'
 
-    eventId = Events.insert
+    eventId = CalendarItems.insert
       title: title
       description: description
       created: now
@@ -28,7 +28,7 @@ Meteor.methods
         _id: me._id
         username: me.username
 
-    Meteor.call 'createEventRoom', title, eventId, rid
+    Meteor.call 'createCalendarItemRoom', title, eventId, rid, type
 
     return {
       eventId: eventId

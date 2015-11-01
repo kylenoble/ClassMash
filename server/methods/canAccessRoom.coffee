@@ -1,26 +1,26 @@
 Meteor.methods
-	canAccessRoom: (rid, userId) ->
-		console.log '[methods] canAccessRoom -> '.green, 'userId:', userId, 'rid:', rid
+  canAccessRoom: (rid, userId) ->
+    console.log '[methods] canAccessRoom -> '.green, 'userId:', userId, 'rid:', rid
 
-		user = Meteor.users.findOne userId, fields: username: 1
+    user = Meteor.users.findOne userId, fields: username: 1
 
-		unless user?.username
-			throw new Meteor.Error 'not-logged-user', "[methods] canAccessRoom -> User doesn't have enough permissions"
+    unless user?.username
+      throw new Meteor.Error 'not-logged-user', "[methods] canAccessRoom -> User doesn't have enough permissions"
 
-		unless rid
-			throw new Meteor.Error 'invalid-room', '[methods] canAccessRoom -> Cannot access empty room'
+    unless rid
+      throw new Meteor.Error 'invalid-room', '[methods] canAccessRoom -> Cannot access empty room'
 
-		room = ChatRoom.findOne rid, { fields: { usernames: 1, t: 1, name: 1 } }
+    room = ChatRoom.findOne rid, { fields: { usernames: 1, t: 1, name: 1 } }
 
-		if room
-			if room.t is 'c' or room.t is 'f' or room.t is 'e'
-				canAccess = true
-			else if room.usernames.indexOf(user.username) isnt -1
-				canAccess = true
+    if room
+      if room.t in ['c', 'f', 'a', 'q', 'o']
+        canAccess = true
+      else if room.usernames.indexOf(user.username) isnt -1
+        canAccess = true
 
-			if canAccess isnt true
-				return false
-			else
-				return _.pick room, ['_id', 't', 'name', 'usernames']
-		else
-			throw new Meteor.Error 'invalid-room', '[methods] canAccessRoom -> Room ID is invalid'
+      if canAccess isnt true
+        return false
+      else
+        return _.pick room, ['_id', 't', 'name', 'usernames']
+    else
+      throw new Meteor.Error 'invalid-room', '[methods] canAccessRoom -> Room ID is invalid'

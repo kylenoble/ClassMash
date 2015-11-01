@@ -24,6 +24,6 @@ Meteor.startup ->
     try fileCollection._ensureIndex { 'date': 1 } catch e then console.log e
     try fileCollection._ensureIndex { 'category': 1 } catch e then console.log e
 
-    try Events._ensureIndex { 'u._id': 1 } catch e then console.log e
-    try Events._ensureIndex { 'r._id': 1 } catch e then console.log e
-    try Events._ensureIndex { 'start': 1 } catch e then console.log e
+    try CalendarItems._ensureIndex { 'u._id': 1 } catch e then console.log e
+    try CalendarItems._ensureIndex { 'r._id': 1 } catch e then console.log e
+    try CalendarItems._ensureIndex { 'start': 1 } catch e then console.log e

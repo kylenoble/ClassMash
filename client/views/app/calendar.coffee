@@ -15,10 +15,15 @@ Template.calendarPage.helpers
         right: 'month agendaWeek agendaDay prev,next'
       events: (start, end, timezone, callback) ->
         start = new Date(start)
-        callback(Events.find({start: {$gt:start}}).fetch())
+        callback(CalendarItems.find({start: {$gt:start}}).fetch())
       eventClick: (calEvent, jsEvent, view) ->
         $('.room-icons .icon-calendar').removeClass('active')
-        FlowRouter.go '/events/' + calEvent._id
+        if calEvent.type is 'Homework' or calEvent.type is 'Paper'
+          FlowRouter.go '/assignment/' + calEvent._id
+        else if calEvent.type is 'Quiz/Test'
+          FlowRouter.go '/quiz-test/' + calEvent._id
+        else
+          FlowRouter.go '/calendar-item/' + calEvent._id
     }
 
 Template.calendarPage.events
@@ -41,7 +46,7 @@ Template.calendarPage.events
     end = new Date($('#end-date').val())
     type = $('.type-item.active').text().trim()
 
-    Meteor.call "addEvent", Template.instance().rid.get(), title, description, type, start, end, (error, result) ->
+    Meteor.call "addCalendarItem", Template.instance().rid.get(), title, description, type, start, end, (error, result) ->
       if error
         console.log "error", error
       if result
@@ -63,7 +68,7 @@ Template.calendarPage.rendered = ->
 
     Template.instance().rid.set(RoomManager.openedRooms[typeLetter + path[2]].rid)
 
-    Meteor.subscribe 'eventsList', Template.instance().rid.get()
+    Meteor.subscribe 'calendarItems', Template.instance().rid.get()
     fc.fullCalendar 'refetchEvents'
     return
 

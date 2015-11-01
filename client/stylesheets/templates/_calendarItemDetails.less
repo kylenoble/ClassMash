@@ -1,20 +1,20 @@
 @import "../global/_variables.less";
 
-.eventDetailsPage {
+.calendarItemDetailsPage {
   background-color: @secondary-background-color;
   height: 100%;
-	.event-list-container {
+	.calendarItem-list-container {
 		width: 100%;
 		display: flex;
 		margin-top: 60px;
-		.events-list {
+		.calendarItems-list {
 			display: flex;
 	    width: 100%;
 	    margin-top: 40px;
 	    margin-right: auto;
 	    margin-left: auto;
 			flex-direction: column;
-			.event {
+			.calendarItem {
 				background-color: white;
 				border: 1px solid lightgray;
 				margin-left: auto;
@@ -37,7 +37,7 @@
             padding: 12px 15px 12px 15px;
           }
         }
-				.event-name {
+				.calendarItem-name {
 			    font-size: 22px;
 			    height: 26px;
 			    padding-top: 6px;
@@ -91,12 +91,12 @@
 	}
 }
 
-.event-title,
-.event-description,
-.event-username,
+.calendarItem-title,
+.calendarItem-description,
+.calendarItem-username,
 .start-date,
 .end-date,
-.event-type {
+.calendarItem-type {
   display: block;
   padding: 12px 15px 12px 15px;
   font-size: 18px;
@@ -113,16 +113,16 @@
     color: #A7AAA4;
   }
 
-  .event-title {
+  .calendarItem-title {
     font-size: 20px
   }
 }
 
 @media all and(max-width: 1000px) {
-  .eventDetailsPage {
-  	.event-list-container {
-  		.events-list {
-  			.event {
+  .calendarItemDetailsPage {
+  	.calendarItem-list-container {
+  		.calendarItems-list {
+  			.calendarItem {
           width: 80%;
         }
       }
@@ -131,10 +131,11 @@
 }
 
 @media all and(max-width: 500px) {
-  .eventDetailsPage {
-  	.event-list-container {
-  		.events-list {
-  			.event {
+  .calendarItemDetailsPage {
+    margin-top: 60px;
+  	.calendarItem-list-container {
+  		.calendarItems-list {
+  			.calendarItem {
           width: 100%;
           border-radius: 0;
           height: 100%;
@@ -150,12 +151,12 @@
     }
   }
 
-  .event-title,
-  .event-description,
-  .event-username,
+  .calendarItem-title,
+  .calendarItem-description,
+  .calendarItem-username,
   .start-date,
   .end-date,
-  .event-type {
+  .calendarItem-type {
     padding: 6px 8px 6px 8px;
     font-size: 15px;
     .title-header,
@@ -169,7 +170,7 @@
     }
   }
 
-  .event-title {
+  .calendarItem-title {
     font-size: 18px;
   }
 

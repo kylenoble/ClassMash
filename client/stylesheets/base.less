@@ -769,7 +769,7 @@ label.required:after {
 
 .btn-loading {
 	color: #444 !important;
-	pointer-events: none;
+	pointer-calendarItems: none;
 	cursor: not-allowed;
 	background-color: transparent !important;
 	box-shadow: none !important;
@@ -926,7 +926,7 @@ label.required:after {
 .room-icons {
 	position: absolute;
   top: 13px;
-	left: 90px;
+	left: 100px;
 	cursor: pointer;
 	z-index: 100;
 	animation: fadeIn 1s;
@@ -1007,7 +1007,7 @@ label.required:after {
 						font-weight: bold;
 					}
 				}
-				&.eventDetails {
+				&.calendarItemDetails {
 					margin-left: -34px;
 					&:hover {
 						color: @primary-blue;
@@ -3730,7 +3730,7 @@ a.github-fork {
 	}
 }
 
-.show-add-event {
+.show-add-calendarItem {
 	position: absolute;
 	right: 50%;
 	z-index: 999;
@@ -3747,7 +3747,7 @@ a.github-fork {
   z-index: -1;
 }
 
-// .event-form {
+// .calendarItem-form {
 // 	.container {
 // 		color: @secondary-font-color;
 // 		position: absolute;
@@ -3917,7 +3917,7 @@ a.github-fork {
 	}
 }
 
-.event-types {
+.calendarItem-types {
 	width: 98%;
 	margin-left: auto;
 	margin-right: auto;
@@ -5010,8 +5010,7 @@ a.github-fork {
 	.calendar-container {
 		top: 100px;
 	}
-
-	.eventDetailsPage,
+	
 	.fileHistoryPage {
 		margin-top: 110px;
 	}
@@ -5042,13 +5041,13 @@ a.github-fork {
 }
 
 @media (min-width: 900px) {
-	#eventModal {
+	#calendarItemModal {
 		margin-left: 266px;
 	}
 }
 
 @media (min-width: 781px) and (max-width: 899px) {
-	#eventModal {
+	#calendarItemModal {
 		width: 80%;
 		margin-left: 266px;
 		.modal-content {
@@ -5058,7 +5057,7 @@ a.github-fork {
 }
 
 @media (max-width: 780px) {
-	#eventModal {
+	#calendarItemModal {
 		margin-left: 0;
 		width: 100%;
 	}
@@ -5066,7 +5065,7 @@ a.github-fork {
 
 @media all and(max-width: 780px) {
 
-	.eventDetailsPage {
+	.calendarItemDetailsPage {
 		background-color: @secondary-background-color;
 		height: 100%;
 	}
@@ -5449,7 +5448,7 @@ a.github-fork {
 			background-color: rgba(0, 0, 0, 0.6);
 			padding: 40px;
 			border-radius: 10px;
-			pointer-events: none;
+			pointer-calendarItems: none;
 		}
 	}
 }

@@ -56,7 +56,7 @@ Template.threadPage.helpers
     return ChatSubscription.find({ rid: Template.instance().roomId }).count() > 0
 
   canJoin: ->
-    return !! ChatRoom.findOne { _id: Template.instance().roomId, t: { $in: ['c', 'e', 'f'] } }
+    return !! ChatRoom.findOne { _id: Template.instance().roomId, t: { $in: ['c', 'a', 'q', 'o', 'f'] } }
 
   usersTyping: ->
     users = MsgTyping.get @_id
@@ -310,8 +310,12 @@ Template.threadPage.onCreated ->
     typeLetter = 'p'
   else if path[1] is 'files'
     typeLetter = 'f'
-  else if path[1] is 'events'
-    typeLetter = 'e'
+  else if path[1] is 'calendar-item'
+    typeLetter = 'o'
+  else if path[1] is 'quiz-test'
+    typeLetter = 'q'
+  else if path[1] is 'assignment'
+    typeLetter = 'a'
   else
     typeLetter = path[1][0]
 
