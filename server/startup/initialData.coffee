@@ -25,6 +25,24 @@ Meteor.startup ->
           }
     )
 
+    # users = Meteor.users.find().fetch()
+    # users.map( (user)->
+    #   if not ChatSubscription.findOne({'u.id': user._id, 's._id': school._id._str})?
+    #     ChatRoom.insert
+    #       _id: Random.id()
+    #       default: true
+    #       usernames: []
+    #       ts: new Date()
+    #       t: 'c'
+    #       name: 'general'
+    #       term: "all"
+    #       msgs: 0
+    #       s: {
+    #         _id: school._id._str
+    #         name: school.name
+    #       }
+    # )
+
     if process.env.ADMIN_EMAIL? and process.env.ADMIN_PASS?
       re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
       if re.test process.env.ADMIN_EMAIL

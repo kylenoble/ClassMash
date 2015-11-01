@@ -8,6 +8,7 @@ Meteor.methods
     fileName = fileName.split(" ").join("-")
     fileName = fileName.split(".").join("-")
     fileName = fileName.replace(/[^\w\s-_]/gi, '')
+    fileName = fileName.toLowerCase()
     console.log fileName
     if not /^[0-9a-z-_]+$/.test fileName
       throw new Meteor.Error 'name-invalid'

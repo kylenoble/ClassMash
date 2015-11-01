@@ -104,15 +104,17 @@ readAsDataURL = (file, callback) ->
             uploadId = Random.id()
             user = Meteor.user()
             room = ChatRoom.find({_id: fileRoomId.get(), 's._id': user.profile.school._id}).fetch()
-            if room.t is not 'f'
-              roomUrl = """
-                href="/files/#{uploadId}"
-              """
+            console.log room[0].t
+            if room[0].t != 'f'
+              console.log "non file room"
+              roomUrl = 'href="/files/' + uploadId + '"'
             else
+              console.log "file room"
               roomUrl = """
                 href="#{downloadUrl}" target="_blank"
               """
 
+            console.log roomUrl
             if file.type is 'audio'
               shortFileType.set('audio')
               message = """
@@ -202,6 +204,7 @@ readAsDataURL = (file, callback) ->
                 }
               user = Meteor.user()
               room = ChatRoom.find({_id: fileRoomId.get(), 's._id': user.profile.school._id}).fetch()
-              if room.t is not 'f'
+              if room[0].t != 'f'
+                console.log(' creating file room')
                 Meteor.call 'createFileRoom', file.name, uploadId, fileRoomId.get()
   consume()
