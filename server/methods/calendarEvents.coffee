@@ -1,38 +1,4 @@
 Meteor.methods
-  # addEvent: (rid, title, description, type, allDay, start, end, url) ->
-  #   unless Meteor.userId()
-  #     return
-  #
-  #   now = new Date()
-  #   me = Meteor.user()
-  #
-  #   eventId = Event.insert
-  #     title: title
-  #     description: description
-  #     created: now
-  #     allDay: allDay
-  #     start: start
-  #     end: end
-  #     url: url
-  #     className: 'calendarItem'
-  #     editable: true
-  #     startEditable: true
-  #     durationEditable: true
-  #     overlap: true
-  #     color: color
-  #     backgroundColor: backgroundColor
-  #     borderColor: borderColor
-  #     textColor: textColor
-  #     r:
-  #       _id: rid
-  #     u:
-  #       _id: me._id
-  #       username: me.username
-  #
-  #   return {
-  #     eventId: eventId
-  #   }
-
   addEvent: (rid, title, description, type, start, end) ->
     unless Meteor.userId()
       return
@@ -62,7 +28,7 @@ Meteor.methods
         _id: me._id
         username: me.username
 
-    Meteor.call 'createEventRoom', title, eventId
+    Meteor.call 'createEventRoom', title, eventId, rid
 
     return {
       eventId: eventId

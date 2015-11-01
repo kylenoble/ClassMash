@@ -14,6 +14,15 @@ Template.room.helpers
   #   return 'icon-star favorite-room' if sub?.f? and sub.f
   #   return 'icon-star'
 
+  back: ->
+    roomData = Session.get('roomData' + this._id)
+    return '' unless roomData
+
+    if roomData.t is 'f' or roomData.t is 'e'
+      return true
+    else
+      return false
+
   roomName: ->
     roomData = Session.get('roomData' + this._id)
     return '' unless roomData
@@ -296,6 +305,28 @@ Template.room.helpers
 
 Template.room.events
 
+  "click .back": (e) ->
+    roomData = Session.get('roomData' + this._id)
+    return '' unless roomData
+
+    switch roomData.p.t
+      when 'd'
+        user = Meteor.user()
+        username = user.username
+        usernames = roomData.p.name.split('-')
+        if usernames[0] is username
+          directUserName = usernames[1]
+        else
+          directUserName = usernames[0]
+        clearActive()
+        FlowRouter.go 'direct', {username: directUserName}
+      when 'c'
+        clearActive()
+        FlowRouter.go 'channel', {name: roomData.p.name, term: roomData.p.term}
+      when 'p'
+        clearActive()
+        FlowRouter.go 'group', {name: roomData.p.name}
+
   "click .room-icons .icon-home": (e) ->
     clearActive()
     Session.set('isClassroom', true)
@@ -549,6 +580,15 @@ Template.room.onCreated ->
 Template.room.onRendered ->
   self = @
   $('.room-icons .icon-list').addClass('active')
+
+  roomData = Session.get('roomData' + self.data._id)
+  return '' unless roomData
+
+  if roomData.t is 'f' or roomData.t is 'e'
+    console.log("show back button")
+    $(".unread-burger-alert, .icon-globe-alt").css({'display':'none'})
+  else
+    $('.burger').show()
 
 clearActive = () ->
   if Session.get('isClassroom')

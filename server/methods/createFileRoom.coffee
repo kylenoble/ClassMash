@@ -1,5 +1,5 @@
 Meteor.methods
-  createFileRoom: (fileName, fileId) ->
+  createFileRoom: (fileName, fileId, parentRoomId) ->
     if not Meteor.userId()
       throw new Meteor.Error 'invalid-user', "[methods] createFileRoom -> Invalid user"
 
@@ -19,8 +19,9 @@ Meteor.methods
     # members.push me.username
 
     # name = s.slugify name
-
     school = me.profile.school
+
+    parentRoom = ChatRoom.findOne({_id: parentRoomId, 's._id': school._id})
     # avoid duplicate names
     if ChatRoom.findOne({'f._id':fileId, 's._id': school._id})
       throw new Meteor.Error 'duplicate-file-room'
@@ -39,6 +40,11 @@ Meteor.methods
       u:
         _id: me._id
         username: me.username
+      p:
+        _id: parentRoomId
+        term: parentRoom.term
+        name: parentRoom.name
+        t: parentRoom.t
       name: fileName
       msgs: 0
 

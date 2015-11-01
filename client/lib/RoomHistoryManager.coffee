@@ -30,17 +30,11 @@
 
     ls = undefined
 
-    console.log rid
-
     subscription = ChatSubscription.findOne rid: rid
     if subscription?
       ls = subscription.ls
 
-    console.log subscription
     Meteor.call 'loadHistory', rid, ts, limit, ls, (err, result) ->
-      console.log err
-      console.log result
-
       room.unreadNotLoaded.set result.unreadNotLoaded
 
       wrapper = $('.messages-box .wrapper').get(0)

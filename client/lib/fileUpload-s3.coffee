@@ -88,6 +88,7 @@ readAsDataURL = (file, callback) ->
           if error
             if error.error
               console.log(error)
+              toastr.error error
               toastr.error error.error
               return
             else
@@ -101,6 +102,17 @@ readAsDataURL = (file, callback) ->
                 return
           else
             uploadId = Random.id()
+            user = Meteor.user()
+            room = ChatRoom.find({_id: fileRoomId.get(), 's._id': user.profile.school._id}).fetch()
+            if room.t is not 'f'
+              roomUrl = """
+                href="/files/#{uploadId}"
+              """
+            else
+              roomUrl = """
+                href="#{downloadUrl}" target="_blank"
+              """
+
             if file.type is 'audio'
               shortFileType.set('audio')
               message = """
@@ -111,7 +123,7 @@ readAsDataURL = (file, callback) ->
               downloadUrl = encodeURI(downloadUrl)
               shortFileType.set('image')
               message = """
-                File Uploaded: <a class="linkable-title" href="/files/#{uploadId}">#{file.name}</a> <a href='#{downloadUrl}' target=_blank><i class="fa fa-cloud-download"></i></a>
+                File Uploaded: <a class="linkable-title" #{roomUrl}>#{file.name}</a> <a href='#{downloadUrl}' target=_blank><i class="fa fa-cloud-download"></i></a>
                 <a href="#{downloadUrl}" class="swipebox" target="_blank">
                   <div style="background-image: url(#{downloadUrl}); background-size: contain; background-repeat: no-repeat; background-position: center left; height: 200px; margin-top: 5px;"></div>
                 </a>
@@ -150,7 +162,7 @@ readAsDataURL = (file, callback) ->
               message = """
                 File Uploaded:
                 <div class='uploaded-file'>
-                  <i class="#{icon}"></i><div class='file-upload-metadata linkable-title'><a href="/files/#{uploadId}">#{file.name}</a></div>
+                  <i class="#{icon}"></i><div class='file-upload-metadata linkable-title'><a #{roomUrl}>#{file.name}</a></div>
                   <div class='download-file'>
                     <a href='#{downloadUrl}' target=_blank>
                       <i class="fa fa-cloud-download"></i>
@@ -188,6 +200,8 @@ readAsDataURL = (file, callback) ->
                   file:
                     _id: uploadId
                 }
-
-              Meteor.call 'createFileRoom', file.name, uploadId
+              user = Meteor.user()
+              room = ChatRoom.find({_id: fileRoomId.get(), 's._id': user.profile.school._id}).fetch()
+              if room.t is not 'f'
+                Meteor.call 'createFileRoom', file.name, uploadId, fileRoomId.get()
   consume()

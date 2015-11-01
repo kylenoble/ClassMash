@@ -97,8 +97,12 @@ Template.threadPage.events
     Template.instance().atBottom = true
     Template.instance().find('.input-message').focus()
 
-  'click .linkable-title': (event, template) ->
-    clearActive()
+  'click a.linkable-title': (event, template) ->
+    user = Meteor.user()
+    room = ChatRoom.findOne({_id: Template.instance().roomId, 's._id': user.profile.school._id})
+    console.log room
+    unless room.t is 'f'
+      clearActive()
 
   'click .see-all': (e, instance) ->
     instance.showUsersOffline.set(!instance.showUsersOffline.get())

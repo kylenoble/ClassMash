@@ -54,6 +54,7 @@ Meteor.publish 'room', (typeName) ->
       s: 1
       f: 1
       e: 1
+      p: 1
       usernames: 1
       term: 1
       teacher: 1

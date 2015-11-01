@@ -3,6 +3,11 @@
 		<header class="fixed-title">
 			{{> burger}}
 		  <!-- <i class="{{roomIcon}} status-{{userStatus}}"></i> -->
+			{{#if back}}
+				<div class="back">
+					<i class="fa fa-arrow-left back-button"></i> <span class="back-text">Back</span>
+				</div>
+			{{/if}}
 			<h2>
 				<span class="room-title {{editingTitle}}">{{roomName}}</span>
 				{{#if canEditName}}
