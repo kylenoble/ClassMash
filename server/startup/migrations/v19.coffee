@@ -4,7 +4,7 @@ Meteor.startup ->
     up: ->
       users = Meteor.users.find().fetch()
       users.map( (user)->
-        generalRoom = ChatRoom.find({'name': 'general', 's._id': user.profile.school._id})
+        generalRoom = ChatRoom.findOne({name: 'general', 's._id': user.profile.school._id})
         if not ChatSubscription.findOne({'u._id': user._id, 'name': 'general'})?
           ChatSubscription.insert
             rid: generalRoom._id
