@@ -21,6 +21,14 @@ Meteor.methods
 
     # name = s.slugify name
     school = me.profile.school
+    x = 0
+    if ChatRoom.findOne({'s._id': school._id, name: fileName})
+      fileName = fileName + '-' + x
+      while ChatRoom.findOne({'s._id': school._id, name: fileName}) != undefined
+        fileNamePieces = fileName.split('-')
+        fileNameLength = fileNamePieces.length - 1
+        fileNamePieces[fileNameLength] = parseInt(fileNamePieces[fileNameLength]) + 1
+        fileName = fileNamePieces.join('-')
 
     parentRoom = ChatRoom.findOne({_id: parentRoomId, 's._id': school._id})
     # avoid duplicate names

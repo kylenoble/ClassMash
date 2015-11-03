@@ -38,8 +38,6 @@ Template.threadPage.helpers
     }
 
   messagesHistory: ->
-    console.log "room id in messages history"
-    console.log Template.instance().roomId
     return ChatMessage.find { rid: Template.instance().roomId, t: { '$ne': 't' }  }, { sort: { ts: 1 } }
 
   hasMore: ->
@@ -58,8 +56,6 @@ Template.threadPage.helpers
     return ChatSubscription.find({ rid: Template.instance().roomId }).count() > 0
 
   canJoin: ->
-    console.log 'can join'
-    console.log Template.instance().roomId
     return !! ChatRoom.findOne { _id: Template.instance().roomId, t: { $in: ['c', 'a', 'q', 'o', 'f'] } }
 
   usersTyping: ->
@@ -104,9 +100,7 @@ Template.threadPage.events
   'click a.linkable-title': (event, template) ->
     user = Meteor.user()
     room = ChatRoom.findOne({_id: Template.instance().roomId, 's._id': user.profile.school._id})
-    console.log room
     unless room.t is 'f'
-      console.log 'clearing active'
       clearActive()
 
   'click .see-all': (e, instance) ->
