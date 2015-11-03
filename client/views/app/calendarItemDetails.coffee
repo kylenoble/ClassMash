@@ -9,7 +9,6 @@ Template.calendarItemDetailsPage.helpers
     return moment(date).format("MM/D/YY h:mm a")
 
   icon: (type) ->
-    console.log(type)
     if type is "Lab"
       return "icon-chemistry"
     else if type is "Lecture"

@@ -38,6 +38,8 @@ Template.threadPage.helpers
     }
 
   messagesHistory: ->
+    console.log "room id in messages history"
+    console.log Template.instance().roomId
     return ChatMessage.find { rid: Template.instance().roomId, t: { '$ne': 't' }  }, { sort: { ts: 1 } }
 
   hasMore: ->
@@ -56,6 +58,8 @@ Template.threadPage.helpers
     return ChatSubscription.find({ rid: Template.instance().roomId }).count() > 0
 
   canJoin: ->
+    console.log 'can join'
+    console.log Template.instance().roomId
     return !! ChatRoom.findOne { _id: Template.instance().roomId, t: { $in: ['c', 'a', 'q', 'o', 'f'] } }
 
   usersTyping: ->
@@ -102,6 +106,7 @@ Template.threadPage.events
     room = ChatRoom.findOne({_id: Template.instance().roomId, 's._id': user.profile.school._id})
     console.log room
     unless room.t is 'f'
+      console.log 'clearing active'
       clearActive()
 
   'click .see-all': (e, instance) ->
@@ -329,7 +334,6 @@ Template.threadPage.onRendered ->
   this.chatMessages = new ChatMessages
   this.chatMessages.init(this.firstNode)
   # ScrollListener.init()
-
   wrapper = this.find('.wrapper')
   newMessage = this.find(".new-message")
 
@@ -397,19 +401,27 @@ Template.threadPage.onRendered ->
   RoomHistoryManager.getMoreIfIsEmpty this.data._id
 
 clearActive = () ->
-  $('.room-icons .icon-home').removeClass('active')
-  $('.room-icons .icon-docs').removeClass('active')
-  $('.room-icons .icon-calendar').removeClass('active')
-  $('.room-icons .icon-user').removeClass('active')
-  $('.room-icons .icon-doc').removeClass('active')
-  $('.room-icons .icon-notebook').removeClass('active')
-  $('.room-icons .icon-graph').removeClass('active')
-  Session.set('isClassroom', false)
-  Session.set('isCalendar', false)
-  Session.set('isFiles', false)
-  Session.set('isProfile', false)
-  Session.set('isFileDetails', false)
-  Session.set('isEventDetails', false)
-  Session.set('isFileHistory', false)
+  if Session.get('isClassroom')
+    Session.set('isClassroom', false)
+    $('.room-icons .icon-home').removeClass('active')
+  if Session.get('isCalendar')
+    Session.set('isCalendar', false)
+    $('.room-icons .icon-calendar').removeClass('active')
+  if Session.get('isFiles')
+    Session.set('isFiles', false)
+    $('.room-icons .icon-docs').removeClass('active')
   if Session.get('isThread')
     Session.set('isThread', false)
+    $('.room-icons .icon-list').removeClass('active')
+  if Session.get('isProfile')
+    Session.set('isProfile', false)
+    $('.room-icons .icon-user').removeClass('active')
+  if Session.get('isFileDetails')
+    Session.set('isFileDetails', false)
+    $('.room-icons .icon-doc').removeClass('active')
+  if Session.get('isEventDetails')
+    Session.set('isEventDetails', false)
+    $('.room-icons .icon-notebook').removeClass('active')
+  if Session.get('isFileHistory')
+    Session.set('isFileHistory', false)
+    $('.room-icons .icon-graph').removeClass('active')

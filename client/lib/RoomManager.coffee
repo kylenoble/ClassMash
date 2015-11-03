@@ -76,7 +76,6 @@ onDeleteMessageStream = (msg) ->
 
         record.ready = record.sub[0].ready()
         # record.ready = record.sub[0].ready() and record.sub[1].ready()
-
         if record.ready is true
           type = typeName.substr(0, 1)
           name = typeName.substr(1)
@@ -87,11 +86,20 @@ onDeleteMessageStream = (msg) ->
             t: type
             's._id': user.profile.school._id
 
+          console.log type
+
           if type in ['c', 'p']
             query.name = name
+          else if type is 'f'
+            query.f = {}
+            query.f._id = name
+          else if type in ['a', 'o', 'q']
+            query.ci = {}
+            query.ci._id = name
           else if type is 'd'
             query.usernames = $all: [Meteor.user()?.username, name]
 
+          console.log query
           room = ChatRoom.findOne query, { reactive: false }
 
           if room?

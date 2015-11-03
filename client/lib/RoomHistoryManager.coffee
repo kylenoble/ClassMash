@@ -36,6 +36,7 @@
 
     Meteor.call 'loadHistory', rid, ts, limit, ls, (err, result) ->
       console.log err
+      console.log 'messages result'
       console.log result
       room.unreadNotLoaded.set result.unreadNotLoaded
 

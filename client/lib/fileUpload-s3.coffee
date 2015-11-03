@@ -104,7 +104,6 @@ readAsDataURL = (file, callback) ->
             uploadId = Random.id()
             user = Meteor.user()
             room = ChatRoom.find({_id: fileRoomId.get(), 's._id': user.profile.school._id}).fetch()
-            console.log room[0].t
             if room[0].t != 'f'
               console.log "non file room"
               roomUrl = 'href="/files/' + uploadId + '"'
@@ -114,7 +113,6 @@ readAsDataURL = (file, callback) ->
                 href="#{downloadUrl}" target="_blank"
               """
 
-            console.log roomUrl
             if file.type is 'audio'
               shortFileType.set('audio')
               message = """
