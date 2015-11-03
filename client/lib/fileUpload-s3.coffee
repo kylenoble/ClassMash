@@ -123,7 +123,7 @@ readAsDataURL = (file, callback) ->
               downloadUrl = encodeURI(downloadUrl)
               shortFileType.set('image')
               message = """
-                File Uploaded: <a class="linkable-title" #{roomUrl}>#{file.name}</a> <a href='#{downloadUrl}' target=_blank><i class="fa fa-cloud-download"></i></a>
+                File Uploaded: <a class="linkable-title" #{roomUrl}>#{file.name}</a> <a href='#{downloadUrl}' target=_blank><i class="fa fa-cloud-download"></i></a><a href="/files/#{uploadId}" class='linkable-title'><i class="icon-bubble"></i></a>
                 <a href="#{downloadUrl}" class="swipebox" target="_blank">
                   <div style="background-image: url(#{downloadUrl}); background-size: contain; background-repeat: no-repeat; background-position: center left; height: 200px; margin-top: 5px;"></div>
                 </a>
