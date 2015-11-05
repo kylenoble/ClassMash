@@ -15,7 +15,7 @@
   constructor: ->
     @canReadMessage = false
 
-  readNow: (force=false) ->
+  readNow: (force=true) ->
     self = @
     return if force isnt true and @canReadMessage is false
 

@@ -111,10 +111,6 @@ Template.filesPage.onCreated ->
   else
     term = ''
 
-  console.log 'file page typeName'
-  console.log typeLetter + path[2] + '%' + term
-  console.log RoomManager.openedRooms[typeLetter + path[2] + '%']
-  console.log RoomManager.openedRooms
   instance = @
   @limit = new ReactiveVar 50
   @currentFilter = new ReactiveVar 'regular'

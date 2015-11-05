@@ -585,7 +585,6 @@ Template.room.onRendered ->
   return '' unless roomData
 
   if roomData.t in ['f','a','o','q']
-    console.log("show back button")
     $(".unread-burger-alert, .icon-globe-alt").css({'display':'none'})
   else
     $('.burger').show()

@@ -18,9 +18,11 @@ Meteor.startup ->
     subscriptions = ChatSubscription.find({open: true}, { fields: { unread: 1, alert: 1, rid: 1, t: 1, name: 1, ls: 1 } })
 
     rid = undefined
-    if FlowRouter.getRouteName() in ['channel', 'group', 'direct']
+    if FlowRouter.getRouteName() in ['channel', 'group', 'direct', 'calendar-item', 'files', 'assignment', 'quiz-test']
       rid = Session.get 'openedRoom'
 
+    console.log 'unread'
+    console.log rid
     for subscription in subscriptions.fetch()
       if subscription.rid is rid and (subscription.alert or subscription.unread > 0)
         readMessage.readNow()

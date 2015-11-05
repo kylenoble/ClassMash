@@ -6,7 +6,6 @@ Template.userProfile.helpers
     username = path[2]
     user = Meteor.users.findOne({ username: username, "profile.school._id": school })
     if user
-      console.log(user)
       return user
 
 Template.userProfile.events

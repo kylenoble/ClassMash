@@ -1,9 +1,7 @@
 Template.fileDetailsPage.helpers
   file: ->
     path = window.location.pathname.split('/')
-    console.log path[2]
     fileInfo = fileCollection.find(_id: path[2]).fetch()
-    console.log fileInfo
     return fileInfo
 
   cleanDate: (date) ->

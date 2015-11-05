@@ -2,7 +2,6 @@ addTeacherEmail = new ReactiveVar false
 
 Template.classroomPage.helpers
   addingTeacherEmail: ->
-    console.log addTeacherEmail.get()
     return addTeacherEmail.get()
 
   teacher: ->
@@ -63,7 +62,6 @@ Template.classroomPage.events
 
   'click .add-teacher-email-button': (e, t) ->
     email = $('#teacher-email').val()
-    console.log email
     Meteor.call "addTeacherEmail", email, Template.instance().room._id, (error, result) ->
       if error
         console.log "error", error
@@ -81,8 +79,6 @@ Template.classroomPage.events
     if not files or files.length is 0
       files = e.dataTransfer?.files or []
 
-    console.log(files)
-
     fileUploadS3 files, 'syllabus', Template.instance().roomId
     $('#select-syllabus').hide()
     $('.add-syllabus-label').hide()
@@ -91,14 +87,25 @@ Template.classroomPage.created = ->
   path = window.location.pathname.split('/')
   if path[1] is 'group'
     typeLetter = 'p'
+  else if path[1] is 'files'
+    typeLetter = 'f'
+  else if path[1] is 'calendar-item'
+    typeLetter = 'o'
+  else if path[1] is 'quiz-test'
+    typeLetter = 'q'
+  else if path[1] is 'assignment'
+    typeLetter = 'a'
   else
     typeLetter = path[1][0]
+
+  if path[3]
+    term = path[3]
+  else
+    term = ''
 
   this.term = path[3]
   this.roomId = RoomManager.openedRooms[typeLetter + path[2] + '%' + this.term].rid
 
-  console.log(this.term)
-  console.log(RoomManager.openedRooms)
   this.room = ChatRoom.findOne(this.roomId, term: this.term )
 
   this.school = Schools.find().fetch()

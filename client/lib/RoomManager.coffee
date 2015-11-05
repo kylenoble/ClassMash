@@ -88,8 +88,6 @@ onDeleteMessageStream = (msg) ->
             t: type
             's._id': user.profile.school._id
 
-          console.log type
-
           if type in ['c', 'p']
             query.name = name
             query.term = term
@@ -102,7 +100,6 @@ onDeleteMessageStream = (msg) ->
           else if type is 'd'
             query.usernames = $all: [Meteor.user()?.username, name]
 
-          console.log query
           room = ChatRoom.findOne query, { reactive: false }
 
           if room?
@@ -137,8 +134,6 @@ onDeleteMessageStream = (msg) ->
         openedRooms[typeName].timeout = setTimeout close, defaultTime, typeName
 
   open = (typeName) ->
-    console.log 'room manager open typename'
-    console.log typeName
     if not openedRooms[typeName]?
       openedRooms[typeName] =
         active: false
