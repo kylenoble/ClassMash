@@ -95,13 +95,30 @@ Template.filesPage.onCreated ->
   path = window.location.pathname.split('/')
   if path[1] is 'group'
     typeLetter = 'p'
+  else if path[1] is 'files'
+    typeLetter = 'f'
+  else if path[1] is 'calendar-item'
+    typeLetter = 'o'
+  else if path[1] is 'quiz-test'
+    typeLetter = 'q'
+  else if path[1] is 'assignment'
+    typeLetter = 'a'
   else
     typeLetter = path[1][0]
 
+  if path[3]
+    term = path[3]
+  else
+    term = ''
+
+  console.log 'file page typeName'
+  console.log typeLetter + path[2] + '%' + term
+  console.log RoomManager.openedRooms[typeLetter + path[2] + '%']
+  console.log RoomManager.openedRooms
   instance = @
   @limit = new ReactiveVar 50
   @currentFilter = new ReactiveVar 'regular'
-  @roomId = new ReactiveVar RoomManager.openedRooms[typeLetter + path[2]].rid
+  @roomId = new ReactiveVar RoomManager.openedRooms[typeLetter + path[2] + '%' + term].rid
   @ready = new ReactiveVar true
 
   @autorun ->

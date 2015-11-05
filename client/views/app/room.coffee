@@ -121,10 +121,10 @@ Template.room.helpers
     return '' unless roomData
     return roomData.t in ['p', 'c'] and roomData.u?._id is Meteor.userId()
 
-  canEditName: ->
-    roomData = Session.get('roomData' + this._id)
-    return '' unless roomData
-    return roomData.u?._id is Meteor.userId() and roomData.t in ['c', 'p']
+  # canEditName: ->
+  #   roomData = Session.get('roomData' + this._id)
+  #   return '' unless roomData
+  #   return roomData.u?._id is Meteor.userId() and roomData.t in ['c', 'p']
 
   canDirectMessage: ->
     return Meteor.user()?.username isnt this.username
@@ -233,7 +233,7 @@ Template.room.helpers
 
   roomManager: ->
     room = ChatRoom.findOne(this._id, { reactive: false })
-    return RoomManager.openedRooms[room.t + room.name]
+    return RoomManager.openedRooms[room.t + room.name + '%' + room.term]
 
   adminClass: ->
     return 'admin' if Meteor.user()?.admin is true

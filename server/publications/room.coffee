@@ -7,8 +7,11 @@ Meteor.publish 'room', (typeName) ->
   if typeof typeName isnt 'string'
     return this.ready()
 
+  console.log typeName
   type = typeName.substr(0, 1)
-  name = typeName.substr(1)
+  name = typeName.split('%')
+  term = name[1]
+  name = name[0].substr(1)
 
   user = Meteor.users.findOne this.userId, fields: username: 1, profile: 1
 
@@ -19,6 +22,7 @@ Meteor.publish 'room', (typeName) ->
       t: type
       name: name
       's._id': user.profile.school._id
+      term: term
 
     if type is 'p'
       query.usernames = user.username
@@ -41,7 +45,7 @@ Meteor.publish 'room', (typeName) ->
   # Change to validate access manualy
   # if not Meteor.call 'canAccessRoom', rid, this.userId
   #   return this.ready()
-
+  console.log('room method query')
   console.log query
 
   ChatRoom.find query,

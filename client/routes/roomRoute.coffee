@@ -8,7 +8,7 @@ openRoom = (type, name, term, id) ->
       if type in ['f', 'a', 'q', 'o']
         name = id
 
-      if RoomManager.open(type + name).ready() isnt true
+      if RoomManager.open(type + name + '%' + term).ready() isnt true
         return
 
       c.stop()
@@ -52,7 +52,9 @@ openRoom = (type, name, term, id) ->
         query.usernames =
           $all: [name, Meteor.user().username]
 
+      console.log query
       room = ChatRoom.findOne(query)
+      console.log room
       if not room?
         Session.set 'roomNotFound', {type: type, name: name}
         BlazeLayout.render 'main', {center: 'roomNotFound'}
@@ -62,7 +64,7 @@ openRoom = (type, name, term, id) ->
       if mainNode?
         for child in mainNode.children
           mainNode.removeChild child if child?
-        roomDom = RoomManager.getDomOfRoom(type + name, room._id)
+        roomDom = RoomManager.getDomOfRoom(type + name + '%' + term, room._id)
         mainNode.appendChild roomDom
         if roomDom.classList.contains('room-container')
           if roomDom.classList.contains('.messages-box.wrapper')

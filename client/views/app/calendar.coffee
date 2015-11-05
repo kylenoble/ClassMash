@@ -46,6 +46,22 @@ Template.calendarPage.events
     end = new Date($('#end-date').val())
     type = $('.type-item.active').text().trim()
 
+    if title is ''
+      toastr.error 'Please Enter a Title'
+      return
+    else if description is ''
+      toastr.error 'Please Enter a Description'
+      return
+    else if start is ''
+      toastr.error 'Please Enter a Start Date'
+      return
+    else if end is ''
+      toastr.error 'Please Enter an End Date'
+      return
+    else if type is ''
+      toastr.error 'Please Select a Type'
+      return
+
     Meteor.call "addCalendarItem", Template.instance().rid.get(), title, description, type, start, end, (error, result) ->
       if error
         console.log "error", error
@@ -63,10 +79,23 @@ Template.calendarPage.rendered = ->
     path = window.location.pathname.split('/')
     if path[1] is 'group'
       typeLetter = 'p'
+    else if path[1] is 'files'
+      typeLetter = 'f'
+    else if path[1] is 'calendar-item'
+      typeLetter = 'o'
+    else if path[1] is 'quiz-test'
+      typeLetter = 'q'
+    else if path[1] is 'assignment'
+      typeLetter = 'a'
     else
       typeLetter = path[1][0]
 
-    Template.instance().rid.set(RoomManager.openedRooms[typeLetter + path[2]].rid)
+    if path[3]
+      term = path[3]
+    else
+      term = ''
+
+    Template.instance().rid.set(RoomManager.openedRooms[typeLetter + path[2] + '%' + term].rid)
 
     Meteor.subscribe 'calendarItems', Template.instance().rid.get()
     fc.fullCalendar 'refetchEvents'

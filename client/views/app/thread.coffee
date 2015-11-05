@@ -1,7 +1,7 @@
 Template.threadPage.helpers
   roomManager: ->
     room = ChatRoom.findOne(Template.instance().roomId, { reactive: false })
-    return RoomManager.openedRooms[room.t + room.name]
+    return RoomManager.openedRooms[room.t + room.name + '%' + room.term]
 
   roomName: ->
     room = ChatRoom.findOne(Template.instance().roomId, { reactive: false })
@@ -12,7 +12,7 @@ Template.threadPage.helpers
 
   formatUnreadSince: ->
     room = ChatRoom.findOne(Template.instance().roomId, { reactive: false })
-    room = RoomManager.openedRooms[room.t + room.name]
+    room = RoomManager.openedRooms[room.t + room.name + '%' + room.term]
     date = room?.unreadSince.get()
     if not date? then return
 
@@ -318,7 +318,12 @@ Template.threadPage.onCreated ->
   else
     typeLetter = path[1][0]
 
-  this.roomId = RoomManager.openedRooms[typeLetter + path[2]].rid
+  if path[3]
+    term = path[3]
+  else
+    term = ''
+
+  this.roomId = RoomManager.openedRooms[typeLetter + path[2] + '%' + term].rid
   this.showUsersOffline = new ReactiveVar false
   this.atBottom = true
   this.unreadCount = new ReactiveVar 0

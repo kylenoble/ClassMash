@@ -78,7 +78,9 @@ onDeleteMessageStream = (msg) ->
         # record.ready = record.sub[0].ready() and record.sub[1].ready()
         if record.ready is true
           type = typeName.substr(0, 1)
-          name = typeName.substr(1)
+          name = typeName.split('%')
+          term = name[1]
+          name = name[0].substr(1)
 
           user = Meteor.users.findOne Meteor.userId(), fields: username: 1, profile: 1
 
@@ -90,6 +92,7 @@ onDeleteMessageStream = (msg) ->
 
           if type in ['c', 'p']
             query.name = name
+            query.term = term
           else if type is 'f'
             query.f = {}
             query.f._id = name
@@ -134,7 +137,8 @@ onDeleteMessageStream = (msg) ->
         openedRooms[typeName].timeout = setTimeout close, defaultTime, typeName
 
   open = (typeName) ->
-
+    console.log 'room manager open typename'
+    console.log typeName
     if not openedRooms[typeName]?
       openedRooms[typeName] =
         active: false

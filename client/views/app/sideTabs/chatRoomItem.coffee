@@ -89,6 +89,14 @@ Template.chatRoomItem.events
     path = window.location.pathname.split('/')
     if path[1] is 'group'
       typeLetter = 'p'
+    else if path[1] is 'files'
+      typeLetter = 'f'
+    else if path[1] is 'calendar-item'
+      typeLetter = 'o'
+    else if path[1] is 'quiz-test'
+      typeLetter = 'q'
+    else if path[1] is 'assignment'
+      typeLetter = 'a'
     else
       typeLetter = path[1][0]
 

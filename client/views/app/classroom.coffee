@@ -95,7 +95,7 @@ Template.classroomPage.created = ->
     typeLetter = path[1][0]
 
   this.term = path[3]
-  this.roomId = RoomManager.openedRooms[typeLetter + path[2]].rid
+  this.roomId = RoomManager.openedRooms[typeLetter + path[2] + '%' + this.term].rid
 
   console.log(this.term)
   console.log(RoomManager.openedRooms)
