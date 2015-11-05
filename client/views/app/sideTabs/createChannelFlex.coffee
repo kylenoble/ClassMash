@@ -27,9 +27,9 @@ Template.createChannelFlex.helpers
     year = new Date().getFullYear()
     nextYear = Number(year) + 1
     if month >= 7
-      return [{'term': ''}, {'term': year + '-' + nextYear}, {'term': 'Fall-' + year }, {'term': 'Spring-' + nextYear }]
+      return [{'term': 'Select a Term'}, {'term': year + '-' + nextYear}, {'term': 'Fall-' + year }, {'term': 'Spring-' + nextYear }]
     else
-      return [{'term': ''}, {'term': year 1 + '-' + year}, {'term': 'Spring-' + nextYear }, {'term': 'Fall-' + year }]
+      return [{'term': 'Select a Term'}, {'term': year 1 + '-' + year}, {'term': 'Spring-' + nextYear }, {'term': 'Fall-' + year }]
 
   collegeTerms: ->
     month = new Date().getMonth()
