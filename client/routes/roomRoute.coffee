@@ -114,7 +114,7 @@ FlowRouter.route '/group/:name',
 
   action: (params, queryParams) ->
     Session.set 'showUserInfo'
-    openRoom 'p', params.name, '', ''
+    openRoom 'p', params.name, 'all', ''
 
   triggersExit: [roomExit]
 
@@ -124,7 +124,7 @@ FlowRouter.route '/direct/:username',
 
   action: (params, queryParams) ->
     Session.set 'showUserInfo', params.username
-    openRoom 'd', params.username, '', ''
+    openRoom 'd', params.username, 'all', ''
 
   triggersExit: [roomExit]
 

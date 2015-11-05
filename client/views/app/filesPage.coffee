@@ -108,6 +108,8 @@ Template.filesPage.onCreated ->
 
   if path[3]
     term = path[3]
+  else if typeLetter in ['p','d']
+    term = 'all'
   else
     term = ''
 
