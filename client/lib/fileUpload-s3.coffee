@@ -129,6 +129,7 @@ readAsDataURL = (file, callback) ->
                 </a>
               """
             else
+              downloadUrl = encodeURI(downloadUrl)
               if fileType[1] is 'pdf'
                 icon = 'fa fa-file-pdf-o'
                 shortFileType.set('pdf')
