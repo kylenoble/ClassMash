@@ -90,6 +90,9 @@ Template.threadPage.events
         RoomHistoryManager.getMore(@_id)
   , 200
 
+  "click .upload-progress > a": ->
+    Session.set "uploading-cancel-#{this.id}", true
+
   'click .load-more > a': ->
     RoomHistoryManager.getMore(@_id)
 

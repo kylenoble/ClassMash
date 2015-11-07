@@ -1,5 +1,7 @@
 fileCategory = new ReactiveVar('')
 fileRoomId = new ReactiveVar('')
+fileId = new ReactiveVar('')
+fileName = new ReactiveVar('')
 shortFileType = new ReactiveVar('')
 
 readAsDataURL = (file, callback) ->
@@ -84,8 +86,12 @@ readAsDataURL = (file, callback) ->
         if isConfirm isnt true
           return
 
+        uploadId = Random.id()
+        fileId.set(uploadId)
+        fileName.set(file.name)
         uploader.send file, (error, downloadUrl) ->
           if error
+            Session.set('uploading', [])
             if error.error
               console.log(error)
               toastr.error error
@@ -101,12 +107,11 @@ readAsDataURL = (file, callback) ->
                 toastr.error error
                 return
           else
-            uploadId = Random.id()
             user = Meteor.user()
             room = ChatRoom.find({_id: fileRoomId.get(), 's._id': user.profile.school._id}).fetch()
             if room[0].t != 'f'
               console.log "non file room"
-              roomUrl = 'href="/files/' + uploadId + '"'
+              roomUrl = 'href="/files/' + fileId.get() + '"'
             else
               console.log "file room"
               roomUrl = """
@@ -123,7 +128,7 @@ readAsDataURL = (file, callback) ->
               downloadUrl = encodeURI(downloadUrl)
               shortFileType.set('image')
               message = """
-                File Uploaded: <a class="linkable-title" #{roomUrl}>#{file.name}</a> <a href='#{downloadUrl}' target=_blank><i class="fa fa-cloud-download"></i></a><a href="/files/#{uploadId}" class='linkable-title'><i class="icon-bubble"></i></a>
+                File Uploaded: <a class="linkable-title" #{roomUrl}>#{file.name}</a> <a href='#{downloadUrl}' target=_blank><i class="fa fa-cloud-download"></i></a><a href="/files/#{fileId.get()}" class='linkable-title'><i class="icon-bubble"></i></a>
                 <a href="#{downloadUrl}" class="swipebox" target="_blank">
                   <div style="background-image: url(#{downloadUrl}); background-size: contain; background-repeat: no-repeat; background-position: center left; height: 200px; margin-top: 5px;"></div>
                 </a>
@@ -168,14 +173,14 @@ readAsDataURL = (file, callback) ->
                     <a href='#{downloadUrl}' target=_blank>
                       <i class="fa fa-cloud-download"></i>
                     </a>
-                    <a href="/files/#{uploadId}" class='linkable-title'>
+                    <a href="/files/#{fileId.get()}" class='linkable-title'>
                       <i class="icon-bubble"></i>
                     </a>
                   </div>
                 </div>
               """
             upload = fileCollection.insert
-              _id: uploadId
+              _id: fileId.get()
               name: file.name
               size: file.size
               type: file.type
@@ -191,7 +196,13 @@ readAsDataURL = (file, callback) ->
               }
 
               if metaContext.type is 'syllabus'
-                Meteor.call 'addSyllabus', file.name, downloadUrl, fileRoomId.get()
+                Meteor.call 'addSyllabus', file.name, downloadUrl, fileRoomId.get(), ->
+                  Meteor.setTimeout ->
+                    uploading = Session.get 'uploading'
+                    if uploading?
+                      item = _.findWhere(uploading, {id: fileId.get()})
+                      Session.set 'uploading', _.without(uploading, item)
+                  , 2000
               else
                 Meteor.call 'sendMessage', {
                   _id: Random.id()
@@ -199,11 +210,43 @@ readAsDataURL = (file, callback) ->
                   rid: Session.get('openedRoom')
                   msg: message
                   file:
-                    _id: uploadId
-                }
+                    _id: fileId.get()
+                }, ->
+                  Meteor.setTimeout ->
+                    uploading = Session.get 'uploading'
+                    if uploading?
+                      item = _.findWhere(uploading, {id: fileId.get()})
+                      Session.set 'uploading', _.without(uploading, item)
+                  , 2000
               user = Meteor.user()
               room = ChatRoom.find({_id: fileRoomId.get(), 's._id': user.profile.school._id}).fetch()
               if room[0].t != 'f'
                 console.log(' creating file room')
-                Meteor.call 'createFileRoom', file.name, uploadId, fileRoomId.get()
+                Meteor.call 'createFileRoom', file.name, fileId.get(), fileRoomId.get()
+
+        Tracker.autorun (c) ->
+          uploading = undefined
+          cancel = undefined
+
+          Tracker.nonreactive ->
+            cancel = Session.get "uploading-cancel-#{fileId.get()}"
+            uploading = Session.get 'uploading'
+
+          if cancel
+            return c.stop()
+
+          uploading ?= []
+          item = _.findWhere(uploading, {id: fileId.get()})
+          if not item?
+            item =
+              id: fileId.get()
+              name: fileName.get()
+
+            uploading.push item
+          if uploader.progress()
+            item.percentage = Math.round(uploader.progress() * 100)
+          else
+            item.percentage = 0
+          Session.set 'uploading', uploading
+
   consume()

@@ -1,8 +1,8 @@
 <template name="threadPage">
   <div class="thread-container">
-    <div class="upload-progress">
+    <div class="container-bars">
       {{#each uploading}}
-        <div class="upload-progress-item {{#if error}}upload-error{{/if}}">
+        <div class="upload-progress {{#if error}}upload-error{{/if}}">
           {{#if error}}
             {{error}}
             <a>
@@ -10,13 +10,22 @@
             </a>
           {{else}}
             <div class="upload-progress-progress" style="width: {{percentage}}%;"></div>
-            {{name}}... {{percentage}}%
-            <a>
-              cancel
-            </a>
+            <div class="upload-progress-text">
+              {{name}}... {{percentage}}%
+            </div>
           {{/if}}
         </div>
       {{/each}}
+      {{#if unreadCount}}
+        {{#if unreadSince}}
+          <div class="unread-bar">
+            {{_ "S_new_messages_since_s" unreadCount formatUnreadSince}}
+            <a>
+              {{_ "Mark_as_read"}}
+            </a>
+          </div>
+        {{/if}}
+      {{/if}}
     </div>
     <div class="messages-box">
       <span class="date-line"></span>
