@@ -27,10 +27,37 @@ Template.room.helpers
     roomData = Session.get('roomData' + this._id)
     return '' unless roomData
 
+    console.log roomData
+
     if roomData.t is 'd'
       return ChatSubscription.findOne({ rid: this._id }, { fields: { name: 1 } })?.name
+    else if roomData.t is 'f'
+      return roomData.p.name
     else
       return roomData.name
+
+  otherName: ->
+    roomData = Session.get('roomData' + this._id)
+    return '' unless roomData
+
+    return roomData.name
+
+  otherRoomTypeShow: ->
+    roomData = Session.get('roomData' + this._id)
+    return '' unless roomData
+    if roomData.t not in ['c', 'd', 'p']
+      return true
+    return false
+
+  otherRoomType: ->
+    roomData = Session.get('roomData' + this._id)
+    return '' unless roomData
+
+    switch roomData.t
+      when 'f' then return 'File:'
+      when 'a' then return 'Assignment:'
+      when 'o' then return 'Lab/Lecture:'
+      when 'q' then return 'Test/Quiz:'
 
   roomId: ->
     return this._id
@@ -583,6 +610,13 @@ Template.room.onRendered ->
 
   roomData = Session.get('roomData' + self.data._id)
   return '' unless roomData
+
+  if roomData.t not in ['c', 'p', 'd']
+    $('.room-icons').addClass('other-room')
+    $('.container-bars').addClass('other-room')
+  else
+    $('.room-icons').removeClass('other-room')
+    $('.container-bars').removeClass('other-room')
 
   if roomData.t in ['f','a','o','q']
     $(".unread-burger-alert, .icon-globe-alt").css({'display':'none'})

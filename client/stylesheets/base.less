@@ -1043,6 +1043,13 @@ label.required:after {
 			}
 		}
 	}
+	&.other-room {
+		top: 67px;
+		i {
+			font-size: 18px;
+			margin-right: 20px;
+		}
+	}
 }
 
 .input-line {
@@ -2248,6 +2255,40 @@ a.github-fork {
 	}
 }
 
+
+.other-name-header {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	flex-flow: row nowrap;
+	padding: 0 10px 0 20px;
+	background: #FCFCFC;
+	border-bottom: 1px solid #bcebcb;
+	z-index: 100;
+	top: 60px;
+	left: 0;
+	width: 100%;
+	height: 50px;
+	h2 {
+		max-width: 90%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 29px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #546a76;
+		.room-title {
+			font-family: Axis;
+	    margin-left: auto;
+	    margin-right: auto;
+	    color: #546a76;
+		}
+	}
+}
+
 .cms-page {
 	max-width: 800px;
 	margin: 40px auto;
@@ -2548,6 +2589,10 @@ a.github-fork {
 	font-weight: bold;
 	display: flex;
 	flex-direction: column;
+
+	&.other-room {
+		top: 110px;
+	}
 
 	> div {
 		height: 24px;
@@ -3694,7 +3739,7 @@ a.github-fork {
 }
 
 .fileHistoryPage {
-	margin-top: 60px;
+	margin-top: 90px;
 	background-color: @secondary-background-color;
 	height: 100%;
 	.history-line {
@@ -5064,17 +5109,55 @@ a.github-fork {
 		}
 	}
 
+	.messages-container {
+		.message-form {
+			.users-typing {
+				display: none;
+			}
+			> .formatting-tips {
+				display: none;
+			}
+			> div {
+				> .file {
+					height: 35px;
+				}
+			}
+			textarea {
+				height: 35px !important;
+			}
+		}
+	}
+
+	.messages-container {
+		.footer {
+			padding: 5px 5px 0 5px;
+			bottom: 49px;
+			transition: bottom .4s ease;
+			.file {
+				height: 35px;
+			}
+		}
+	}
+
+	.messages-box {
+		margin-top: 0px;
+		height: calc(~"100% -" 90px);
+		transition: height .4s ease;
+	}
+
 	.room-icons {
 		display: flex;
-	  align-items: center;
-	  justify-content: center;
-		position: absolute;
-		top: 60px;
-		left: 0px;
-		height: 50px;
-		background-color: white;
-		width: 100%;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+		top: initial;
+    left: 0;
+    height: 49px;
+    background-color: white;
+    width: 100%;
+    border-bottom: 1px solid;
+		transition: display .4s ease;
 		li {
 			margin-right: auto;
 			margin-left: auto;
@@ -5089,6 +5172,13 @@ a.github-fork {
 		&.hidden {
 			display: none;
 		}
+		&.other-room {
+			top: initial;
+			i {
+				font-size: 24px;
+				margin-right: 0px;
+			}
+		}
 	}
 }
 
@@ -5100,10 +5190,6 @@ a.github-fork {
 	.classroom-container,
 	.calendar-container {
 		top: 100px;
-	}
-
-	.container-bars {
-		top: 110px;
 	}
 
 	.fileHistoryPage {
@@ -5285,10 +5371,6 @@ a.github-fork {
 		margin-top: 0px;
 		height: calc(~"100% -" 90px);
 		transition: height .4s ease;
-	}
-
-	.container-bars {
-		top: 60px;
 	}
 
 	.user-view,

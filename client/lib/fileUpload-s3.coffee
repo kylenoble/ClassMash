@@ -163,6 +163,7 @@ readAsDataURL = (file, callback) ->
                 icon = 'icon-key'
                 shortFileType.set('key')
               else
+                shortFileType.set(fileExtension[fileExtension.length - 1])
                 icon = 'fa fa-file-o'
 
               message = """
