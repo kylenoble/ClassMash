@@ -3,12 +3,13 @@
 		<header class="fixed-title">
 			{{> burger}}
 			<h2>
-				<span class="room-title">{{_ "Welcome_to_the"}} ClassMash</span>
+				<span class="room-title">Welcome to ClassMash</span>
 			</h2>
 			{{> rightBurger}}
 		</header>
-		<div class="content">
-			{{{body}}}
-		</div>
+		{{#unless firstTime}}
+			<div>
+			</div>
+		{{/unless}}
 	</section>
 </template>

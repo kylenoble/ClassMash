@@ -123,6 +123,14 @@ Template.main.helpers
     console.log 'layout.helpers flexOpenedRTC2' if window.rocketDebug
     return 'layout2' if (Session.get('rtcLayoutmode') > 1)
 
+  firstTime: ->
+    user = Meteor.user()
+    diff = (new Date() - new Date(user.createdAt)) / 1000 / 60
+    console.log diff
+    if diff <= 6
+      return true
+    else
+      return false
 
 Template.main.events
 

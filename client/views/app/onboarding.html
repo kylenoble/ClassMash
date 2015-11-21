@@ -1,0 +1,49 @@
+<template name="onboarding">
+	<div class="content">
+		<div class="cd-nugget-info">
+			<h1>ClassMash Tour</h1>
+			<button id="cd-tour-trigger" class="cd-btn">Start tour</button>
+		</div>
+
+		<ul class="cd-tour-wrapper">
+			<li class="cd-single-step">
+				<span>Classes</span>
+
+				<div class="cd-more-info right">
+					<h2>Sidebar</h2>
+					<p>{{sidebar}}</p>
+					<img class="onboard-img small" src="/images/globe.png" alt="step 1">
+				</div>
+			</li> <!-- .cd-single-step -->
+
+			<li class="cd-single-step">
+				<span>Class Details</span>
+
+				<div class="cd-more-info bottom">
+					<h2>Details</h2>
+					<p>{{details}}</p>
+					<img class="onboard-img" src="/images/details.png" alt="step 2">
+				</div>
+			</li> <!-- .cd-single-step -->
+
+			<li class="cd-single-step">
+				<span>Messages</span>
+
+				<div class="cd-more-info bottom left">
+					<h2>Direct Messages</h2>
+					<p>{{directMessages}}</p>
+					<img class="onboard-img small" src="/images/chat.png" alt="step 3">
+				</div>
+			</li> <!-- .cd-single-step -->
+			<li class="cd-single-step">
+				<span>Chat Entry</span>
+
+				<div class="cd-more-info top">
+					<h2>Chat Entry</h2>
+					<p>{{chatEntry}}</p>
+					<img class="onboard-img" src="/images/entry.png" alt="step 4">
+				</div>
+			</li> <!-- .cd-single-step -->
+		</ul> <!-- .cd-tour-wrapper -->
+	</div>
+</template>

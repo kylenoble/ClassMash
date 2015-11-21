@@ -54,6 +54,9 @@
 				{{> mobileMessageMenu}}
 				<div id="user-card-popover"></div>
 				<div id="rocket-chat" class="menu-nav menu-closed">
+					{{#if firstTime}}
+						{{> onboarding}}
+					{{/if}}
 					<div class="connection-status">
 						{{> status}}
 					</div>
