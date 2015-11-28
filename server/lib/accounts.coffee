@@ -5,9 +5,32 @@ Accounts.emailTemplates.siteName = "ClassMash"
 Accounts.emailTemplates.from = "ClassMash <no-reply@classmash.com>"
 
 verifyEmailText = Accounts.emailTemplates.verifyEmail.text
-Accounts.emailTemplates.verifyEmail.text = (user, url) ->
+
+Accounts.emailTemplates.verifyEmail.subject = (user) ->
+  return "Welcome to ClassMash!"
+
+Accounts.emailTemplates.verifyEmail.html = (user, url) ->
   url = url.replace Meteor.absoluteUrl(), Meteor.absoluteUrl() + 'login/'
-  verifyEmailText user, url
+  html = """
+    Thank you for registering.  Please click below to verify your email address: \r\n\n
+    <br>
+    <br>
+    <a href="#{url}">
+      <button style="
+        background-color: #5dca8b;
+        border: solid 1px #5dca8b;
+        color: white;
+        padding: 9px 12px;
+        font-weight: 500;
+        font-size: 13px;
+        margin: 4px;
+        word-spacing: 0;
+        border-radius: 5px;
+        line-height: 16px;
+        cursor: pointer;">Verify Email</button>
+      </a>
+  """
+  return html
 
 resetPasswordText = Accounts.emailTemplates.resetPassword.text
 Accounts.emailTemplates.resetPassword.text = (user, url) ->
