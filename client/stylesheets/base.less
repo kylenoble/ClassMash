@@ -1952,6 +1952,12 @@ a.github-fork {
 		}
 		margin-right: 20px;
 	}
+	.invite-container {
+		position: absolute;
+		bottom: 10px;
+		width: 100%;
+		margin-left: -10px;
+	}
 	h3 {
 		&:extend(.small-title);
 		cursor: pointer;
@@ -1985,6 +1991,24 @@ a.github-fork {
 				position: absolute;
 				right: 6px;
 				top: 1px;
+			}
+		}
+		&.invite-friends {
+			margin-left: 10px;
+			&:hover {
+				i {
+					&:before {
+						.transform(rotate(180deg));
+					}
+					&:after {
+						.transform(rotate(-90deg));
+					}
+				}
+			}
+			i {
+				position: absolute;
+				right: 10px;
+				top: 8px;
 			}
 		}
 	}
@@ -2158,6 +2182,16 @@ a.github-fork {
 			background-color: @tertiary-background-color;
 			color: @secondary-font-color;
 		}
+	}
+}
+
+.icon-plus {
+	&.icon-invite {
+		font-size: 20px;
+	  position: absolute;
+	  color: #546A76;
+	  right: 20px;
+	  margin-top: -28px;
 	}
 }
 

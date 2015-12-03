@@ -43,6 +43,9 @@ Template.schoolSearchBox.events
         $('body').css('background-color', '#9BC4F2')
         Session.set 'isAddingUserName', true
 
+Template.schoolSearchBox.rendered = ->
+  Session.set('registerInvite', false)
+
   # 'keyup #inputSchoolName': _.throttle(((e) ->
   #   options =
   #     lat: lat.get(),

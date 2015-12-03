@@ -24,3 +24,4 @@ Meteor.publish 'schools', ->
       isHighSchool: 1
       isCollege: 1
       pos: 1
+      code: 1

@@ -40,7 +40,7 @@ Template.loginForm.helpers
   btnLoginSave: ->
     switch Template.instance().state.get()
       when 'register'
-        return t('Find Your School')
+        return t('Select Your School')
       when 'login'
         return t('Login')
       when 'email-verification'
@@ -53,6 +53,7 @@ Template.loginForm.helpers
 
 Template.loginForm.events
   'submit #login-card': (event, instance) ->
+    Session.set('registerInvite', false)
     event.preventDefault()
 
     button = $(event.target).find('button.login')
@@ -147,6 +148,9 @@ Template.loginForm.events
 Template.loginForm.onCreated ->
   instance = @
   @state = new ReactiveVar('login')
+
+  if Session.get('registerInvite')
+    @state.set('register')
 
   # element = $(".icon-facebook")
   # if !element.hasClass("icon-social-facebook")

@@ -1,0 +1,45 @@
+<template name="inviteClassmateFlex">
+	<header>
+		<div>
+			<h4>Invite</h4>
+		</div>
+	</header>
+	<div class="content">
+		<div class="wrapper">
+			<h4>Invite Classmates</h4>
+			<div class="input-line">
+				<label for="channel-members">Enter Email Addresses</label>
+				<input type="text" id="invite-email" placeholder="Click enter for multiple emails"><i class="icon-plus icon-invite"></i>
+				<ul class="selected-users">
+					{{#each selectedUsers}}
+						<li>{{email}}  <i class="icon-close remove-room-member"></i></li>
+					{{/each}}
+				</ul>
+			</div>
+			{{#if error.fields}}
+				<div class="input-error">
+					<strong>{{_ "Oops!"}}</strong>
+					{{#each error.fields}}
+						<p>{{_ "The_field_is_required" .}}</p>
+					{{/each}}
+				</div>
+			{{/if}}
+			{{#if error.invalid}}
+				<div class="input-error">
+					<strong>{{_ "Oops!"}}</strong>
+					{{{_ "Invalid_room_name" roomName}}}
+				</div>
+			{{/if}}
+			{{#if error.duplicate}}
+				<div class="input-error">
+					<strong>{{_ "Oops!"}}</strong>
+					{{{_ "Duplicate_channel_name" roomName}}}
+				</div>
+			{{/if}}
+			<div class="input-submit">
+				<button class="button white light-blue-border primary send-invite">Send</button>
+				<button class="button white red-border cancel-invite">{{_ "Cancel" }}</button>
+			</div>
+		</div>
+	</div>
+</template>

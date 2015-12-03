@@ -43,6 +43,13 @@ FlowRouter.route '/login',
     FlowRouter.go 'home'
 
 
+FlowRouter.route '/register',
+  name: 'register'
+
+  action: ->
+    Session.set('registerInvite', true)
+    FlowRouter.go 'home'
+
 FlowRouter.route '/home',
   name: 'home'
 

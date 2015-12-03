@@ -14,10 +14,10 @@ email
 fastclick
 http
 jquery
-meteor-platform
 reactive-dict
 reactive-var
 service-configuration
+reload
 
 arunoda:streams
 rocketchat:lib
@@ -102,3 +102,16 @@ twbs:bootstrap
 tsega:bootstrap3-datetimepicker
 peppelg:bootstrap-3-modal
 meteorhacks:kadira-profiler
+standard-minifiers
+meteor-base
+mobile-experience
+mongo
+blaze-html-templates
+session
+tracker
+logging
+random
+ejson
+spacebars
+check
+meteorhacks:ssr
