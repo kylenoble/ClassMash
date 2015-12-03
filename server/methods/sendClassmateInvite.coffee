@@ -21,8 +21,6 @@ Meteor.methods
       register: url + 'register'
     }
 
-    console.log emailData
-
     _.each emails, (email) ->
       Email.send({
         to: email.email,
