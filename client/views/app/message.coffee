@@ -24,7 +24,7 @@ Template.message.helpers
       when 'wm' then t('Welcome', { user: this.u.username })
       when 'rm' then t('Message_removed', { user: this.u.username })
       when 'rtc' then RocketChat.callbacks.run 'renderRtcMessage', this
-      when 'pdf', 'csv', 'vnd.ms-excel', 'vnd.msword', 'vnd.ms-powerpoint', 'pages', 'numbers', 'key' then (
+      when 'pdf', 'csv', 'vnd.ms-excel', 'vnd.msword', 'vnd.ms-powerpoint', 'pages', 'numbers', 'key', 'docx', 'mp3' then (
         this.html = this.msg
         message = RocketChat.callbacks.run 'renderMessage', this
         return this.html

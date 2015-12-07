@@ -52,7 +52,7 @@ readAsDataURL = (file, callback) ->
           previewIcon = 'fa fa-file-excel-o'
         else if fileType[1] is 'vnd.ms-powerpoint'
           previewIcon = 'fa fa-file-powerpoint-o'
-        else if fileType[1] == 'vnd.msword' or fileType[1] == 'msword'
+        else if fileType[1] == 'vnd.msword' or fileType[1] == 'msword' or fileExtension[fileExtension.length - 1] == 'docx'
           previewIcon = 'fa fa-file-word-o'
         else if fileType[1] is 'csv'
           previewIcon = 'fa fa-file-excel-o'
@@ -64,6 +64,8 @@ readAsDataURL = (file, callback) ->
           previewIcon = 'fa fa-bar-chart'
         else if fileExtension[fileExtension.length - 2] == 'key'
           previewIcon = 'icon-key'
+        else if fileExtension[fileExtension.length - 1] == 'mp3'
+          previewIcon = 'icon-music-tone-alt'
         else
           previewIcon = 'fa fa-file-o'
 
@@ -144,7 +146,7 @@ readAsDataURL = (file, callback) ->
               else if fileType[1] is 'vnd.ms-powerpoint'
                 icon = 'fa fa-file-powerpoint-o'
                 shortFileType.set('vnd.ms-powerpoint')
-              else if fileType[1] == 'vnd.msword' or fileType[1] == 'msword'
+              else if fileType[1] == 'vnd.msword' or fileType[1] == 'msword' or fileExtension[fileExtension.length - 1] == 'docx'
                 icon = 'fa fa-file-word-o'
                 shortFileType.set('vnd.msword')
               else if fileType[1] is 'csv'
@@ -162,6 +164,9 @@ readAsDataURL = (file, callback) ->
               else if fileExtension[fileExtension.length - 2] == 'key'
                 icon = 'icon-key'
                 shortFileType.set('key')
+              else if fileExtension[fileExtension.length - 1] == 'mp3'
+                icon = 'icon-music-tone-alt'
+                shortFileType.set('mp3')
               else
                 shortFileType.set(fileExtension[fileExtension.length - 1])
                 icon = 'fa fa-file-o'
