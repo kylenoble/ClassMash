@@ -17,7 +17,18 @@ jquery
 reactive-dict
 reactive-var
 service-configuration
-reload
+meteor-base
+standard-minifiers
+mobile-experience
+mongo
+blaze-html-templates
+session
+tracker
+logging
+random
+ejson
+spacebars
+check
 
 arunoda:streams
 rocketchat:lib
@@ -102,16 +113,4 @@ twbs:bootstrap
 tsega:bootstrap3-datetimepicker
 peppelg:bootstrap-3-modal
 meteorhacks:kadira-profiler
-standard-minifiers
-meteor-base
-mobile-experience
-mongo
-blaze-html-templates
-session
-tracker
-logging
-random
-ejson
-spacebars
-check
 meteorhacks:ssr
