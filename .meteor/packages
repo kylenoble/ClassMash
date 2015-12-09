@@ -29,6 +29,7 @@ random
 ejson
 spacebars
 check
+force-ssl
 
 arunoda:streams
 rocketchat:lib
