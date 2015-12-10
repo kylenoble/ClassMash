@@ -15,7 +15,7 @@ Template.messagePopupConfig.helpers
         Meteor.subscribe 'onlineUsers', filter
         user = Meteor.users.findOne Meteor.userId()
         school = user.profile.school
-        items = onlineUsers.find({$or: [{name: exp}, {username: exp},
+        items = onlineUsers.find({$and: [{$or: [{name: exp}, {username: exp}]},
           {'profile.school._id': school._id}]}, {limit: 5}).fetch()
 
         all =
