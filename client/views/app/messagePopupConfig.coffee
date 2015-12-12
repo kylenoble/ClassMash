@@ -14,7 +14,13 @@ Template.messagePopupConfig.helpers
         exp = new RegExp(filter, 'i')
         Meteor.subscribe 'onlineUsers', filter
         user = Meteor.users.findOne Meteor.userId()
+
+        return '' unless user
+
         school = user.profile.school
+
+        return '' unless user.profile
+
         items = onlineUsers.find({$and: [{$or: [{name: exp}, {username: exp}]},
           {'profile.school._id': school._id}]}, {limit: 5}).fetch()
 

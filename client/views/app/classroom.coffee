@@ -34,6 +34,11 @@ Template.classroomPage.helpers
   term: ->
     return Template.instance().room.term
 
+  showViewAll: ->
+    if Template.instance().showAllClassmates.get()
+      return true
+    return false
+
   classMembers: ->
     students = Template.instance().room.usernames
     length = students.length - 1
@@ -46,14 +51,25 @@ Template.classroomPage.helpers
 
 Template.classroomPage.events
 
-  # "click .member-info": (e) ->
-  #   # channel = $(e.currentTarget).data('channel')
-  #   # term = $(e.currentTarget).data('term')
-  #   # if channel?
-  #   #   FlowRouter.go 'channel', {name: channel, term: term}
-  #   #   return
-  #   Session.set('showUserProfile', true)
-  #   Session.set('showUserInfo', $(e.target).text().trim())
+  "click i.icon-bubbles": (e) ->
+    username = $(e.target).parent().children()[1].innerText
+    if Meteor.user().username == username
+      return
+    Meteor.call 'createDirectMessage', username, (error, result) ->
+      if error
+        return Errors.throw error.reason
+
+      if result?.rid?
+        clearActive()
+        $('.room-icons .icon-list').addClass('active')
+        FlowRouter.go('direct', { username: username })
+
+  'click #view-all-classmates': (e, t) ->
+    totalUsers = Template.instance().room.usernames.length
+    if totalUsers > 3
+      totalUsers - 1
+    Template.instance().membersLimit.set(totalUsers)
+    Template.instance().showAllClassmates.set(false)
 
   'click .add-teacher-email': (e, t) ->
     console.log 'adding teacher email'
@@ -112,3 +128,30 @@ Template.classroomPage.created = ->
 
   this.school = Schools.find().fetch()
   this.membersLimit = new ReactiveVar 3
+  this.showAllClassmates = new ReactiveVar true
+
+clearActive = () ->
+  if Session.get('isClassroom')
+    Session.set('isClassroom', false)
+    $('.room-icons .icon-home').removeClass('active')
+  if Session.get('isCalendar')
+    Session.set('isCalendar', false)
+    $('.room-icons .icon-calendar').removeClass('active')
+  if Session.get('isFiles')
+    Session.set('isFiles', false)
+    $('.room-icons .icon-docs').removeClass('active')
+  if Session.get('isThread')
+    Session.set('isThread', false)
+    $('.room-icons .icon-list').removeClass('active')
+  if Session.get('isProfile')
+    Session.set('isProfile', false)
+    $('.room-icons .icon-user').removeClass('active')
+  if Session.get('isFileDetails')
+    Session.set('isFileDetails', false)
+    $('.room-icons .icon-doc').removeClass('active')
+  if Session.get('isEventDetails')
+    Session.set('isEventDetails', false)
+    $('.room-icons .icon-notebook').removeClass('active')
+  if Session.get('isFileHistory')
+    Session.set('isFileHistory', false)
+    $('.room-icons .icon-graph').removeClass('active')

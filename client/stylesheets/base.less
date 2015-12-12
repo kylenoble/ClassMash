@@ -3469,6 +3469,23 @@ a.github-fork {
 	}
 }
 
+#view-all-classmates {
+	width: 100%;
+	background-color: @primary-blue;
+	border: solid 1px @primary-blue;
+	height: 50px;
+	margin-top: -1px;
+	color: white;
+	padding: 16px 15px;
+	font-family: Axis, 'Avenir', 'Helvetica Nueue';
+	font-size: 16px;
+	cursor: pointer;
+	&:hover {
+		background-color: darken(@primary-blue, 10%);
+		color: white;
+	}
+}
+
 .files-add-file {
 	.adding-files {
 		&.file-page {
@@ -3498,6 +3515,7 @@ a.github-fork {
 
 
 .classroom-container {
+	overflow-y: scroll;
 	.teacher-container {
 		margin-left: auto;
 		margin-right: 2%;
@@ -3623,13 +3641,22 @@ a.github-fork {
 		font-family: Axis, 'Avenir', 'Helvetica Nueue';
 		font-size: 16px;
 		cursor: pointer;
-		&:hover {
-			background-color: @secondary-blue;
-			color: white;
-			border: solid 1px @primary-blue;
-		}
 		i {
 			margin-right: 10px;
+		}
+		.user-name {
+			margin-left: 10px;
+		}
+		.icon-bubbles {
+			margin-top: -1px;
+			float: right;
+			margin-right: 20px;
+			font-size: 20px;
+			&:hover {
+				margin-top: -1px;
+				font-size: 22px;
+				color: @secondary-blue;
+			}
 		}
 		&:nth-child(2) {
 			margin-top: 5px;

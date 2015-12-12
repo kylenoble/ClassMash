@@ -35,7 +35,6 @@
       ls = subscription.ls
 
     Meteor.call 'loadHistory', rid, ts, limit, ls, (err, result) ->
-      console.log err
       room.unreadNotLoaded.set result.unreadNotLoaded
 
       wrapper = $('.messages-box .wrapper').get(0)

@@ -7,7 +7,7 @@ Meteor.publish 'onlineUsers', (name) ->
   exp = new RegExp(name, 'i')
   user = Meteor.users.findOne @userId
 
-  unless user.profile.school
+  unless user.profile
     return this.ready()
 
   school = user.profile.school

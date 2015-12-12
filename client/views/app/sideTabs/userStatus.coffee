@@ -33,7 +33,7 @@ Template.userStatus.events
     user = Meteor.user()
     clearActive()
     Meteor.logout ->
-      FlowRouter.go 'home'
+      FlowRouter.go 'login'
       Meteor.call('logoutCleanUp', user)
 
   'click #avatar': (event) ->

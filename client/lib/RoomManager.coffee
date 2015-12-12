@@ -84,6 +84,8 @@ onDeleteMessageStream = (msg) ->
 
           user = Meteor.users.findOne Meteor.userId(), fields: username: 1, profile: 1
 
+          return '' unless user
+
           query =
             t: type
             's._id': user.profile.school._id

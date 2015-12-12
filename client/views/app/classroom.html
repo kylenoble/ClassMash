@@ -32,9 +32,14 @@
         <label>Members</label>
         {{#each classMembers}}
           <div class="member-info">
-            <i class="icon-user"></i> {{this}}
+            <i class="icon-user"></i>
+            <span class="user-name">{{this}}</span>
+            <i class="icon-bubbles"></i>
           </div>
         {{/each}}
+        {{#if showViewAll}}
+          <button id="view-all-classmates">View All</button>
+        {{/if}}
       </div>
     </div>
   </div>

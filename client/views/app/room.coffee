@@ -64,7 +64,7 @@ Template.room.helpers
 
   roomIcon: ->
     roomData = Session.get('roomData' + this._id)
-    return '' unless roomData?.t
+    return '' unless roomData
 
     if roomData._id == 'GENERAL'
       return 'icon-graduation'
@@ -80,6 +80,9 @@ Template.room.helpers
 
   flexUserInfo: ->
     roomData = Session.get('roomData' + this._id)
+
+    return {} unless roomData
+
     if roomData.s
       school = roomData.s._id
     else
@@ -307,6 +310,9 @@ Template.room.helpers
 
   roomIcons: ->
     roomData = Session.get('roomData' + this._id)
+
+    return '' unless roomData
+
     if roomData.t is "c"
       return "<li><i class='icon-home'><label class='tab-label classroom'>Classroom</label></i></li>
             <li><i class='icon-list'><label class='tab-label thread'>Thread</label></i></li>
