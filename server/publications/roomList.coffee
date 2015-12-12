@@ -1,17 +1,11 @@
-Meteor.publish 'room', (typeName) ->
+Meteor.publish 'roomList', (type) ->
   unless this.userId
     return this.ready()
 
-  console.log '[publish] room ->'.green, 'arguments:', arguments
+  console.log '[publish] room list ->'.green, 'arguments:', arguments
 
-  if typeof typeName isnt 'string'
+  if typeof type isnt 'string'
     return this.ready()
-
-  console.log typeName
-  type = typeName.substr(0, 1)
-  name = typeName.split('%')
-  term = name[1]
-  name = name[0].substr(1)
 
   user = Meteor.users.findOne this.userId, fields: username: 1, profile: 1
 
@@ -20,9 +14,7 @@ Meteor.publish 'room', (typeName) ->
   if type in ['c', 'p']
     query =
       t: type
-      name: name
       's._id': user.profile.school._id
-      term: term
 
     if type is 'p'
       query.usernames = user.username
@@ -31,17 +23,15 @@ Meteor.publish 'room', (typeName) ->
       t: 'd'
       's._id': user.profile.school._id
       usernames:
-        $all: [user.username, name]
+        $all: [user.username]
   else if type is 'f'
     query =
       t: 'f'
       's._id': user.profile.school._id
-      'f._id': name
   else if type in ['a', 'q', 'o']
     query =
       t: type
       's._id': user.profile.school._id
-      'ci._id': name
   # Change to validate access manualy
   # if not Meteor.call 'canAccessRoom', rid, this.userId
   #   return this.ready()

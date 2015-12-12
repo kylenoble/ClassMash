@@ -35,9 +35,16 @@
     <div class="file-list-container">
       <div class="files-list">
         {{#each roomFiles}}
-          <div class="file">
+          <div class="file" id="{{_id}}">
             <i class="{{icon type}}"></i>
             <span class="filename">{{name}}</span>
+            <i class="icon-bubbles">
+              {{#if unread _id}}
+                <div class="file-unread-burger-alert">
+                  {{unread _id}}
+                </div>
+              {{/if}}
+            </i>
             <a href="{{url}}" target="_blank"><i class="icon-cloud-download"></i></a>
             <span class="username">{{user.username}}</span>
             <span class="date">{{cleanDate date}}</span>

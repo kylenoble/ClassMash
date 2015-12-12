@@ -1118,6 +1118,25 @@ label.required:after {
 	}
 }
 
+
+.file-unread-burger-alert {
+	background-color: #F95555;
+	border-radius: 20px;
+	position: absolute;
+	min-width: 18px;
+	height: 18px;
+	line-height: 18px;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	font-size: 10px;
+	top: -6px;
+	right: -15px;
+	z-index: 3;
+	padding: 0px 4px;
+	font-family: Lato, "Helvetica Neue";
+}
+
 .burger {
 	visibility: hidden;
 	display: none;
@@ -3788,12 +3807,15 @@ a.github-fork {
 				span {
 					color: #A7AAA4;
 				}
-				.icon-cloud-download {
+				.icon-cloud-download,
+				.icon-bubbles {
 					font-size: 25px;
 			    float: right;
 			    margin-right: 20px;
 			    color: #F3919D;
 					margin-top: 10px;
+					position: relative;
+					cursor: pointer;
 					&:hover {
 						color: darken(#F3919D, 20%);
 						font-size: 27px;

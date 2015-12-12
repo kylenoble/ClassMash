@@ -6,6 +6,14 @@ Template.filesPage.helpers
   cleanDate: (date) ->
     return moment(date).format("MM/D/YY h:mm a")
 
+  unread: (id) ->
+    console.log(id)
+    room = ChatRoom.find({"t": "f", "f._id": id}).fetch()
+    if room[0]
+      console.log room[0]
+      return room[0].msgs
+    return false
+
   icon: (fileName) ->
     fileType = fileName.split("/")
     fileExtension = fileName.split('.')
@@ -38,6 +46,13 @@ Template.filesPage.helpers
 Template.filesPage.events
   'click .file': (event) ->
     $('.adding-files').toggle()
+
+  'click .files-list .icon-bubbles': (event) ->
+    $('.adding-files').hide()
+    fileId = $(event.target).parent()[0].id
+    url = "/files/" + fileId
+    clearActive()
+    FlowRouter.go(url)
 
   'change #select-regular-file': (event, tmplate) ->
     e = event.originalEvent or event
@@ -125,6 +140,8 @@ Template.filesPage.onCreated ->
     roomId = instance.roomId.get()
     fileList = Meteor.subscribe 'fileList', limit, roomId
     instance.ready.set fileList.ready()
+    roomList = Meteor.subscribe 'roomList', "f"
+    instance.ready.set roomList.ready()
 
 
 clearFilters = ->
@@ -134,3 +151,29 @@ clearFilters = ->
   $('.filter-item.files').removeClass('active')
   $('.filter-item.notes').removeClass('active')
   $('.filter-item.note-cards').removeClass('active')
+
+clearActive = () ->
+  if Session.get('isClassroom')
+    Session.set('isClassroom', false)
+    $('.room-icons .icon-home').removeClass('active')
+  if Session.get('isCalendar')
+    Session.set('isCalendar', false)
+    $('.room-icons .icon-calendar').removeClass('active')
+  if Session.get('isFiles')
+    Session.set('isFiles', false)
+    $('.room-icons .icon-docs').removeClass('active')
+  if Session.get('isThread')
+    Session.set('isThread', false)
+    $('.room-icons .icon-list').removeClass('active')
+  if Session.get('isProfile')
+    Session.set('isProfile', false)
+    $('.room-icons .icon-user').removeClass('active')
+  if Session.get('isFileDetails')
+    Session.set('isFileDetails', false)
+    $('.room-icons .icon-doc').removeClass('active')
+  if Session.get('isEventDetails')
+    Session.set('isEventDetails', false)
+    $('.room-icons .icon-notebook').removeClass('active')
+  if Session.get('isFileHistory')
+    Session.set('isFileHistory', false)
+    $('.room-icons .icon-graph').removeClass('active')
