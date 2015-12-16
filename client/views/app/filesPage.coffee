@@ -47,7 +47,7 @@ Template.filesPage.events
   'click .file': (event) ->
     $('.adding-files').toggle()
 
-  'click .files-list .icon-bubbles': (event) ->
+  'click .files-list .icon-bubble': (event) ->
     $('.adding-files').hide()
     fileId = $(event.target).parent()[0].id
     url = "/files/" + fileId
