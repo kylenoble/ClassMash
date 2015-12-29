@@ -2243,6 +2243,47 @@ a.github-fork {
 	}
 }
 
+.topics-container {
+	margin-top: 60px;
+	background-color: #FDF7F2;
+	font-size: 14px;
+	border-bottom: 1px solid @primary-blue;
+	overflow-x: scroll;
+	min-height: 20px;
+	input {
+		color: @primary-blue;
+	}
+	.new-topic {
+		width: 200px;
+		padding: 5px 15px;
+	}
+	button {
+		color: @primary-blue;
+	}
+	.topic {
+		position: relative;
+		float: left;
+		color: @primary-blue;
+		font-family: Axis, "Avenir Next", "HelveticaNeue-Light", "sans-serif";
+		cursor: pointer;
+		padding: 5px 15px;
+		&.active {
+			background-color: @tertiary-background-color;
+			padding: 5px 15px;
+		}
+	}
+	.icon-plus {
+		color: @primary-blue;
+		font-size: 14px;
+		padding: 5px 7px;
+		float: left;
+		&:hover {
+			color: darken(@primary-blue, 10%);
+			cursor: pointer;
+		}
+	}
+}
+
 .fixed-title {
 	position: absolute;
 	.flex-center;
@@ -3209,7 +3250,7 @@ a.github-fork {
 
 .messages-box {
 	position: relative;
-	margin: 60px 20px 0px 0px;
+	margin: 0px 20px 0px 0px;
 	overflow: hidden;
 	width: 100%;
 	background-color: @secondary-background-color;

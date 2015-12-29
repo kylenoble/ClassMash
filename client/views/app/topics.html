@@ -1,0 +1,13 @@
+<template name="topics">
+	<div class="topics-container">
+		<i class="icon-plus"></i>
+		{{#if addingTopic}}
+			<input type="text" class="new-topic" placeholder="Enter Topic...">
+			<button class="add-topic button white green-border all">Add</button>
+			<button class="cancel-add-topic button white red-border all">Cancel</button>
+		{{/if}}
+		{{#each classTopics}}
+			<div class="topic {{checkActive title}}">{{title}}</div>
+		{{/each}}
+	</div>
+</template>

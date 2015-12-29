@@ -13,6 +13,8 @@ Meteor.methods
 
 			message.temp = true
 
+			message.topic = Session.get('topic')
+
 			message = RocketChat.callbacks.run 'beforeSaveMessage', message
 
 			ChatMessage.insert message

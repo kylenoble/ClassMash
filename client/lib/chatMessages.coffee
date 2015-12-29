@@ -9,10 +9,10 @@ class @ChatMessages
 
   resize: ->
     if $("body").width() < 1100
-      dif = $(".messages-container").find("footer").outerHeight() +
+      dif = 80 + $(".messages-container").find("footer").outerHeight() +
         $(".room-container").find(".room-icons").outerHeight()
     else
-      dif = 60 + $(".messages-container").find("footer").outerHeight()
+      dif = 80 + $(".messages-container").find("footer").outerHeight()
     $(".messages-box").css
       height: "calc(100% - #{dif}px)"
 
@@ -86,7 +86,7 @@ class @ChatMessages
       KonchatNotification.removeRoomNotification(rid)
       msg = input.value
       input.value = ''
-      msgObject = { _id: Random.id(), rid: rid, msg: msg}
+      msgObject = { _id: Random.id(), rid: rid, msg: msg, topic: Session.get('topic')}
       this.stopTyping(rid)
       #Check if message starts with /command
       if msg[0] is '/'

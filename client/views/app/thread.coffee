@@ -38,7 +38,7 @@ Template.threadPage.helpers
     }
 
   messagesHistory: ->
-    return ChatMessage.find { rid: Template.instance().roomId, t: { '$ne': 't' }  }, { sort: { ts: 1 } }
+    return ChatMessage.find { rid: Template.instance().roomId, topic: Session.get('topic'), t: { '$ne': 't' }  }, { sort: { ts: 1 } }
 
   hasMore: ->
     return RoomHistoryManager.hasMore Template.instance().roomId
@@ -222,7 +222,7 @@ Template.threadPage.events
       $(".room-icons").css('height', 0)
       $(".room-icons").hide()
       $(".footer").css("bottom", 0)
-      $(".messages-box").css('height', 'calc(100% - 44px)')
+      $(".messages-box").css('height', 'calc(100% - 124px)')
     KonchatNotification.removeRoomNotification @_id
 
   'focusout .input-message': (event) ->
@@ -231,7 +231,7 @@ Template.threadPage.events
       $(".room-icons").css('height', 49)
       $(".room-icons").show()
       $(".footer").css("bottom", 49)
-      $(".messages-box").css('height', 'calc(100% - 90px)')
+      $(".messages-box").css('height', 'calc(100% - 170px)')
       $(".wrapper").animate({ scrollTop: $(".wrapper")[0].scrollHeight })
 
   'keyup .input-message': (event) ->
@@ -328,6 +328,8 @@ Template.threadPage.onCreated ->
   else
     term = ''
 
+  Session.set('topic', 'general')
+
   this.roomId = RoomManager.openedRooms[typeLetter + path[2] + '%' + term].rid
   this.showUsersOffline = new ReactiveVar false
   this.atBottom = true
@@ -343,7 +345,7 @@ Template.threadPage.onRendered ->
 
   template = this
   if $('.messages-box > .wrapper')
-    wrapperOffset = $('.messages-box > .wrapper').offset()
+    wrapperOffset = $('.messages-box > .wrapper').offset() + 20
 
   onscroll = _.throttle ->
     template.atBottom = wrapper.scrollTop >= wrapper.scrollHeight - wrapper.clientHeight

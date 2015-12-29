@@ -54,7 +54,7 @@ Template.loginServices.events
           toastr.error error.message
           return
 
-        FlowRouter.go 'app'
+        FlowRouter.go 'home'
     else
       loginWithService = "loginWith" + (if this.service.service is 'meteor-developer' then 'MeteorDeveloperAccount' else _.capitalize(this.service.service))
       serviceConfig = this.service.clientConfig or {}
@@ -65,4 +65,4 @@ Template.loginServices.events
           console.log JSON.stringify(error), error.message
           toastr.error error.message
           return
-        FlowRouter.go 'app'
+        FlowRouter.go 'home'

@@ -6,3 +6,4 @@
 @SchoolsNew = new Meteor.Collection 'schools.new'
 @ChatReports = new Meteor.Collection 'rocketchat_reports'
 @CalendarItems = new Meteor.Collection 'calendar_items'
+@Topics = new Meteor.Collection 'topics'

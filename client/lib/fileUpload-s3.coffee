@@ -215,6 +215,7 @@ readAsDataURL = (file, callback) ->
                   t: shortFileType.get()
                   rid: Session.get('openedRoom')
                   msg: message
+                  topic: Session.get('topic')
                   file:
                     _id: fileId.get()
                 }, ->

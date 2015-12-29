@@ -56,4 +56,4 @@ Template.username.events
 
       if not err?
         Meteor.call 'joinDefaultChannels'
-        FlowRouter.go 'app'
+        FlowRouter.go 'home'

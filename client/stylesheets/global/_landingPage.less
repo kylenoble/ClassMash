@@ -103,6 +103,65 @@
 
 }
 
+.four-oh-four {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+
+  .header {
+    display: table;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: @primary-background-color;
+  }
+
+  .text-vertical-center {
+      display: table-cell;
+      text-align: center;
+      vertical-align: middle;
+  }
+
+  .text-vertical-center h1 {
+      margin: 0;
+      padding: 0;
+      font-size: 8em;
+      font-family: 'Axis';
+      font-weight: 700;
+  }
+
+  .text-vertical-center h3 {
+    font-size: 3.25em;
+    font-family: "Lato";
+  }
+
+  .btn-dark {
+      color: #fff;
+      border: 1px solid @primary-green;
+      border-radius: 5px;
+      margin-top: 5%;
+  }
+
+  .btn-dark:hover,
+  .btn-dark:focus,
+  .btn-dark:active {
+      background-color: @primary-green;
+  }
+
+  .btn-light {
+      border-radius: 0;
+      color: #333;
+      background-color: rgb(255,255,255);
+  }
+
+  .btn-light:hover,
+  .btn-light:focus,
+  .btn-light:active {
+      color: #333;
+      background-color: rgba(255,255,255,0.8);
+  }
+}
+
 @media(max-width:768px) {
   .landing-page {
     .map {

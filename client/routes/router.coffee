@@ -10,38 +10,31 @@ FlowRouter.subscriptions = ->
     @register 'activeUsers', Meteor.subscribe('activeUsers')
     @register 'admin-settings', Meteor.subscribe('admin-settings')
 
-
 FlowRouter.route '/',
-  name: 'index'
+  name: 'home'
 
-  action: ->
-    BlazeLayout.render 'landingPage'
+  triggersEnter: [ (context, redirect) ->
+    if Meteor.userId()
+      BlazeLayout.render 'main', {center: 'loading'}
 
-FlowRouter.route '/app',
-  name: 'app'
-
-  action: ->
-    BlazeLayout.render 'main', {center: 'loading'}
-    if not Meteor.userId()
-      return FlowRouter.go 'home'
-
-    Tracker.autorun (c) ->
-      if FlowRouter.subsReady() is true
-        Meteor.defer ->
-          if Meteor.user().defaultRoom?
-            room = Meteor.user().defaultRoom.split('/')
-            FlowRouter.go room[0], {name: room[1]}
-          else
-            FlowRouter.go 'home'
-        c.stop()
-
+      Tracker.autorun (c) ->
+        if FlowRouter.subsReady() is true
+          Meteor.defer ->
+            if Meteor.user().defaultRoom?
+              room = Meteor.user().defaultRoom.split('/')
+              FlowRouter.go room[0], {name: room[1]}
+            else
+              FlowRouter.go 'home'
+          c.stop()
+    else
+      BlazeLayout.render 'landingPage'
+ ]
 
 FlowRouter.route '/login',
   name: 'login'
 
   action: ->
     FlowRouter.go 'home'
-
 
 FlowRouter.route '/register',
   name: 'register'
@@ -134,3 +127,29 @@ FlowRouter.route '/room-not-found/:type/:name',
   action: (params) ->
     Session.set 'roomNotFound', {type: params.type, name: params.name}
     BlazeLayout.render 'main', {center: 'roomNotFound'}
+
+FlowRouter.route '/four-oh-four',
+  name: 'four-oh-four'
+
+  action: (params) ->
+    BlazeLayout.render 'four-oh-four'
+
+FlowRouter.notFound = action: ->
+  name: '404'
+  FlowRouter.go 'four-oh-four'
+
+checkLogin = ->
+  if Meteor.userId()
+    BlazeLayout.render 'main', {center: 'loading'}
+
+    Tracker.autorun (c) ->
+      if FlowRouter.subsReady() is true
+        Meteor.defer ->
+          if Meteor.user().defaultRoom?
+            room = Meteor.user().defaultRoom.split('/')
+            FlowRouter.go room[0], {name: room[1]}
+          else
+            FlowRouter.go 'home'
+        c.stop()
+  else
+    BlazeLayout.render 'landingPage'

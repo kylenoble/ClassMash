@@ -109,7 +109,7 @@ Template.loginForm.events
             else
               toastr.error error.reason
             return
-          FlowRouter.go 'app'
+          FlowRouter.go 'home'
 
   'click .register': ->
     element = $("#login-card")

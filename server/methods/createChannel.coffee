@@ -68,6 +68,8 @@ Meteor.methods
 
       RocketChat.callbacks.run 'afterCreateChannel', user, room
 
+    Topics.insert title: 'general', classId: rid
+
     return {
       rid: rid
     }
