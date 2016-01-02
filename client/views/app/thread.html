@@ -1,6 +1,8 @@
 <template name="threadPage">
   <div class="thread-container">
+    {{#if showTopics}}
     {{> topics}}
+    {{/if}}
     <div class="container-bars">
       {{#each uploading}}
         <div class="upload-progress {{#if error}}upload-error{{/if}}">

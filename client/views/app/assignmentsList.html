@@ -1,0 +1,95 @@
+<template name="assignmentsList">
+  <div class="files-container">
+    <div class="filter-container">
+      <button type="button" class="button white blue-border add-assignment" data-toggle="modal" data-target="#eventModal">Add</button>
+      <h1 class="assignments-title">Assignments</h1>
+    </div>
+    <div class="file-list-container">
+      <div class="files-list">
+        {{#each assignments}}
+          <div class="file" id="{{_id}}">
+            <i class="{{icon type}}"></i>
+            <span class="filename">{{title}}</span>
+            <i class="icon-bubble {{type}}">
+              {{#if unread _id}}
+                <div class="file-unread-burger-alert">
+                  {{unread _id}}
+                </div>
+              {{/if}}
+            </i>
+            <span class="username">{{u.username}}</span>
+            <span class="date">{{cleanDate date}}</span>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+  <div id="eventModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close cancel-add-event" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Assignment</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group col-md-12">
+              <label for="text">Title:</label>
+              <input type="text" class="form-control" id="event-title">
+            </div>
+          </div>
+          <div class="row">
+            <div class='form-group col-md-6'>
+              <label for="start-date">Start Date:</label>
+              <div class="input-group date" id="datetimepicker1">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="text" class="set-due-date form-control" id="start-date"/>
+              </div>
+            </div>
+            <div class='form-group col-md-6'>
+              <label for="end-date">End Date:</label>
+              <div class="input-group date" id="datetimepicker2">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="text" class="set-due-date form-control" id="end-date"/>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-12 type-label">
+              <label for="description">Type:</label>
+            </div>
+            <div class="row event-types">
+              <div class="form-group col-xs-3 col-sm-3">
+                <div class="type-item">
+                  <span><i class="icon-home"></i> Homework</span>
+                </div>
+              </div>
+              <div class="form-group col-xs-2 col-sm-2">
+                <div class="type-item">
+                  <span><i class="icon-note"></i> Paper</span>
+                </div>
+              </div>
+              <div class="form-group col-xs-3 col-sm-3">
+                <div class="type-item">
+                  <span><i class="icon-hourglass"></i> Quiz/Test</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-12">
+              <label for="description">Description:</label>
+              <textarea class="form-control" id="event-description" rows="4"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="button white light-blue-border primary add-event-click" data-dismiss="modal">Add</button>
+          <button type="button" class="button white red-border cancel-add-event" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

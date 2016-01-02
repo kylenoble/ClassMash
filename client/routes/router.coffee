@@ -50,6 +50,17 @@ FlowRouter.route '/home',
     BlazeLayout.render 'main', {center: 'home'}
     KonchatNotification.getDesktopPermission()
 
+FlowRouter.route '/my-files',
+  name: 'my-files'
+
+  action: ->
+    BlazeLayout.render 'main', {center: 'myFiles'}
+
+FlowRouter.route '/my-calendar',
+  name: 'my-calendar'
+
+  action: ->
+    BlazeLayout.render 'main', {center: 'myCalendar'}
 
 FlowRouter.route '/changeavatar',
   name: 'changeAvatar'

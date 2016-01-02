@@ -293,6 +293,11 @@ Template.room.helpers
       $('.room-icons .icon-calendar').addClass('active')
     return Session.get('isCalendar')
 
+  assignments: ->
+    if Session.get('isAssignments')
+      $('.room-icons .icon-book-open').addClass('active')
+    return Session.get('isAssignments')
+
   fileDetails: ->
     if Session.get('isFileDetails')
       $('.room-icons .icon-doc').addClass('active')
@@ -316,8 +321,9 @@ Template.room.helpers
     if roomData.t is "c"
       return "<li><i class='icon-home'><label class='tab-label classroom'>Classroom</label></i></li>
             <li><i class='icon-list'><label class='tab-label thread'>Thread</label></i></li>
+            <li><i class='icon-calendar'><label class='tab-label cal'>Cal</label></i></li>
             <li><i class='icon-docs'><label class='tab-label files'>Files</label></i></li>
-            <li><i class='icon-calendar'><label class='tab-label cal'>Cal</label></i></li>"
+            <li><i class='icon-book-open'><label class='tab-label assignments'>Assignments</label></i></li>"
     if roomData.t is 'p'
       return "<li><i class='icon-list'><label class='tab-label thread'>Thread</label></i></li>
             <li><i class='icon-docs'><label class='tab-label files'>Files</label></i></li>
@@ -387,6 +393,10 @@ Template.room.events
   "click .room-icons .icon-notebook": (e) ->
     clearActive()
     Session.set('isEventDetails', true)
+
+  "click .room-icons .icon-book-open": (e) ->
+    clearActive()
+    Session.set('isAssignments', true)
 
   "click .room-icons .icon-graph": (e) ->
     clearActive()
@@ -651,6 +661,9 @@ clearActive = () ->
   if Session.get('isEventDetails')
     Session.set('isEventDetails', false)
     $('.room-icons .icon-notebook').removeClass('active')
+  if Session.get('isAssignments')
+    Session.set('isAssignments', false)
+    $('.room-icons .icon-book-open').removeClass('active')
   if Session.get('isFileHistory')
     Session.set('isFileHistory', false)
     $('.room-icons .icon-graph').removeClass('active')

@@ -128,7 +128,6 @@ FlowRouter.route '/direct/:username',
 
   triggersExit: [roomExit]
 
-
 FlowRouter.route '/files/:id',
   name: 'files'
 
@@ -138,7 +137,6 @@ FlowRouter.route '/files/:id',
 
   triggersExit: [roomExit]
 
-
 FlowRouter.route '/calendar-item/:id',
   name: 'calendar-item'
 
@@ -146,12 +144,16 @@ FlowRouter.route '/calendar-item/:id',
     Session.set 'showUserInfo'
     openRoom 'o', '', '', params.id
 
+  triggersExit: [roomExit]
+
 FlowRouter.route '/assignment/:id',
   name: 'assignment'
 
   action: (params, queryParams) ->
     Session.set 'showUserInfo'
     openRoom 'a', '', '', params.id
+
+  triggersExit: [roomExit]
 
 FlowRouter.route '/quiz-test/:id',
   name: 'quiz-test'

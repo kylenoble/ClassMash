@@ -31,30 +31,30 @@ Template.directMessagesFlex.events
     event.currentTarget.focus()
 
   'click .cancel-direct-message': (e, instance) ->
-    FlexTab.closeFlex()
+    SideNav.closeFlex()
     instance.clearForm()
 
   'click header': (e, instance) ->
-    FlexTab.closeFlex()
+    SideNav.closeFlex()
     instance.clearForm()
 
   'mouseenter header': ->
-    FlexTab.overArrow()
+    SideNav.overArrow()
 
   'mouseleave header': ->
-    FlexTab.leaveArrow()
+    SideNav.leaveArrow()
 
   'keydown input[type="text"]': (e, instance) ->
     Template.instance().error.set([])
 
   'click .save-direct-message': (e, instance) ->
-    err = FlexTab.validate()
+    err = SideNav.validate()
     if not err
       username = instance.selectedUser.get()
       Meteor.call 'createDirectMessage', username, (err, result) ->
         if err
           return toastr.error err.reason
-        FlexTab.closeFlex()
+        SideNav.closeFlex()
         instance.clearForm()
         FlowRouter.go 'direct', { username: username }
     else

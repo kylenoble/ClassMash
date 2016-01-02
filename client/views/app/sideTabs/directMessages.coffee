@@ -6,5 +6,5 @@ Template.directMessages.helpers
 
 Template.directMessages.events
 	'click .add-room': (e, instance) ->
-		FlexTab.setFlex "directMessagesFlex"
-		FlexTab.openFlex()
+		SideNav.setFlex "directMessagesFlex"
+		SideNav.openFlex()

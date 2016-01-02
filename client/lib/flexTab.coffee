@@ -1,105 +1,77 @@
 @FlexTab = (->
 
-	flexTab = {}
-	flexTabNav = {}
-	arrow = {}
-	animating = false
+  flexTab = {}
+  flexTabNav = {}
+  animating = false
 
-	toggleArrow = (status = null) ->
-		if status is -1 or (status isnt 1 and arrow.hasClass "top")
-			arrow.removeClass "top"
-			arrow.addClass "bottom"
-		else
-			arrow.addClass "top"
-			arrow.removeClass "bottom"
+  toggleCurrent = ->
+    if flexTabNav.opened then closeFlex() else AccountBox.toggle()
 
-	toggleCurrent = ->
-		if flexTabNav.opened then closeFlex() else AccountBox.toggle()
+  focusInput = ->
+    setTimeout ->
+      flexTab.find("input[type='text']:first")?.focus()
+    , 200
+    return
 
-	overArrow = ->
-		arrow.addClass "hover"
+  validate = ->
+    invalid = []
+    flexTab.find("input.required").each ->
+      if not this.value.length
+        invalid.push $(this).prev("label").html()
+    if invalid.length
+      return invalid
+    return false
 
-	leaveArrow = ->
-		arrow.removeClass "hover"
+  toggleFlex = (status = null, callback = null) ->
+    return if animating == true
+    animating = true
+    if status is -1 or (status isnt 1 and flexTabNav.opened)
+      flexTabNav.opened = false
+      flexTabNav.addClass "hidden"
+    else
+      flexTabNav.opened = true
+      # added a delay to make sure the template is already rendered before animating it
+      setTimeout ->
+        flexTabNav.removeClass "hidden"
+      , 50
+    setTimeout ->
+      animating = false
+      callback?()
+    , 500
 
-	arrowBindHover = ->
-		arrow.on "mouseenter", ->
-			flexTab.find("header").addClass "hover"
-		arrow.on "mouseout", ->
-			flexTab.find("header").removeClass "hover"
+  openFlex = (callback = null) ->
+    return if animating == true
+    toggleFlex 1, callback
+    focusInput()
 
-	focusInput = ->
-		setTimeout ->
-			flexTab.find("input[type='text']:first")?.focus()
-		, 200
-		return
+  closeFlex = (callback = null) ->
+    return if animating == true
+    toggleFlex -1, callback
 
-	validate = ->
-		invalid = []
-		flexTab.find("input.required").each ->
-			if not this.value.length
-				invalid.push $(this).prev("label").html()
-		if invalid.length
-			return invalid
-		return false;
+  flexStatus = ->
+    return flexTabNav.opened
 
-	toggleFlex = (status = null, callback = null) ->
-		return if animating == true
-		animating = true
-		if status is -1 or (status isnt 1 and flexTabNav.opened)
-			flexTabNav.opened = false
-			flexTabNav.addClass "hidden"
-		else
-			flexTabNav.opened = true
-			# added a delay to make sure the template is already rendered before animating it
-			setTimeout ->
-				flexTabNav.removeClass "hidden"
-			, 50
-		setTimeout ->
-			animating = false
-			callback?()
-		, 500
+  setFlex = (template, data={}) ->
+    Session.set "flex-nav-template", template
+    Session.set "flex-nav-data", data
 
-	openFlex = (callback = null) ->
-		return if animating == true
-		toggleArrow 1
-		toggleFlex 1, callback
-		focusInput()
+  getFlex = ->
+    return {
+      template: Session.get "flex-nav-template"
+      data: Session.get "flex-nav-data"
+    }
 
-	closeFlex = (callback = null) ->
-		return if animating == true
-		toggleArrow -1
-		toggleFlex -1, callback
+  init = ->
+    flexTab = $(".flex-tab")
+    flexTabNav = flexTab.find ".flex-nav"
+    setFlex ""
 
-	flexStatus = ->
-		return flexTabNav.opened
-
-	setFlex = (template, data={}) ->
-		Session.set "flex-nav-template", template
-		Session.set "flex-nav-data", data
-
-	getFlex = ->
-		return {
-			template: Session.get "flex-nav-template"
-			data: Session.get "flex-nav-data"
-		}
-
-	init = ->
-		flexTab = $(".flex-tab")
-		flexTabNav = flexTab.find ".flex-nav"
-		arrow = flexTab.children ".arrow"
-		setFlex ""
-		arrowBindHover()
-
-	init: init
-	setFlex: setFlex
-	getFlex: getFlex
-	openFlex: openFlex
-	closeFlex: closeFlex
-	validate: validate
-	flexStatus: flexStatus
-	toggleArrow: toggleArrow
-	toggleCurrent: toggleCurrent
-	overArrow: overArrow
-	leaveArrow: leaveArrow
+  init: init
+  setFlex: setFlex
+  getFlex: getFlex
+  openFlex: openFlex
+  closeFlex: closeFlex
+  validate: validate
+  flexStatus: flexStatus
+  toggleCurrent: toggleCurrent
 )()

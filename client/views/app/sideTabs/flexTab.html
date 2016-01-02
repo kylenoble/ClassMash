@@ -1,12 +1,13 @@
 <template name="flexTab">
 	<aside class="flex-tab" role="navigation">
 		<header class="header">
-			<h2>Messages</h2>
+			<h2>Locker</h2>
 		</header>
 		{{#if currentUser}}
 			<div class="rooms-list">
 				<div class="wrapper">
-					{{> directMessages }}
+					{{> myCalendarItem }}
+					{{> myFilesItem }}
 					<!-- <h3>
 						<a href="{{pathFor 'privateHistory'}}">{{_ "History"}}</a>
 					</h3> -->

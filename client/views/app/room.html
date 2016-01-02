@@ -40,6 +40,10 @@
 								{{else}}
 									{{#if fileHistory}}
 										{{> fileHistoryPage}}
+									{{else}}
+										{{#if assignments}}
+											{{> assignmentsList}}
+										{{/if}}
 									{{/if}}
 								{{/if}}
 							{{/if}}

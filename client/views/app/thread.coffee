@@ -58,6 +58,12 @@ Template.threadPage.helpers
   canJoin: ->
     return !! ChatRoom.findOne { _id: Template.instance().roomId, t: { $in: ['c', 'a', 'q', 'o', 'f'] } }
 
+  showTopics: ->
+    roomData = Session.get('roomData' + Template.instance().roomId)
+    if roomData.t is 'c'
+      return true
+    return false
+
   usersTyping: ->
     users = MsgTyping.get @_id
     if users.length is 0
@@ -428,6 +434,9 @@ clearActive = () ->
   if Session.get('isEventDetails')
     Session.set('isEventDetails', false)
     $('.room-icons .icon-notebook').removeClass('active')
+  if Session.get('isAssignments')
+    Session.set('isAssignments', false)
+    $('.room-icons .icon-book-open').removeClass('active')
   if Session.get('isFileHistory')
     Session.set('isFileHistory', false)
     $('.room-icons .icon-graph').removeClass('active')

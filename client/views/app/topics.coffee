@@ -1,8 +1,6 @@
 Template.topics.helpers
   classTopics: ->
-    topics = Topics.find("classId": Template.instance().classId.get()).fetch()
-    console.log topics
-    return topics
+    return Topics.find("classId": Template.instance().classId.get()).fetch()
 
   checkActive: (topic)->
     if Session.get("topic") is topic
@@ -22,7 +20,6 @@ Template.topics.events
 
   "click .add-topic": (event, template) ->
     topic = $('.new-topic').val()
-    console.log topic.length
     if topic.length < 1
       toastr.error "Please enter a topic before adding"
       return

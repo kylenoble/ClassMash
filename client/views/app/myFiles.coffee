@@ -1,17 +1,14 @@
-Template.filesPage.helpers
-  roomFiles: ->
+Template.myFiles.helpers
+  myFilesList: ->
     filter = Template.instance().currentFilter.get()
-    rid = Template.instance().roomId.get()
-    return fileCollection.find({category: filter, 'room._id': rid}, {limit: 10})
+    return fileCollection.find({category: filter, 'user._id': Meteor.userId()}, {limit: 10})
 
   cleanDate: (date) ->
     return moment(date).format("MM/D/YY h:mm a")
 
   unread: (id) ->
-    console.log(id)
     room = ChatRoom.find({"t": "f", "f._id": id}).fetch()
     if room[0]
-      console.log room[0]
       return room[0].msgs
     return false
 
@@ -44,7 +41,7 @@ Template.filesPage.helpers
       else
         return 'fa fa-file-o'
 
-Template.filesPage.events
+Template.myFiles.events
   'click .file': (event) ->
     $('.adding-files').toggle()
 
@@ -103,46 +100,25 @@ Template.filesPage.events
     $('.filter-item.note-cards').addClass('active')
     Template.instance().currentFilter.set('note-cards')
 
-Template.filesPage.onRendered ->
+Template.myFiles.onRendered ->
+  $('.rooms-list ul').children().removeClass('active')
+
   $('.filter-item.files').addClass('active')
-  console.log('files page rendered')
+  console.log('my files page rendered')
 
-Template.filesPage.onCreated ->
-  path = window.location.pathname.split('/')
-  if path[1] is 'group'
-    typeLetter = 'p'
-  else if path[1] is 'files'
-    typeLetter = 'f'
-  else if path[1] is 'calendar-item'
-    typeLetter = 'o'
-  else if path[1] is 'quiz-test'
-    typeLetter = 'q'
-  else if path[1] is 'assignment'
-    typeLetter = 'a'
-  else
-    typeLetter = path[1][0]
-
-  if path[3]
-    term = path[3]
-  else if typeLetter in ['p','d']
-    term = 'all'
-  else
-    term = ''
-
+Template.myFiles.onCreated ->
   instance = @
   @limit = new ReactiveVar 50
   @currentFilter = new ReactiveVar 'regular'
-  @roomId = new ReactiveVar RoomManager.openedRooms[typeLetter + path[2] + '%' + term].rid
+  @roomId = new ReactiveVar ''
   @ready = new ReactiveVar true
 
   @autorun ->
     filter = instance.currentFilter.get()
     limit = instance.limit.get()
     roomId = instance.roomId.get()
-    fileList = Meteor.subscribe 'fileList', limit, roomId
-    instance.ready.set fileList.ready()
-    roomList = Meteor.subscribe 'roomList', "f"
-    instance.ready.set roomList.ready()
+    myFiles = Meteor.subscribe 'myFiles', limit, roomId
+    instance.ready.set myFiles.ready()
 
 
 clearFilters = ->

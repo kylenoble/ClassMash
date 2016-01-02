@@ -1,0 +1,63 @@
+<template name="myFiles">
+  <header class="fixed-title">
+    {{> burger}}
+    <h2>
+      <span class="room-title">My Files</span>
+    </h2>
+    {{> rightBurger}}
+  </header>
+  <div class="files-container">
+    <div class="filter-container">
+      <div class="filters">
+        <div class="filter-item files">
+          <span>Files</span>
+        </div>
+        <div class="filter-item notes">
+          <span>Notes</span>
+        </div>
+        <div class="filter-item note-cards">
+          <span>Note Cards</span>
+        </div>
+      </div>
+    </div>
+    <div class="files-add-file">
+      <div class="file">
+        <i class="icon-arrow-up"></i>
+      </div>
+      <div class="adding-files file-page">
+        <div class="regular-files">
+          <input type="file" id="select-regular-file">
+          <label class="label-regular-files" for="select-regular-file"><i class="icon-paper-clip"></i><span class="file-upload-text">Files</span></label>
+        </div>
+        <div class="add-notes">
+          <input type="file" id="select-notes">
+          <label class="label-add-notes" for="select-notes"><i class="icon-list"></i><span class="file-upload-text">Notes</span></label>
+        </div>
+        <div class="add-note-cards">
+          <input type="file" id="select-note-cards">
+          <label class="label-add-note-cards" for="select-note-cards"><i class="icon-layers"><span class="file-upload-text">Note Cards</span></i></label>
+        </div>
+      </div>
+    </div>
+    <div class="file-list-container">
+      <div class="files-list">
+        {{#each myFilesList}}
+          <div class="file" id="{{_id}}">
+            <i class="{{icon type}}"></i>
+            <span class="filename">{{name}}</span>
+            <i class="icon-bubble">
+              {{#if unread _id}}
+                <div class="file-unread-burger-alert">
+                  {{unread _id}}
+                </div>
+              {{/if}}
+            </i>
+            <a href="{{url}}" target="_blank"><i class="icon-cloud-download"></i></a>
+            <span class="username">{{user.username}}</span>
+            <span class="date">{{cleanDate date}}</span>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</template>

@@ -6,7 +6,6 @@ Template.home.helpers
   firstTime: ->
     user = Meteor.user()
     diff = (new Date() - new Date(user.createdAt)) / 1000 / 60
-    console.log diff
     if diff <= 6
       return true
     else
