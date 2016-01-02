@@ -228,7 +228,10 @@ Template.threadPage.events
       $(".room-icons").css('height', 0)
       $(".room-icons").hide()
       $(".footer").css("bottom", 0)
-      $(".messages-box").css('height', 'calc(100% - 124px)')
+      if Session.get('roomType') is 'c'
+        $(".messages-box").css('height', 'calc(100% - 124px)')
+      else
+        $(".messages-box").css('height', 'calc(100% - 44px)')
     KonchatNotification.removeRoomNotification @_id
 
   'focusout .input-message': (event) ->
@@ -237,7 +240,10 @@ Template.threadPage.events
       $(".room-icons").css('height', 49)
       $(".room-icons").show()
       $(".footer").css("bottom", 49)
-      $(".messages-box").css('height', 'calc(100% - 170px)')
+      if Session.get('roomType') is 'c'
+        $(".messages-box").css('height', 'calc(100% - 170px)')
+      else
+        $(".messages-box").css('height', 'calc(100% - 90px)')
       $(".wrapper").animate({ scrollTop: $(".wrapper")[0].scrollHeight })
 
   'keyup .input-message': (event) ->
@@ -337,6 +343,8 @@ Template.threadPage.onCreated ->
   Session.set('topic', 'general')
 
   this.roomId = RoomManager.openedRooms[typeLetter + path[2] + '%' + term].rid
+  data = Session.get('roomData' + this.roomId)
+  Session.set('roomType', data.t)
   this.showUsersOffline = new ReactiveVar false
   this.atBottom = true
   this.unreadCount = new ReactiveVar 0
@@ -348,6 +356,9 @@ Template.threadPage.onRendered ->
   # ScrollListener.init()
   wrapper = this.find('.wrapper')
   newMessage = this.find(".new-message")
+
+  console.log wrapper.scrollHeight
+  console.log wrapper.clientHeight
 
   template = this
   if $('.messages-box > .wrapper')

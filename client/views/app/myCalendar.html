@@ -30,6 +30,8 @@
               <label for="description">Class/Group:</label>
               <select id="class-group" name="Class or Group">
                 <option value="initial-select-val" selected>Select a Class/Group</option>
+                <option value="" disabled>Misc</option>
+                <option value="">Me Only</option>
                 <option value="" disabled>Classes</option>
                 {{#each classSubs}}
                   <option value="{{rid}}">{{name}}</option>
@@ -38,11 +40,9 @@
                 {{#each groupSubs}}
                   <option value="{{rid}}">{{name}}</option>
                 {{/each}}
-                <option value="" disabled>Misc</option>
-                <option value="">Other</option>
               </select>
             </div>
-          </div>          
+          </div>
           <div class="row">
             <div class='form-group col-md-6'>
               <label for="start-date">Start Date:</label>
