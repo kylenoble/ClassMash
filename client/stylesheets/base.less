@@ -3811,18 +3811,21 @@ a.github-fork {
 			}
 		}
 	}
-	.file-list-container {
+	.file-list-container,
+	.assignments-list-container {
 		width: 100%;
 		display: flex;
 		margin-top: 60px;
-		.files-list {
+		.files-list,
+		.assignments-list {
 			display: flex;
 	    width: 100%;
 	    margin-top: 15px;
 	    margin-right: auto;
 	    margin-left: auto;
 			flex-direction: column;
-			.file {
+			.file,
+			.assignment {
 				background-color: white;
 				border: 1px solid lightgray;
 				padding: 5px 10px;
@@ -3834,7 +3837,8 @@ a.github-fork {
 				height: 60px;
 				font-family: Axis, "Avenir Next", "HelveticaNeue-Light", "sans-serif";
 				margin-top: -3px;
-				.filename {
+				.filename,
+				.assignment-name {
 					position: absolute;
 			    font-size: 22px;
 			    width: 40%;
@@ -3881,6 +3885,15 @@ a.github-fork {
 					}
 					&.fa-file-o {
 						color: #FFF35D;
+					}
+					&.icon-home {
+						color: #637883;
+					}
+					&.icon-note {
+						color: #7DB2F1;
+					}
+					&.icon-hourglass {
+						color: #F06475;
 					}
 				}
 				span {

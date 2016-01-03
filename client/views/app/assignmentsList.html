@@ -4,12 +4,12 @@
       <button type="button" class="button white blue-border add-assignment" data-toggle="modal" data-target="#eventModal">Add</button>
       <h1 class="assignments-title">Assignments</h1>
     </div>
-    <div class="file-list-container">
-      <div class="files-list">
+    <div class="assignments-list-container">
+      <div class="assignments-list">
         {{#each assignments}}
-          <div class="file" id="{{_id}}">
+          <div class="assignment" id="{{_id}}">
             <i class="{{icon type}}"></i>
-            <span class="filename">{{title}}</span>
+            <span class="assignment-name">{{title}}</span>
             <i class="icon-bubble {{type}}">
               {{#if unread _id}}
                 <div class="file-unread-burger-alert">
