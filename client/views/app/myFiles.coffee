@@ -12,6 +12,9 @@ Template.myFiles.helpers
       return room[0].msgs
     return false
 
+  uploading: ->
+    return Session.get 'uploading'
+
   icon: (fileName) ->
     fileType = fileName.split("/")
     fileExtension = fileName.split('.')

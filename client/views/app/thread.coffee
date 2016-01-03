@@ -351,14 +351,14 @@ Template.threadPage.onCreated ->
 
 Template.threadPage.onRendered ->
   console.log("thread page rendered")
+  if Session.get('roomType') is 'c'
+    $('.container-bars').css("top", 87)
+
   this.chatMessages = new ChatMessages
   this.chatMessages.init(this.firstNode)
   # ScrollListener.init()
   wrapper = this.find('.wrapper')
   newMessage = this.find(".new-message")
-
-  console.log wrapper.scrollHeight
-  console.log wrapper.clientHeight
 
   template = this
   if $('.messages-box > .wrapper')

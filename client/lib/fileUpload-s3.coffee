@@ -111,7 +111,7 @@ readAsDataURL = (file, callback) ->
           else
             user = Meteor.user()
             room = ChatRoom.find({_id: fileRoomId.get(), 's._id': user.profile.school._id}).fetch()
-            if room[0].t != 'f'
+            if room[0] and room[0].t != 'f'
               console.log "non file room"
               roomUrl = 'href="/files/' + fileId.get() + '"'
             else
@@ -209,6 +209,11 @@ readAsDataURL = (file, callback) ->
                       item = _.findWhere(uploading, {id: fileId.get()})
                       Session.set 'uploading', _.without(uploading, item)
                   , 2000
+              else if metaContext.roomId is ''
+                uploading = Session.get 'uploading'
+                if uploading?
+                  item = _.findWhere(uploading, {id: fileId.get()})
+                  Session.set 'uploading', _.without(uploading, item)
               else
                 Meteor.call 'sendMessage', {
                   _id: Random.id()
@@ -227,7 +232,7 @@ readAsDataURL = (file, callback) ->
                   , 2000
               user = Meteor.user()
               room = ChatRoom.find({_id: fileRoomId.get(), 's._id': user.profile.school._id}).fetch()
-              if room[0].t != 'f'
+              if room[0] and room[0].t != 'f'
                 console.log(' creating file room')
                 Meteor.call 'createFileRoom', file.name, fileId.get(), fileRoomId.get()
 

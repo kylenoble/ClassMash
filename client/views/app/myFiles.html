@@ -6,6 +6,23 @@
     </h2>
     {{> rightBurger}}
   </header>
+  <div class="container-bars">
+    {{#each uploading}}
+      <div class="upload-progress {{#if error}}upload-error{{/if}}">
+        {{#if error}}
+          {{error}}
+          <a>
+            close
+          </a>
+        {{else}}
+          <div class="upload-progress-progress" style="width: {{percentage}}%;"></div>
+          <div class="upload-progress-text">
+            {{name}}... {{percentage}}%
+          </div>
+        {{/if}}
+      </div>
+    {{/each}}
+  </div>
   <div class="files-container">
     <div class="filter-container">
       <div class="filters">
