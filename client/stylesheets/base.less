@@ -2286,8 +2286,10 @@ a.github-fork {
 	background-color: #FDF7F2;
 	font-size: 14px;
 	border-bottom: 1px solid @primary-blue;
+	min-height: 30px;
 	overflow-x: scroll;
-	min-height: 20px;
+	overflow-y: hidden;
+	white-space: nowrap;
 	input {
 		color: @primary-blue;
 	}
@@ -2299,27 +2301,40 @@ a.github-fork {
 		color: @primary-blue;
 	}
 	.topic {
-		position: relative;
-		float: left;
+		display: inline-block;
 		color: @primary-blue;
 		font-family: Axis, "Avenir Next", "HelveticaNeue-Light", "sans-serif";
 		cursor: pointer;
-		padding: 5px 15px;
+		padding: 7px 15px;
+		font-size: 13px;
 		&.active {
 			background-color: @tertiary-background-color;
-			padding: 5px 15px;
+			padding: 7px 15px;
 		}
 	}
 	.icon-plus {
 		color: @primary-blue;
 		font-size: 14px;
-		padding: 5px 7px;
+		padding: 7px 7px;
 		float: left;
 		&:hover {
 			color: darken(@primary-blue, 10%);
 			cursor: pointer;
 		}
 	}
+}
+
+.topics-container::-webkit-scrollbar {
+    display: none;
+}
+
+.show-more-topics {
+	right: 0px;
+	color: white;
+	position: absolute;
+	background-color: @primary-blue;
+	min-height: 30px;
+	padding-top: 7px;	
 }
 
 .fixed-title {

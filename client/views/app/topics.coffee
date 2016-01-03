@@ -3,6 +3,13 @@ Template.topics.helpers
     return Topics.find("classId": Template.instance().classId.get()).fetch()
 
   checkActive: (topic)->
+    lastPos = $( ".topics-container .topic:last" ).position()
+    topicsContainer = $('.topics-container').width()
+    if lastPos and lastPos.left > topicsContainer
+      $('.show-more-topics').css('visibility', 'visible')
+    else
+      $('.show-more-topics').css('visibility', 'hidden')
+					
     if Session.get("topic") is topic
       return 'active'
 
@@ -34,6 +41,12 @@ Template.topics.events
         toastr.error error
         console.log "error", error
         return
+      else
+        Session.set('topic', topic)
+        newTopic = topic.length * 13 + 30
+        width = $('.topics-container').width() + newTopic
+        width = '+=' + width
+        $('.topics-container').animate({scrollLeft:width},500)
 
     $('new-topic').text('')
     Template.instance().addTopic.set(false)
@@ -44,6 +57,15 @@ Template.topics.events
 
   "keydown new-topic": (event, template) ->
 
+Template.topics.onRendered ->
+  $('.topics-container').on 'scroll', (e) ->
+    lastPos = $( ".topics-container .topic:last" ).position()
+    topicsContainer = $('.topics-container').width()
+    lastWidth = $( ".topics-container .topic:last" ).width() + 30
+    if lastPos != undefined and lastPos.left + lastWidth - topicsContainer > 0
+      $('.show-more-topics').css('visibility', 'visible')
+    else
+      $('.show-more-topics').css('visibility', 'hidden')
 
 Template.topics.onCreated ->
   path = window.location.pathname.split('/')
@@ -67,11 +89,10 @@ Template.topics.onCreated ->
   else
     term = ''
 
-
-
   instance = @
   @classId = new ReactiveVar RoomManager.openedRooms[typeLetter + path[2] + '%' + term].rid
   @addTopic = new ReactiveVar false
+  @showMoreIcon = new ReactiveVar false
   @ready = new ReactiveVar true
 
   @autorun ->
