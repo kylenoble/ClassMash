@@ -3609,16 +3609,16 @@ a.github-fork {
 	}
 	.file {
 		position: absolute;
-		bottom: 70px;
+		bottom: 110px;
 		height: 40px;
 		width: 40px;
 		left: 10px;
 		border-radius: 20px;
 		padding-top: 10px;
-		background-color: @secondary-blue;
+		background-color: @primary-blue;
 		cursor: pointer;
 		&:hover {
-			background-color: darken(@secondary-blue, 10%);
+			background-color: darken(@primary-blue, 10%);
 		}
 		i {
 			font-size: 20px;
@@ -3833,14 +3833,17 @@ a.github-fork {
 		width: 100%;
 		display: flex;
 		margin-top: 60px;
+		height: 82.5%;
+		overflow: auto;
+		border-top: 1px solid lightgray;
 		.files-list,
 		.assignments-list {
 			display: flex;
 	    width: 100%;
-	    margin-top: 15px;
 	    margin-right: auto;
 	    margin-left: auto;
 			flex-direction: column;
+			white-space: nowrap;
 			.file,
 			.assignment {
 				background-color: white;
@@ -3852,33 +3855,39 @@ a.github-fork {
 				margin-right: auto;
 				width: 60%;
 				height: 60px;
+				min-height: 60px;
 				font-family: Axis, "Avenir Next", "HelveticaNeue-Light", "sans-serif";
 				margin-top: -3px;
 				.filename,
 				.assignment-name {
-					position: absolute;
 			    font-size: 22px;
-			    width: 40%;
-			    height: 26px;
-			    padding-top: 6px;
+			    text-overflow: ellipsis;
+			    margin-left: 5px;
+			    position: relative;
+			    display: inline-block;
+			    margin-top: 10px;
+			    float: left;
+			    min-width: 200px;
+				}
+				.username {
+					margin-left: 5px;
 			    white-space: nowrap;
 			    text-overflow: ellipsis;
 			    overflow: hidden;
-			    margin-left: 15px;
-				}
-				.username {
-					margin-left: 18px;
-					white-space: nowrap;
-			    text-overflow: ellipsis;
-			    overflow: hidden;
+			    display: block;
+			    float: left;
 				}
 				.date {
-			    margin-top: 22px;
-					text-overflow: ellipsis;
+					margin-left: 5px;
+			    text-overflow: ellipsis;
+			    display: block;
+			    float: left;
 				}
 				i {
 					font-size: 45px;
 			    margin-top: 0px;
+			    display: inline-block;
+			    float: left;
 					&.fa-sound-o {
 						color: @light-green;
 					}
@@ -5409,6 +5418,7 @@ a.github-fork {
 	.assignments-container {
 		.file-list-container,
 		.assignments-list-container {
+			height: 75%;
 			.files-list,
 			.assignments-list {
 				.file,

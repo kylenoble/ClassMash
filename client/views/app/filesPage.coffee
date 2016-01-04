@@ -2,7 +2,8 @@ Template.filesPage.helpers
   roomFiles: ->
     filter = Template.instance().currentFilter.get()
     rid = Template.instance().roomId.get()
-    return fileCollection.find({category: filter, 'room._id': rid}, {limit: 10})
+    limit = Template.instance().limit.get()
+    return fileCollection.find({category: filter, 'room._id': rid}, {limit: limit})
 
   cleanDate: (date) ->
     return moment(date).format("MM/D/YY h:mm a")
