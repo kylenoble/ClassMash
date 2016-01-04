@@ -22,4 +22,4 @@ Meteor.publish 'calendarItems', (rid) ->
 
   return CalendarItems.find query,
     fields: fields
-    sort: { date: 1 }
+    sort: { start: -1 }

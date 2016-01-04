@@ -57,7 +57,7 @@ Template.assignmentsList.events
     title = $('#event-title').val()
     description = $('#event-description').val()
     start = new Date($('#start-date').val())
-    end = new Date($('#end-date').val())
+    end = start
     type = $('.type-item.active').text().trim()
 
     if title is ''
