@@ -320,13 +320,13 @@ Template.room.helpers
 
     if roomData.t is "c"
       return "<li><i class='icon-home'><label class='tab-label classroom'>Classroom</label></i></li>
+            <li><i class='icon-docs'><label class='tab-label files'>Files</label></i></li>
             <li><i class='icon-list'><label class='tab-label thread'>Thread</label></i></li>
             <li><i class='icon-calendar'><label class='tab-label cal'>Cal</label></i></li>
-            <li><i class='icon-docs'><label class='tab-label files'>Files</label></i></li>
             <li><i class='icon-book-open'><label class='tab-label assignments'>Assignments</label></i></li>"
     if roomData.t is 'p'
-      return "<li><i class='icon-list'><label class='tab-label thread'>Thread</label></i></li>
-            <li><i class='icon-docs'><label class='tab-label files'>Files</label></i></li>
+      return "<li><i class='icon-docs'><label class='tab-label files'>Files</label></i></li>
+            <li><i class='icon-list'><label class='tab-label thread'>Thread</label></i></li>
             <li><i class='icon-calendar'><label class='tab-label cal'>Cal</label></i></li>"
     else if roomData.t is 'd'
       return "<li><i class='icon-user'><label class='tab-label profile'>Profile</label></i></li>

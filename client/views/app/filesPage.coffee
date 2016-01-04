@@ -8,10 +8,8 @@ Template.filesPage.helpers
     return moment(date).format("MM/D/YY h:mm a")
 
   unread: (id) ->
-    console.log(id)
     room = ChatRoom.find({"t": "f", "f._id": id}).fetch()
     if room[0]
-      console.log room[0]
       return room[0].msgs
     return false
 

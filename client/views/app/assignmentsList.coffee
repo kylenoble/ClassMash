@@ -120,12 +120,7 @@ Template.assignmentsList.onRendered ->
     inline: true
     focusOnShow: false
   )
-  @$('#datetimepicker2').datetimepicker(
-    inline: true
-    focusOnShow: false
-  )
   @$('#datetimepicker1').data("DateTimePicker").toggle()
-  @$('#datetimepicker2').data("DateTimePicker").toggle()
   return
 
 Template.assignmentsList.onCreated ->

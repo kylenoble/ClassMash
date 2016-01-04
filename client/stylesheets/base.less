@@ -2334,7 +2334,7 @@ a.github-fork {
 	position: absolute;
 	background-color: @primary-blue;
 	min-height: 30px;
-	padding-top: 7px;	
+	padding-top: 7px;
 }
 
 .fixed-title {
@@ -3565,6 +3565,7 @@ a.github-fork {
 
 .calendar-container,
 .files-container,
+.assignments-container,
 .classroom-container {
 	top: 60px;
 	background-color: @secondary-background-color;
@@ -3777,7 +3778,8 @@ a.github-fork {
 	}
 }
 
-.files-container {
+.files-container,
+.assignments-container {
 	display: flex;
 	.filter-container {
 		width: 100%;
@@ -5403,19 +5405,17 @@ a.github-fork {
 		margin-top: 110px;
 	}
 
-	.files-container {
-		.filter-container {
-			margin-top: 50px;
-			.filters {
-		    width: 70%;
-			}
-		}
-		.file-list-container {
-			.files-list {
-				margin-top: 50px;
-				.file {
+	.files-container,
+	.assignments-container {
+		.file-list-container,
+		.assignments-list-container {
+			.files-list,
+			.assignments-list {
+				.file,
+				.assignment {
 					width: 80%;
-					.filename {
+					.filename,
+					.assignment-name {
 						font-size: 18px;
 					}
 					.username,
@@ -5426,6 +5426,15 @@ a.github-fork {
 			}
 		}
 	}
+
+	.files-container {
+		.filter-container {
+			.filters {
+				width: 70%;
+			}
+		}
+	}
+
 }
 
 @media (min-width: 900px) {
@@ -5620,7 +5629,8 @@ a.github-fork {
 		}
 	}
 
-	.files-container {
+	.files-container,
+	.assignments-container {
 		.filter-container {
 			margin-top: 0;
 			.filters {
@@ -5630,14 +5640,18 @@ a.github-fork {
 				}
 			}
 		}
-		.file-list-container {
+		.file-list-container,
+		.assignments-list-container {
 			width: 100%;
-			.files-list {
+			.files-list,
+			.assignments-list {
 				margin-top: 0;
 		    width: 100%;
-				.file {
+				.file,
+				.assignment {
 					width: 100%;
-					.filename {
+					.filename,
+					.assignment-name {
 						font-size: 14px;
 					}
 					.username,
