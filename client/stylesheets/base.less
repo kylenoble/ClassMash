@@ -962,10 +962,119 @@ label.required:after {
 	padding-top: 20px;
 }
 
+.messageSearch {
+	.content {
+		margin-top: 60px;
+		position: absolute;
+		border-left: 1px solid lightgray;
+		border-right: 1px solid lightgray;
+		width: 90%;
+		margin-left: 5%;
+		margin-right: 5%;
+		height: 100%;
+		overflow: auto;
+		.search-messages-list {
+			.message-cog-container {
+				.message-action {
+					display: none !important;
+					&.jump-to-star-message {
+						display: block !important;
+					}
+				}
+			}
+
+			.load-more {
+				text-transform: lowercase;
+				text-align: center;
+				line-height: 40px;
+				font-style: italic;
+
+				.load-more-loading {
+					color: #aaa;
+				}
+			}
+
+			.no-results {
+				text-align: center;
+				color: @primary-blue;
+			}
+
+			.search-form {
+				color: @primary-blue;
+				.search {
+					.input-text {
+						margin: 0 0 14px 0;
+						position: relative;
+						width: 80%;
+						margin-left: 10%;
+						margin-right: 10%;
+						&.error {
+							border: 1px solid @primary-red;
+						}
+						&:before {
+							content: " ";
+							width: 100%;
+							height: 40px;
+							position: absolute;
+							top: 7px;
+							left: 0;
+							cursor: text;
+						}
+						&.active {
+							&:before {
+								visibility: hidden;
+							}
+						}
+						.icon-magnifier {
+							color: @primary-blue;
+							font-size: 14px;
+							position: absolute;
+				    	left: 14px;
+				    	top: 14px;
+						}
+						input {
+							box-shadow: 0 0 0;
+							background-color: transparent;
+							border-width: 0;
+							position: relative;
+				  		padding: 20px 40px;
+							font-size: 14px;
+							border: 1px solid @primary-blue;
+							font-family: "Avenir Next", "HelveticaNeue-Light", "sans-serif";
+							color: @primary-blue;
+							margin-bottom: 10px;
+							&::-webkit-input-placeholder {
+								color: @primary-blue;
+							}
+							&:-moz-placeholder {
+								color: @primary-blue;
+							}
+							/* Firefox 18- */
+							&::-moz-placeholder {
+								color: @primary-blue;
+							}
+							/* Firefox 19+ */
+							&:-ms-input-placeholder {
+								color: @primary-blue;
+							}
+						}
+						input:-webkit-autofill {
+							color: @primary-blue !important;
+						}
+						input:-webkit-autofill {
+							background-color: transparent !important;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 .room-icons {
 	position: absolute;
   top: 13px;
-	left: 100px;
+	left: 25px;
 	cursor: pointer;
 	z-index: 100;
 	animation: fadeIn 1s;
@@ -1101,7 +1210,8 @@ label.required:after {
 }
 
 .right-burger,
-.burger {
+.burger,
+.search-container {
 	padding: 12px;
 	cursor: pointer;
 	position: absolute;
@@ -1170,6 +1280,13 @@ label.required:after {
 	display: block;
 	visibility: visible;
 	right: 5px;
+	margin-right: 7px;
+}
+
+.search-container {
+	display: block;
+	visibility: visible;
+	right: 40px;
 	margin-right: 7px;
 }
 
@@ -3531,7 +3648,7 @@ a.github-fork {
 }
 
 .list-view {
-	padding: 5px 30px 20px;
+	padding: 5px 10px 20px;
 	.list {
 		display: flex;
 		flex-flow: column nowrap;
@@ -3566,8 +3683,8 @@ a.github-fork {
 .calendar-container,
 .files-container,
 .assignments-container,
-.classroom-container {
-	top: 60px;
+.classroom-container,
+.messageSearch {
 	background-color: @secondary-background-color;
 	position: absolute;
 	height: 100%;
@@ -3581,6 +3698,13 @@ a.github-fork {
 		font-size: 14px;
 		font-family: Axis, "Avenir Next", "HelveticaNeue-Light", "sans-serif";
 	}
+}
+
+.calendar-container,
+.files-container,
+.assignments-container,
+.classroom-container {
+	top: 60px;
 }
 
 #view-all-classmates {
@@ -3844,6 +3968,7 @@ a.github-fork {
 	    margin-left: auto;
 			flex-direction: column;
 			white-space: nowrap;
+			padding-top: 10px;
 			.file,
 			.assignment {
 				background-color: white;
@@ -3853,35 +3978,53 @@ a.github-fork {
 				margin-right: auto;
 				margin-left: auto;
 				margin-right: auto;
-				width: 60%;
-				height: 60px;
-				min-height: 60px;
+				width: 70%;
+				height: 65px;
+				min-height: 65px;
 				font-family: Axis, "Avenir Next", "HelveticaNeue-Light", "sans-serif";
 				margin-top: -3px;
+				.main-icon {
+					display: inline-block;
+					width: 50px;
+				}
+				.meta-data {
+					width: 65%;
+					display: inline-block;
+				}
+				.icons {
+					width: 23%;
+					display: inline-block;
+					height: 48px;
+					margin-left: 10px;
+				}
 				.filename,
 				.assignment-name {
-			    font-size: 22px;
+			    font-size: 20px;
 			    text-overflow: ellipsis;
 			    margin-left: 5px;
 			    position: relative;
 			    display: inline-block;
-			    margin-top: 10px;
+			    margin-top: 4px;
+					line-height: normal;
 			    float: left;
-			    min-width: 200px;
+			    width: 100%;
+					overflow-x: hidden;
 				}
 				.username {
-					margin-left: 5px;
+					margin-left: 7px;
 			    white-space: nowrap;
 			    text-overflow: ellipsis;
 			    overflow: hidden;
 			    display: block;
 			    float: left;
+					padding-top: 5px;
 				}
 				.date {
-					margin-left: 5px;
+					margin-left: 10px;
 			    text-overflow: ellipsis;
 			    display: block;
 			    float: left;
+					padding-top: 5px;
 				}
 				i {
 					font-size: 45px;
@@ -3927,16 +4070,15 @@ a.github-fork {
 				}
 				.icon-cloud-download,
 				.icon-bubble {
-					font-size: 25px;
+					font-size: 22px;
 			    float: right;
-			    margin-right: 20px;
+			    margin-right: 17px;
 			    color: #F3919D;
-					margin-top: 10px;
+					margin-top: 14px;
 					position: relative;
 					cursor: pointer;
 					&:hover {
 						color: darken(#F3919D, 20%);
-						font-size: 27px;
 					}
 				}
 			}
@@ -5414,6 +5556,15 @@ a.github-fork {
 		margin-top: 110px;
 	}
 
+	.messageSearch {
+		.content {
+			width: 100%;
+			height: 85%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+
 	.files-container,
 	.assignments-container {
 		.file-list-container,
@@ -5660,6 +5811,9 @@ a.github-fork {
 				.file,
 				.assignment {
 					width: 100%;
+					.meta-data {
+						width: 60%;
+					}
 					.filename,
 					.assignment-name {
 						font-size: 14px;

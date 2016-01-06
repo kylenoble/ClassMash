@@ -124,5 +124,6 @@ clearActive = () ->
   Session.set('isEventDetails', false)
   Session.set('isFileHistory', false)
   Session.set('isAssignments', false)
+  Session.set('isSearch', false)
   if Session.get('isThread')
     Session.set('isThread', false)

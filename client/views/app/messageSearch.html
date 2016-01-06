@@ -1,0 +1,28 @@
+<template name="messageSearch">
+	<div id="morphsearch" class="morphsearch">
+		<form class="morphsearch-form">
+			<input class="morphsearch-input" type="search" placeholder="Search..."/>
+		</form>
+		<div class="morphsearch-content">
+			{{#if currentSearchTerm}}
+				{{#if searchResultMessages}}
+					{{#each searchResultMessages}}
+						{{#nrr nrrargs 'message' .}}{{/nrr}}
+					{{/each}}
+					{{#if hasMore}}
+						<li class="load-more">
+							{{#if ready}}
+								<a href="">{{_ "Has_more"}}...</a>
+							{{else}}
+								<div class="load-more-loading">{{_ "Loading..."}}</div>
+							{{/if}}
+						</li>
+					{{/if}}
+				{{else}}
+					<h2 class="no-results">{{_ "No_results_found"}}</h2>
+				{{/if}}
+			{{/if}}
+		</div>
+		<span class="morphsearch-close"></span>
+	</div><!-- /morphsearch -->
+</template>

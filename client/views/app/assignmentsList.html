@@ -8,17 +8,23 @@
       <div class="assignments-list">
         {{#each assignments}}
           <div class="assignment" id="{{_id}}">
-            <i class="{{icon type}}"></i>
-            <span class="assignment-name">{{title}}</span>
-            <i class="icon-bubble {{type}}">
-              {{#if unread _id}}
-                <div class="file-unread-burger-alert">
-                  {{unread _id}}
-                </div>
-              {{/if}}
-            </i>
-            <span class="username">{{u.username}}</span>
-            <span class="date">{{cleanDate start}}</span>
+            <div class="main-icon">
+              <i class="{{icon type}}"></i>
+            </div>
+            <div class="meta-data">
+              <span class="assignment-name">{{title}}</span>
+              <span class="username">{{u.username}}</span>
+              <span class="date">{{cleanDate start}}</span>
+            </div>
+            <div class="icons">
+              <i class="icon-bubble {{type}}">
+                {{#if unread _id}}
+                  <div class="file-unread-burger-alert">
+                    {{unread _id}}
+                  </div>
+                {{/if}}
+              </i>
+            </div>
           </div>
         {{/each}}
       </div>

@@ -94,7 +94,8 @@ Template.message.onViewRendered = (context) ->
       else
         if view.parentView.parentView.parentView.parentView.parentView.templateInstance?().atBottom isnt true
           newMessage = document.querySelector(".new-message")
-          newMessage.className = "new-message"
+          if newMessage
+            newMessage.className = "new-message"
 
 clearActive = () ->
   $('.room-icons .icon-home').removeClass('active')
@@ -113,5 +114,6 @@ clearActive = () ->
   Session.set('isEventDetails', false)
   Session.set('isFileHistory', false)
   Session.set('isAssignments', false)
+  Session.set('isSearch', false)
   if Session.get('isThread')
     Session.set('isThread', false)

@@ -451,3 +451,5 @@ clearActive = () ->
   if Session.get('isFileHistory')
     Session.set('isFileHistory', false)
     $('.room-icons .icon-graph').removeClass('active')
+  if Session.get('isSearch')
+    Session.set('isSearch', false)

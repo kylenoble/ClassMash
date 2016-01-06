@@ -131,6 +131,9 @@ Template.main.helpers
     else
       return false
 
+  search: ->
+    return Session.get('isSearch')
+
 Template.main.events
 
   "click .burger": ->

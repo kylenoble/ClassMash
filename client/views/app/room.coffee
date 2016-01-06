@@ -313,6 +313,9 @@ Template.room.helpers
       $('.room-icons .icon-graph').addClass('active')
     return Session.get('isFileHistory')
 
+  search: ->
+    return Session.get('isSearch')
+
   roomIcons: ->
     roomData = Session.get('roomData' + this._id)
 
@@ -401,6 +404,14 @@ Template.room.events
   "click .room-icons .icon-graph": (e) ->
     clearActive()
     Session.set('isFileHistory', true)
+
+  "click .search-container": (e) ->
+    if Session.get('isSearch')
+      Session.set('isSearch', false)
+      $('.morphsearch').removeClass('search')
+    else
+      Session.set('isSearch', true)
+      $('.morphsearch').addClass('search')
 
   "keydown #room-search": (e) ->
     if e.keyCode is 13
@@ -614,6 +625,7 @@ Template.room.onCreated ->
   Session.set('isFileDetails', false)
   Session.set('isFileHistory', false)
   Session.set('isEventDetails', false)
+  Session.set('isSearch', false)
 
   self = @
 
@@ -667,6 +679,8 @@ clearActive = () ->
   if Session.get('isFileHistory')
     Session.set('isFileHistory', false)
     $('.room-icons .icon-graph').removeClass('active')
+  if Session.get('isSearch')
+    Session.set('isSearch', false)
 
 renameRoom = (rid, name) ->
   name = name?.toLowerCase().trim()
