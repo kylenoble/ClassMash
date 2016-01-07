@@ -15,9 +15,10 @@ class @ChatMessages
       if Session.get("roomType") is 'c'
         dif += 80
     else
-      dif = 60 + $(".messages-container").find("footer").outerHeight()
+      dif = $(".messages-container").find("footer").outerHeight()
       if Session.get("roomType") is 'c'
-        dif += 20
+        dif += 80
+      console.log dif
     $(".messages-box").css
       height: "calc(100% - #{dif}px)"
 

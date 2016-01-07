@@ -345,6 +345,7 @@ Template.threadPage.onCreated ->
   this.roomId = RoomManager.openedRooms[typeLetter + path[2] + '%' + term].rid
   data = Session.get('roomData' + this.roomId)
   Session.set('roomType', data.t)
+  console.log data.t
   this.showUsersOffline = new ReactiveVar false
   this.atBottom = true
   this.unreadCount = new ReactiveVar 0
