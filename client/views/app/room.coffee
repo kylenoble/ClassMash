@@ -412,6 +412,7 @@ Template.room.events
     else
       Session.set('isSearch', true)
       $('.morphsearch').addClass('search')
+      $('.morphsearch-input').focus()
 
   "keydown #room-search": (e) ->
     if e.keyCode is 13
