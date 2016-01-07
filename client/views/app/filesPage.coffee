@@ -49,7 +49,9 @@ Template.filesPage.events
 
   'click .files-list .icon-bubble': (event) ->
     $('.adding-files').hide()
-    fileId = $(event.target).parent()[0].id
+    parent = $(event.target).parent()
+    fileId = $(parent).parent()[0].id
+
     url = "/files/" + fileId
     clearActive()
     FlowRouter.go(url)
