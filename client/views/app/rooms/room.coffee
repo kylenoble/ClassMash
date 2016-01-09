@@ -27,8 +27,6 @@ Template.room.helpers
     roomData = Session.get('roomData' + this._id)
     return '' unless roomData
 
-    console.log roomData
-
     if roomData.t is 'd'
       return ChatSubscription.findOne({ rid: this._id }, { fields: { name: 1 } })?.name
     else if roomData.t is 'f'
