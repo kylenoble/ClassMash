@@ -7,7 +7,14 @@
 			<button class="cancel-add-topic button white red-border all">Cancel</button>
 		{{/if}}
 		{{#each classTopics}}
-			<div class="topic {{checkActive title}}">{{title}}</div>
+			<div class="topic {{checkActive title}}">
+				<div class="title">{{title}}</div>
+				{{#if unread title}}
+					<div class="topic-unread-burger-alert">
+						{{unread title}}
+					</div>
+				{{/if}}
+			</div>
 		{{/each}}
 		<span class="show-more-topics"><i class="icon-arrow-right"></i></span>
 	</div>

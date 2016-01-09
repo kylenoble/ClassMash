@@ -13,6 +13,11 @@ Meteor.methods
       console.log 'found duplicate topic'
       throw new Meteor.Error 'duplicate-topic'
 
+    key = 'topics.' + title
+    obj = {}
+    obj[key] = 0
+
+    ChatSubscription.update({rid: classId, t: 'c'}, {$set: obj}, {multi: true})
     console.log 'no duplicate topic'
 
     Topics.insert title: title, classId: classId

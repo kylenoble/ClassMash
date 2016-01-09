@@ -1269,6 +1269,23 @@ label.required:after {
 	font-family: Lato, "Helvetica Neue";
 }
 
+.topic-unread-burger-alert {
+	background-color: #F95555;
+	border-radius: 20px;
+	position: absolute;
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	font-size: 12px;
+	margin-top: -10px;
+	z-index: 999;
+	padding: 0px 4px;
+}
+
 .burger {
 	visibility: hidden;
 	display: none;
@@ -2403,7 +2420,7 @@ a.github-fork {
 	background-color: #FDF7F2;
 	font-size: 14px;
 	border-bottom: 1px solid @primary-blue;
-	min-height: 30px;
+	height: 31px;
 	overflow-x: scroll;
 	overflow-y: hidden;
 	white-space: nowrap;
@@ -2424,6 +2441,9 @@ a.github-fork {
 		cursor: pointer;
 		padding: 7px 15px;
 		font-size: 13px;
+		.title {
+			float: left;
+		}
 		&.active {
 			background-color: @tertiary-background-color;
 			padding: 7px 15px;

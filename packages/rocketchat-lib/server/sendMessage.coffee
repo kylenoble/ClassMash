@@ -48,10 +48,36 @@ RocketChat.sendMessage = (user, message, room, options) ->
         msgs: 1
 
   ###
+  Increment topic unread
+  ###
+  Meteor.defer ->
+    if room.t is 'c'
+      key = 'topics.' + message.topic
+      obj = {}
+      obj[key] = 1
+
+      ChatSubscription.update
+        # only subscriptions to the same room
+        rid: message.rid
+        # only direct messages subscriptions
+        t: 'c'
+        # not the msg owner
+        'u._id':
+          $ne: message.u._id
+      ,
+        $set:
+          # alert de user
+          alert: true
+          # open the room for the user
+          open: true
+        # increment unread couter
+        $inc: obj
+
+
+  ###
   Increment unread couter if direct messages
   ###
   Meteor.defer ->
-
     if not room.t? or room.t is 'd'
       ###
       Update the other subscriptions

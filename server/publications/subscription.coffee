@@ -18,3 +18,5 @@ Meteor.publish 'subscription', ->
 			alert: 1
 			unread: 1
 			term: 1
+			topics: 1
+			u: 1

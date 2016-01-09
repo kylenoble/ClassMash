@@ -9,16 +9,32 @@ Template.topics.helpers
       $('.show-more-topics').css('visibility', 'visible')
     else
       $('.show-more-topics').css('visibility', 'hidden')
-					
+
     if Session.get("topic") is topic
+      currentClassId = Template.instance().classId.get()
+      Meteor.call "updateTopicUnread", topic, currentClassId, (error, result) ->
+        if error
+          console.log "error", error
+          toastr.error error
+
       return 'active'
 
   addingTopic: () ->
     return Template.instance().addTopic.get()
 
+  unread: (topic) ->
+    currentClassId = Template.instance().classId.get()
+    room = ChatSubscription.find({"rid": currentClassId, 'u._id': Meteor.userId()}).fetch()
+    if room
+      return room[0].topics[topic]
+
 Template.topics.events
   "click .topic": (event, template) ->
-    topic = event.target.innerText
+    if $(event.target).hasClass('topic')
+      topic = $(event.target).children()[0].innerText
+    else
+      topic = event.target.innerText
+
     if Session.get('topic') != topic
       Session.set('topic', topic)
 

@@ -22,7 +22,7 @@ Meteor.methods
 
     ChatRoom.update rid, update
 
-    ChatSubscription.insert
+    fields =
       rid: rid
       ts: now
       name: room.name
@@ -35,11 +35,22 @@ Meteor.methods
         _id: user._id
         username: user.username
 
+    if room.t is 'c'
+      fields["topics"] = {}
+      topics = Topics.find({classId: rid}).fetch()
+      topics.map( (topic) ->
+        key = topic.title
+        fields["topics"][key] = 0
+      )
+
+    ChatSubscription.insert fields
+
     ChatMessage.insert
       rid: rid
       ts: now
       t: 'uj'
       msg: user.name
+      topic: 'general'
       u:
         _id: user._id
         username: user.username
