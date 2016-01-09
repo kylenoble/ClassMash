@@ -2419,8 +2419,8 @@ a.github-fork {
 	margin-top: 60px;
 	background-color: #FDF7F2;
 	font-size: 14px;
-	border-bottom: 1px solid @primary-blue;
-	height: 31px;
+	// border-bottom: 1px solid @primary-blue;
+	min-height: 32px;
 	overflow-x: scroll;
 	overflow-y: hidden;
 	white-space: nowrap;
@@ -2443,6 +2443,9 @@ a.github-fork {
 		font-size: 13px;
 		.title {
 			float: left;
+		}
+		&:hover {
+			background-color: @tertiary-background-color;
 		}
 		&.active {
 			background-color: @tertiary-background-color;
