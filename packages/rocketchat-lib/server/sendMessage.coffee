@@ -72,7 +72,9 @@ RocketChat.sendMessage = (user, message, room, options) ->
           open: true
         # increment unread couter
         $inc: obj
-
+      ,
+        # make sure we alert all matching subscription
+        multi: true
 
   ###
   Increment unread couter if direct messages
@@ -183,7 +185,7 @@ RocketChat.sendMessage = (user, message, room, options) ->
           query._id =
             $in: mentionIds
 
-        usersOfMentionIds = _.pluck(usersOfMention, '_id');
+        usersOfMentionIds = _.pluck(usersOfMention, '_id')
         if usersOfMentionIds.length > 0
           for usersOfMentionId in usersOfMentionIds
             RocketChat.Notifications.notifyUser usersOfMentionId, 'notification',
