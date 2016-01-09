@@ -25,7 +25,6 @@ Meteor.methods
 
     if ls?
       firstMessage = messages[messages.length - 1]
-      console.log(firstMessage)
       if firstMessage and firstMessage.ts > ls
         query.ts.$lt = firstMessage.ts
         query.ts.$gt = ls

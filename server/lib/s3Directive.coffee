@@ -9,8 +9,6 @@ Slingshot.createDirective 'fileUploads', Slingshot.S3Storage,
   acl: "bucket-owner-read"
   region: RocketChat.settings.get('AWSRegion')
   authorize: (file, metaContext) ->
-    console.log(file)
-    console.log(file.type)
     if !this.userId
       throw new Meteor.Error(error, reason)
     return true

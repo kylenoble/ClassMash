@@ -7,7 +7,6 @@ Meteor.publish 'room', (typeName) ->
   if typeof typeName isnt 'string'
     return this.ready()
 
-  console.log typeName
   type = typeName.substr(0, 1)
   name = typeName.split('%')
   term = name[1]
@@ -45,8 +44,6 @@ Meteor.publish 'room', (typeName) ->
   # Change to validate access manualy
   # if not Meteor.call 'canAccessRoom', rid, this.userId
   #   return this.ready()
-  console.log('room method query')
-  console.log query
 
   ChatRoom.find query,
     fields:

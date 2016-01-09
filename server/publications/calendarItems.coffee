@@ -16,8 +16,6 @@ Meteor.publish 'calendarItems', (rid) ->
 
   query = { "r._id": rid }
 
-  console.log(query)
-
   console.log '[publish] calendar events'.green, rid
 
   return CalendarItems.find query,

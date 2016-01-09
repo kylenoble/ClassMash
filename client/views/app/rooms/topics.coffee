@@ -11,12 +11,11 @@ Template.topics.helpers
       $('.show-more-topics').css('visibility', 'hidden')
 
     if Session.get("topic") is topic
-      currentClassId = Template.instance().classId.get()
-      Meteor.call "updateTopicUnread", topic, currentClassId, (error, result) ->
-        if error
-          console.log "error", error
-          toastr.error error
-
+      # currentClassId = Template.instance().classId.get()
+      # Meteor.call "updateTopicUnread", topic, currentClassId, (error, result) ->
+      #   if error
+      #     console.log "error", error
+      #     toastr.error error
       return 'active'
 
   addingTopic: () ->
@@ -44,6 +43,11 @@ Template.topics.events
 
     if Session.get('topic') != topic
       Session.set('topic', topic)
+      currentClassId = Template.instance().classId.get()
+      Meteor.call "updateTopicUnread", topic, currentClassId, (error, result) ->
+        if error
+          console.log "error", error
+          toastr.error error
 
   "click .icon-plus": (event, template) ->
     Template.instance().addTopic.set(true)
