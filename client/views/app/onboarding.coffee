@@ -2,7 +2,7 @@ Template.onboarding.helpers
   sidebar: ->
     console.log Template.instance().isTouch.get()
     if Template.instance().isTouch.get()
-      return "Press the globe to open the side bar. The sidebar is a how you access classes and private groups. Press General to try it out!"
+      return "Press the globe to open the side bar. The sidebar is a how you access classes, private groups, and classmates. Press General to try it out!"
     return "The sidebar is how you access classes and private groups. Click General to try it out!"
 
   details: ->
@@ -12,8 +12,8 @@ Template.onboarding.helpers
 
   directMessages: ->
     if Template.instance().isTouch.get()
-      return "View and chat with classmates by pressing the chat icon to the right."
-    return "View and chat with classmates by clicking the chat icon to the right."
+      return "View your combined calendar and all your files by pressing the chat icon to the right."
+    return "View your combined calendar and all your files by clicking the chat icon to the right."
 
   chatEntry: ->
     if Template.instance().isTouch.get()
