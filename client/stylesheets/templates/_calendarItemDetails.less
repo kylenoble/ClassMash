@@ -24,7 +24,7 @@
         padding: 0px;
 				width: 60%;
 				height: 70%;
-				font-family: Axis, "Avenir Next", "HelveticaNeue-Light", "sans-serif";
+				font-family: Ubuntu, "Avenir Next", "HelveticaNeue-Light", "sans-serif";
         border-radius: 5px;
 				margin-top: -3px;
         .header {
@@ -35,6 +35,14 @@
           border-radius: 5px 5px 0px 0px;
           h2 {
             padding: 12px 15px 12px 15px;
+            display: inline-block;
+          }
+          .edit,
+          .cancel,
+          .save {
+            float: right;
+            margin-top: 6px;
+            margin-right: 10px;
           }
         }
 				.calendarItem-name {
@@ -45,6 +53,7 @@
 			    text-overflow: ellipsis;
 			    overflow: hidden;
 			    display: block;
+
 				}
 				.username {
 					white-space: nowrap;
@@ -56,6 +65,15 @@
 			    margin-top: 22px;
 					text-overflow: ellipsis;
 				}
+        .editing-title,
+        .editing-start-date,
+        .editing-end-date,
+        .editing-description {
+          &.now-editing {
+            box-shadow: inset 0 0 2px #828282;
+            padding: 6px;
+          }
+        }
 				i {
 					font-size: 45px;
 			    margin-top: 0px;

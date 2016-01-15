@@ -21,7 +21,7 @@ Template.chatRoomItem.helpers
   roomIcon: ->
     switch this.t
       when 'd' then return 'icon-bubbles'
-      when 'c' then return 'icon-globe-alt'
+      when 'c' then return 'icon-calculator'
       when 'p' then return 'icon-chemistry'
 
   active: ->

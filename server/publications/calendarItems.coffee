@@ -3,6 +3,7 @@ Meteor.publish 'calendarItems', (rid) ->
     return @ready()
 
   fields =
+    _id: 1
     title: 1
     description: 1
     created: 1

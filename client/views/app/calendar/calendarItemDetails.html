@@ -2,26 +2,34 @@
   <div class="calendarItemDetailsPage">
     <div class="calendarItem-list-container">
       <div class="calendarItems-list">
-        {{#each calendarItem}}
+        {{#if calendarItem}}
           <div class="calendarItem">
             <div class="header">
-              <h2>Details</h2>
+              <h2 class="header-title">Details</h2>
+              {{#if currentUser calendarItem.u.username}}
+                {{#if editing}}
+                  <span class="cancel button white red-border">Cancel</span>
+                  <span class="save button white light-blue-border">Save</span>
+                {{else}}
+                  <span class="edit button white green-border">Edit</span>
+                {{/if}}
+              {{/if}}
             </div>
             <div class="calendarItem-title">
               <span class="title-header">Title</span>
-              <span>{{title}}</span>
+              <span class="editing-title" contenteditable="true">{{calendarItem.title}}</span>
             </div>
             <div class="row">
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="calendarItem-username">
                   <span class="username-header">Created By</span>
-                  <span>{{u.username}}</span>
+                  <span>{{calendarItem.u.username}}</span>
                 </div>
               </div>
             <div class="col-md-6 col-sm-6 col-xs-6">
               <div class="calendarItem-type">
                 <span class="type-header">Type</span>
-                <span>{{type}}</span>
+                <span>{{calendarItem.type}}</span>
               </div>
             </div>
           </div>
@@ -29,22 +37,22 @@
             <div class="col-md-6 col-sm-6 col-xs-6">
               <div class="start-date">
                 <span class="start-date-header">Start Time</span>
-                <span class="date">{{cleanDate start}}</span>
+                <span class="date editing-start-date" contenteditable="true">{{cleanDate calendarItem.start}}</span>
               </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-6">
               <div class="end-date">
                 <span class="start-date-header">End Time</span>
-                <span class="date">{{cleanDate end}}</span>
+                <span class="date editing-end-date" contenteditable="true">{{cleanDate calendarItem.end}}</span>
               </div>
             </div>
           </div>
           <div class="calendarItem-description">
             <span class="description-header">Description</span>
-            <span>{{description}}</span>
+            <span class="editing-description" contenteditable="true">{{calendarItem.description}}</span>
           </div>
         </div>
-        {{/each}}
+        {{/if}}
       </div>
     </div>
   </div>

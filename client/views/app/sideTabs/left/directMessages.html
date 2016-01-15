@@ -1,9 +1,9 @@
 <template name="directMessages">
 	<h3 class="add-room {{isActive}}">
-		{{_ "Direct_Messages"}}
+		<span class="group-title">{{_ "Direct_Messages"}}</span>
 		<i class="a-plus"></i>
 	</h3>
-	<ul>
+	<ul class="dm-list">
 		{{#each rooms}}
 			{{> chatRoomItem }}
 		{{else}}

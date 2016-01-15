@@ -1,4 +1,5 @@
 @import url(//fonts.googleapis.com/css?family=Lato:400,300,700);
+@import url(//fonts.googleapis.com/css?family=Ubuntu:500,700);
 @import "global/_variables.less";
 @import "utils/_lesshat.import.less";
 @import "utils/_reset.import.less";
@@ -38,18 +39,18 @@ a {
 }
 
 @font-face {
-	font-family: Axis;
+	font-family: Ubuntu;
 	src: url("/fonts/axis.otf") format("opentype");
 }
 
 @font-face {
-	font-family: Axis;
+	font-family: Ubuntu;
 	font-weight: bold;
 	src: url("/fonts/axis.otf") format("opentype");
 }
 
 @font-face {
-	font-family: Axis;
+	font-family: Ubuntu;
 	font-weight: italic;
 	src: url("/fonts/axis.otf") format("opentype");
 }
@@ -210,7 +211,7 @@ blockquote {
 	border: solid 1px rgba(226, 224, 224, 0.61);
 	border-radius: 5px;
 	width: 80%;
-	font-family: 'Axis';
+	font-family: 'Ubuntu';
 	i {
 		font-size: 35px;
 	}
@@ -687,7 +688,7 @@ input.search {
 	  display: inline-block;
 	  margin-top: 19px;
 	  border-radius: 5px;
-		font-family: "Axis";
+		font-family: "Ubuntu";
 	}
 	&:hover {
 		color: darken(@primary-blue, 10%);
@@ -748,7 +749,7 @@ label.required:after {
 
 .status-offline,
 .icon-bubbles.status-offline {
-	color: @status-offline;
+	color: @info-font-color;
 }
 
 .status-online,
@@ -957,7 +958,7 @@ label.required:after {
 .assignments-title {
 	color: @secondary-font-color;
 	font-size: 20px;
-	font-family: 'Axis';
+	font-family: 'Ubuntu';
 	text-align: center;
 	padding-top: 20px;
 }
@@ -1071,10 +1072,14 @@ label.required:after {
 	}
 }
 
+.room-svg {
+	fill: @primary-blue;
+}
+
 .room-icons {
 	position: absolute;
   top: 13px;
-	left: 25px;
+	left: 30px;
 	cursor: pointer;
 	z-index: 100;
 	animation: fadeIn 1s;
@@ -1084,7 +1089,7 @@ label.required:after {
     margin-right: 40px;
 		i {
 	    font-size: 24px;
-	    color: @info-font-color;
+	    color: lighten(@primary-blue, 50%);
 			cursor: pointer;
 			&:hover {
 				color: @primary-blue;
@@ -1097,9 +1102,9 @@ label.required:after {
 					color: @primary-blue;
 				}
 				&:hover {
-					color: lighten(@primary-blue, 10%);
+					color: lighten(@primary-blue, 50%);
 					.tab-label {
-						color: lighten(@primary-blue, 10%);
+						color: lighten(@primary-blue, 50%);
 					}
 				}
 			}
@@ -1108,7 +1113,7 @@ label.required:after {
 				font-size: 11px;
 				margin-top: 28px;
 				cursor: pointer;
-				font-family: "Axis";
+				font-family: "Ubuntu";
 				&:hover {
 					color: @primary-blue;
 					font-weight: bold;
@@ -1184,6 +1189,7 @@ label.required:after {
 		i {
 			font-size: 18px;
 			margin-right: 20px;
+			color: @info-font-color;
 		}
 	}
 }
@@ -1220,7 +1226,7 @@ label.required:after {
 	i {
 		display: block;
     margin: 5px 0;
-    color: @primary-blue;
+    color: @light-tan;
     font-size: 26px;
 		.transition(transform .2s ease-out,
 		width .2s ease-out);
@@ -1519,7 +1525,7 @@ a.github-fork {
 		background-size: cover;
 		background-repeat: no-repeat;
 		background-position: center;
-		border-radius: 4px;
+		border-radius: 20px;
 	}
 	&[initials]:before {
 		content: attr(initials);
@@ -1532,7 +1538,7 @@ a.github-fork {
 		color: #FFF;
 		.flex-center;
 		justify-content: center;
-		font-family: Axis;
+		font-family: Ubuntu;
 		text-transform: capitalize;
 		font-weight: bold;
 	}
@@ -1567,7 +1573,8 @@ a.github-fork {
 	height: 100%;
 	cursor: pointer;
 	width: 100%;
-	background-color: @light-green;
+	background-color: @primary-green;
+	border-right: 1px solid #F4F4F4;
 	.info {
 		position: relative;
 		height: 100%;
@@ -1607,9 +1614,9 @@ a.github-fork {
 		h4 {
 			display: block;
 			line-height: 18px;
-			color: @primary-blue;
+			color: @light-tan;
 			font-size: 16px;
-			font-family: Axis;
+			font-family: Ubuntu;
 			margin-top: 3px;
 			font-weight: 400;
 			overflow: hidden;
@@ -1645,7 +1652,7 @@ a.github-fork {
 		}
 	}
 	.options {
-		background-color: @secondary-background-color;
+		background-color: @primary-blue;
 		position: fixed;
 		top: @header-min-height - 1;
 		left: 0;
@@ -1724,13 +1731,12 @@ a.github-fork {
 		a {
 			position: relative;
 			display: table;
-			color: @primary-blue;
+			color: @light-tan;
 			width: 100%;
 			height: 20px;
 			padding: 15px 12px;
 			line-height: 1;
 			text-decoration: none;
-			border-bottom: 1px solid @info-font-color;
 			&:nth-child(even) {
 				// background-color: #EFEFEF;
 			}
@@ -1819,7 +1825,7 @@ a.github-fork {
 		.transition-delay(.05s);
 		background-color: @primary-background-color;
 		color: @primary-font-color;
-		font-family: Axis;
+		font-family: Ubuntu;
 		> div {
 			display: table-cell;
 			vertical-align: middle;
@@ -1989,7 +1995,7 @@ a.github-fork {
 .flex-tab {
 	position: fixed;
 	display: block;
-	top: -1px;
+	top: 0;
 	bottom: 0;
 	width: @rooms-box-width;
 	height: auto;
@@ -1998,6 +2004,7 @@ a.github-fork {
 	z-index: 100;
 	color: #000;
 	padding: 12px 0 0 0;
+	font-family: Ubuntu;
 	.transition(transform .3s ease-out);
 	&:before {
 		content: " ";
@@ -2008,19 +2015,28 @@ a.github-fork {
 		top: 59px;
 		background-color: #dfdfdf;
 	}
+	.group-list,
+	.dm-list {
+		li {
+			a {
+				.name {
+					margin-top: 8px;
+					margin-left: 7px;
+				}
+			}
+		}
+	}
 	.rooms-list {
 		direction: rtl;
 		position: absolute;
 		top: @header-min-height;
 		.calc(height,
-		~"100% - " @header-min-height + @footer-min-height);
+		~"100% - " @header-min-height + 5);
 		width: 100%;
 		overflow-x: hidden;
 		overflow-y: auto;
 		display: block;
 		-webkit-overflow-scrolling: touch;
-		box-shadow: 0 0 2px rgba(0, 0, 0, 0.2) inset;
-		background-color: @primary-background-color;
 		.custom-scroll(transparent,
 		rgba(255,
 		255,
@@ -2028,16 +2044,26 @@ a.github-fork {
 		0.05));
 		> .wrapper {
 			direction: ltr;
-			padding-left: 8px;
+			padding-left: 3px;
 			padding-bottom: 1em;
+		}
+		.divider {
+			height: 1px;
+			background-color: lightgray;
+			width: 85%;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 15px;
+			display: block;
 		}
 	}
 	.more {
 		display: block;
-		color: @primary-font-color;
+		color: @primary-blue;
 		font-size: 11px;
-		padding: 4px 0 4px 10px;
+		padding: 4px 0 4px 15px;
 		margin-top: 2px;
+		font-weight: 500;
 		&:hover {
 			background-color: rgba(0, 0, 0, 0.1);
 		}
@@ -2094,10 +2120,9 @@ a.github-fork {
 		width: 100%;
 		z-index: 120;
 		text-align: right;
-		background: #fff;
 		min-height: @footer-min-height;
 		height: @footer-min-height;
-		background-color: @primary-background-color;
+		background-color: #F5F5F5;
 		border-right:solid 1.75px rgba(208, 208, 208, 0.4);
 		p.powered {
 			text-align: center;
@@ -2144,20 +2169,24 @@ a.github-fork {
 		position: relative;
 		text-transform: capitalize;
 		font-weight: 600;
-		margin: 25px 0 0 0;
+		margin: 15px 0 5px 0;
 		color: @primary-font-color;
 		line-height: 28px;
-		padding-left: 10px;
+		padding-left: 5px;
 		a {
 			color: inherit;
 			display: block;
 		}
+		.group-title {
+			color: @primary-blue;
+	    border-radius: 2px;
+		}
 		&:hover {
-			background-color: rgba(0, 0, 0, 0.1);
+			background-color: rgba(230, 230, 230, 0.4);
 		}
 		&.add-room,
 		&.open-section {
-			border-bottom: solid 1px rgba(211, 211, 211, 0.33);
+			// border-bottom: solid 1px rgba(211, 211, 211, 0.33);
 			&:hover {
 				i {
 					&:before {
@@ -2216,7 +2245,8 @@ a.github-fork {
 			overflow: hidden;
 			text-overflow: ellipsis;
 			vertical-align: middle;
-			font-weight: 700;
+			font-weight: 500;
+			margin-bottom: 5px;
 			.remove,
 			.erase {
 				position: absolute;
@@ -2230,6 +2260,7 @@ a.github-fork {
 				transform .12s ease-out .35s);
 			}
 			&:hover {
+				background-color: #e6e6e6;
 				.opt {
 					background-color: transparent;
 					opacity: 1;
@@ -2237,15 +2268,18 @@ a.github-fork {
 				}
 			}
 			&.active {
+				background-color: #e6e6e6;
+				border-left: 4px solid #5DCA8B;
 				a {
-					background-color: @secondary-background-color;
-					color: @tertiary-font-color;
+					color: #546A76;
+			    margin-left: 3px;
+			    border-radius: 1px;
 				}
 				.opt {
 					background-color: transparent;
 				}
 				i {
-					color: @tertiary-font-color;
+					color: @primary-blue;
 				}
 			}
 			&.has-unread {
@@ -2277,22 +2311,55 @@ a.github-fork {
 		}
 		a {
 			display: block;
-			border-radius: 2px 0 0 2px;
-			padding: 6px 25px 7px 6px;
-			font-size: 15px;
-			position: relative;
-			line-height: 16px;
-			white-space: nowrap;
-			max-width: 100%;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			vertical-align: middle;
-			text-decoration: none;
-			color: @primary-font-color;
-			// text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+	    border-radius: 2px 0 0 2px;
+	    padding: 6px 25px 7px 6px;
+	    font-size: 15px;
+	    position: relative;
+	    line-height: 16px;
+	    white-space: nowrap;
+	    max-width: 100%;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    vertical-align: middle;
+	    text-decoration: none;
+	    color: #546A76;
+	    margin-left: 8px;
+	    font-weight: 700;
 			&:hover {
 				background-color: rgba(255, 255, 255, 0.05);
 				text-decoration: none;
+			}
+			.side-icon {
+				color: #546A76;
+		    font-size: 16px;
+		    display: inline-block;
+		    border-radius: 15px;
+		    padding: 7px;
+				width: auto;
+				&.icon-calculator {
+					background-color: rgba(114,172,239,0.3);
+				}
+				&.icon-bubbles {
+					background-color: rgba(240,100,117,0.3);
+				}
+				&.icon-chemistry {
+					background-color: rgba(93,202,139,0.3);
+				}
+			}
+			.name {
+				margin-left: 8px;
+				font-size: 16px;
+				display: inline-block;
+				position: absolute;
+				margin-bottom: 5px;
+			}
+			.term {
+				margin-left: 8px;
+				font-size: 12px;
+				display: inline-block;
+				position: absolute;
+				margin-top: 19px;
+				font-weight: 500;
 			}
 		}
 		.opt {
@@ -2309,11 +2376,8 @@ a.github-fork {
 			.transition(opacity .12s ease .25s,
 			transform .15s ease-out .25s);
 			i {
-				margin: 0 1px;
-				color: @primary-font-color;
-				&:hover {
-					color: @primary-green;
-				}
+				margin: 7px 1px 1px 0;
+				color: @primary-blue;
 			}
 			.icon-cancel-circled:before {
 				margin-left: 2px;
@@ -2342,11 +2406,11 @@ a.github-fork {
 		display: flex;
 		display: -webkit-flex;
 		h2 {
-			color: @secondary-font-color;
+			color: @light-tan;
 	    margin-left: 15px;
 	    margin-top: 23px;
 	    font-size: 20px;
-			font-family: Axis, 'Avenir', 'Helvetica Nueue';
+			font-family: Ubuntu, 'Avenir', 'Helvetica Nueue';
 	    justify-content: center;
 		}
 	}
@@ -2354,9 +2418,12 @@ a.github-fork {
 		&:hover {
 			background-color: rgba(0, 0, 0, 0.1);
 		}
+		a {
+			color: @primary-blue;
+			font-size: 16px;
+		}
 		&.add-room,
 		&.open-section {
-			border-bottom: solid 1px rgba(211, 211, 211, 0.33);
 			i {
 				top: 1px;
 				left: 1px;
@@ -2417,13 +2484,15 @@ a.github-fork {
 
 .topics-container {
 	margin-top: 60px;
-	background-color: #FDF7F2;
+	background-color: @secondary-background-color;
 	font-size: 14px;
-	// border-bottom: 1px solid @primary-blue;
-	min-height: 32px;
+	height: 30px;
 	overflow-x: scroll;
 	overflow-y: hidden;
 	white-space: nowrap;
+	z-index: 100;
+	position: relative;
+	box-shadow: 0px 1px 2px 0px #ddd;
 	input {
 		color: @primary-blue;
 	}
@@ -2437,7 +2506,7 @@ a.github-fork {
 	.topic {
 		display: inline-block;
 		color: @primary-blue;
-		font-family: Axis, "Avenir Next", "HelveticaNeue-Light", "sans-serif";
+		font-family: Ubuntu, "Avenir Next", "HelveticaNeue-Light", "sans-serif";
 		cursor: pointer;
 		padding: 7px 15px;
 		font-size: 13px;
@@ -2445,11 +2514,13 @@ a.github-fork {
 			float: left;
 		}
 		&:hover {
-			background-color: @tertiary-background-color;
+			background-color: @primary-background-color;
+			color: @light-tan;
 		}
 		&.active {
-			background-color: @tertiary-background-color;
+			background-color: @primary-background-color;
 			padding: 7px 15px;
+			color: @light-tan;
 		}
 	}
 	.icon-plus {
@@ -2571,15 +2642,17 @@ a.github-fork {
     line-height: 29px;
     margin-left: auto;
     margin-right: auto;
-    color: #546a76;
 		.room-title {
-			font-family: Axis;
+			font-family: Ubuntu;
 	    margin-left: auto;
 	    margin-right: auto;
-	    color: #546a76;
+	    color: @primary-blue;
+			font-weight: 700;
 		}
 	}
 }
+
+
 
 .cms-page {
 	max-width: 800px;
@@ -2731,7 +2804,7 @@ a.github-fork {
 	.fixed-title {
 		h2 {
 			overflow: visible;
-			font-family: Axis;
+			font-family: Ubuntu;
 			font-size: 20px;
 		}
 	}
@@ -3152,10 +3225,11 @@ a.github-fork {
 	-ms-user-select: text;
 	user-select: text;
 	.room-title {
-		font-family: Axis;
+		font-family: Ubuntu;
 		margin-left: auto;
 		margin-right: auto;
-		color: @tertiary-font-color;
+		color: @light-tan;
+		font-weight: 700;
 	}
 	.edit-room-title {
 		color: @secondary-font-color;
@@ -3719,7 +3793,7 @@ a.github-fork {
 		margin-right: auto;
 		color: @secondary-font-color;
 		font-size: 14px;
-		font-family: Axis, "Avenir Next", "HelveticaNeue-Light", "sans-serif";
+		font-family: Ubuntu, "Avenir Next", "HelveticaNeue-Light", "sans-serif";
 	}
 }
 
@@ -3738,7 +3812,7 @@ a.github-fork {
 	margin-top: -1px;
 	color: white;
 	padding: 16px 15px;
-	font-family: Axis, 'Avenir', 'Helvetica Nueue';
+	font-family: Ubuntu, 'Avenir', 'Helvetica Nueue';
 	font-size: 16px;
 	cursor: pointer;
 	&:hover {
@@ -3869,7 +3943,7 @@ a.github-fork {
 					margin-left: auto;
 					margin-right: auto;
 			    margin-top: 20px;
-			    font-family: Axis;
+			    font-family: Ubuntu;
 					color: @secondary-blue;
 					label {
 						font-family: Lato;
@@ -3899,7 +3973,7 @@ a.github-fork {
 		margin-top: -1px;
 		color: @secondary-font-color;
 		padding: 16px 15px;
-		font-family: Axis, 'Avenir', 'Helvetica Nueue';
+		font-family: Ubuntu, 'Avenir', 'Helvetica Nueue';
 		font-size: 16px;
 		cursor: pointer;
 		i {
@@ -4004,7 +4078,7 @@ a.github-fork {
 				width: 70%;
 				height: 65px;
 				min-height: 65px;
-				font-family: Axis, "Avenir Next", "HelveticaNeue-Light", "sans-serif";
+				font-family: Ubuntu, "Avenir Next", "HelveticaNeue-Light", "sans-serif";
 				margin-top: -3px;
 				.main-icon {
 					display: inline-block;
@@ -4137,7 +4211,7 @@ a.github-fork {
 		padding-top: 30px;
 		.date {
 			font-size: 12px;
-			font-family: "Axis";
+			font-family: "Ubuntu";
 		}
 		.info {
 			border: 1px solid;
@@ -4170,7 +4244,7 @@ a.github-fork {
 		    white-space: nowrap;
 		    text-overflow: ellipsis;
 				margin-top: 2px;
-				font-family: "Axis";
+				font-family: "Ubuntu";
 				font-size: 12px;
 			}
 			.fa {
@@ -4208,14 +4282,14 @@ a.github-fork {
 		    width: 75%;
 		    white-space: nowrap;
 		    text-overflow: ellipsis;
-				font-family: "Axis";
+				font-family: "Ubuntu";
 			}
 		}
 	}
 }
 
 .fixed-title {
-	font-family: "Axis";
+	font-family: "Ubuntu";
 }
 
 .classCalendar,
@@ -5544,6 +5618,9 @@ a.github-fork {
 		li {
 			margin-right: auto;
 			margin-left: auto;
+			i {
+				color: @info-font-color;
+			}
 		}
 		.icon-container {
 			margin-top: -10px;
@@ -5768,7 +5845,7 @@ a.github-fork {
 	}
 
 	.group-list {
-		height: 150px;
+		max-height: 150px;
     overflow: hidden;
     overflow-y: scroll;
 	}

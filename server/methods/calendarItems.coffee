@@ -34,4 +34,20 @@ Meteor.methods
       eventId: eventId
     }
 
-  updateEvent: (eventId) ->
+  updateCalendarItem: (itemId, title, start, end, description) ->
+    unless Meteor.userId()
+      return
+
+    console.log itemId
+    console.log title
+    unless itemId
+      throw new Meteor.Error 403, '[methods] updateCalendarItem -> No calendar Item'
+
+    CalendarItems.update
+      _id: itemId
+    ,
+      $set:
+        title: title
+        description: description
+        start: start
+        end: end
