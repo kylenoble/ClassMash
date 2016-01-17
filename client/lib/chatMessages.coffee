@@ -13,10 +13,15 @@ class @ChatMessages
         $(".room-container").find(".room-icons").outerHeight()
       if Session.get("roomType") is 'c'
         dif += 80
+      else if Session.get("roomType") in ['f','a', 'q', 'o']
+        dif -= 60
     else
       dif = $(".messages-container").find("footer").outerHeight()
       if Session.get("roomType") is 'c'
         dif += 80
+      else if Session.get("roomType") in ['f','a', 'q', 'o']
+        dif -= 60
+    console.log dif
     $(".messages-box").css
       height: "calc(100% - #{dif}px)"
 

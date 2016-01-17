@@ -355,6 +355,9 @@ Template.threadPage.onRendered ->
   if Session.get('roomType') is 'c'
     $('.container-bars').css("top", 87)
 
+  if Session.get('roomType') in ['f','a', 'q', 'o']
+    $('.messages-box .wrapper ul').css('margin-top', '110px')
+
   this.chatMessages = new ChatMessages
   this.chatMessages.init(this.firstNode)
   # ScrollListener.init()
