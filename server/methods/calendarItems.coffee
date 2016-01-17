@@ -34,7 +34,7 @@ Meteor.methods
       eventId: eventId
     }
 
-  updateCalendarItem: (itemId, title, start, end, description) ->
+  updateCalendarItem: (itemId, title, start, end, description, type) ->
     unless Meteor.userId()
       return
 
@@ -51,3 +51,4 @@ Meteor.methods
         description: description
         start: start
         end: end
+        type: type

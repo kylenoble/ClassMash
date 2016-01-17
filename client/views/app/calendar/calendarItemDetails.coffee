@@ -33,20 +33,33 @@ Template.calendarItemDetailsPage.helpers
 
 Template.calendarItemDetailsPage.events
   "click .edit": (e, template) ->
-    console.log('clicking edit')
     Template.instance().editingItem.set(true)
-    editingFields()
+    $('#event-title').val($('.editing-title').text())
+    $('#start-date').val($('.editing-start-date').text())
+    $('#end-date').val($('.editing-end-date').text())
+    $('#event-description').val($('.editing-description').text())
+    _.each($('.type-item').children(), (item) ->
+      console.log $(item).text()
+      console.log $('.editing-type').text()
+      console.log $(item).text().trim() == $('.editing-type').text().trim()
+      if $(item).text().trim() == $('.editing-type').text().trim()
+        console.log 'matched'
+        $(item).parent().addClass('active')
+        return
+    )
 
-  "click .cancel": (e, template) ->
-    Template.instance().editingItem.set(false)
-    normalFields()
-    resetFields()
+  'click .type-item': (e, template) ->
+    console.log $(e.target)
+    $('.type-item').removeClass('active')
+    $(e.target).parent().addClass('active')
 
-  "click .save": (e, template) ->
-    title = $('.editing-title').text()
-    startDate =  $('.editing-start-date').text()
-    endDate = $('.editing-end-date').text()
-    description = $('.editing-description').text()
+
+  "click .update-event-click": (e, template) ->
+    title = $('#event-title').val()
+    description = $('#event-description').val()
+    startDate = new Date($('#start-date').val())
+    endDate = new Date($('#end-date').val())
+    type = $('.type-item.active').text().trim()
     errors = validateFields([
       {title: 'Title', 'val': title},
       {title: 'Start Date', 'val': startDate},
@@ -65,12 +78,23 @@ Template.calendarItemDetailsPage.events
       return
     else
       Meteor.call "updateCalendarItem", Template.instance().itemId.get(),
-      title, startDate, endDate, description, (error, result) ->
+      title, startDate, endDate, description, type, (error, result) ->
         if error
           console.log "error", error
           return
       Template.instance().editingItem.set(false)
-      normalFields()
+
+Template.calendarItemDetailsPage.onRendered ->
+  @$('#datetimepicker1').datetimepicker(
+    inline: true
+    focusOnShow: false
+  )
+  @$('#datetimepicker2').datetimepicker(
+    inline: true
+    focusOnShow: false
+  )
+  @$('#datetimepicker1').data("DateTimePicker").toggle()
+  @$('#datetimepicker2').data("DateTimePicker").toggle()
 
 Template.calendarItemDetailsPage.onCreated ->
   path = window.location.pathname.split('/')
@@ -86,18 +110,6 @@ Template.calendarItemDetailsPage.onCreated ->
     calendarItemId = instance.calendarItemId.get()
     fileDetails = Meteor.subscribe 'calendarItemDetails', calendarItemId
     instance.ready.set fileDetails.ready()
-
-editingFields = ->
-  $('.editing-title').addClass('now-editing')
-  $('.editing-start-date').addClass('now-editing')
-  $('.editing-end-date').addClass('now-editing')
-  $('.editing-description').addClass('now-editing')
-
-normalFields = ->
-  $('.editing-title').removeClass('now-editing')
-  $('.editing-start-date').removeClass('now-editing')
-  $('.editing-end-date').removeClass('now-editing')
-  $('.editing-description').removeClass('now-editing')
 
 checkDate = (fields) ->
   errors = []
@@ -115,10 +127,3 @@ validateFields = (fields) ->
       errors.push({'field': field.title, 'error': "Can't Be Empty"})
   )
   return errors
-
-resetFields = ->
-  calItem = Template.instance().item.get()
-  $('.editing-title').text(calItem.title)
-  $('.editing-start-date').text(calItem.startDate)
-  $('.editing-end-date').text(calItem.endDate)
-  $('.editing-description').text(calItem.description)
