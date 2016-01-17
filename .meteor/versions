@@ -132,6 +132,8 @@ ordered-dict@1.0.4
 outatime:geolib@2.0.15
 pauli:accounts-linkedin@1.2.0
 pauli:linkedin@1.2.0
+peerlibrary:aws-sdk@2.2.6_1
+peerlibrary:blocking@0.5.2
 peppelg:bootstrap-3-modal@1.0.4
 percolate:migrations@0.9.6
 percolate:momentum@0.7.2

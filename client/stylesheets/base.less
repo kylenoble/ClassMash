@@ -1101,12 +1101,6 @@ label.required:after {
 				.tab-label {
 					color: @primary-blue;
 				}
-				&:hover {
-					color: lighten(@primary-blue, 50%);
-					.tab-label {
-						color: lighten(@primary-blue, 50%);
-					}
-				}
 			}
 			.tab-label {
 				position: absolute;
@@ -1811,6 +1805,9 @@ a.github-fork {
 	> section {
 		&:extend(.fill-all);
 	}
+	.channel-link {
+		color: @light-tan;
+	}
 	header {
 		display: table;
 		position: absolute;
@@ -2053,7 +2050,7 @@ a.github-fork {
 			width: 85%;
 			margin-left: auto;
 			margin-right: auto;
-			margin-top: 15px;
+			margin-top: 10px;
 			display: block;
 		}
 	}
@@ -2169,7 +2166,7 @@ a.github-fork {
 		position: relative;
 		text-transform: capitalize;
 		font-weight: 600;
-		margin: 15px 0 5px 0;
+		margin: 10px 0 0 0;
 		color: @primary-font-color;
 		line-height: 28px;
 		padding-left: 5px;
@@ -2238,7 +2235,8 @@ a.github-fork {
 	}
 	ul {
 		position: relative;
-		//left: 1px;
+		// max-height: 150px;
+    // overflow-y: scroll;
 		li {
 			white-space: nowrap;
 			max-width: 100%;
@@ -2246,7 +2244,6 @@ a.github-fork {
 			text-overflow: ellipsis;
 			vertical-align: middle;
 			font-weight: 500;
-			margin-bottom: 5px;
 			.remove,
 			.erase {
 				position: absolute;
@@ -2331,7 +2328,7 @@ a.github-fork {
 			}
 			.side-icon {
 				color: #546A76;
-		    font-size: 16px;
+		    font-size: 14px;
 		    display: inline-block;
 		    border-radius: 15px;
 		    padding: 7px;
@@ -2358,7 +2355,7 @@ a.github-fork {
 				font-size: 12px;
 				display: inline-block;
 				position: absolute;
-				margin-top: 19px;
+				margin-top: 15px;
 				font-weight: 500;
 			}
 		}
@@ -4166,7 +4163,8 @@ a.github-fork {
 					color: #A7AAA4;
 				}
 				.icon-cloud-download,
-				.icon-bubble {
+				.icon-bubble,
+				.icon-close {
 					font-size: 22px;
 			    float: right;
 			    margin-right: 17px;
@@ -5833,6 +5831,29 @@ a.github-fork {
 }
 
 @media all and(max-width: 500px) {
+	.side-nav {
+		.rooms-list {
+			h3 {
+				font-size: 12px;
+				margin: 5px 0 2px 0;
+			}
+			li {
+				a {
+					.side-icon {
+						font-size: 10px;
+					}
+					.name {
+						font-size: 12px;
+					}
+					.term {
+						font-size: 10px;
+						margin-top: 11px;
+					}
+				}
+			}
+		}
+	}
+
 	.messages-container {
 		.footer {
 			padding: 5px 5px 0 5px;
@@ -5844,11 +5865,11 @@ a.github-fork {
 		}
 	}
 
-	.group-list {
-		max-height: 150px;
-    overflow: hidden;
-    overflow-y: scroll;
-	}
+	// .group-list {
+	// 	max-height: 150px;
+  //   overflow: hidden;
+  //   overflow-y: scroll;
+	// }
 
 	.messages-box {
 		margin-top: 0px;

@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="files-add-file">
-      <div class="file">
+      <div class="file-upload">
         <i class="icon-arrow-up"></i>
       </div>
       <div class="adding-files file-page">
@@ -53,6 +53,9 @@
                   </div>
                 {{/if}}
               </i>
+              {{#if currentUser user.username}}
+                <i class="icon-close delete-file"></i>
+              {{/if}}
             </div>
           </div>
         {{/each}}

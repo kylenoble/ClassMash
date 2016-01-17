@@ -117,3 +117,4 @@ meteorhacks:kadira-profiler
 meteorhacks:ssr
 arillo:flow-router-helpers
 underscore
+peerlibrary:aws-sdk
