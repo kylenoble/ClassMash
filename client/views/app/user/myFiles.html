@@ -38,7 +38,7 @@
       </div>
     </div>
     <div class="files-add-file">
-      <div class="file">
+      <div class="file-upload">
         <i class="icon-arrow-up"></i>
       </div>
       <div class="adding-files file-page">
@@ -60,18 +60,27 @@
       <div class="files-list">
         {{#each myFilesList}}
           <div class="file" id="{{_id}}">
-            <i class="{{icon type}}"></i>
-            <span class="filename">{{name}}</span>
-            <i class="icon-bubble">
-              {{#if unread _id}}
-                <div class="file-unread-burger-alert">
-                  {{unread _id}}
-                </div>
+            <div class="main-icon">
+              <i class="{{icon type}}"></i>
+            </div>
+            <div class="meta-data">
+              <span class="filename">{{name}}</span>
+              <span class="username">{{user.username}}</span>
+              <span class="date">{{cleanDate date}}</span>
+            </div>
+            <div class="icons">
+              <a href="{{url}}" target="_blank"><i class="icon-cloud-download"></i></a>
+              <i class="icon-bubble">
+                {{#if unread _id}}
+                  <div class="file-unread-burger-alert">
+                    {{unread _id}}
+                  </div>
+                {{/if}}
+              </i>
+              {{#if currentUser user.username}}
+                <i class="icon-close delete-file"></i>
               {{/if}}
-            </i>
-            <a href="{{url}}" target="_blank"><i class="icon-cloud-download"></i></a>
-            <span class="username">{{user.username}}</span>
-            <span class="date">{{cleanDate date}}</span>
+            </div>
           </div>
         {{/each}}
       </div>

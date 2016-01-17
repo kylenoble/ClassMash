@@ -12,6 +12,12 @@ Template.myFiles.helpers
       return room[0].msgs
     return false
 
+  currentUser: (username) ->
+    user = Meteor.user()
+    if user.username is username
+      return true
+    return false
+
   uploading: ->
     return Session.get 'uploading'
 
@@ -45,7 +51,7 @@ Template.myFiles.helpers
         return 'fa fa-file-o'
 
 Template.myFiles.events
-  'click .file': (event) ->
+  'click .file-upload': (event) ->
     $('.adding-files').toggle()
 
   'click .files-list .icon-bubble': (event) ->
@@ -54,6 +60,34 @@ Template.myFiles.events
     url = "/files/" + fileId
     clearActive()
     FlowRouter.go(url)
+
+  'click .delete-file': (event) ->
+    $('.adding-files').hide()
+    file = $(event.target).parent().parent()
+    fileId = file[0].id
+
+    roomId = Template.instance().roomId.get()
+    console.log roomId
+
+    swal
+      title: 'Are you sure you want to delete this file?'
+      text: ''
+      showCancelButton: true
+      closeOnConfirm: true
+      closeOnCancel: true
+      html: true
+    , (isConfirm) ->
+      if isConfirm isnt true
+        return
+      console.log 'deleted'
+
+      Meteor.call "deleteFile", fileId, (error, result) ->
+        if error
+          console.log "error", error
+          toastr.error error
+        if result
+          RoomHistoryManager.reset(roomId)
+          return
 
   'change #select-regular-file': (event, tmplate) ->
     e = event.originalEvent or event
