@@ -52,10 +52,33 @@
     color: white;
     box-sizing: border-box;
     font-weight: 900;
+    overflow: hidden;
+    position: relative;
+
+    // Setup moving text on hover
+    .one, .two {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      height: 100%;
+      width: 100%;
+      transition: transform 0.3s ease-out;
+    }
+
+    .two {
+      transform: translateY(70px);
+    }
 
     &:hover {
       background-color: darken(@primary-green, 10%);
       border-color: darken(@primary-green, 10%);
+
+      .one { transform: translateY(-70px); }
+      .two { transform: translateY(0px); }
     }
 
     &.ghost {
@@ -69,7 +92,7 @@
       }
     }
 
-  }
+  } //end .landing-btn
 
  header {
   position: fixed;
@@ -88,7 +111,7 @@
 
   a {
     color: @primary-blue;
-    font-weight: 500;
+    font-weight: 700;
     font-size: 14px;
 
     &:hover {
