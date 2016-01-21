@@ -1,59 +1,46 @@
 <template name="landingPage">
+
 	<div class="landing-page">
-		<!-- Header -->
-		<header id="top" class="header">
-			<div class="text-vertical-center">
-        <img class="logo" src="/images/logo/white-logo.svg?v=1" />
-				<h1>ClassMash</h1>
-				<h3>Your class is here</h3>
-        {{#if joinWaitlist}}
-        <div id="login-card" class="blue-background">
-    			<div class="fields">
-    				<div class="input-text name active">
-    					<input id="waitlistName" type="text" name="name" placeholder="Name" dir="auto">
-    					<i class="login icon-user"></i>
-    				</div>
-    				<div class="input-text email form-group has-feedback has-feedback-left active">
-    					<input id="waitlistEmail" spellcheck="false" type="email" name="email" placeholder="Email">
-    					<i class="login icon-envelope"></i>
-    				</div>
-						<div class="input-text school form-group has-feedback has-feedback-left active">
-    					<input id="waitlistSchool" spellcheck="false" type="text" name="school" placeholder="School">
-    					<i class="login icon-chemistry"></i>
-    				</div>
-						<div class="input-text active">
-    					<input id="termsAgree" type="checkbox" name="agree" value="true"> I Accept the Terms and Conditions
-    				</div>
-    			</div>
-    			<div class="submit">
-    				<button data-loading-text="Please wait..." class="button white primary join-waitlist-signup"><span>Join</span></button>
-						<button class="button white blue-border close-waitlist-signup"><span>Cancel</span></button>
-    			</div>
-      	</div>
-        {{else}}
-				<br><br> <a href="" class="btn btn-dark btn-lg show-waitlist-form">Join Waitlist</a>
-				{{/if}}
-      </div>
-		</header>
-		<!-- Footer -->
-		<footer>
+
+		<header>
 			<div class="container">
-				<div class="row">
-					<div class="col-lg-10 col-lg-offset-1 text-center">
-						<h4>
-							<strong>Follow Us For Updates!</strong>
-						</h4>
-						<br>
-						<ul class="list-inline">
-							<li> <a href="https://www.facebook.com/ClassMash-912525175489499" target="_blank"><i class="fa fa-facebook fa-fw fa-3x"></i></a> </li>
-							<li> <a href="https://twitter.com/ClassMashApp" target="_blank"><i class="fa fa-twitter fa-fw fa-3x"></i></a> </li>
-							<li> <a href="https://instagram.com/classmash/" target="_blank"><i class="fa fa-instagram fa-fw fa-3x"></i></a> </li>
-						</ul>
-						<hr class="small">
-						<p class="text-muted">Copyright &copy; ClassMash 2015</p>
-					</div>
+
+				<div class="logo"><a href="">ClassMash</a></div>
+
+				<div class="nav-items">
+					<a href="">About</a>
+					<a href="">Contact</a>
+					<a href="">Login</a>
+					<a class="sign-up" href="">Sign-up</a>
 				</div>
-			</div>
-		</footer>
+
+			</div> <!-- end .container -->
+		</header>
+
+		<div class="hero">
+			<div class="container">
+
+					<div class="text">
+
+						<h1>Your class is here</h1>
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+							Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+
+						<div class="btn-group">
+							<a class="landing-btn" href="">Sign-up</a>
+							<a class="landing-btn ghost" href="">Learn more</a>
+						</div>
+
+					</div> <!-- end .text -->
+
+					<div class="browser">
+						<div class="buttons"></div>
+
+					</div> <!-- end .browser -->
+
+			</div> <!-- end .container -->
+		</div> <!-- end .hero -->
+
 	</div>
+
 </template>

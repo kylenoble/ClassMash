@@ -1,107 +1,194 @@
 @import "_variables.less";
-@import url(//fonts.googleapis.com/css?family=Lato:400,300,700);
+@import url('//fonts.googleapis.com/css?family=Lato:400,300,700');
+@import url('//fonts.googleapis.com/css?family=Ubuntu:400,500,700');
 
 .landing-page {
-  width: 100%;
-  height: 100%;
   background-color: white;
+  color: @primary-blue;
 
-  .text-vertical-center {
-      display: table-cell;
-      text-align: center;
-      vertical-align: middle;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "ubuntu" !important;
+    font-weight: 700;
+    letter-spacing: -50 / 1000em;
+    margin: 0;
   }
 
-  #top {
-    .logo {
-      width: 3em;
-      position: absolute;
-      top: 30px;
-      margin-left: -1.5em;
+  h1 { font-size: 58px; }
+
+  p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(84, 106, 118, 0.8);
+  }
+
+  a { transition: all 0.3s ease-out; }
+
+  .container {
+    display: flex;
+    width: 1200px;
+
+    &:before, &:after {
+      content: none;
     }
   }
 
-  .text-vertical-center h1 {
-      margin: 0;
-      padding: 0;
-      font-size: 8em;
-      font-family: 'Ubuntu';
-      font-weight: 700;
-  }
+  a.landing-btn {
+    display: inline-block;
+    line-height: 46px;
+    width: 170px;
+    height: 50px;
+    border-radius: 4px;
+    border: 2px solid @primary-green;
+    text-align: center;
+    background-color: @primary-green;
+    color: white;
+    box-sizing: border-box;
+    font-weight: 700;
 
-  .text-vertical-center h3 {
-    font-size: 3.25em;
-    font-family: "Lato";
-  }
+    &:hover {
+      background-color: darken(@primary-green, 10%);
+      border-color: darken(@primary-green, 10%);
+    }
 
-  /* Custom Button Styles */
+    &.ghost {
+      background-color: transparent;
+      color: @primary-green;
+      border: 2px solid @primary-green;
 
-  .btn-dark {
-      border-radius: 0;
-      color: #fff;
-      background-color: @primary-green;
-      border-radius: 5px;
-      margin-top: 5%;
-  }
-
-  .btn-dark:hover,
-  .btn-dark:focus,
-  .btn-dark:active {
-      background-color: darken(@primary-green, 15%);;
-  }
-
-  .btn-light {
-      border-radius: 0;
-      color: #333;
-      background-color: rgb(255,255,255);
-  }
-
-  .btn-light:hover,
-  .btn-light:focus,
-  .btn-light:active {
-      color: #333;
-      background-color: rgba(255,255,255,0.8);
-  }
-
-  /* Custom Horizontal Rule */
-
-  hr.small {
-      max-width: 100px;
-  }
-
-  /* Header */
-
-  .header {
-      display: table;
-      position: relative;
-      width: 100%;
-      height: 100%;
-      background:
-        linear-gradient(
-          rgba(30,30,30,0.75),
-          rgba(41,38,34,0.65)
-        ),
-        /* bottom, image */
-        url(/images/landing-back.png) no-repeat center center scroll;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        background-size: cover;
-        -o-background-size: cover;
-  }
-
-  footer {
-      padding: 100px 0;
-      background-color: @secondary-background-color;
-      color: @primary-blue;
-      font-family: 'Ubuntu';
-      .list-inline {
-        i {
-          color: @primary-green;
-        }
+      &:hover {
+        background-color: @primary-green;
+        color: white;
       }
+    }
+
   }
 
-}
+ header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 96px;
+  background-color: white;
+
+  // Create bottom-border for navigation
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 1400px;
+    height: 1px;
+    background-color: rgba(84, 106, 118, 0.25);
+  }
+
+  .container {
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+
+  a {
+    color: @primary-blue;
+    font-weight: 500;
+    font-size: 14px;
+
+    &:hover {
+      color: @primary-green;
+    }
+
+    &.sign-up {
+      color: @primary-green;
+      font-weight: 700;
+
+      &:hover { color: darken(@primary-green, 10%);}
+    }
+  } //end header a
+
+  .logo a {
+    font-size: 18px;
+    font-weight: 700;
+    font-family: "ubuntu", helvetica, sans-serif;
+    letter-spacing: -50 / 1000em;
+  }
+
+  .nav-items a:not(:last-of-type) {
+    margin-right: 30px;
+  }
+ }// end header
+
+ .hero {
+   margin-top: 96px;
+
+   .container {
+     flex-flow: column nowrap;
+     align-items: center;
+     justify-content: space-between;
+   }
+
+   .text {
+     width: 590px;
+     text-align: center;
+     padding: 130px 0;
+
+     p { margin: 10px 0 30px 0;}
+
+     .btn-group a:first-of-type {
+       margin-right: 20px;
+     }
+   } // end .text
+
+   .browser {
+     width: 1000px;
+     height: 396px;
+     border-radius: 10px 10px 0 0;
+     border: 2px solid rgba(84, 106, 118, 0.25);
+     border-bottom: none;
+     background-color: #eef0f1;
+     position: relative;
+
+     &::after {
+       content: "";
+       position: absolute;
+       top: 30px;
+       left: 0;
+       right: 0;
+       width: 100%;
+       height: 2px;
+       background-color: rgba(84, 106, 118, 0.25);
+     }
+
+     .buttons {
+       position: absolute;
+       top: 10px;
+       left: 10px;
+       width: 10px;
+       height: 10px;
+       border-radius: 50%;
+       background-color: rgba(84, 106, 118, 0.25);
+
+       &::before, &::after {
+         content: "";
+         position: absolute;
+         top: 0px;
+         width: 10px;
+         left: 32px;
+         height: 10px;
+         background-color: rgba(84, 106, 118, 0.25);
+         border-radius: 50%;
+       }
+
+       &::before {
+         left: 16px;
+       }
+     }
+   } // end browser
+
+ } // end hero
+
+} // end landing page
 
 .four-oh-four {
   width: 100%;
