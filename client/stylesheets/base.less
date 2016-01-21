@@ -1562,6 +1562,10 @@ a.github-fork {
 	}
 }
 
+.account-link {
+	color: white;
+}
+
 .account-box {
 	position: relative;
 	height: 100%;
@@ -1985,6 +1989,21 @@ a.github-fork {
 	.main-content {
 		.transition(transform .3s ease-out);
 		.transform(translateX(0));
+	}
+}
+
+.content {
+	.wrapper {
+		ul {
+			li {
+				&:hover {
+					background-color: @primary-background-color;
+				}
+			}
+		}
+		.account-link {
+			color: white;
+		}
 	}
 }
 
