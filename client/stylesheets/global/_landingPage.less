@@ -2,18 +2,20 @@
 @import url('//fonts.googleapis.com/css?family=Lato:400,300,700,900');
 @import url('//fonts.googleapis.com/css?family=Ubuntu:400,500,700');
 
+
+
 .breakpoint(@point; @rules) when (@point = xl) {
     @media only screen and (min-width: 1400px ) {
         @rules();
     }
 }
 .breakpoint(@point; @rules) when (@point = large) {
-    @media only screen and (max-width: 1150px ) {
+    @media only screen and (max-width: 1400px ) {
         @rules();
     }
 }
 .breakpoint(@point; @rules) when (@point = medium) {
-    @media only screen and (max-width: 960px ) {
+    @media only screen and (max-width: 1000px ) {
         @rules();
     }
 }
@@ -25,14 +27,12 @@
 
 @easeOutQuart: cubic-bezier(0.165, 0.840, 0.440, 1.000);
 
+
+
 .landing-page {
   background-color: white;
   color: @primary-blue;
-
-  // .breakpoint(xl, {
-  //   background-color: blue;
-  // });
-
+  overflow: hidden;
 
   h1, h2, h3, h4, h5, h6 {
     font-family: "ubuntu" !important;
@@ -63,6 +63,10 @@
     &:before, &:after {
       content: none;
     }
+
+    .breakpoint(large, {
+      width: 960px;
+    });
 
   }
 
@@ -177,6 +181,10 @@
    width: 1400px;
    height: 1px;
    background-color: rgba(84, 106, 118, 0.25);
+
+   .breakpoint(large, {
+     width: 1160px;
+   });
  }
 
  .hero {
@@ -193,7 +201,7 @@
      text-align: center;
      padding: 130px 0;
      opacity: 0;
-     transform: translateY(60px);
+     transform: translateY(70px);
      transition: all 0.8s @easeOutQuart;
 
      p { margin: 10px 0 30px 0;}
@@ -212,9 +220,13 @@
      background-color: #eef0f1;
      position: relative;
      opacity: 0;
-     transform: translateY(60px);
+     transform: translateY(70px);
      transition: all 0.8s @easeOutQuart;
-     transition-delay: 0.2s;
+     transition-delay: 0.25s;
+
+     .breakpoint(large, {
+       width: 960px;
+     });
 
      &::after {
        content: "";
@@ -304,10 +316,84 @@
    .left { text-align: right; }
  } // end who
 
- .features {
-   padding: 120px 0;
+ .features-one {
+   padding: 220px 0;
    background-color: rgba(84, 106, 118, 0.08);
- }
+
+   .container {
+     justify-content: space-between;
+     flex-flow: row wrap;
+     align-items: center;
+   }
+
+   .browser {
+     width: 226px;
+     height: 600px;
+     border-radius: 10px 0 0 10px;
+     border: 2px solid rgba(84, 106, 118, 0.25);
+     border-right: none;
+     background-color: #eef0f1;
+     position: relative;
+     margin-left: 16.67%;
+
+     &::after {
+       content: "";
+       position: absolute;
+       top: 30px;
+       left: 0;
+       right: 0;
+       width: 100%;
+       height: 2px;
+       background-color: rgba(84, 106, 118, 0.25);
+     }
+
+     &::before {
+       content: "";
+       position: absolute;
+       right: 0;
+       top: 0;
+       bottom: 0;
+       width: 1px;
+       height: 800px;
+       margin: auto;
+       background-color: rgba(84, 106, 118, 0.25);
+     }
+
+     .buttons {
+       position: absolute;
+       top: 10px;
+       left: 10px;
+       width: 10px;
+       height: 10px;
+       border-radius: 50%;
+       background-color: rgba(84, 106, 118, 0.25);
+
+       &::before, &::after {
+         content: "";
+         position: absolute;
+         top: 0px;
+         width: 10px;
+         left: 32px;
+         height: 10px;
+         background-color: rgba(84, 106, 118, 0.25);
+         border-radius: 50%;
+       }
+
+       &::before {
+         left: 16px;
+       }
+     }
+   } // end features-one browser
+
+   .right {
+     width: 33.33%;
+     margin-right: 16.67%;
+
+     h3:not(:first-of-type) {
+       margin-top: 110px;
+     }
+   }
+ } // end features-one
 
 } // end landing page
 
