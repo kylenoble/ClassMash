@@ -47,7 +47,14 @@ Template.fileDetailsPage.onCreated ->
   @fileId = new ReactiveVar path[2]
   @ready = new ReactiveVar true
 
+
   @autorun ->
     fileId = instance.fileId.get()
     fileDetails = Meteor.subscribe 'fileDetails', fileId
     instance.ready.set fileDetails.ready()
+
+Template.fileDetailsPage.onRendered ->
+  properties = {
+    fileId: Template.instance().fileId.get()
+  }
+  amplitude.logEvent("FILE_HISTORY_RENDERED", properties)

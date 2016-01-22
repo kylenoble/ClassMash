@@ -116,6 +116,11 @@ Template.assignmentsList.rendered = ->
     return
 
 Template.assignmentsList.onRendered ->
+  properties = {
+    id: Template.instance().rid.get()
+  }
+  amplitude.logEvent("ASSIGNMENTS_LIST_RENDERED", properties)
+
   @$('#datetimepicker1').datetimepicker(
     inline: true
     focusOnShow: false

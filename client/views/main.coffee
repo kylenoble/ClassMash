@@ -1,4 +1,7 @@
 Template.body.onRendered ->
+  if Meteor.userId()
+    amplitude.setUserId(Meteor.userId())
+  
   $(document.body).on 'keydown', (e) ->
     if e.keyCode is 80 and (e.ctrlKey is true or e.metaKey is true)
       e.preventDefault()

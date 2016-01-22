@@ -50,7 +50,7 @@ App.launchScreens({
 App.setPreference('HideKeyboardFormAccessoryBar', true);
 App.setPreference('StatusBarOverlaysWebView', false);
 App.setPreference('StatusBarStyle', 'lightcontent');
-App.setPreference('StatusBarBackgroundColor', '#000000');
+App.setPreference('StatusBarBackgroundColor', '#5dca8b');
 App.setPreference('ShowSplashScreenSpinner', false);
 App.setPreference('android-targetSdkVersion', '19');
 App.setPreference('android-minSdkVersion', '19');
@@ -59,5 +59,5 @@ App.accessRule('*');
 // Pass preferences for a particular PhoneGap/Cordova plugin
 App.configurePlugin('com.phonegap.plugins.facebookconnect', {
 	APP_NAME: 'ClassMash',
-	APP_ID: '835103589938459'
+	APP_ID: '874363825932572'
 });

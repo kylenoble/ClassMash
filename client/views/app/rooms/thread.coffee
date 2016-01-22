@@ -259,6 +259,12 @@ Template.threadPage.events
     if not files or files.length is 0
       files = e.dataTransfer?.files or []
 
+    properties = {
+      id: Template.instance().roomId,
+      type: 'regular'
+    }
+    amplitude.logEvent("UPLOAD_FILE", properties)
+
     fileUploadS3 files, 'regular', Template.instance().roomId
 
     $('.adding-files').hide()
@@ -269,6 +275,12 @@ Template.threadPage.events
     if not files or files.length is 0
       files = e.dataTransfer?.files or []
 
+    properties = {
+      id: Template.instance().roomId,
+      type: 'notes'
+    }
+    amplitude.logEvent("UPLOAD_FILE", properties)
+
     fileUploadS3 files, 'notes', Template.instance().roomId
 
     $('.adding-files').hide()
@@ -278,6 +290,12 @@ Template.threadPage.events
     files = document.getElementById('select-note-cards').files[0]
     if not files or files.length is 0
       files = e.dataTransfer?.files or []
+
+    properties = {
+      id: Template.instance().roomId,
+      type: 'note-cards'
+    }
+    amplitude.logEvent("UPLOAD_FILE", properties)
 
     fileUploadS3 files, 'note-cards', Template.instance().roomId
 
@@ -351,6 +369,12 @@ Template.threadPage.onCreated ->
   this.unreadCount = new ReactiveVar 0
 
 Template.threadPage.onRendered ->
+
+  properties = {
+    id: Template.instance().roomId
+  }
+  amplitude.logEvent("THREAD_RENDERED", properties)
+
   console.log("thread page rendered")
   if Session.get('roomType') is 'c'
     $('.container-bars').css("top", 87)

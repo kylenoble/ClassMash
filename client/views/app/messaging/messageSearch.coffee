@@ -29,6 +29,7 @@ Template.messageSearch.helpers
 
 Template.messageSearch.events
   "keydown .morphsearch-input": (e) ->
+    amplitude.logEvent("MESSAGE_SEARCH")
     $('.morphsearch').addClass('open')
     if e.keyCode is 13
       e.preventDefault()

@@ -51,3 +51,6 @@ Template.landingPage.events
 
 Template.landingPage.onCreated ->
   this.waitlistForm = new ReactiveVar false
+
+Template.landingPage.onRendered ->
+  amplitude.logEvent("LANDING_PAGE_VISIT")

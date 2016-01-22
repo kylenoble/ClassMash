@@ -76,7 +76,7 @@ Template.inviteClassmateFlex.events
 
         SideNav.closeFlex ->
           instance.clearForm()
-					
+
     else
       console.log err
       instance.error.set({ fields: err })
@@ -97,3 +97,6 @@ Template.inviteClassmateFlex.onCreated ->
     instance.find('#channel-teacher').value = ''
     instance.find('#channel-name').value = ''
     instance.find('#channel-term').value = 'Select a Term'
+
+Template.inviteClassmateFlex.onRendered ->
+  amplitude.logEvent("INVITE_CLASSMATES")

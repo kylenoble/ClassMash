@@ -21,7 +21,6 @@ class @ChatMessages
         dif += 80
       else if Session.get("roomType") in ['f','a', 'q', 'o']
         dif -= 60
-    console.log dif
     $(".messages-box").css
       height: "calc(100% - #{dif}px)"
 

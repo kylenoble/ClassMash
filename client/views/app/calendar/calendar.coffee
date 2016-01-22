@@ -104,6 +104,11 @@ Template.calendarPage.rendered = ->
     return
 
 Template.calendarPage.onRendered ->
+  properties = {
+    id: Template.instance().rid.get()
+  }
+  amplitude.logEvent("CALENDAR_RENDERED", properties)
+
   $('.fc-toolbar .fc-right').prepend $('<button type="button" class="fc-button
   fc-state-default fc-corner-left fc-corner-right" data-toggle="modal"
   data-target="#eventModal">Add</button>')

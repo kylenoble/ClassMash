@@ -85,6 +85,11 @@ Template.calendarItemDetailsPage.events
       Template.instance().editingItem.set(false)
 
 Template.calendarItemDetailsPage.onRendered ->
+  properties = {
+    calendarItemId: Template.instance().calendarItemId.get()
+  }
+  amplitude.logEvent("CALENDAR_DETAILS_RENDERED", properties)
+
   @$('#datetimepicker1').datetimepicker(
     inline: true
     focusOnShow: false

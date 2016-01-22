@@ -94,6 +94,11 @@ Template.myCalendar.rendered = ->
     return
 
 Template.myCalendar.onRendered ->
+  properties = {
+    userId: Meteor.userId()
+  }
+  amplitude.logEvent("MY_CALENDAR_RENDERED", properties)
+
   $('.rooms-list ul').children().removeClass('active')
 
   $('.fc-toolbar .fc-right').prepend $('<button type="button" class="fc-button

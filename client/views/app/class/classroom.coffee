@@ -99,6 +99,12 @@ Template.classroomPage.events
     $('#select-syllabus').hide()
     $('.add-syllabus-label').hide()
 
+Template.classroomPage.onRendered ->
+  properties = {
+    id: Template.instance().roomId
+  }
+  amplitude.logEvent("CLASSROOM_RENDERED", properties)
+
 Template.classroomPage.created = ->
   path = window.location.pathname.split('/')
   if path[1] is 'group'

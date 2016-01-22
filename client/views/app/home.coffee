@@ -10,3 +10,6 @@ Template.home.helpers
       return true
     else
       return false
+
+Template.home.onRendered ->
+  amplitude.logEvent("HOME_RENDERED")

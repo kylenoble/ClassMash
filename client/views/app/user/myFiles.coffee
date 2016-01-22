@@ -138,6 +138,11 @@ Template.myFiles.events
     Template.instance().currentFilter.set('note-cards')
 
 Template.myFiles.onRendered ->
+  properties = {
+    userId: Meteor.userId()
+  }
+  amplitude.logEvent("MY_FILES_RENDERED", properties)
+
   $('.rooms-list ul').children().removeClass('active')
 
   $('.filter-item.files').addClass('active')

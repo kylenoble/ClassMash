@@ -53,3 +53,9 @@ Template.fileHistoryPage.onCreated ->
     fileId = instance.fileId.get()
     fileDetails = Meteor.subscribe 'fileDetails', fileId
     instance.ready.set fileDetails.ready()
+
+Template.fileHistoryPage.onRendered ->
+  properties = {
+    id: Template.instance().fileId.get()
+  }
+  amplitude.logEvent("FILE_HISTORY_RENDERED", properties)

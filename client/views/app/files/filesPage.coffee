@@ -142,6 +142,11 @@ Template.filesPage.onRendered ->
   $('.filter-item.files').addClass('active')
   console.log('files page rendered')
 
+  properties = {
+    id: Template.instance().roomId.get()
+  }
+  amplitude.logEvent("FILES_PAGE_RENDERED", properties)
+
 Template.filesPage.onCreated ->
   path = window.location.pathname.split('/')
   if path[1] is 'group'
