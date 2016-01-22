@@ -51,3 +51,9 @@ Template.landingPage.events
 
 Template.landingPage.onCreated ->
   this.waitlistForm = new ReactiveVar false
+
+  # add class to landing-page template for animation purposes
+  setTimeout (->
+    $('.landing-page').addClass 'animate-in'
+    return
+  ), 100

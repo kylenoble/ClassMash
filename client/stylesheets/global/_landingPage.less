@@ -2,18 +2,46 @@
 @import url('//fonts.googleapis.com/css?family=Lato:400,300,700,900');
 @import url('//fonts.googleapis.com/css?family=Ubuntu:400,500,700');
 
+.breakpoint(@point; @rules) when (@point = xl) {
+    @media only screen and (min-width: 1400px ) {
+        @rules();
+    }
+}
+.breakpoint(@point; @rules) when (@point = large) {
+    @media only screen and (max-width: 1150px ) {
+        @rules();
+    }
+}
+.breakpoint(@point; @rules) when (@point = medium) {
+    @media only screen and (max-width: 960px ) {
+        @rules();
+    }
+}
+.breakpoint(@point; @rules) when (@point = small) {
+    @media only screen and (max-width: 767px ) {
+        @rules();
+    }
+}
+
+@easeOutQuart: cubic-bezier(0.165, 0.840, 0.440, 1.000);
+
 .landing-page {
   background-color: white;
   color: @primary-blue;
 
+  // .breakpoint(xl, {
+  //   background-color: blue;
+  // });
+
+
   h1, h2, h3, h4, h5, h6 {
     font-family: "ubuntu" !important;
     font-weight: 700;
-    letter-spacing: -50 / 1000em;
+    letter-spacing: -60 / 1000em;
     margin: 0;
   }
 
-  h1 { font-size: 58px; line-height: 58px;}
+  h1 { font-size: 60px; line-height: 58px;}
 
   h2 { font-size: 36px; }
 
@@ -25,7 +53,7 @@
     color: rgba(84, 106, 118, 0.8);
   }
 
-  a { transition: all 0.3s ease-out; }
+  a { transition: all 0.3s @easeOutQuart; }
 
   .container {
     display: flex;
@@ -47,8 +75,8 @@
     height: 50px;
     border-radius: 4px;
     border: 2px solid @primary-green;
-    text-align: center;
     background-color: @primary-green;
+    text-align: center;
     color: white;
     box-sizing: border-box;
     font-weight: 900;
@@ -66,7 +94,7 @@
       margin: auto;
       height: 100%;
       width: 100%;
-      transition: transform 0.3s ease-out;
+      transition: transform 0.3s @easeOutQuart;
     }
 
     .two {
@@ -74,8 +102,8 @@
     }
 
     &:hover {
-      background-color: darken(@primary-green, 10%);
-      border-color: darken(@primary-green, 10%);
+      // background-color: darken(@primary-green, 10%);
+      // border-color: darken(@primary-green, 10%);
 
       .one { transform: translateY(-70px); }
       .two { transform: translateY(0px); }
@@ -86,10 +114,10 @@
       color: @primary-green;
       border: 2px solid @primary-green;
 
-      &:hover {
-        background-color: @primary-green;
-        color: white;
-      }
+      // &:hover {
+      //   background-color: @primary-green;
+      //   color: white;
+      // }
     }
 
   } //end .landing-btn
@@ -127,7 +155,7 @@
   } //end header a
 
   .logo a {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
     font-family: "ubuntu", helvetica, sans-serif;
     letter-spacing: -50 / 1000em;
@@ -164,6 +192,9 @@
      width: 590px;
      text-align: center;
      padding: 130px 0;
+     opacity: 0;
+     transform: translateY(60px);
+     transition: all 0.8s @easeOutQuart;
 
      p { margin: 10px 0 30px 0;}
 
@@ -180,6 +211,10 @@
      border-bottom: none;
      background-color: #eef0f1;
      position: relative;
+     opacity: 0;
+     transform: translateY(60px);
+     transition: all 0.8s @easeOutQuart;
+     transition-delay: 0.2s;
 
      &::after {
        content: "";
@@ -275,6 +310,14 @@
  }
 
 } // end landing page
+
+
+.landing-page.animate-in {
+  .hero .text, .hero .browser {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
 .four-oh-four {
   width: 100%;
