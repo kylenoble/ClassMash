@@ -47,6 +47,8 @@
 
   h3 { font-size: 24px; margin-bottom: 4px; }
 
+  h4 { font-size: 20px; margin-bottom: 4px; }
+
   p {
     font-size: 16px;
     line-height: 1.75;
@@ -68,6 +70,26 @@
       width: 960px;
     });
 
+    .breakpoint(medium, {
+      width: 700px;
+    });
+
+    .breakpoint(small, {
+      width: 90%;
+    });
+
+  }
+
+  .col-3 {
+    width: calc(~'33.33% - 24px');
+
+    .breakpoint(medium, {
+      width: calc(~'50% - 24px');
+    });
+
+    .breakpoint(small, {
+      width: 100%;
+    });
   }
 
   section { position: relative; }
@@ -98,7 +120,7 @@
       margin: auto;
       height: 100%;
       width: 100%;
-      transition: transform 0.3s @easeOutQuart;
+      transition: transform 0.4s @easeOutQuart;
     }
 
     .two {
@@ -125,6 +147,32 @@
     }
 
   } //end .landing-btn
+
+  // Create bottom-border for sections
+   header::after, .hero::after, .features-two::after, .cta::after {
+     content: "";
+     position: absolute;
+     bottom: 0;
+     left: 0;
+     right: 0;
+     margin: auto;
+     width: 1400px;
+     height: 1px;
+     background-color: rgba(84, 106, 118, 0.25);
+
+     .breakpoint(large, {
+       width: 1160px;
+     });
+
+     .breakpoint(medium, {
+       width: 800px;
+     });
+
+     .breakpoint(small, {
+       width: 95%;
+     });
+   }
+
 
  header {
   position: fixed;
@@ -169,23 +217,6 @@
     margin-right: 30px;
   }
  }// end header
-
-// Create bottom-border for sections
- header::after, .hero::after {
-   content: "";
-   position: absolute;
-   bottom: 0;
-   left: 0;
-   right: 0;
-   margin: auto;
-   width: 1400px;
-   height: 1px;
-   background-color: rgba(84, 106, 118, 0.25);
-
-   .breakpoint(large, {
-     width: 1160px;
-   });
- }
 
  .hero {
    padding-top: 96px;
@@ -268,7 +299,7 @@
  } // end hero
 
  .who {
-   padding: 140px;
+   padding: 140px 0;
 
    h2 {
      text-align: center;
@@ -280,9 +311,9 @@
      align-items: center;
    }
 
-   .right, .left, .venn {
-     width: calc(~'33% - 12px');
-   }
+  //  .right, .left, .venn {
+  //    width: calc(~'33% - 15px');
+  //  }
 
    .venn {
      width: 28%;
@@ -335,6 +366,10 @@
      background-color: #eef0f1;
      position: relative;
      margin-left: 16.67%;
+
+     .breakpoint(large, {
+       margin-left: 8%;
+     });
 
      &::after {
        content: "";
@@ -389,11 +424,54 @@
      width: 33.33%;
      margin-right: 16.67%;
 
+     .breakpoint(large, {
+       margin-right: 8%;
+       width: 40%;
+     });
+
      h3:not(:first-of-type) {
        margin-top: 110px;
+
+       .breakpoint(large, {
+         margin-top: 80px;
+       });
      }
    }
  } // end features-one
+
+ .features-two {
+   padding: 140px 0;
+
+   h2 {
+     text-align: center;
+     margin-bottom: 40px;
+   }
+
+   .container {
+     flex-flow: row wrap;
+     justify-content: space-between;
+   }
+
+   .col-3 h4 { margin-top: 60px; }
+
+ } // end .features-two
+
+ .cta {
+   padding: 140px 0;
+   text-align: center;
+
+   .container {
+     flex-flow: column wrap;
+     justify-content: space-between;
+     align-items: center;
+   }
+
+   h2 { margin-bottom: 40px; }
+ }
+
+ footer {
+   padding: 50px 0;
+ }
 
 } // end landing page
 
