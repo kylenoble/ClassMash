@@ -53,7 +53,9 @@ RocketChat.sendMessage = (user, message, room, options) ->
   Meteor.defer ->
     if room.t is 'c'
       key = 'topics.' + message.topic
-      obj = {}
+      obj = {
+        unread: 1
+      }
       obj[key] = 1
 
       ChatSubscription.update
@@ -75,20 +77,10 @@ RocketChat.sendMessage = (user, message, room, options) ->
       ,
         # make sure we alert all matching subscription
         multi: true
-
-  ###
-  Increment unread couter if direct messages
-  ###
-  Meteor.defer ->
-    if not room.t? or room.t is 'd'
-      ###
-      Update the other subscriptions
-      ###
+    else
       ChatSubscription.update
         # only subscriptions to the same room
         rid: message.rid
-        # only direct messages subscriptions
-        t: 'd'
         # not the msg owner
         'u._id':
           $ne: message.u._id
@@ -101,6 +93,35 @@ RocketChat.sendMessage = (user, message, room, options) ->
         # increment unread couter
         $inc:
           unread: 1
+      ,
+        # make sure we alert all matching subscription
+        multi: true
+
+  ###
+  Increment unread couter if direct messages
+  ###
+  Meteor.defer ->
+    if not room.t? or room.t is 'd'
+      ###
+      Update the other subscriptions
+      ###
+      # ChatSubscription.update
+      #   # only subscriptions to the same room
+      #   rid: message.rid
+      #   # only direct messages subscriptions
+      #   t: 'd'
+      #   # not the msg owner
+      #   'u._id':
+      #     $ne: message.u._id
+      # ,
+      #   $set:
+      #     # alert de user
+      #     alert: true
+      #     # open the room for the user
+      #     open: true
+      #   # increment unread couter
+      #   $inc:
+      #     unread: 1
 
       userOfMention = Meteor.users.findOne({_id: message.rid.replace(message.u._id, '')}, {fields: {username: 1, statusConnection: 1}})
       if userOfMention?
@@ -159,17 +180,17 @@ RocketChat.sendMessage = (user, message, room, options) ->
           # the mentioned user if mention isn't for all
           query['u._id'] = $in: mentionIds
 
-        ChatSubscription.update query,
-          $set:
-            # alert de user
-            alert: true
-            # open the room for the user
-            open: true
-          # increment unread couter
-          $inc:
-            unread: 1
-        ,
-          multi: true
+        # ChatSubscription.update query,
+        #   $set:
+        #     # alert de user
+        #     alert: true
+        #     # open the room for the user
+        #     open: true
+        #   # increment unread couter
+        #   $inc:
+        #     unread: 1
+        # ,
+        #   multi: true
 
         query =
           statusConnection: {$ne: 'online'}
@@ -218,25 +239,25 @@ RocketChat.sendMessage = (user, message, room, options) ->
     Update all other subscriptions to alert their owners but witout incrementing
     the unread counter, as it is only for mentions and direct messages
     ###
-    ChatSubscription.update
-      # only subscriptions to the same room
-      rid: message.rid
-      # only the ones that have not been alerted yet
-      alert: { $ne: true }
-      # not the msg owner
-      'u._id':
-        $ne: message.u._id
-    ,
-      $set:
-        # alert de user
-        alert: true
-        # open the room for the user
-        open: true
-      # increment unread couter
-      $inc:
-        unread: 1
-    ,
-      # make sure we alert all matching subscription
-      multi: true
+    # ChatSubscription.update
+    #   # only subscriptions to the same room
+    #   rid: message.rid
+    #   # only the ones that have not been alerted yet
+    #   alert: { $ne: true }
+    #   # not the msg owner
+    #   'u._id':
+    #     $ne: message.u._id
+    # ,
+    #   $set:
+    #     # alert de user
+    #     alert: true
+    #     # open the room for the user
+    #     open: true
+    #   # increment unread couter
+    #   $inc:
+    #     unread: 1
+    # ,
+    #   # make sure we alert all matching subscription
+    #   multi: true
 
   return message
