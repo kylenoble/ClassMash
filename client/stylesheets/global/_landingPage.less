@@ -75,7 +75,7 @@
     });
 
     .breakpoint(small, {
-      width: 90%;
+      width: 88%;
     });
 
   }
@@ -89,6 +89,7 @@
 
     .breakpoint(small, {
       width: 100%;
+      text-align: center;
     });
   }
 
@@ -235,6 +236,11 @@
      transform: translateY(70px);
      transition: all 0.8s @easeOutQuart;
 
+     .breakpoint(small, {
+       width: 100%;
+       text-align: center;
+     });
+
      p { margin: 10px 0 30px 0;}
 
      .btn-group a:first-of-type {
@@ -307,18 +313,63 @@
    }
 
    .container {
+     flex-flow: row wrap;
      justify-content: space-between;
      align-items: center;
+
+     .breakpoint(medium, {
+       flex-direction: column;
+      });
    }
 
-  //  .right, .left, .venn {
-  //    width: calc(~'33% - 15px');
-  //  }
+   .left { text-align: right; }
+
+   .col-3.left {
+     .breakpoint(large, {
+       width: 40%;
+       margin-left: 7%;
+      });
+
+      .breakpoint(medium, {
+        width: 60%;
+        text-align: center;
+        margin: 0;
+       });
+
+       .breakpoint(small, {
+         width: 100%;
+         text-align: center;
+       });
+   }
+
+   .col-3.right {
+     .breakpoint(large, {
+       width: 40%;
+       margin-right: 7%;
+      });
+
+      .breakpoint(medium, {
+        width: 60%;
+        text-align: center;
+        margin: 40px 0 0 0;
+       });
+
+       .breakpoint(small, {
+         width: 100%;
+         text-align: center;
+       });
+   }
 
    .venn {
      width: 28%;
      position: relative;
      height: 200px;
+
+     .breakpoint(large, {
+       order: -1;
+       width: 100%;
+       margin-bottom: 50px;
+      });
 
      .venn-circle {
        width: 200px;
@@ -333,18 +384,26 @@
        position:absolute;
        top: 0;
        left: 0;
+
+       .breakpoint(large, {
+         left: auto;
+         right: 47%;
+        });
       //  transform: translateX(30px);
 
        &:last-of-type {
          background-color: @primary-green;
          left: auto;
          right: 0;
-        //  transform: translateX(-30px);
+
+         .breakpoint(large, {
+           left: 47%;
+           right: auto;
+          });
        }
      }
-   }
+   } // end .venn
 
-   .left { text-align: right; }
  } // end who
 
  .features-one {
@@ -429,11 +488,21 @@
        width: 40%;
      });
 
+     .breakpoint(large, {
+       margin: 100px 0 0 0;
+       width: 100%;
+       text-align: center;
+     });
+
      h3:not(:first-of-type) {
        margin-top: 110px;
 
        .breakpoint(large, {
          margin-top: 80px;
+       });
+
+       .breakpoint(small, {
+         margin-top: 40px;
        });
      }
    }
@@ -452,7 +521,13 @@
      justify-content: space-between;
    }
 
-   .col-3 h4 { margin-top: 60px; }
+   .col-3 h4 {
+     margin-top: 60px;
+
+     .breakpoint(small, {
+       margin-top: 40px;
+     });
+   }
 
  } // end .features-two
 
