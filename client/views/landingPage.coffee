@@ -3,6 +3,11 @@ Template.landingPage.helpers
     return Template.instance().waitlistForm.get()
 
 Template.landingPage.events
+  'click .nav-btn a': (event) ->
+    event.preventDefault();
+    $('.landing-page').toggleClass 'nav-active'
+
+
   "click .show-waitlist-form": (event, template) ->
     $(".landing-page .logo").css("top", "-10px")
     Template.instance().waitlistForm.set(true)

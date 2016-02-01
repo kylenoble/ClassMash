@@ -1,0 +1,25 @@
+// LANDING PAGE HELPERS
+// VARIABLES & MIXINS
+
+.breakpoint(@point; @rules) when (@point = xl) {
+    @media only screen and (min-width: 1400px ) {
+        @rules();
+    }
+}
+.breakpoint(@point; @rules) when (@point = large) {
+    @media only screen and (max-width: 1400px ) {
+        @rules();
+    }
+}
+.breakpoint(@point; @rules) when (@point = medium) {
+    @media only screen and (max-width: 1000px ) {
+        @rules();
+    }
+}
+.breakpoint(@point; @rules) when (@point = small) {
+    @media only screen and (max-width: 767px ) {
+        @rules();
+    }
+}
+
+@easeOutQuart: cubic-bezier(0.165, 0.840, 0.440, 1.000);
