@@ -79,9 +79,17 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      transition: opacity 1s @easeOutQuart;
+      transition: all 0.5s @easeOutQuart;
 
-      a { font-size: 30px; font-weight: 400; line-height: 30px; }
+      a {
+        font-size: 30px;
+        font-weight: 400;
+        line-height: 30px;
+        opacity: 0;
+        transform: translateY(50px);
+        transition-delay: 0.25s;
+        transition: all 0.5s @easeOutQuart;
+      }
     } // end .nav-items
 
     .nav-btn {
@@ -125,6 +133,11 @@
     .nav-items {
       visibility: visible;
       opacity: 1;
+
+      a {
+        opacity: 1;
+        transform: translateY(0);
+      }
     } // end .nav-items
 
     .nav-btn {
