@@ -62,3 +62,10 @@ Template.landingPage.onCreated ->
     $('.landing-page').addClass 'animate-in'
     return
   ), 100
+
+  $('body').on 'scroll', ->
+    if $('.hero').offset().top < 0
+      $('header').addClass 'fixed'
+    else
+      $('header').removeClass 'fixed'
+    return

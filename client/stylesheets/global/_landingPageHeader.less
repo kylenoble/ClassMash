@@ -13,6 +13,7 @@
  height: 96px;
  background-color: rgba(255, 255, 255, 0.96);
  z-index: 9999;
+ transition: height 0.2s @easeOutQuart;
 
  .breakpoint(medium, {
    height: 80px;
@@ -157,4 +158,12 @@
     }
 
   }); // end .breakpoing(small)
+}
+
+.landing-page header.fixed {
+  height: 72px;
+
+  .breakpoint(small, {
+    height: 60px;
+  });
 }
