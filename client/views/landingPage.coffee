@@ -3,6 +3,11 @@ Template.landingPage.helpers
     return Template.instance().waitlistForm.get()
 
 Template.landingPage.events
+  'click .landing-btn.ghost': (event) ->
+    $('html, body').animate {
+      scrollTop: $("#who").offset().top
+    }, 2000
+
   'click .nav-btn a': (event) ->
     event.preventDefault();
     $('.landing-page').toggleClass 'nav-active'
@@ -63,9 +68,20 @@ Template.landingPage.onCreated ->
     return
   ), 100
 
+  # shrink header height on scroll
   $('body').on 'scroll', ->
-    if $('.hero').offset().top < 0
+    if $('.hero').offset().top < -80
       $('header').addClass 'fixed'
     else
       $('header').removeClass 'fixed'
     return
+
+  #smooth scroll function
+  # $('a[href*=#]:not([href=#])').click ->
+  #   if location.pathname.replace(/^\//, '') == @pathname.replace(/^\//, '') and location.hostname == @hostname
+  #     target = $(@hash)
+  #     target = if target.length then target else $('[name=' + @hash.slice(1) + ']')
+  #     if target.length
+  #       $('html,body').animate { scrollTop: target.offset().top - 70 }, 1000
+  #       return false
+  #   return

@@ -157,6 +157,7 @@
      width: 1400px;
      height: 1px;
      background-color: rgba(84, 106, 118, 0.25);
+      transition: all 0.3s @easeOutQuart;
 
      .breakpoint(large, {
        width: 1160px;
@@ -171,8 +172,21 @@
      });
    }
 
+   header.fixed::after { width: 100%; }
+
+    .hide-mobile {
+      .breakpoint(small, {
+        display: none;
+      });
+    }
+
+    .show-mobile {
+      @media (min-width: 767px) { display: none; }
+    }
+
  .hero {
    padding-top: 96px;
+   overflow: hidden;
 
    .breakpoint(small, { padding-top: 70px; });
 
@@ -224,10 +238,6 @@
      background-position: 0 32px;
      background-repeat: no-repeat;
 
-     .breakpoint(small, {
-       display: none;
-      });
-
      .breakpoint(large, {
        width: 960px;
      });
@@ -273,10 +283,17 @@
      }
    } // end browser
 
+   .phone {
+     width: 80%;
+
+     img { width: 100%; }
+   }
+
  } // end hero
 
  .who {
    padding: 140px 0;
+   background-color: rgba(84, 106, 118, 0.05);
 
    .breakpoint(small, {
      padding: 100px 0;
@@ -383,7 +400,10 @@
 
  .features-one {
    padding: 220px 0;
-   background-color: rgba(84, 106, 118, 0.08);
+
+   .breakpoint(small, {
+     padding: 100px 0;
+     });
 
    .container {
      justify-content: space-between;
@@ -473,6 +493,8 @@
        text-align: center;
      });
 
+     .breakpoint(small, { margin: 0; });
+
      h3:not(:first-of-type) {
        margin-top: 110px;
 
@@ -532,7 +554,35 @@
  }
 
  footer {
-   padding: 50px 0;
+   padding: 80px 0 100px 0;
+   position: relative;
+
+   .breakpoint(small, {
+      padding: 40px 0 70px 0;
+   });
+
+   .container {
+     display: flex;
+     flex-flow: column wrap;
+     text-align: center;
+
+   }
+
+   .name {
+     font-size: 20px;
+     font-weight: 700;
+     font-family: "ubuntu", helvetica, sans-serif;
+     letter-spacing: -50 / 1000em;
+   }
+
+   .copy {
+     position: absolute;
+     bottom: 20px;
+     right: 0;
+     left: 0;
+     margin: auto;
+     font-size: 14px;
+   }
  }
 
 } // end landing page
