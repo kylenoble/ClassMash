@@ -145,9 +145,9 @@ FlowRouter.route '/four-oh-four',
   action: (params) ->
     BlazeLayout.render 'four-oh-four'
 
-# FlowRouter.notFound = action: ->
-#   name: '404'
-#   FlowRouter.go 'four-oh-four'
+FlowRouter.notFound = action: ->
+  name: '404'
+  FlowRouter.go 'four-oh-four'
 
 checkLogin = ->
   if Meteor.userId()
